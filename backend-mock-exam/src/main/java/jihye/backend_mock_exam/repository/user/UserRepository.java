@@ -10,17 +10,20 @@ import java.util.Optional;
 public interface UserRepository {
 
     // 회원저장
-    User userSave(SignUpDTO dto);
+    User userSave(User user);
 
     // 회원정보 업데이트
-    void userUpdate(Long id, UserUpdateDTO dto);
+    void userUpdate(Long userId, UserUpdateDTO dto);
 
-    // 아이디로 회원조회
-    Optional<User> findUserById(Long id);
+    // 식별자로 회원조회
+    Optional<User> findUserById(Long userId);
+
+    // 아이디 존재 여부 조회
+    boolean isIdExists(String accountId);
 
     // 회원 전체 조회
     List<User> findAllUsers(UserSearchCond cond);
 
     // 회원삭제
-    void userRemove(Long id, String password);
+    void userRemove(Long userId, String passwordHash);
 }

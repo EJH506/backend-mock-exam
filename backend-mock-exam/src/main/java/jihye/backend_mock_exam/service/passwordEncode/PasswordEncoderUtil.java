@@ -1,4 +1,4 @@
-package jihye.backend_mock_exam;
+package jihye.backend_mock_exam.service.passwordEncode;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;

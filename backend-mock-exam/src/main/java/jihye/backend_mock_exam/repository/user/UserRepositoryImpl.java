@@ -17,20 +17,27 @@ public class UserRepositoryImpl implements UserRepository{
 
     // 회원저장
     @Override
-    public User userSave(SignUpDTO dto) {
-        return userMapper.userSave(dto);
+    public User userSave(User user) {
+        userMapper.userSave(user);
+        return user;
     }
 
     // 회원정보 업데이트
     @Override
-    public void userUpdate(Long id, UserUpdateDTO dto) {
+    public void userUpdate(Long userId, UserUpdateDTO dto) {
 
     }
 
-    // 아이디로 회원조회
+    // 식별자로 회원조회
     @Override
-    public Optional<User> findUserById(Long id) {
+    public Optional<User> findUserById(Long userId) {
         return Optional.empty();
+    }
+
+    // 아이디 존재 여부 조회
+    @Override
+    public boolean isIdExists(String accountId) {
+        return userMapper.isIdExists(accountId);
     }
 
     // 회원 전체 조회
@@ -41,7 +48,7 @@ public class UserRepositoryImpl implements UserRepository{
 
     // 회원삭제
     @Override
-    public void userRemove(Long id, String password) {
+    public void userRemove(Long userId, String passwordHash) {
 
     }
 }

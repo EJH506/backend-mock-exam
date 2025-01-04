@@ -5,22 +5,22 @@ import lombok.Data;
 @Data
 public class User {
 
-    private Long id;
+    private Long userId;
     private String accountId;
     private String nickname;
-    private String password;
+    private String passwordHash;
     private String findPasswordQuestion;
     private String findPasswordAnswer;
     private String gender;
-    private String birthYear;
+    private Integer birthYear;
 
     public User() {
     }
 
-    public User(String accountId, String nickname, String password, String findPasswordQuestion, String findPasswordAnswer, String gender, String birthYear) {
+    public User(String accountId, String nickname, String passwordHash, String findPasswordQuestion, String findPasswordAnswer, String gender, Integer birthYear) {
         this.accountId = accountId;
         this.nickname = nickname;
-        this.password = password;
+        this.passwordHash = passwordHash;
         this.findPasswordQuestion = findPasswordQuestion;
         this.findPasswordAnswer = findPasswordAnswer;
         this.gender = gender;
