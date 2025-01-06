@@ -1,4 +1,4 @@
-package jihye.backend_mock_exam.security;
+package jihye.backend_mock_exam.config.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

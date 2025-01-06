@@ -4,10 +4,12 @@ import jakarta.validation.Valid;
 import jihye.backend_mock_exam.controller.validation.UserValidator;
 import jihye.backend_mock_exam.domain.user.FindPasswordQuestions;
 import jihye.backend_mock_exam.domain.user.User;
+import jihye.backend_mock_exam.repository.user.DTO.SignInDTO;
 import jihye.backend_mock_exam.repository.user.DTO.SignUpDTO;
 import jihye.backend_mock_exam.service.user.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -49,7 +51,7 @@ public class MemberController {
         }
 
         User savedUser = userService.signUp(dto);
-        redirectAttributes.addAttribute("userId", savedUser.getUserId());
+        redirectAttributes.addFlashAttribute("accountId", savedUser.getAccountId());
         return "redirect:/users/signup-success";
     }
 
@@ -62,8 +64,26 @@ public class MemberController {
 
     // 회원가입 성공 페이지
     @GetMapping("/signup-success")
-    public String signupSuccess() {
+    public String signupSuccess(@ModelAttribute("accountId") String accountId, Model model) {
         return "user/signup-success";
     }
 
+    // 로그인 페이지
+    @GetMapping("/sign-in")
+    public String signInPage(@RequestParam(value = "accountId", required = false) String accountId, Model model) {
+        model.addAttribute("signInDTO", new SignInDTO(accountId));
+        return "user/signin";
+    }
+
+    // 로그인 처리
+    @PostMapping("/sign-in")
+    public String signIn() {
+        return "redirect:/"; // 원래있던 페이지로
+    }
+
+    // 비밀번호 찾기
+    @GetMapping("/forgot-password")
+    public String forgotPasswordPage() {
+        return "user/forgot-password";
+    }
 }

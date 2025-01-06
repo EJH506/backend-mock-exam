@@ -1,10 +1,21 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8">
-  <title>Title</title>
+  <title>환영합니다 | 백엔드 모의고사</title>
 </head>
 <body>
-  성공
+<div class="wrap">
+<header th:replace="user/fragment/header :: header"></header>
+
+<section>
+  <div id="text">
+    <h2>환영합니다!</h2>
+    <p>회원가입에 성공하였습니다.</p>
+  </div>
+
+  <a th:href="@{|/users/sign-in?accountId=${accountId}|}">로그인</a>
+</section>
+</div>
 </body>
 </html>

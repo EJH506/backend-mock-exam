@@ -7,12 +7,12 @@
 <body>
 
 <header th:fragment="header">
-  <h1 th:text="#{title}">백엔드 모의고사(목업)</h1>
+  <a href="/"><h1 th:text="#{title}">백엔드 모의고사(목업)</h1></a>
 
   <ul>
     <li><a href="#" th:text="#{page.guest-start}">비회원으로 시작(목업)</a></li>
-    <li><a href="#" th:text="#{page.sing-up}">회원가입(목업)</a></li>
-    <li><a href="#" th:text="#{page.sign-in}" th:class="systemButton_sm">로그인(목업)</a></li>
+    <li><a href="/users/sign-up" th:text="#{page.sing-up}">회원가입(목업)</a></li>
+    <li><a href="/users/sign-in" th:text="#{page.sign-in}" th:class="systemButton_sm">로그인(목업)</a></li>
   </ul>
 </header>
 </body>

@@ -1,10 +1,35 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>로그인 | 백엔드 모의고사</title>
 </head>
 <body>
+<div class="wrap">
+<header th:replace="user/fragment/header :: header"></header>
 
+<section>
+    <h2>로그인</h2>
+    <form th:action method="post" th:object="${signInDTO}">
+        <div>
+            <label for="loginId">아이디</label>
+            <input type="text" id="loginId" th:placeholder="아이디"
+                   th:field="*{loginId}" required />
+
+            <label for="loginPassword">비밀번호</label>
+            <input type="password" id="loginPassword" th:placeholder="비밀번호" th:field="*{loginPassword}" required />
+        </div>
+        <label for="rememberMe">로그인 유지하기</label>
+        <input type="checkbox" id="rememberMe" th:field="*{rememberMe}" />
+
+        <input type="submit" value="로그인" />
+    </form>
+
+    <div id="고민중">
+        <a th:href="@{/users/sign-up}">회원가입</a>
+        <a th:href="@{/users/forgot-password}">비밀번호 찾기</a>
+    </div>
+</section>
+</div>
 </body>
 </html>
