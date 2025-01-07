@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>user 헤더</title>
+    <title>login 헤더</title>
 </head>
 <body>
 
@@ -11,8 +11,8 @@
 
   <ul>
     <li><a href="#" th:text="#{page.guest-start}">비회원으로 시작(목업)</a></li>
-    <li><a href="/users/sign-up" th:text="#{page.sing-up}">회원가입(목업)</a></li>
-    <li><a href="/users/sign-in" th:text="#{page.sign-in}" th:class="systemButton_sm">로그인(목업)</a></li>
+    <li><a href="/users/sign-up" th:text="#{page.sign-up}">회원가입(목업)</a></li>
+    <li><a href="/sign-in" th:text="#{page.sign-in}" th:class="systemButton_sm">로그인(목업)</a></li>
   </ul>
 </header>
 </body>

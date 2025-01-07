@@ -33,8 +33,7 @@ public class MemberController {
 
     // 회원가입 페이지
     @GetMapping("/sign-up")
-    public String signUpPage(Model model) {
-        model.addAttribute("signUpDTO", new SignUpDTO());
+    public String signUpPage(@ModelAttribute("signUpDTO") SignUpDTO dto) {
         return "user/signup";
     }
 
@@ -68,22 +67,10 @@ public class MemberController {
         return "user/signup-success";
     }
 
-    // 로그인 페이지
-    @GetMapping("/sign-in")
-    public String signInPage(@RequestParam(value = "accountId", required = false) String accountId, Model model) {
-        model.addAttribute("signInDTO", new SignInDTO(accountId));
-        return "user/signin";
-    }
-
-    // 로그인 처리
-    @PostMapping("/sign-in")
-    public String signIn() {
-        return "redirect:/"; // 원래있던 페이지로
-    }
-
     // 비밀번호 찾기
     @GetMapping("/forgot-password")
     public String forgotPasswordPage() {
         return "user/forgot-password";
     }
+
 }

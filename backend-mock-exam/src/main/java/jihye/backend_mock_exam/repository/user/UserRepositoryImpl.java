@@ -48,7 +48,7 @@ public class UserRepositoryImpl implements UserRepository{
 
     // 회원삭제
     @Override
-    public void userRemove(Long userId, String passwordHash) {
+    public void userRemove(Long userId, String hashedPassword) {
 
     }
 }

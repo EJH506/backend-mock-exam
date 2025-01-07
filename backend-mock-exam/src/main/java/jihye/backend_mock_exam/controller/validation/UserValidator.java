@@ -12,7 +12,7 @@ import org.springframework.validation.Validator;
 @RequiredArgsConstructor
 public class UserValidator implements Validator {
 
-    private static final String ACCOUNTID_PATTERN = "^[a-zA-z0-9_.]{6,30}$";
+    private static final String ACCOUNTID_PATTERN = "^[a-zA-z0-9_.]{4,30}$";
     private static final String PASSWORD_PATTERN = "^(?=.*[a-z])(?=.*[0-9])(?=.*[!@#$%^&*()_+={}\\[\\]:;\"'<>,.?/`~|-]).{8,20}$";
     private final UserService userService;
 

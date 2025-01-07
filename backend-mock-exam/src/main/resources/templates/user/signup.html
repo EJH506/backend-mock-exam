@@ -2,16 +2,16 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>회원가입 | 백엔드 모의고사</title>
+    <title th:text="#{page.sign-up} + ' | ' + #{title}">회원가입 | 백엔드 모의고사</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 <body>
 <div class="wrap">
-<header th:replace="user/fragment/header :: header"></header>
+<header th:replace="fragment/login-header :: header"></header>
 
 <section>
-    <h2 th:text="#{page.sing-up}">회원가입(목업)</h2>
+    <h2 th:text="#{page.sign-up}">회원가입(목업)</h2>
 
     <form action th:action th:object="${signUpDTO}" method="post">
 
@@ -33,7 +33,7 @@
             <div id="passwordError" th:errors="*{password}">비밀번호 오류 내용</div>
             <div id="passwordCheckError" th:errors="*{passwordCheck}">비밀번호 확인 오류 내용</div>
 
-            <label for="findPasswordQuestion">비밀번호 찾기 질문</label>
+            <label for="findPasswordQuestion" th:text="#{label.user.findPasswordQuestion}">비밀번호 찾기 질문</label>
             <select id="findPasswordQuestion" th:field="*{findPasswordQuestion}">
                 <option th:text="#{label.user.findPasswordQuestion}" value="">비밀번호 찾기 질문(목업)</option>
                 <option th:each="question : ${findPasswordQuestions}"

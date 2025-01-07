@@ -1,5 +1,7 @@
 package jihye.backend_mock_exam.repository.login;
 
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
 import jihye.backend_mock_exam.domain.user.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
@@ -11,12 +13,13 @@ public class LoginRepositoryImpl implements LoginRepository {
     private final LoginMapper loginMapper;
 
     @Override
-    public User findByLoginData(String accountId, String password) {
-        return loginMapper.findByLoginData(accountId, password);
+    public User findByLoginId(String accountId) {
+        return loginMapper.findByLoginId(accountId);
     }
 
     @Override
-    public void invalidateUserSession(Long userId) {
+    public User findByLoginData(String accountId, String password) {
+        return loginMapper.findByLoginData(accountId, password);
     }
 
 }

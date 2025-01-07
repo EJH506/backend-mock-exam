@@ -7,16 +7,16 @@ import lombok.Data;
 public class SignInDTO {
 
     @NotBlank
-    private String loginId;
+    private String accountId;
     @NotBlank
-    private String loginPassword;
+    private String password;
 
     private boolean rememberMe;
 
     public SignInDTO() {
     }
 
-    public SignInDTO(String loginId) {
-        this.loginId = loginId;
+    public SignInDTO(String accountId) {
+        this.accountId = accountId;
     }
 }

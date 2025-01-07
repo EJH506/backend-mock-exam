@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="#{page.welcome} + ' | ' + #{title}"></title>
+</head>
+<body>
+<div class="wrap">
+<div id="text">
+    <h1>
+        백엔드<br />
+        기술면접 모의고사
+    </h1>
+    <p>
+        대충 어떤내용들
+    </p>
+</div>
+
+<ul id="buttons">
+    <li class="systemButton_lg">
+        <a th:href="@{/sign-in}" th:text="#{page.sign-in}" class="fill">로그인(목업)</a>
+    </li>
+    <li class="systemButton_lg">
+        <a th:href="@{/users/sign-up}" th:text="#{page.sign-up}" class="fill">회원가입(목업)</a>
+    </li>
+    <li class="systemButton_lg">
+        <a th:href="@{/users/forgot-password}" th:text="#{page.guest-start}" class="/guest-start">비회원으로 시작(목업)</a>
+    </li>
+</ul>
+</div>
+</body>
+</html>

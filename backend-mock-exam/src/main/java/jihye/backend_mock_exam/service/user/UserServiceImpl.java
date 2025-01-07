@@ -22,10 +22,10 @@ public class UserServiceImpl implements UserService {
     // 회원가입
     @Override
     public User signUp(SignUpDTO dto) {
-        // 비밀번호 암호화 로직
-        String passwordHash = passwordEncoderUtil.encode(dto.getPassword());
+        // 비밀번호 암호화
+        String hashedPassword = passwordEncoderUtil.encode(dto.getPassword());
 
-        User user = new User(dto.getAccountId(), dto.getNickname(), passwordHash, dto.getFindPasswordQuestion(), dto.getFindPasswordAnswer(), dto.getGender(), dto.getBirthYear());
+        User user = new User(dto.getAccountId(), dto.getNickname(), hashedPassword, dto.getFindPasswordQuestion(), dto.getFindPasswordAnswer(), dto.getGender(), dto.getBirthYear());
         return userRepository.userSave(user);
     }
 

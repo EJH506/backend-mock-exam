@@ -8,7 +8,7 @@ public class User {
     private Long userId;
     private String accountId;
     private String nickname;
-    private String passwordHash;
+    private String hashedPassword;
     private String findPasswordQuestion;
     private String findPasswordAnswer;
     private String gender;
@@ -17,10 +17,10 @@ public class User {
     public User() {
     }
 
-    public User(String accountId, String nickname, String passwordHash, String findPasswordQuestion, String findPasswordAnswer, String gender, Integer birthYear) {
+    public User(String accountId, String nickname, String hashedPassword, String findPasswordQuestion, String findPasswordAnswer, String gender, Integer birthYear) {
         this.accountId = accountId;
         this.nickname = nickname;
-        this.passwordHash = passwordHash;
+        this.hashedPassword = hashedPassword;
         this.findPasswordQuestion = findPasswordQuestion;
         this.findPasswordAnswer = findPasswordAnswer;
         this.gender = gender;

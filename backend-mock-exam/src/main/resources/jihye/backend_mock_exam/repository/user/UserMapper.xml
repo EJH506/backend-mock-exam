@@ -3,8 +3,8 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="jihye.backend_mock_exam.repository.user.UserMapper">
     <insert id="userSave" useGeneratedKeys="true" keyProperty="userId">
-        insert into users (account_id, nickname, password_hash, find_password_question, find_password_answer, gender, birth_year)
-        values (#{accountId}, #{nickname}, #{passwordHash}, #{findPasswordQuestion}, #{findPasswordAnswer}, #{gender}, #{birthYear})
+        insert into users (account_id, nickname, hashed_password, find_password_question, find_password_answer, gender, birth_year)
+        values (#{accountId}, #{nickname}, #{hashedPassword}, #{findPasswordQuestion}, #{findPasswordAnswer}, #{gender}, #{birthYear})
     </insert>
 
     <select id="isIdExists" resultType="boolean">
