@@ -11,11 +11,7 @@
 
     <nav>
         <ul>
-            <li><a href="/incorrectNote" th:text="#{page.incorrect-note}">오답노트(목업)</a></li>
-            <li><a href="/history" th:text="#{page.history}">히스토리(목업)</a></li>
-            <li><a href="/memo" th:text="#{page.memo}">메모장(목업)</a></li>
-            <li><a href="/myQuestions" th:text="#{page.my-questions}">나만의 문제 등록(목업)</a></li>
-            <li><a href="/exam" th:text="#{page.take-test}" th:class="systemButton_sm">문제풀기(목업)</a></li>
+            <li th:each="menu : ${menus}"><a th:text="${menu.value}" th:href="@{|/${menu.key}|}"></a></li>
         </ul>
     </nav>
 
@@ -25,7 +21,7 @@
         <ul>
             <li><a href="/users/edit" th:text="#{page.edit-account}">회원정보 수정(목업)</a></li>
             <li>
-                <form th:action="@{/sign-out}" method="post">
+                <form th:action="@{/auth/sign-out}" method="post">
                     <button th:text="#{page.sign-out}">로그아웃(목업)</button>
                 </form>
             </li>

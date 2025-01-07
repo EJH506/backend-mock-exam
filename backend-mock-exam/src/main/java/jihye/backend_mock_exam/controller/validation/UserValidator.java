@@ -1,8 +1,9 @@
 package jihye.backend_mock_exam.controller.validation;
 
 import jihye.backend_mock_exam.domain.user.User;
-import jihye.backend_mock_exam.repository.user.DTO.SignUpDTO;
-import jihye.backend_mock_exam.service.user.UserService;
+import jihye.backend_mock_exam.repository.users.dto.SignUpDTO;
+import jihye.backend_mock_exam.service.auth.AuthService;
+import jihye.backend_mock_exam.service.users.UsersService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
@@ -14,7 +15,7 @@ public class UserValidator implements Validator {
 
     private static final String ACCOUNTID_PATTERN = "^[a-zA-z0-9_.]{4,30}$";
     private static final String PASSWORD_PATTERN = "^(?=.*[a-z])(?=.*[0-9])(?=.*[!@#$%^&*()_+={}\\[\\]:;\"'<>,.?/`~|-]).{8,20}$";
-    private final UserService userService;
+    private final AuthService authService;
 
     @Override
     public boolean supports(Class<?> clazz) {
@@ -36,7 +37,7 @@ public class UserValidator implements Validator {
         }
 
         // 아이디 중복 검사
-        if (userService.validateDuplicateId(accountId)) {
+        if (authService.validateDuplicateId(accountId)) {
             errors.rejectValue("accountId", "exists.user.accountId");
             return;
         }
