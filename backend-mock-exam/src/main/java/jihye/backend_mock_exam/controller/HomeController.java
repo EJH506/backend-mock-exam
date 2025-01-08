@@ -1,15 +1,19 @@
 package jihye.backend_mock_exam.controller;
 
-import jihye.backend_mock_exam.domain.user.User;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.SessionAttribute;
 
 import java.util.HashMap;
 import java.util.Map;
 
+@Slf4j
 @Controller
 public class HomeController {
 
@@ -25,13 +29,19 @@ public class HomeController {
     }
 
     @GetMapping("/")
-    public String home(@SessionAttribute(name = "loginUser", required = false) User loginUser, Model model) {
+    public String home(Model model) {
 
-        if (loginUser == null) {
+        // 스프링 시큐리티 인증정보
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        log.info("authentication={}", authentication);
+
+        if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
             return "welcome";
         }
 
+        UserDetails loginUser = (UserDetails) authentication.getPrincipal();
         model.addAttribute("loginUser", loginUser);
+
         return "home";
     }
 }

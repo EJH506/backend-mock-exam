@@ -1,9 +1,8 @@
 package jihye.backend_mock_exam.controller.validation;
 
 import jihye.backend_mock_exam.domain.user.User;
-import jihye.backend_mock_exam.repository.users.dto.SignUpDTO;
+import jihye.backend_mock_exam.service.auth.dto.SignUpDto;
 import jihye.backend_mock_exam.service.auth.AuthService;
-import jihye.backend_mock_exam.service.users.UsersService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
@@ -25,7 +24,7 @@ public class UserValidator implements Validator {
     @Override
     public void validate(Object target, Errors errors) {
 
-        SignUpDTO dto = (SignUpDTO) target;
+        SignUpDto dto = (SignUpDto) target;
         String accountId = dto.getAccountId();
         String password = dto.getPassword();
         String passwordCheck = dto.getPasswordCheck();

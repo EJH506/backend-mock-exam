@@ -6,11 +6,11 @@
 </head>
 <body>
 <div class="wrap">
-<header th:replace="fragment/login-header :: header"></header>
+<header th:replace="fragment/auth-header :: header"></header>
 
 <section>
     <h2 th:text="#{page.sign-in}">로그인(목업)</h2>
-    <form th:action method="post" th:object="${signInDTO}">
+    <form th:action method="post" th:object="${signInDto}">
         <div th:if="${#fields.hasGlobalErrors()}">
             <p th:each="err : ${#fields.globalErrors()}" th:text="${err}">전체 오류 메시지</p>
         </div>
@@ -18,17 +18,17 @@
         <div>
             <label for="accountId" th:text="#{label.user.accountId}">아이디(목업)</label>
             <input type="text" id="accountId" th:placeholder="#{label.user.accountId}"
-                   th:field="*{accountId}" required />
+                   th:field="*{accountId}" />
             <div th:errors="*{accountId}" />
 
             <label for="password" th:text="#{label.user.password}">비밀번호(목업)</label>
-            <input type="password" id="password" th:placeholder="#{label.user.password}" th:field="*{password}" required />
+            <input type="password" id="password" th:placeholder="#{label.user.password}" th:field="*{password}" />
             <div th:errors="*{password}" />
         </div>
         <label for="rememberMe">자동 로그인</label>
         <input type="checkbox" id="rememberMe" th:field="*{rememberMe}" />
 
-        <input type="submit" th:value="#{page.sign-in}" />
+        <button type="submit" th:text="#{page.sign-in}">로그인(목업)</button>
     </form>
 
     <div id="고민중">

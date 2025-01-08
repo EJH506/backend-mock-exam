@@ -12,7 +12,9 @@
     <h2 th:text="#{page.home}">홈(목업)</h2>
 
     <ul id="menuArea">
-        <li th:each="menu : ${menus}"><a th:text="${menu.value}" th:href="@{|/${menu.key}|}"></a></li>
+        <li th:each="menu : ${menus}">
+            <a th:text="${menu.value}" th:href="@{|/${menu.key}|}"></a>
+        </li>
     </ul>
 </section>
 </div>

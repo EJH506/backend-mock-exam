@@ -1,7 +1,7 @@
 package jihye.backend_mock_exam.service.users;
 
 import jihye.backend_mock_exam.domain.user.User;
-import jihye.backend_mock_exam.repository.users.dto.UserUpdateDTO;
+import jihye.backend_mock_exam.service.users.dto.UserUpdateDto;
 import jihye.backend_mock_exam.repository.users.UsersRepository;
 import jihye.backend_mock_exam.repository.users.UsersSearchCond;
 import lombok.RequiredArgsConstructor;
@@ -18,7 +18,7 @@ public class UsersServiceImpl implements UsersService {
 
     // 회원정보수정
     @Override
-    public void editAccount(Long userId, UserUpdateDTO dto) {
+    public void editAccount(Long userId, UserUpdateDto dto) {
 
     }
 

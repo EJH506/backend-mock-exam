@@ -2,7 +2,6 @@ package jihye.backend_mock_exam.repository.auth;
 
 import jihye.backend_mock_exam.domain.user.User;
 import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
 
 @Mapper
 public interface AuthMapper {

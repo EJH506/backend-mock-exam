@@ -9,12 +9,12 @@
 </head>
 <body>
 <div class="wrap">
-<header th:replace="fragment/login-header :: header"></header>
+<header th:replace="fragment/auth-header :: header"></header>
 
 <section>
     <h2 th:text="#{page.sign-up}">회원가입(목업)</h2>
 
-    <form action th:action th:object="${signUpDTO}" method="post">
+    <form action th:action th:object="${signUpDto}" method="post">
 
         <div id="required">
             <p>필수항목 (*)</p>
@@ -67,7 +67,7 @@
             </select>
         </div>
 
-        <input type="submit">
+        <button type="submit" th:text="#{page.sign-up}">회원가입(목업)</button>
     </form>
 </section>
 
