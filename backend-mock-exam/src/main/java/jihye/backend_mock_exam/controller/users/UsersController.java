@@ -11,9 +11,5 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 public class UsersController {
 
-    // 비밀번호 찾기
-    @GetMapping("/forgot-password")
-    public String forgotPasswordPage() {
-        return "users/forgot-password";
-    }
+
 }

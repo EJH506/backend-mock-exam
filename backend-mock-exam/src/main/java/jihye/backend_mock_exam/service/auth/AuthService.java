@@ -17,4 +17,10 @@ public interface AuthService {
 
     // 비회원으로 시작
     Guest guestStart(String nickname);
+
+    // 비밀번호 찾기
+    User findPasswordId(String accountId);
+
+    // 비밀번호 재설정
+    User resetPassword(String accountId, String password);
 }

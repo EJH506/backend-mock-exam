@@ -18,11 +18,11 @@
         <div>
             <label for="accountId" th:text="#{label.user.accountId}">아이디(목업)</label>
             <input type="text" id="accountId" th:placeholder="#{label.user.accountId}"
-                   th:field="*{accountId}" />
+                   th:field="*{accountId}" required />
             <div th:errors="*{accountId}" />
 
             <label for="password" th:text="#{label.user.password}">비밀번호(목업)</label>
-            <input type="password" id="password" th:placeholder="#{label.user.password}" th:field="*{password}" />
+            <input type="password" id="password" th:placeholder="#{label.user.password}" th:field="*{password}" required />
             <div th:errors="*{password}" />
         </div>
         <!--
@@ -32,9 +32,9 @@
         <button type="submit" th:text="#{page.sign-in}">로그인(목업)</button>
     </form>
 
-    <div id="고민중">
+    <div class="authManager">
         <a th:href="@{/auth/sign-up}" th:text="#{page.sign-up}">회원가입(목업)</a>
-        <a th:href="@{/users/forgot-password}" th:text="#{page.forgot-password}">비밀번호 찾기(목업)</a>
+        <a th:href="@{/auth/forgot-password}" th:text="#{page.forgot-password}">비밀번호 찾기(목업)</a>
     </div>
 </section>
 </div>

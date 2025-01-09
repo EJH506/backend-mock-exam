@@ -3,18 +3,17 @@ package jihye.backend_mock_exam.controller.auth;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
-import jihye.backend_mock_exam.controller.validation.UserValidator;
+import jihye.backend_mock_exam.controller.validation.ForgotPasswordIdValidator;
+import jihye.backend_mock_exam.controller.validation.ForgotPasswordQuestionValidator;
+import jihye.backend_mock_exam.controller.validation.ResetPasswordValidator;
+import jihye.backend_mock_exam.controller.validation.SignUpValidator;
 import jihye.backend_mock_exam.domain.user.FindPasswordQuestions;
 import jihye.backend_mock_exam.domain.user.Guest;
 import jihye.backend_mock_exam.domain.user.User;
-import jihye.backend_mock_exam.service.auth.dto.GuestStartDto;
-import jihye.backend_mock_exam.service.auth.dto.SignInDto;
-import jihye.backend_mock_exam.service.auth.dto.SignUpDto;
+import jihye.backend_mock_exam.service.auth.dto.*;
 import jihye.backend_mock_exam.service.auth.AuthService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -28,28 +27,25 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 public class AuthController {
 
     private final AuthService authService;
-    private final UserValidator userValidator;
-
-    // 비밀번호 찾기 질문 목록
-    @ModelAttribute("findPasswordQuestions")
-    public FindPasswordQuestions[] findPasswordQuestions() {
-        return FindPasswordQuestions.values();
-    }
+    private final SignUpValidator signUpValidator;
+    private final ForgotPasswordIdValidator forgotPasswordIdValidator;
+    private final ForgotPasswordQuestionValidator forgotPasswordQuestionValidator;
+    private final ResetPasswordValidator resetPasswordValidator;
 
     // 회원가입 페이지
     @GetMapping("/sign-up")
     public String signUpPage(Model model) {
+        model.addAttribute("findPasswordQuestions", FindPasswordQuestions.values());
         model.addAttribute("signUpDto", new SignUpDto());
         return "auth/signup";
     }
-
 
     // 회원가입 처리
     @PostMapping("/sign-up")
     public String signUp(@Valid @ModelAttribute SignUpDto dto, BindingResult bindingResult, HttpSession session) {
 
-        // 유효성 검사 (정규식, 중복)
-        userValidator.validate(dto, bindingResult);
+        // 검증 (유효성-정규식, 중복 여부)
+        signUpValidator.validate(dto, bindingResult);
 
         if (bindingResult.hasErrors()) {
             log.info("errors={}", bindingResult);
@@ -57,7 +53,9 @@ public class AuthController {
         }
 
         User savedUser = authService.signUp(dto);
-        session.setAttribute("accountId", savedUser.getAccountId()); // 로그인 스프링 시큐리티 사용으로 사용중지
+        
+        // 로그인 시 자동입력 되어있기 위한 세션
+        session.setAttribute("accountId", savedUser.getAccountId());
         return "redirect:/auth/signup-success";
     }
 
@@ -70,25 +68,13 @@ public class AuthController {
 
     // 회원가입 성공 페이지
     @GetMapping("/signup-success")
-    public String signupSuccess(@ModelAttribute("accountId") String accountId, Model model) {
+    public String signupSuccess() {
         return "auth/signup-success";
     }
 
-/*
+
+
     // 로그인 페이지
-    @GetMapping("/sign-in")
-    public String signInPage(@SessionAttribute(value = "accountId", required = false) String sessionId, Model model) {
-        if (sessionId != null) {
-            model.addAttribute("signInDto", new SignInDto(sessionId));
-        } else {
-            model.addAttribute("signInDto", new SignInDto());
-        }
-
-        return "auth/signin";
-    }
-
- */
-
     @GetMapping("/sign-in")
     public String signInPage(@RequestParam(value = "error", required = false) Boolean error,
                              @SessionAttribute(value = "accountId", required = false) String sessionId,
@@ -114,8 +100,6 @@ public class AuthController {
         if (bindingResult.hasErrors()) {
             return "auth/signin";
         }
-
-        log.info("loginId={}", dto.getAccountId());
 
         User loginUser = authService.login(dto.getAccountId(), dto.getPassword());
 
@@ -146,8 +130,7 @@ public class AuthController {
         return "redirect:/";
     }
 
-
-
+    
 
     // 비회원으로 시작 페이지
     @GetMapping("/guest-start")
@@ -156,6 +139,7 @@ public class AuthController {
         return "auth/guest-start";
     }
 
+    // 비회원으로 시작 처리
     @PostMapping("/guest-start")
     public String guestStart(@ModelAttribute GuestStartDto dto, BindingResult bindingResult, RedirectAttributes redirectAttributes, HttpServletRequest request) {
 
@@ -165,6 +149,107 @@ public class AuthController {
         session.setAttribute("guest", guest);
 
         return "redirect:/";
+    }
+
+
+    // 비밀번호 찾기 페이지 진입
+    @GetMapping("/forgot-password")
+    public String forgotPasswordRedirect() {
+        return "redirect:/auth/forgot-password-id";
+    }
+
+    // 비밀번호 찾기 아이디입력 페이지
+    @GetMapping("/forgot-password-id")
+    public String forgotPasswordIdPage(Model model) {
+        model.addAttribute("forgotPasswordIdDto", new ForgotPasswordIdDto());
+        return "auth/forgot-password-id";
+    }
+    
+    // 비밀번호 찾기 아이디입력 처리
+    @PostMapping("/forgot-password-id")
+    public String forgotPasswordId(@Valid @ModelAttribute ForgotPasswordIdDto dto, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
+
+        // 검증 (유효성, 존재유무)
+        forgotPasswordIdValidator.validate(dto, bindingResult);
+
+        if (bindingResult.hasErrors()) {
+            log.info("errors={}", bindingResult);
+            return "auth/forgot-password-id";
+        }
+
+        redirectAttributes.addAttribute("accountId", dto.getAccountId());
+
+        return "redirect:/auth/forgot-password-question";
+    }
+
+    // 비밀번호 찾기 질문 페이지
+    @GetMapping("/forgot-password-question")
+    public String forgotPasswordQuestionPage(Model model) {
+
+        model.addAttribute("findPasswordQuestions", FindPasswordQuestions.values());
+        model.addAttribute("forgotPasswordQuestionDto", new ForgotPasswordQuestionDto());
+
+        return "auth/forgot-password-question";
+    }
+
+    // 비밀번호 찾기 질문 처리
+    @PostMapping("/forgot-password-question")
+    public String forgotPasswordQuestion(@RequestParam("accountId") String accountId,
+                                         @Valid @ModelAttribute() ForgotPasswordQuestionDto dto,
+                                         BindingResult bindingResult,
+                                         RedirectAttributes redirectAttributes,
+                                         Model model) {
+
+
+        dto.setAccountId(accountId);
+        forgotPasswordQuestionValidator.validate(dto, bindingResult);
+
+        if (bindingResult.hasErrors()) {
+            log.info("error={}", bindingResult);
+            model.addAttribute("findPasswordQuestions", FindPasswordQuestions.values());
+            return "auth/forgot-password-question";
+        }
+
+        redirectAttributes.addAttribute("accountId", accountId);
+        return "redirect:/auth/reset-password";
+    }
+
+    // 비밀번호 재설정 페이지
+    @GetMapping("/reset-password")
+    public String resetPasswordPage(@RequestParam("accountId") String accountId, Model model) {
+
+        model.addAttribute("resetPasswordDto", new ResetPasswordDto());
+        return "auth/reset-password";
+    }
+
+    // 비밀번호 재설정 처리
+    @PostMapping("/reset-password")
+    public String resetPassword(@RequestParam("accountId") String accountId,
+                                @Valid @ModelAttribute ResetPasswordDto dto,
+                                BindingResult bindingResult, HttpServletRequest request) {
+
+        dto.setAccountId(accountId);
+        resetPasswordValidator.validate(dto, bindingResult);
+
+        if (bindingResult.hasErrors()) {
+            log.info("error={}", bindingResult);
+            return "auth/reset-password";
+        }
+
+        HttpSession session = request.getSession();
+
+        User updateUser = authService.resetPassword(accountId, dto.getPassword());
+
+        // 로그인 시 자동입력 되어있기 위한 세션
+        session.setAttribute("accountId", updateUser.getAccountId());
+
+        return "redirect:/auth/reset-password-success";
+    }
+
+    // 비밀번호 재설정 성공 페이지
+    @GetMapping("/reset-password-success")
+    public String resetPasswordSuccess() {
+        return "auth/reset-password-success";
     }
 
 }

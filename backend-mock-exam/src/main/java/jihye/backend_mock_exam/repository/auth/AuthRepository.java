@@ -10,7 +10,10 @@ public interface AuthRepository {
     // 아이디 존재 여부 조회
     boolean isIdExists(String accountId);
 
-    // 로그인 데이터와 일치하는 회원 조회
-    User findByLoginId(String accountId);
+    // 요청 아이디와 일치하는 회원 조회
+    User findByAccountId(String accountId);
+    User findById(Long userId);
 
+    // 비밀번호 재설정
+    User updatePassword(Long userId, String hashedPassword);
 }

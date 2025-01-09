@@ -7,18 +7,7 @@ import jihye.backend_mock_exam.service.auth.dto.SignUpDto;
 import jihye.backend_mock_exam.service.passwordEncode.PasswordEncoderUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
-
-import javax.management.remote.JMXAuthenticator;
-import java.util.Collections;
-import java.util.List;
 
 @Slf4j
 @Service
@@ -27,7 +16,6 @@ public class AuthServiceImpl implements AuthService {
 
     private final AuthRepository authRepository;
     private final PasswordEncoderUtil passwordEncoderUtil;
-    private final AuthenticationManager authenticationManager;
 
     // 회원가입
     @Override
@@ -52,7 +40,7 @@ public class AuthServiceImpl implements AuthService {
     @Override
     public User login(String accountId, String password) {
 
-        User findByIdUser = authRepository.findByLoginId(accountId);
+        User findByIdUser = authRepository.findByAccountId(accountId);
         String hashedPassword = findByIdUser != null ? findByIdUser.getHashedPassword() : "";
 
         boolean matches = passwordEncoderUtil.matches(password, hashedPassword);
@@ -68,5 +56,26 @@ public class AuthServiceImpl implements AuthService {
     @Override
     public Guest guestStart(String nickname) {
         return new Guest(nickname);
+    }
+
+    // 비밀번호 찾기 아이디입력
+    @Override
+    public User findPasswordId(String accountId) {
+        return authRepository.findByAccountId(accountId);
+    }
+
+    // 비밀번호 재설정
+
+    @Override
+    public User resetPassword(String accountId, String password) {
+        // 비밀번호 암호화
+        log.info("비밀번호 암호화 전");
+        String hashedPassword = passwordEncoderUtil.encode(password);
+        log.info("hashedPassword={}", hashedPassword);
+
+        User user = authRepository.findByAccountId(accountId);
+        authRepository.updatePassword(user.getUserId(), hashedPassword);
+
+        return user;
     }
 }
