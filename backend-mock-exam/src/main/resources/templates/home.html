@@ -12,14 +12,11 @@
     <h2 th:text="#{page.home}">홈(목업)</h2>
 
     <ul id="menuArea">
-        <!--
         <li th:each="menu : ${menus}">
-            <a th:text="${menu.value}"
-               th:href="@{|/${menu.key}|}"
-               th:classappend="${menu.value.disable ? 'disable' : ''}"
-               th:style="${menu.value.disable ? 'pointer-events: none; color: gray;' : ''}"></a>
+            <a th:text="${menu.value.name}"
+               th:href="@{${menu.value.able} ? |/${menu.key}| : '#'}"
+               th:style="${menu.value.able ? '' : 'pointer-events: none; color: gray; text-decoration: none;'}"></a>
         </li>
-        -->
     </ul>
 </section>
 </div>
