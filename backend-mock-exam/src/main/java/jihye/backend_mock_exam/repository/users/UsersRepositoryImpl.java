@@ -1,7 +1,7 @@
 package jihye.backend_mock_exam.repository.users;
 
 import jihye.backend_mock_exam.domain.user.User;
-import jihye.backend_mock_exam.repository.users.dto.UserUpdateDTO;
+import jihye.backend_mock_exam.service.users.dto.UserUpdateDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
@@ -17,7 +17,7 @@ public class UsersRepositoryImpl implements UsersRepository {
 
     // 회원정보 업데이트
     @Override
-    public void userUpdate(Long userId, UserUpdateDTO dto) {
+    public void userUpdate(Long userId, UserUpdateDto dto) {
 
     }
 

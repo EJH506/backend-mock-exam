@@ -6,22 +6,28 @@
 </head>
 <body>
 
-<header th:fragment="header">
+<header th:fragment="header (userId, nickname, isMember)">
     <a href="/"><h1 th:text="#{title}">백엔드 모의고사(목업)</h1></a>
+
+    <p class="임시" th:text="'isMember : ' + ${isMember}"></p>
 
     <nav>
         <ul>
-            <li th:each="menu : ${menus}"><a th:text="${menu.value}" th:href="@{|/${menu.key}|}"></a></li>
+            <li th:each="menu : ${menus}">
+                <a th:text="${menu.value.name}"
+                   th:href="@{${menu.value.able} ? |/${menu.key}| : '#'}"
+                   th:style="${menu.value.able ? '' : 'pointer-events: none; color: gray; text-decoration: none;'}"></a>
+            </li>
         </ul>
     </nav>
 
     <div id="profile">
-        <div>닉네임</div>
+        <div th:text="'닉네임 : ' + ${nickname}">닉네임(목업)</div>
 
         <ul>
-            <li><a href="/users/edit" th:text="#{page.edit-account}">회원정보 수정(목업)</a></li>
+            <li><a th:href="@{|/users/edit/${userId}|}" th:text="#{page.edit-account}">회원정보 수정(목업)</a></li>
             <li>
-                <form th:action="@{/auth/sign-out}" method="post">
+                <form th:action="@{/logout}" method="post">
                     <button th:text="#{page.sign-out}">로그아웃(목업)</button>
                 </form>
             </li>

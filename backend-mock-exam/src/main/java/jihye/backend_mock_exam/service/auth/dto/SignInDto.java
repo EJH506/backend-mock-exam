@@ -1,22 +1,22 @@
-package jihye.backend_mock_exam.repository.users.dto;
+package jihye.backend_mock_exam.service.auth.dto;
 
 import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 
 @Data
-public class SignInDTO {
+public class SignInDto {
 
     @NotBlank
     private String accountId;
     @NotBlank
     private String password;
 
-    private boolean rememberMe;
+//    private boolean rememberMe;
 
-    public SignInDTO() {
+    public SignInDto() {
     }
 
-    public SignInDTO(String accountId) {
+    public SignInDto(String accountId) {
         this.accountId = accountId;
     }
 }

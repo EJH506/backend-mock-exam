@@ -1,11 +1,11 @@
-package jihye.backend_mock_exam.repository.users.dto;
+package jihye.backend_mock_exam.service.auth.dto;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.Data;
 
 @Data
-public class SignUpDTO {
+public class SignUpDto {
 
     @NotBlank(message = "아이디를 입력해주세요.")
     private String accountId;
@@ -22,4 +22,6 @@ public class SignUpDTO {
 
     private String gender;
     private Integer birthYear;
+
+    private String roles;
 }
