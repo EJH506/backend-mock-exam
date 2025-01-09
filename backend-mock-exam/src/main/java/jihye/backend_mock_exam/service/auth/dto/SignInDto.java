@@ -11,7 +11,7 @@ public class SignInDto {
     @NotBlank
     private String password;
 
-    private boolean rememberMe;
+//    private boolean rememberMe;
 
     public SignInDto() {
     }

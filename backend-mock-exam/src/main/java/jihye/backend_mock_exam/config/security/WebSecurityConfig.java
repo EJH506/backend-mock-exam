@@ -2,7 +2,6 @@ package jihye.backend_mock_exam.config.security;
 
 import jihye.backend_mock_exam.service.auth.CustomRememberMeFilter;
 import jihye.backend_mock_exam.service.auth.CustomUserDetailsService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -26,14 +25,8 @@ public class WebSecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 
-        // RememberMeFilter 등록
-        CustomRememberMeFilter customRememberMeFilter = new CustomRememberMeFilter(authenticationManager(http), rememberMeServices());
-
-        http.addFilterBefore(customRememberMeFilter, UsernamePasswordAuthenticationFilter.class);
-
-
         http.authorizeHttpRequests(authorize -> authorize
-                .requestMatchers("/css/**", "/js/**", "/img/**").permitAll()
+                .requestMatchers("/css/**", "/js/**", "/img/**", "/fragment/**").permitAll()
                 .requestMatchers("/", "/auth/**", "/exam/**", "/memo/**").permitAll()
                 .requestMatchers("/users/**", "/incorrectNote/**", "/history/**", "/myQuestions/**").hasAnyRole("USER", "ADMIN")
                 .anyRequest().authenticated()
@@ -83,11 +76,6 @@ public class WebSecurityConfig {
         authenticationManagerBuilder.userDetailsService(userDetailsService()).passwordEncoder(passwordEncoder());
 
         return authenticationManagerBuilder.build();
-    }
-
-    @Bean
-    public RememberMeServices rememberMeServices() {
-        return new TokenBasedRememberMeServices("uniqueAndSecret", userDetailsService());
     }
 
 }

@@ -6,14 +6,28 @@ import jihye.backend_mock_exam.repository.auth.AuthRepository;
 import jihye.backend_mock_exam.service.auth.dto.SignUpDto;
 import jihye.backend_mock_exam.service.passwordEncode.PasswordEncoderUtil;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
+import javax.management.remote.JMXAuthenticator;
+import java.util.Collections;
+import java.util.List;
+
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class AuthServiceImpl implements AuthService {
 
     private final AuthRepository authRepository;
     private final PasswordEncoderUtil passwordEncoderUtil;
+    private final AuthenticationManager authenticationManager;
 
     // 회원가입
     @Override

@@ -29,7 +29,9 @@ public class CustomUserDetailsService implements UserDetailsService {
         }
 
         return new User(
+                findByIdUser.getUserId(),
                 findByIdUser.getAccountId(),
+                findByIdUser.getNickname(),
                 findByIdUser.getHashedPassword(),
                 findByIdUser.getRoles()
         );
