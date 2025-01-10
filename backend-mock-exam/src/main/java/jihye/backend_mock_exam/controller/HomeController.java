@@ -25,19 +25,7 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class HomeController {
 
-    private final Menus menus;
-    private final IsMember isMember;
     private final AuthService authService;
-
-    @ModelAttribute("menus")
-    public Map<String, Object> menus() {
-        return menus.menus();
-    }
-
-    @ModelAttribute("isMember")
-    public boolean isMember() {
-        return isMember.isMember();
-    }
 
     @GetMapping("/")
     public String home(@SessionAttribute(value = "guest", required = false) Guest guest, Model model) {

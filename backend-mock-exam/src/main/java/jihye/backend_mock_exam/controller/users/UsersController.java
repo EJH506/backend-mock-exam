@@ -2,8 +2,6 @@ package jihye.backend_mock_exam.controller.users;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
-import jihye.backend_mock_exam.controller.IsMember;
-import jihye.backend_mock_exam.controller.Menus;
 import jihye.backend_mock_exam.domain.user.Guest;
 import jihye.backend_mock_exam.domain.user.User;
 import jihye.backend_mock_exam.service.users.UsersService;
@@ -11,18 +9,12 @@ import jihye.backend_mock_exam.service.users.dto.DeleteAccountDto;
 import jihye.backend_mock_exam.service.users.dto.EditAccountDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.HttpStatus;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
-import java.util.Map;
 
 @Slf4j
 @Controller
@@ -31,18 +23,6 @@ import java.util.Map;
 public class UsersController {
 
     private final UsersService usersService;
-    private final Menus menus;
-    private final IsMember isMember;
-
-    @ModelAttribute("menus")
-    public Map<String, Object> menus() {
-        return menus.menus();
-    }
-
-    @ModelAttribute("isMember")
-    public boolean isMember() {
-        return isMember.isMember();
-    }
 
     @ModelAttribute("user")
     public User loginUser(@PathVariable("userId") long userId) {

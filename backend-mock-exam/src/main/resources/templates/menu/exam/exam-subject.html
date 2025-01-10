@@ -2,9 +2,13 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>문제풀기 | 백엔드 모의고사</title>
+    <title th:text="${page.take-test} + ' | ' + ${title}">문제풀기 | 백엔드 모의고사</title>
 </head>
 <body>
-문제풀기 - 주제선택 페이지
+<div class="wrap">
+<header th:replace="~{fragment/home-header}"></header>
+
+
+</div>
 </body>
 </html>
