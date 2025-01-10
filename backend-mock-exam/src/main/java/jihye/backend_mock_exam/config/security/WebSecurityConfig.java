@@ -28,7 +28,7 @@ public class WebSecurityConfig {
         http.authorizeHttpRequests(authorize -> authorize
                 .requestMatchers("/css/**", "/js/**", "/img/**", "/fragment/**").permitAll()
                 .requestMatchers("/", "/auth/**", "/exam/**", "/memo/**").permitAll()
-                .requestMatchers("/users/**", "/incorrectNote/**", "/history/**", "/myQuestions/**").hasAnyRole("USER", "ADMIN")
+                .requestMatchers("/users/**", "/incorrect-note/**", "/history/**", "/myQuestions/**").hasAnyRole("USER", "ADMIN")
                 .anyRequest().authenticated()
         )
 

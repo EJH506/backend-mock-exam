@@ -24,13 +24,18 @@
     <div id="profile">
         <div th:text="'닉네임 : ' + ${nickname}">닉네임(목업)</div>
 
-        <ul>
-            <li th:if="${isMember}"><a th:href="@{|/users/edit/${userId}|}" th:text="#{page.edit-account}">회원정보 수정(목업)</a></li>
+        <ul th:if="${isMember}">
+            <li><a th:href="@{|/users/edit/${userId}|}" th:text="#{page.edit-account}">회원정보 수정(목업)</a></li>
             <li>
                 <form th:action="@{/logout}" method="post">
                     <button th:text="#{page.sign-out}">로그아웃(목업)</button>
                 </form>
             </li>
+        </ul>
+
+        <ul th:if="${!isMember}">
+            <li><a th:href="@{/auth/sign-in}" th:text="#{page.sign-in}">로그인(목업)</a></li>
+            <li><a th:href="@{/auth/sign-up}" th:text="#{page.sign-up}">회원가입(목업)</a></li>
         </ul>
     </div>
 </header>

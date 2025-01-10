@@ -35,8 +35,8 @@ public class UsersController {
     private final IsMember isMember;
 
     @ModelAttribute("menus")
-    public Map<String, Object> menus(@SessionAttribute(value = "guest", required = false) Guest guest) {
-        return menus.menus(guest);
+    public Map<String, Object> menus() {
+        return menus.menus();
     }
 
     @ModelAttribute("isMember")

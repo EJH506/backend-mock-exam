@@ -5,12 +5,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/incorrectNote")
+@RequestMapping("/incorrect-note")
 public class IncorrectNoteController {
 
     @GetMapping
     public String incorrectNoteHome() {
-        return "redirect:/incorrectNote/subject";
+        return "redirect:/incorrect-note/subject";
     }
 
     @GetMapping("/subject")

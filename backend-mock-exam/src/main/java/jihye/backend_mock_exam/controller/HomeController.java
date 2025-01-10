@@ -30,8 +30,8 @@ public class HomeController {
     private final AuthService authService;
 
     @ModelAttribute("menus")
-    public Map<String, Object> menus(@SessionAttribute(value = "guest", required = false) Guest guest) {
-        return menus.menus(guest);
+    public Map<String, Object> menus() {
+        return menus.menus();
     }
 
     @ModelAttribute("isMember")

@@ -6,12 +6,10 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 
-import java.util.Collection;
-
 @Component
-public class IsMember {
+public class IsAdmin {
 
-    public boolean isMember() {
+    public boolean isAdmin() {
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
@@ -20,12 +18,11 @@ public class IsMember {
         }
 
         for (GrantedAuthority authority : authentication.getAuthorities()) {
-            if ("ROLE_USER".equals(authority.getAuthority())) {
+            if ("ROLE_ADMIN".equals(authority.getAuthority())) {
                 return true;
             }
         }
 
         return false;
     }
-
 }
