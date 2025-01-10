@@ -11,9 +11,10 @@
 <section>
     <h2 th:text="#{page.guest-start} + '하기'">비회원으로 시작하기(목업)</h2>
 
-    <form th:action method="post" th:object="${GuestStartDto}">
+    <form th:action method="post" th:object="${guestStartDto}">
         <label for="nickname" th:text="#{label.user.nickname}">닉네임(목업)</label>
-        <input type="text" id="nickname" th:field="*{nickname}" th:placeholder="#{label.user.nickname}" required/>
+        <input type="text" id="nickname" th:field="*{nickname}" th:placeholder="#{label.user.nickname}"/>
+        <div id="nicknameError" th:errors="*{nickname}">닉네임 오류 내용</div>
 
         <button type="submit" th:text="#{page.guest-start}">비회원으로 시작(목업)</button>
     </form>

@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
@@ -28,30 +29,11 @@ public class HomeController {
     private final AuthService authService;
 
     @GetMapping("/")
-    public String home(@SessionAttribute(value = "guest", required = false) Guest guest, Model model) {
+    public String home(@AuthenticationPrincipal User user,
+                       @SessionAttribute(value = "guest", required = false) Guest guest) {
 
-        // 스프링 시큐리티 인증정보
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        log.info("authentication={}", authentication);
-
-        // 회원일 시
-        if (authentication != null && !(authentication instanceof AnonymousAuthenticationToken)) {
-            UserDetails authenticationUser = (UserDetails) authentication.getPrincipal();
-            User loginUser = authService.findPasswordId(authenticationUser.getUsername());
-
-            model.addAttribute("user", loginUser);
-            log.info("user={}", loginUser);
-            // 회원이 아닐 시
-        } else {
-
-            // 게스트 권한도 없을 시
-            if (guest == null) {
-                return "welcome";
-            }
-            
-            // 게스트 일 시
-            model.addAttribute("user", guest);
-            log.info("guest={}", guest);
+        if (user == null && guest == null) {
+            return "welcome";
         }
 
         return "home";

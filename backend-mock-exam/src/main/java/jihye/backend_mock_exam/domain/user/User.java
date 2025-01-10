@@ -25,8 +25,10 @@ public class User implements UserDetails {
     public User() {
     }
 
-    public User(String accountId, String hashedPassword, String roles) {
+    public User(Long userId, String accountId, String nickname, String hashedPassword, String roles) {
+        this.userId = userId;
         this.accountId = accountId;
+        this.nickname = nickname;
         this.hashedPassword = hashedPassword;
         this.roles = roles;
     }
@@ -41,8 +43,6 @@ public class User implements UserDetails {
         this.birthYear = birthYear;
         this.roles = roles;
     }
-
-
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

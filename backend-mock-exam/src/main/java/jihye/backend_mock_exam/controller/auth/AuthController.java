@@ -14,6 +14,7 @@ import jihye.backend_mock_exam.service.auth.dto.*;
 import jihye.backend_mock_exam.service.auth.AuthService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -80,7 +81,11 @@ public class AuthController {
                              @SessionAttribute(value = "accountId", required = false) String sessionId,
                              @ModelAttribute SignInDto dto,
                              BindingResult bindingResult,
-                             Model model) {
+                             HttpServletRequest request) {
+
+        // 스프링 시큐리티 로그아웃 처리
+        SecurityContextLogoutHandler logoutHandler = new SecurityContextLogoutHandler();
+        logoutHandler.logout(request, null, null);
 
         if (sessionId != null) {
             dto.setAccountId(sessionId);
@@ -141,13 +146,18 @@ public class AuthController {
     // 비회원으로 시작 페이지
     @GetMapping("/guest-start")
     public String guestStartPage(Model model) {
-        model.addAttribute("GuestStartDto", new GuestStartDto());
+        model.addAttribute("guestStartDto", new GuestStartDto());
         return "auth/guest-start";
     }
 
     // 비회원으로 시작 처리
     @PostMapping("/guest-start")
-    public String guestStart(@ModelAttribute GuestStartDto dto, BindingResult bindingResult, RedirectAttributes redirectAttributes, HttpServletRequest request) {
+    public String guestStart(@Valid @ModelAttribute GuestStartDto dto, BindingResult bindingResult, RedirectAttributes redirectAttributes, HttpServletRequest request) {
+
+        if (bindingResult.hasErrors()) {
+            log.info("errors={}", bindingResult);
+            return "auth/guest-start";
+        }
 
         Guest guest = authService.guestStart(dto.getNickname());
 

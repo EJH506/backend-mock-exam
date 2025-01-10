@@ -2,11 +2,11 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title th:text="${page.take-test} + ' | ' + ${title}">문제풀기 | 백엔드 모의고사</title>
+    <title th:text="#{page.take-test} + ' | ' + #{title}">문제풀기 | 백엔드 모의고사</title>
 </head>
 <body>
 <div class="wrap">
-<header th:replace="~{fragment/home-header}"></header>
+    <header th:replace="~{fragment/home-header :: header (${user.userId}, ${user.nickname}, ${isMember})}"></header>
 
 
 </div>

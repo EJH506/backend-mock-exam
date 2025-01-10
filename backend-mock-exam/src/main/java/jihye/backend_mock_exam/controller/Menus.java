@@ -37,7 +37,6 @@ public class Menus {
 
         if (isAdmin) {
             menus.put("admin", Map.of("name", "관리하기", "able", true));
-            log.info("8");
         }
         return menus;
     }
