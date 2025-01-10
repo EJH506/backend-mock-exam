@@ -16,8 +16,6 @@ public interface AuthMapper {
     // 요청 아이디와 일치하는 회원 조회
     User findByLoginId(String accountId);
 
-    User findById(Long userId);
-
     // 비밀번호 재설정
-    void updatePassword(@Param("userId") Long userId, @Param("hashedPassword") String hashedPassword);
+    void updatePassword(@Param("accountId") String accountId, @Param("hashedPassword") String hashedPassword);
 }

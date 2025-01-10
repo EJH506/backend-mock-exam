@@ -2,4 +2,15 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="jihye.backend_mock_exam.repository.users.UsersMapper">
+
+    <select id="findUserById" resultType="user">
+        select * from users
+        where user_id = #{userId};
+    </select>
+
+    <update id="userUpdate">
+        update users
+        set nickname = #{dto.nickname}, gender = #{dto.gender}, birth_year = #{dto.birthYear}
+        where user_id = #{userId}
+    </update>
 </mapper>

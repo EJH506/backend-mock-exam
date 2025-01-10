@@ -41,9 +41,9 @@ public class AuthServiceImpl implements AuthService {
     public User login(String accountId, String password) {
 
         User findByIdUser = authRepository.findByAccountId(accountId);
-        String hashedPassword = findByIdUser != null ? findByIdUser.getHashedPassword() : "";
+        String DBPassword = findByIdUser != null ? findByIdUser.getHashedPassword() : "";
 
-        boolean matches = passwordEncoderUtil.matches(password, hashedPassword);
+        boolean matches = passwordEncoderUtil.matches(password, DBPassword);
 
         if (!matches) {
             return null;
@@ -69,13 +69,7 @@ public class AuthServiceImpl implements AuthService {
     @Override
     public User resetPassword(String accountId, String password) {
         // 비밀번호 암호화
-        log.info("비밀번호 암호화 전");
         String hashedPassword = passwordEncoderUtil.encode(password);
-        log.info("hashedPassword={}", hashedPassword);
-
-        User user = authRepository.findByAccountId(accountId);
-        authRepository.updatePassword(user.getUserId(), hashedPassword);
-
-        return user;
+        return authRepository.updatePassword(accountId, hashedPassword);
     }
 }

@@ -12,8 +12,7 @@ public interface AuthRepository {
 
     // 요청 아이디와 일치하는 회원 조회
     User findByAccountId(String accountId);
-    User findById(Long userId);
 
     // 비밀번호 재설정
-    User updatePassword(Long userId, String hashedPassword);
+    User updatePassword(String accountId, String hashedPassword);
 }

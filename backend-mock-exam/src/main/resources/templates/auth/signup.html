@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <title th:text="#{page.sign-up} + ' | ' + #{title}">회원가입 | 백엔드 모의고사</title>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="/js/signup.js"></script>
+    <script th:src="@{https://code.jquery.com/jquery-3.6.0.min.js}"></script>
+    <script th:src="@{/js/sign-up.js}"></script>
+    <script th:src="@{/js/createBirthYears.js}"></script>
 </head>
 <body>
 <div class="wrap">
@@ -16,7 +16,7 @@
 
     <form action th:action th:object="${signUpDto}" method="post">
 
-        <div id="required">
+        <div class="required">
             <p>필수항목 (*)</p>
             <label for="accountId" th:text="#{label.user.accountId}">아이디(목업)</label>
             <input type="text" id="accountId" th:field="*{accountId}" th:placeholder="#{label.user.accountId}" required />
@@ -48,7 +48,7 @@
             <div id="findPasswordAnswerError" th:errors="*{findPasswordAnswer}">비밀번호 찾기 답변 오류 내용</div>
         </div>
 
-        <div id="optional">
+        <div class="optional">
             <p>선택항목</p>
             <div>
                 <span>
@@ -73,38 +73,5 @@
 </section>
 
 </div>
-
-<script>
-$('#accountId').on('blur', function() {
-    const accountId = $(this).val();
-
-    $.ajax({
-        url: '/auth/check-id',
-        type: 'POST',
-        data: { accountId: accountId },
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        },
-        success: function(response) {
-            if (response) {
-                $('#accountIdError').text("이미 존재하는 아이디 입니다.");
-            } else {
-                $('#accountIdError').text("");
-            }
-        }
-    });
-});
-
-const $birthYearSelectBox = document.querySelector('#birthYear');
-
-const currentYear = new Date().getFullYear();
-
-for (let i=0; i<100; i++) {
-    const $option = document.createElement('option');
-    $option.value = currentYear - i;
-    $option.textContent = currentYear - i + '년';
-    $birthYearSelectBox.append($option);
-}
-</script>
 </body>
 </html>

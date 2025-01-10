@@ -18,16 +18,11 @@
         select * from users
         where account_id = #{accountId};
     </select>
-
-    <select id="findById" resultType="user">
-        select * from users
-        where user_id = #{userId};
-    </select>
     
     <update id="updatePassword">
         update users
         set hashed_password = #{hashedPassword}
-        where user_id = #{userId};
+        where account_id = #{accountId};
     </update>
 
 </mapper>

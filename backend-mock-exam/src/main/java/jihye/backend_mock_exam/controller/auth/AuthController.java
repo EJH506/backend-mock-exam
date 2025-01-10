@@ -3,10 +3,10 @@ package jihye.backend_mock_exam.controller.auth;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
-import jihye.backend_mock_exam.controller.validation.ForgotPasswordIdValidator;
-import jihye.backend_mock_exam.controller.validation.ForgotPasswordQuestionValidator;
-import jihye.backend_mock_exam.controller.validation.ResetPasswordValidator;
-import jihye.backend_mock_exam.controller.validation.SignUpValidator;
+import jihye.backend_mock_exam.controller.auth.validation.ForgotPasswordIdValidator;
+import jihye.backend_mock_exam.controller.auth.validation.ForgotPasswordQuestionValidator;
+import jihye.backend_mock_exam.controller.auth.validation.ResetPasswordValidator;
+import jihye.backend_mock_exam.controller.auth.validation.SignUpValidator;
 import jihye.backend_mock_exam.domain.user.FindPasswordQuestions;
 import jihye.backend_mock_exam.domain.user.Guest;
 import jihye.backend_mock_exam.domain.user.User;
@@ -42,13 +42,13 @@ public class AuthController {
 
     // 회원가입 처리
     @PostMapping("/sign-up")
-    public String signUp(@Valid @ModelAttribute SignUpDto dto, BindingResult bindingResult, HttpSession session) {
+    public String signUp(@Valid @ModelAttribute SignUpDto dto, BindingResult bindingResult, HttpSession session, Model model) {
 
         // 검증 (유효성-정규식, 중복 여부)
         signUpValidator.validate(dto, bindingResult);
-
         if (bindingResult.hasErrors()) {
             log.info("errors={}", bindingResult);
+            model.addAttribute("findPasswordQuestions", FindPasswordQuestions.values());
             return "auth/signup";
         }
 

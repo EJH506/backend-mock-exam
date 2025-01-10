@@ -1,6 +1,7 @@
 package jihye.backend_mock_exam.controller;
 
 import jihye.backend_mock_exam.domain.user.Guest;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -17,24 +18,20 @@ import java.util.Map;
 
 @Slf4j
 @Controller
+@RequiredArgsConstructor
 public class HomeController {
+
+    private final Menus menus;
+    private final IsMember isMember;
 
     @ModelAttribute("menus")
     public Map<String, Object> menus(@SessionAttribute(value = "guest", required = false) Guest guest) {
+        return menus.menus(guest);
+    }
 
-        boolean isMember = false;
-        if (guest == null) {
-            isMember = true;
-        }
-
-        Map<String, Object> menus = new LinkedHashMap<>();
-        menus.put("exam",  Map.of("name", "문제풀기", "able", true));
-        menus.put("incorrectNote", Map.of("name", "오답노트", "able", isMember));
-        menus.put("history", Map.of("name", "히스토리", "able", isMember));
-        menus.put("memo", Map.of("name", "메모장", "able", true));
-        menus.put("myQuestions", Map.of("name", "나만의 문제 등록", "able", isMember));
-
-        return menus;
+    @ModelAttribute("isMember")
+    public boolean isMember() {
+        return isMember.isMember();
     }
 
     @GetMapping("/")
@@ -48,7 +45,6 @@ public class HomeController {
         if (authentication != null && !(authentication instanceof AnonymousAuthenticationToken)) {
             UserDetails loginUser = (UserDetails) authentication.getPrincipal();
             model.addAttribute("user", loginUser);
-            model.addAttribute("isMember", true);
             log.info("user={}", loginUser);
             // 회원이 아닐 시
         } else {
@@ -60,7 +56,6 @@ public class HomeController {
             
             // 게스트 일 시
             model.addAttribute("user", guest);
-            model.addAttribute("isMember", false);
             log.info("guest={}", guest);
         }
 

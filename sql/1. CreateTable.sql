@@ -18,3 +18,9 @@ CREATE TABLE users (
 	update_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,	-- 수정일시
 	UNIQUE (account_id)															-- 아이디의 유일성 보장
 );
+
+SELECT * FROM users;
+
+update users
+set nickname = "바보", gender = null, birth_year = 1999
+where user_id = #{userId}

@@ -1,7 +1,7 @@
 package jihye.backend_mock_exam.repository.users;
 
 import jihye.backend_mock_exam.domain.user.User;
-import jihye.backend_mock_exam.service.users.dto.UserUpdateDto;
+import jihye.backend_mock_exam.service.users.dto.EditAccountDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
@@ -17,14 +17,14 @@ public class UsersRepositoryImpl implements UsersRepository {
 
     // 회원정보 업데이트
     @Override
-    public void userUpdate(Long userId, UserUpdateDto dto) {
-
+    public void userUpdate(Long userId, EditAccountDto dto) {
+        usersMapper.userUpdate(userId, dto);
     }
 
     // 식별자로 회원조회
     @Override
     public Optional<User> findUserById(Long userId) {
-        return Optional.empty();
+        return usersMapper.findUserById(userId);
     }
 
     // 회원 전체 조회

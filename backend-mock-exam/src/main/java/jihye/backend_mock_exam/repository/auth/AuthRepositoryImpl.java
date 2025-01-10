@@ -31,15 +31,10 @@ public class AuthRepositoryImpl implements AuthRepository {
         return authMapper.findByLoginId(accountId);
     }
 
-    @Override
-    public User findById(Long userId) {
-        return authMapper.findById(userId);
-    }
-
     // 비밀번호 재설정
     @Override
-    public User updatePassword(Long userId, String hashedPassword) {
-        authMapper.updatePassword(userId, hashedPassword);
-        return findById(userId);
+    public User updatePassword(String accountId, String hashedPassword) {
+        authMapper.updatePassword(accountId, hashedPassword);
+        return findByAccountId(accountId);
     }
 }

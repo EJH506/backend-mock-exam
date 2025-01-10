@@ -1,4 +1,4 @@
-package jihye.backend_mock_exam.controller.validation;
+package jihye.backend_mock_exam.controller.auth.validation;
 
 import jihye.backend_mock_exam.service.auth.dto.ResetPasswordDto;
 import org.springframework.stereotype.Component;
