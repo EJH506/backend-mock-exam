@@ -22,5 +22,5 @@ public interface UsersMapper {
     List<User> findAllUsers(UsersSearchCond cond);
 
     // 회원삭제
-    void userRemove(@Param("userId") Long userId, @Param("hashedPassword") String hashedPassword);
+    void userRemove(Long userId);
 }

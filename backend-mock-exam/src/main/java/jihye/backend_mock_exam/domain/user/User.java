@@ -25,10 +25,8 @@ public class User implements UserDetails {
     public User() {
     }
 
-    public User(Long userId, String accountId, String nickname, String hashedPassword, String roles) {
-        this.userId = userId;
+    public User(String accountId, String hashedPassword, String roles) {
         this.accountId = accountId;
-        this.nickname = nickname;
         this.hashedPassword = hashedPassword;
         this.roles = roles;
     }

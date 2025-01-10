@@ -18,5 +18,5 @@ public interface UsersRepository {
     List<User> findAllUsers(UsersSearchCond cond);
 
     // 회원삭제
-    void userRemove(Long userId, String hashedPassword);
+    void userRemove(Long userId);
 }

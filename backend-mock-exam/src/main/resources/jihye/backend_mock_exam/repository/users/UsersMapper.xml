@@ -13,4 +13,9 @@
         set nickname = #{dto.nickname}, gender = #{dto.gender}, birth_year = #{dto.birthYear}
         where user_id = #{userId}
     </update>
+
+    <delete id="userRemove">
+        delete from users
+        where user_id = #{userId}
+    </delete>
 </mapper>

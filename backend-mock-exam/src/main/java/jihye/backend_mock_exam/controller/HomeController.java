@@ -1,6 +1,10 @@
 package jihye.backend_mock_exam.controller;
 
 import jihye.backend_mock_exam.domain.user.Guest;
+import jihye.backend_mock_exam.domain.user.User;
+import jihye.backend_mock_exam.repository.users.UsersRepository;
+import jihye.backend_mock_exam.service.auth.AuthService;
+import jihye.backend_mock_exam.service.users.UsersService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
@@ -23,6 +27,7 @@ public class HomeController {
 
     private final Menus menus;
     private final IsMember isMember;
+    private final AuthService authService;
 
     @ModelAttribute("menus")
     public Map<String, Object> menus(@SessionAttribute(value = "guest", required = false) Guest guest) {
@@ -43,7 +48,9 @@ public class HomeController {
 
         // 회원일 시
         if (authentication != null && !(authentication instanceof AnonymousAuthenticationToken)) {
-            UserDetails loginUser = (UserDetails) authentication.getPrincipal();
+            UserDetails authenticationUser = (UserDetails) authentication.getPrincipal();
+            User loginUser = authService.findPasswordId(authenticationUser.getUsername());
+
             model.addAttribute("user", loginUser);
             log.info("user={}", loginUser);
             // 회원이 아닐 시

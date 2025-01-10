@@ -118,6 +118,12 @@ public class AuthController {
 
 
 
+    // 회원탈퇴 시 리다이렉트 되는 페이지
+    @GetMapping("/sign-out")
+    public String signOutPage() {
+        return "users/delete-success";
+    }
+
     // 로그아웃 처리 (스프링 시큐리티 사용으로 사용중지)
     //@PostMapping("/sign-out")
     public String signOut(HttpServletRequest request) {

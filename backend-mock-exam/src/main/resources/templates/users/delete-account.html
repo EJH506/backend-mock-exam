@@ -1,10 +1,33 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title th:text="#{page.delete-account} + ' | ' + #{title}">회원탈퇴 | 백엔드 모의고사(목업)</title>
+    <script th:src="@{/js/delete-account.js}"></script>
 </head>
 <body>
+<div class="wrap">
+<header th:replace="~{fragment/home-header :: header (${user.userId}, ${user.nickname}, ${isMember})}"></header>
 
+<section>
+    <h2 th:text="#{page.delete-account}">회원탈퇴(목업)</h2>
+    <div>
+        <h3>회원을 탈퇴합니다</h3>
+        <p>탈퇴하시려면 비밀번호를 입력해주세요</p>
+
+        <strong>※ 탈퇴한 계정은 복구할 수 없습니다</strong>
+
+        <form th:action method="post" name="deleteAccountForm" th:object="${deleteAccountDto}">
+            <label for="password" th:text="#{label.user.password}">비밀번호(목업)</label>
+            <input type="password" id="password" th:field="*{password}" th:placeholder="#{label.user.password}" required />
+            <div id="passwordError" th:errors="*{password}">비밀번호 오류 내용</div>
+
+            <button type="submit" th:text="#{button.delete-account}">회원 탈퇴하기(목업)</button>
+            <button type="button" th:text="#{button.cancel}" th:onclick="javascript:history.back()">취소(목업)</button>
+        </form>
+    </div>
+</section>
+
+</div>
 </body>
 </html>

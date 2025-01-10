@@ -30,6 +30,7 @@
 
             <label for="password" th:text="#{label.user.password}">비밀번호(목업)</label>
             <input type="password" id="password" th:field="*{password}" th:placeholder="#{label.user.password}" required />
+            <div id="passwordError" th:errors="*{password}">비밀번호 오류 내용</div>
         </div>
 
         <div class="optional">

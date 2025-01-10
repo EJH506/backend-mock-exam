@@ -25,7 +25,7 @@
         <div th:text="'닉네임 : ' + ${nickname}">닉네임(목업)</div>
 
         <ul>
-            <li><a th:href="@{|/users/edit/${userId}|}" th:text="#{page.edit-account}">회원정보 수정(목업)</a></li>
+            <li th:if="${isMember}"><a th:href="@{|/users/edit/${userId}|}" th:text="#{page.edit-account}">회원정보 수정(목업)</a></li>
             <li>
                 <form th:action="@{/logout}" method="post">
                     <button th:text="#{page.sign-out}">로그아웃(목업)</button>

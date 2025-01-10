@@ -2,6 +2,7 @@ package jihye.backend_mock_exam.service.users;
 
 import jihye.backend_mock_exam.domain.user.User;
 import jihye.backend_mock_exam.service.passwordEncode.PasswordEncoderUtil;
+import jihye.backend_mock_exam.service.users.dto.DeleteAccountDto;
 import jihye.backend_mock_exam.service.users.dto.EditAccountDto;
 import jihye.backend_mock_exam.repository.users.UsersRepository;
 import jihye.backend_mock_exam.repository.users.UsersSearchCond;
@@ -47,7 +48,16 @@ public class UsersServiceImpl implements UsersService {
 
     // 회원탈퇴
     @Override
-    public void deleteAccount(Long userId, String password) {
+    public boolean deleteAccount(Long userId, DeleteAccountDto dto) {
 
+        // 비밀번호 검사
+        String DBPassword = userInfo(userId).orElseThrow().getPassword();
+        boolean matches = passwordEncoderUtil.matches(dto.getPassword(), DBPassword);
+
+        if (matches) {
+            usersRepository.userRemove(userId);
+        }
+
+        return matches;
     }
 }
