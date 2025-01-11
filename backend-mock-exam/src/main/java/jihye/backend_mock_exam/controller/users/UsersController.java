@@ -9,6 +9,12 @@ import jihye.backend_mock_exam.service.users.dto.DeleteAccountDto;
 import jihye.backend_mock_exam.service.users.dto.EditAccountDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -55,6 +61,7 @@ public class UsersController {
             bindingResult.rejectValue("password", "unmatched.user.password");
             return "users/edit-account";
         }
+
 
         redirectAttributes.addAttribute("userId", userId);
         redirectAttributes.addFlashAttribute("status", "edit-success");

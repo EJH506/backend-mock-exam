@@ -20,9 +20,8 @@ public class UserInfoInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
 
-        HttpSession session = request.getSession(false);
-
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        HttpSession session = request.getSession(false);
         
         if (authentication != null && authentication.getPrincipal() instanceof User) {
             User user = (User) authentication.getPrincipal();
