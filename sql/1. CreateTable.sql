@@ -4,9 +4,10 @@ USE backend_mock_exam;
 
 DROP TABLE IF EXISTS users;
 DROP TABLE IF EXISTS subjects;
-DROP TABLE IF EXISTS difficulty_levels;
+DROP TABLE IF EXISTS levels;
 DROP TABLE IF EXISTS questions;
 DROP TABLE IF EXISTS answers;
+DROP TABLE IF EXISTS question_unit_setting;
 
 CREATE TABLE users (
 	user_id INT AUTO_INCREMENT PRIMARY KEY,										-- 식별자
@@ -27,10 +28,11 @@ CREATE TABLE subjects (
 	subject_id INT AUTO_INCREMENT PRIMARY KEY,									-- 식별자
 	subject_name VARCHAR(255) NOT NULL,											-- 주제명
 	created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,								-- 생성일시
-	update_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP	-- 수정일시
+	update_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,	-- 수정일시
+	UNIQUE (subject_name)
 )
 
-CREATE TABLE difficulty_levels (
+CREATE TABLE levels (
 	level_id INT AUTO_INCREMENT PRIMARY KEY,									-- 식별자
 	subject_id INT NOT NULL,													-- 주제 ID 
 	level INT NOT NULL,															-- 레벨
@@ -41,7 +43,7 @@ CREATE TABLE difficulty_levels (
 CREATE TABLE questions (
 	questions_id INT AUTO_INCREMENT PRIMARY KEY,								-- 식별자
 	subject_id INT NOT NULL,													-- 주제 ID 
-	level_id INT NOT NULL,														-- 레벨 ID
+	level INT NOT NULL,															-- 레벨 ID
 	question_text TEXT NOT NULL,												-- 문제 내용
 	created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,								-- 생성일시
 	update_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP	-- 수정일시
@@ -57,12 +59,24 @@ CREATE TABLE answers (
 	update_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP	-- 수정일시
 )
 
+CREATE TABLE question_unit_setting (
+	question_unit_id INT AUTO_INCREMENT PRIMARY KEY,									-- 식별자
+	question_unit INT NOT NULL,										-- 관리자가 설정한 문항 분류 단위
+	created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,								-- 생성일시
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP	-- 수정일시
+)
+
 SELECT * FROM users;
 SELECT * FROM subjects;
-SELECT * FROM difficulty_levels;
+SELECT * FROM levels;
 SELECT * FROM questions;
 SELECT * FROM answers;
+SELECT * FROM question_unit_setting;
 
+SELECT count(*) FROM questions WHERE subject_id = 1 AND level = 3;
+
+INSERT INTO question_unit_setting (question_unit) VALUES (5);
+SELECT question_unit FROM question_unit_setting ORDER BY  LIMIT 1;
 /*
 SELECT * FROM options
 WHERE question_id = ?  -- 특정 문제 ID에 대해

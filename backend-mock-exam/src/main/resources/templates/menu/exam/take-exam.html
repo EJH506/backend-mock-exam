@@ -9,14 +9,12 @@
 <header th:replace="~{fragment/home-header :: header (${user.userId}, ${user.nickname}, ${isMember})}"></header>
 
 <section>
-    <h2 th:text="#{page.take-exam}">문제풀기(목업)</h2>
-    <p>문제의 주제를 선택해 주세요</p>
+    <h2>네트워크 Lv. 2(목업)</h2>
 
-    <ul>
-        <li><a th:href="@{|/exam/level?subject=all|}" th:text="#{page.subject.all}">통합 문제(목업)</a></li>
-        <li th:each="subject : ${subjects}"><a th:href="@{|/exam/level?subject=${subject}|}" th:text="${subject}">주제명</a></li>
-    </ul>
+    문제풀기 페이지
+
 </section>
+
 </div>
 </body>
 </html>

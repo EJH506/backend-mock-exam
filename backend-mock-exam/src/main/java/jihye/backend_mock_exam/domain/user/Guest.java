@@ -19,7 +19,7 @@ public class Guest {
     }
 
     public Guest(String nickname) {
-        this.userId = null;
+        this.userId = 0L;
         this.nickname = nickname;
     }
 

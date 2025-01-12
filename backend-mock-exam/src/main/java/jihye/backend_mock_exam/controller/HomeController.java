@@ -8,6 +8,7 @@ import jihye.backend_mock_exam.service.users.UsersService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -30,8 +31,10 @@ public class HomeController {
 
     @GetMapping("/")
     public String home(@AuthenticationPrincipal User user,
-                       @SessionAttribute(value = "guest", required = false) Guest guest) {
+                       @SessionAttribute(value = "guest", required = false) Guest guest,
+                       Model model) {
 
+        // 비회원 변경
         if (user == null && guest == null) {
             return "welcome";
         }

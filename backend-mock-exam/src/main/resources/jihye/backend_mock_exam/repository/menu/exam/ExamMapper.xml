@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jihye.backend_mock_exam.repository.menu.exam.ExamMapper">
+
+    <select id="findAllSubjects" resultType="subject">
+        SELECT * FROM subjects;
+    </select>
+
+    <select id="findSubjectByName" resultType="subject">
+        SELECT * FROM subjects WHERE subject_name = #{subjectName};
+    </select>
+    
+    <select id="findLevelsBySubject" resultType="int">
+        SELECT level FROM levels WHERE subject_id = #{subjectId}
+    </select>
+
+    <select id="findMinMaxLevel" resultType="int">
+        SELECT DISTINCT LEVEL FROM LEVELS ORDER BY LEVEL asc
+    </select>
+
+    <select id="findNumberOfSubject" resultType="Long">
+        SELECT count(*) FROM questions WHERE subject_id = #{subjectId}
+        <if test="level > 0">
+            AND level = #{level}
+        </if>
+    </select>
+
+    <select id="findQuestionUnitSetting" resultType="int">
+        SELECT question_unit FROM question_unit_setting ORDER BY question_unit_id desc LIMIT 1
+    </select>
+</mapper>
