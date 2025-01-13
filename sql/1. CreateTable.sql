@@ -8,6 +8,8 @@ DROP TABLE IF EXISTS levels;
 DROP TABLE IF EXISTS questions;
 DROP TABLE IF EXISTS answers;
 DROP TABLE IF EXISTS question_unit_setting;
+DROP TABLE IF EXISTS exam_history;
+DROP TABLE IF EXISTS history_questions;
 
 CREATE TABLE users (
 	user_id INT AUTO_INCREMENT PRIMARY KEY,										-- 식별자
@@ -41,8 +43,8 @@ CREATE TABLE levels (
 )
 
 CREATE TABLE questions (
-	questions_id INT AUTO_INCREMENT PRIMARY KEY,								-- 식별자
-	subject_id INT NOT NULL,													-- 주제 ID 
+	question_id INT AUTO_INCREMENT PRIMARY KEY,									-- 식별자
+	subject_id INT NOT NULL,													-- 주제 ID
 	level INT NOT NULL,															-- 레벨 ID
 	question_text TEXT NOT NULL,												-- 문제 내용
 	created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,								-- 생성일시
@@ -50,20 +52,39 @@ CREATE TABLE questions (
 )
 
 CREATE TABLE answers (
-	answers_id INT AUTO_INCREMENT PRIMARY KEY,									-- 식별자
-	subject_id INT NOT NULL,													-- 주제 ID
+	answer_id INT AUTO_INCREMENT PRIMARY KEY,									-- 식별자
+	question_id INT NOT NULL,													-- 문제 ID
 	answer_text TEXT NOT NULL,													-- 보기 내용
 	is_correct BOOLEAN,															-- 정답 여부
-	display_order INT,															-- 보기 순서 (랜덤 순서 출력을 위함)
 	created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,								-- 생성일시
 	update_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP	-- 수정일시
 )
 
 CREATE TABLE question_unit_setting (
-	question_unit_id INT AUTO_INCREMENT PRIMARY KEY,									-- 식별자
-	question_unit INT NOT NULL,										-- 관리자가 설정한 문항 분류 단위
+	question_unit_id INT AUTO_INCREMENT PRIMARY KEY,							-- 식별자
+	question_unit INT NOT NULL,													-- 관리자가 설정한 문항 분류 단위
 	created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,								-- 생성일시
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP	-- 수정일시
+)
+
+CREATE TABLE exam_history (
+	history_id INT AUTO_INCREMENT PRIMARY KEY,									-- 식별자
+	user_id INT NOT NULL,														-- 유저 ID
+	subject_name VARCHAR(255) NOT NULL,											-- 주제명
+	level INT NOT NULL,															-- 레벨
+	total_questions_count INT NOT NULL,											-- 총 문항 수
+	correct_questions_count INT NOT NULL,										-- 맞힌 문항 수
+	created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,								-- 생성일시
+	update_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP	-- 수정일시
+)
+
+CREATE TABLE history_questions (
+	history_id INT NOT NULL,													-- 히스토리 ID
+	question_id INT NOT NULL,													-- 문제 ID
+	is_correct boolean NOT NULL,												-- 맞혔는지 여부
+	user_answer INT,															-- 사용자의 답
+	created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,								-- 생성일시
+	update_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP	-- 수정일시
 )
 
 SELECT * FROM users;
@@ -72,11 +93,21 @@ SELECT * FROM levels;
 SELECT * FROM questions;
 SELECT * FROM answers;
 SELECT * FROM question_unit_setting;
+SELECT * FROM exam_history;
+SELECT * FROM history_questions;
 
 SELECT count(*) FROM questions WHERE subject_id = 1 AND level = 3;
 
 INSERT INTO question_unit_setting (question_unit) VALUES (5);
 SELECT question_unit FROM question_unit_setting ORDER BY question_unit_id desc LIMIT 1;
+
+SELECT * FROM questions WHERE LEVEL = 1;
+
+SELECT * FROM QUESTIONS Q WHERE SUBJECT_ID = 3 and LEVEL = 2 ORDER BY RAND() LIMIT 5;
+
+SELECT * FROM ANSWERS A WHERE question_id = 99 ORDER BY RAND() ;
+
+SELECT * FROM answers WHERE question_id = 99 AND is_correct = TRUE;
 /*
 SELECT * FROM options
 WHERE question_id = ?  -- 특정 문제 ID에 대해

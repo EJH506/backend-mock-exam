@@ -9,12 +9,12 @@
 <header th:replace="~{fragment/home-header :: header (${user.userId}, ${user.nickname}, ${isMember})}"></header>
 
 <section>
-    <h2 th:text="${subject} + ' Lv. ' + ${param.level}">네트워크 Lv. 2(목업)</h2>
+    <h2 th:text="${subject} + ' Lv. ' + ${level}">네트워크 Lv. 2(목업)</h2>
     <p>출제 문항 수를 선택해주세요</p>
 
     <ul>
-        <li><a th:href="@{|exam/take-exam?subject=${subject}&level=${level}&number=all|}" th:text="'전체 (' + ${numberOfSubject} + '문항)'">전체 (n문항) (목업)</a></li>
-        <li th:each="number : ${selectableNumbers}"><a th:href="@{|exam/take-exam?subject=${subject}&level=${level}&number=${number}|}" th:text="${number} + '문항'">5문항</a></li>
+        <li><a th:href="@{|/exam/take-exam?subject=${subject}&level=${level}&number=${numberOfSubject}|}" th:text="'전체 (' + ${numberOfSubject} + '문항)'">전체 (n문항)(목업)</a></li>
+        <li th:each="number : ${selectableNumbers}"><a th:href="@{|/exam/take-exam?subject=${subject}&level=${level}&number=${number}|}" th:text="${number} + '문항'">5문항(목업)</a></li>
     </ul>
 </section>
 </div>

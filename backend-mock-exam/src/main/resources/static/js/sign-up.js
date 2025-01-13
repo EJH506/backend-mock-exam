@@ -1,5 +1,5 @@
 
-document.addEventListener("DOMContentLoaded", function() {
+$(document).ready(function() {
 
     $('#accountId').on('blur', function() {
         const accountId = $(this).val();

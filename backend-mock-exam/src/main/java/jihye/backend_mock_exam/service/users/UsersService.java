@@ -1,5 +1,6 @@
 package jihye.backend_mock_exam.service.users;
 
+import jakarta.servlet.http.HttpServletRequest;
 import jihye.backend_mock_exam.domain.user.User;
 import jihye.backend_mock_exam.service.users.dto.DeleteAccountDto;
 import jihye.backend_mock_exam.service.users.dto.EditAccountDto;
@@ -20,6 +21,6 @@ public interface UsersService {
     List<User> userList(UsersSearchCond cond);
 
     // 회원탈퇴
-    boolean deleteAccount(Long userId, DeleteAccountDto dto);
+    boolean deleteAccount(Long userId, DeleteAccountDto dto, HttpServletRequest request);
 
 }

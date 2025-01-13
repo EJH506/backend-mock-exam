@@ -4,7 +4,6 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import jihye.backend_mock_exam.domain.user.Guest;
 import jihye.backend_mock_exam.domain.user.User;
-import jihye.backend_mock_exam.service.auth.AuthService;
 import jihye.backend_mock_exam.service.users.UsersService;
 import jihye.backend_mock_exam.service.users.dto.DeleteAccountDto;
 import jihye.backend_mock_exam.service.users.dto.EditAccountDto;
@@ -23,7 +22,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 public class UsersController {
 
     private final UsersService usersService;
-    private final AuthService authService;
 
     @ModelAttribute("user")
     public User loginUser(@PathVariable("userId") long userId) {
@@ -80,14 +78,12 @@ public class UsersController {
             return "users/delete-account";
         }
 
-        boolean result = usersService.deleteAccount(dto.getUserId(), dto);
+        boolean result = usersService.deleteAccount(dto.getUserId(), dto, request);
 
         if (!result) {
             bindingResult.rejectValue("password", "unmatched.user.password");
             return "users/delete-account";
         }
-
-        authService.logout(request);
 
         return "redirect:/auth/sign-out";
     }

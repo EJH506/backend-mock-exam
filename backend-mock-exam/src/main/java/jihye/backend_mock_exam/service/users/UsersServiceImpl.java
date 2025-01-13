@@ -1,6 +1,8 @@
 package jihye.backend_mock_exam.service.users;
 
+import jakarta.servlet.http.HttpServletRequest;
 import jihye.backend_mock_exam.domain.user.User;
+import jihye.backend_mock_exam.service.auth.AuthService;
 import jihye.backend_mock_exam.service.passwordEncode.PasswordEncoderUtil;
 import jihye.backend_mock_exam.service.users.dto.DeleteAccountDto;
 import jihye.backend_mock_exam.service.users.dto.EditAccountDto;
@@ -23,6 +25,7 @@ public class UsersServiceImpl implements UsersService {
     private final UsersRepository usersRepository;
     private final PasswordEncoderUtil passwordEncoderUtil;
     private final UserDetailsService userDetailsService;
+    private final AuthService authService;
 
     // 회원정보수정
     @Override
@@ -70,7 +73,7 @@ public class UsersServiceImpl implements UsersService {
 
     // 회원탈퇴
     @Override
-    public boolean deleteAccount(Long userId, DeleteAccountDto dto) {
+    public boolean deleteAccount(Long userId, DeleteAccountDto dto, HttpServletRequest request) {
 
         // 비밀번호 검사
         String DBPassword = userInfo(userId).orElseThrow().getPassword();
@@ -78,6 +81,8 @@ public class UsersServiceImpl implements UsersService {
 
         if (matches) {
             usersRepository.userRemove(userId);
+            // 수동 로그아웃 처리
+            authService.logout(request);
         }
 
         return matches;

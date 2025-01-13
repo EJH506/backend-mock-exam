@@ -1,13 +1,14 @@
 package jihye.backend_mock_exam.controller.menu;
 
+import jihye.backend_mock_exam.domain.exam.Question;
+import jihye.backend_mock_exam.domain.exam.QuestionItem;
 import jihye.backend_mock_exam.service.menu.exam.ExamService;
+import jihye.backend_mock_exam.service.menu.exam.dto.SubmittedExamDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -70,7 +71,34 @@ public class ExamController {
     }
 
     @GetMapping("/take-exam")
-    public String takeExam() {
+    public String takeExamPage(@RequestParam("subject") String subjectName,
+                           @RequestParam("level") String level,
+                           @RequestParam("number") int number,
+                           Model model) {
+
+        List<Question> questions = examService.shuffledQuestionList(subjectName, level, number);
+        List<QuestionItem> QuestionItems = examService.createExam(questions);
+
+        model.addAttribute("subject", subjectName);
+        model.addAttribute("level", level);
+        model.addAttribute("totalQuestionsCount", number);
+        model.addAttribute("questionItems", QuestionItems);
+        model.addAttribute("submittedExamDto", new SubmittedExamDto());
+
         return "menu/exam/take-exam";
+    }
+
+    @PostMapping("/take-exam")
+    public String takeExam(@ModelAttribute SubmittedExamDto dto) {
+
+        log.info("dto={}", dto);
+
+        examService.createExamHistory(dto);
+        return "redirect:/exam/result";
+    }
+
+    @GetMapping("/result")
+    public String examResultPage() {
+        return "menu/exam/exam-result";
     }
 }
