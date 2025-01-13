@@ -1,5 +1,7 @@
 package jihye.backend_mock_exam.service.auth;
 
+import jakarta.servlet.http.HttpServletRequest;
+import jihye.backend_mock_exam.controller.auth.RoleConst;
 import jihye.backend_mock_exam.domain.user.Guest;
 import jihye.backend_mock_exam.domain.user.User;
 import jihye.backend_mock_exam.repository.auth.AuthRepository;
@@ -7,6 +9,7 @@ import jihye.backend_mock_exam.service.auth.dto.SignUpDto;
 import jihye.backend_mock_exam.service.passwordEncode.PasswordEncoderUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Service;
 
 @Slf4j
@@ -50,6 +53,13 @@ public class AuthServiceImpl implements AuthService {
         }
 
         return findByIdUser;
+    }
+
+    // 수동 로그아웃 처리
+    @Override
+    public void logout(HttpServletRequest request) {
+        SecurityContextLogoutHandler logoutHandler = new SecurityContextLogoutHandler();
+        logoutHandler.logout(request, null, null);
     }
 
     // 비회원으로 시작

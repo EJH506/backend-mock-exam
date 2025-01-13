@@ -52,7 +52,6 @@ INSERT INTO questions (subject_id, level, question_text) VALUES
 (1, 2, 'id 1의 열다섯번째 문제입니다'),
 (1, 2, 'id 1의 열여섯번째 문제입니다'),
 (1, 3, 'id 1의 열일곱번째 문제입니다'),
-
 (2, 1, 'id 2의 첫번째 문제입니다'),
 (2, 1, 'id 2의 두번째 문제입니다'),
 (2, 1, 'id 2의 세번째 문제입니다'),
@@ -70,7 +69,6 @@ INSERT INTO questions (subject_id, level, question_text) VALUES
 (2, 2, 'id 2의 열다섯번째 문제입니다'),
 (2, 2, 'id 2의 열여섯번째 문제입니다'),
 (2, 3, 'id 2의 열일곱번째 문제입니다'),
-
 (3, 1, 'id 3의 첫번째 문제입니다'),
 (3, 1, 'id 3의 두번째 문제입니다'),
 (3, 1, 'id 3의 세번째 문제입니다'),
@@ -88,7 +86,6 @@ INSERT INTO questions (subject_id, level, question_text) VALUES
 (3, 2, 'id 3의 열다섯번째 문제입니다'),
 (3, 2, 'id 3의 열여섯번째 문제입니다'),
 (3, 3, 'id 3의 열일곱번째 문제입니다'),
-
 (4, 1, 'id 4의 첫번째 문제입니다'),
 (4, 1, 'id 4의 두번째 문제입니다'),
 (4, 1, 'id 4의 세번째 문제입니다'),
@@ -106,7 +103,6 @@ INSERT INTO questions (subject_id, level, question_text) VALUES
 (4, 2, 'id 4의 열다섯번째 문제입니다'),
 (4, 2, 'id 4의 열여섯번째 문제입니다'),
 (4, 3, 'id 4의 열일곱번째 문제입니다'),
-
 (5, 1, 'id 5의 첫번째 문제입니다'),
 (5, 1, 'id 5의 두번째 문제입니다'),
 (5, 1, 'id 5의 세번째 문제입니다'),
@@ -124,7 +120,6 @@ INSERT INTO questions (subject_id, level, question_text) VALUES
 (5, 2, 'id 5의 열다섯번째 문제입니다'),
 (5, 2, 'id 5의 열여섯번째 문제입니다'),
 (5, 3, 'id 5의 열일곱번째 문제입니다'),
-
 (6, 1, 'id 6의 첫번째 문제입니다'),
 (6, 1, 'id 6의 두번째 문제입니다'),
 (6, 1, 'id 6의 세번째 문제입니다'),
@@ -142,7 +137,6 @@ INSERT INTO questions (subject_id, level, question_text) VALUES
 (6, 2, 'id 6의 열다섯번째 문제입니다'),
 (6, 2, 'id 6의 열여섯번째 문제입니다'),
 (6, 3, 'id 6의 열일곱번째 문제입니다'),
-
 (7, 1, 'id 7의 첫번째 문제입니다'),
 (7, 1, 'id 7의 두번째 문제입니다'),
 (7, 1, 'id 7의 세번째 문제입니다'),
@@ -160,7 +154,6 @@ INSERT INTO questions (subject_id, level, question_text) VALUES
 (7, 2, 'id 7의 열다섯번째 문제입니다'),
 (7, 2, 'id 7의 열여섯번째 문제입니다'),
 (7, 3, 'id 7의 열일곱번째 문제입니다'),
-
 (8, 1, 'id 8의 첫번째 문제입니다'),
 (8, 1, 'id 8의 두번째 문제입니다'),
 (8, 1, 'id 8의 세번째 문제입니다'),

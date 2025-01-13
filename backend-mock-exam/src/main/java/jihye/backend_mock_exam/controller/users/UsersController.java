@@ -4,18 +4,12 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import jihye.backend_mock_exam.domain.user.Guest;
 import jihye.backend_mock_exam.domain.user.User;
+import jihye.backend_mock_exam.service.auth.AuthService;
 import jihye.backend_mock_exam.service.users.UsersService;
 import jihye.backend_mock_exam.service.users.dto.DeleteAccountDto;
 import jihye.backend_mock_exam.service.users.dto.EditAccountDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -29,6 +23,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 public class UsersController {
 
     private final UsersService usersService;
+    private final AuthService authService;
 
     @ModelAttribute("user")
     public User loginUser(@PathVariable("userId") long userId) {
@@ -62,7 +57,6 @@ public class UsersController {
             return "users/edit-account";
         }
 
-
         redirectAttributes.addAttribute("userId", userId);
         redirectAttributes.addFlashAttribute("status", "edit-success");
 
@@ -93,9 +87,7 @@ public class UsersController {
             return "users/delete-account";
         }
 
-        // 스프링 시큐리티 로그아웃 처리
-        SecurityContextLogoutHandler logoutHandler = new SecurityContextLogoutHandler();
-        logoutHandler.logout(request, null, null);
+        authService.logout(request);
 
         return "redirect:/auth/sign-out";
     }

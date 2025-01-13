@@ -76,7 +76,7 @@ SELECT * FROM question_unit_setting;
 SELECT count(*) FROM questions WHERE subject_id = 1 AND level = 3;
 
 INSERT INTO question_unit_setting (question_unit) VALUES (5);
-SELECT question_unit FROM question_unit_setting ORDER BY  LIMIT 1;
+SELECT question_unit FROM question_unit_setting ORDER BY question_unit_id desc LIMIT 1;
 /*
 SELECT * FROM options
 WHERE question_id = ?  -- 특정 문제 ID에 대해

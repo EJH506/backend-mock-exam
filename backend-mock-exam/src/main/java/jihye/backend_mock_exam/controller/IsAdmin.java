@@ -1,5 +1,6 @@
 package jihye.backend_mock_exam.controller;
 
+import jihye.backend_mock_exam.controller.auth.RoleConst;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
@@ -18,7 +19,7 @@ public class IsAdmin {
         }
 
         for (GrantedAuthority authority : authentication.getAuthorities()) {
-            if ("ROLE_ADMIN".equals(authority.getAuthority())) {
+            if (RoleConst.ROLE_ADMIN.equals(authority.getAuthority())) {
                 return true;
             }
         }

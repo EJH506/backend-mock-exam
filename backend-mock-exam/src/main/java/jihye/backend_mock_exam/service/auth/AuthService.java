@@ -1,5 +1,6 @@
 package jihye.backend_mock_exam.service.auth;
 
+import jakarta.servlet.http.HttpServletRequest;
 import jihye.backend_mock_exam.domain.user.Guest;
 import jihye.backend_mock_exam.domain.user.User;
 import jihye.backend_mock_exam.service.auth.dto.SignUpDto;
@@ -14,6 +15,9 @@ public interface AuthService {
 
     // 로그인
     User login(String accountId, String password);
+
+    // 수동 로그아웃 처리
+    void logout(HttpServletRequest request);
 
     // 비회원으로 시작
     Guest guestStart(String nickname);

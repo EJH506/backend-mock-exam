@@ -20,10 +20,15 @@
     </select>
 
     <select id="findNumberOfSubject" resultType="Long">
-        SELECT count(*) FROM questions WHERE subject_id = #{subjectId}
-        <if test="level > 0">
-            AND level = #{level}
-        </if>
+        SELECT count(*) FROM questions
+        <where>
+            <if test="subjectId > 0">
+                subject_id = #{subjectId}
+            </if>
+            <if test="level > 0">
+                AND level = #{level}
+            </if>
+        </where>
     </select>
 
     <select id="findQuestionUnitSetting" resultType="int">

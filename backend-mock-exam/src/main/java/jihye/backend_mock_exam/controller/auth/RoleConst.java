@@ -1,4 +1,4 @@
-package jihye.backend_mock_exam.service.auth;
+package jihye.backend_mock_exam.controller.auth;
 
 public class RoleConst {
 

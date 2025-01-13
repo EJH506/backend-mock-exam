@@ -1,6 +1,5 @@
 package jihye.backend_mock_exam.controller.menu;
 
-import jihye.backend_mock_exam.domain.exam.Subject;
 import jihye.backend_mock_exam.service.menu.exam.ExamService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -10,7 +9,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Slf4j
@@ -29,10 +27,7 @@ public class ExamController {
     @GetMapping("/subject")
     public String subject(Model model) {
 
-        List<String> subjectNames = new ArrayList<>();
-        for (Subject subject : examService.findAllSubjects()) {
-            subjectNames.add(subject.getSubjectName());
-        }
+        List<String> subjectNames = examService.subjectNames(examService.findAllSubjects());
 
         model.addAttribute("subjects", subjectNames);
 
@@ -46,17 +41,7 @@ public class ExamController {
             return "redirect:/exam/subject";
         }
 
-        List<Integer> levels = null;
-
-        if ("all".equals(subjectName)) {
-            levels = examService.allSubjectLevel();
-
-        } else {
-            Subject subject = examService.findSubjectByName(subjectName);
-            Long subjectId = subject.getSubjectId();
-
-            levels = examService.levelListOfSubject(subjectId);
-        }
+        List<Integer> levels = examService.levelListOfSubject(subjectName);
 
         model.addAttribute("levels", levels);
         model.addAttribute("subject", subjectName);
@@ -73,17 +58,9 @@ public class ExamController {
             return "redirect:/exam/subject";
         }
 
-        int levelInt = 0;
-        if (!("all".equals(level))) {
-            try {
-                levelInt = Integer.parseInt(level);
-            } catch (NumberFormatException e) {
-                return "redirect:/exam/subject";
-            }
-        }
+        Long numberOfSubject = examService.NumberOfSubject(subjectName, level);
+        List<Integer> selectableNumbers = examService.createQuestionNumberList(subjectName, level);
 
-        Long numberOfSubject = examService.NumberOfSubject(subjectName, levelInt);
-        List<Integer> selectableNumbers = examService.createQuestionNumberList(subjectName, levelInt);
         model.addAttribute("numberOfSubject", numberOfSubject);
         model.addAttribute("selectableNumbers", selectableNumbers);
         model.addAttribute("subject", subjectName);

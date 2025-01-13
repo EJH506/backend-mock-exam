@@ -10,17 +10,10 @@ import jihye.backend_mock_exam.controller.auth.validation.SignUpValidator;
 import jihye.backend_mock_exam.domain.user.FindPasswordQuestions;
 import jihye.backend_mock_exam.domain.user.Guest;
 import jihye.backend_mock_exam.domain.user.User;
-import jihye.backend_mock_exam.service.auth.RoleConst;
-import jihye.backend_mock_exam.service.auth.dto.*;
 import jihye.backend_mock_exam.service.auth.AuthService;
+import jihye.backend_mock_exam.service.auth.dto.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.authority.AuthorityUtils;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -89,9 +82,7 @@ public class AuthController {
                              BindingResult bindingResult,
                              HttpServletRequest request) {
 
-        // 스프링 시큐리티 로그아웃 처리
-        SecurityContextLogoutHandler logoutHandler = new SecurityContextLogoutHandler();
-        logoutHandler.logout(request, null, null);
+        authService.logout(request);
 
         if (sessionId != null) {
             dto.setAccountId(sessionId);
@@ -172,7 +163,6 @@ public class AuthController {
 
         return "redirect:/";
     }
-
 
     // 비밀번호 찾기 페이지 진입
     @GetMapping("/forgot-password")
