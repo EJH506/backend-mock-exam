@@ -5,16 +5,18 @@ import lombok.Data;
 @Data
 public class HistoryItem {
 
-    private Question question;
-    private Answer correctAnswer;
-    private Answer userAnswer;
+    private Long historyItemsId;
+    private Long historyId;
+    private Long questionId;
+    private Long correctAnswerId;
+    private Long userAnswerId;
+    private boolean isCorrect;
 
-    public HistoryItem() {
-    }
-
-    public HistoryItem(Question question, Answer correctAnswer, Answer userAnswer) {
-        this.question = question;
-        this.correctAnswer = correctAnswer;
-        this.userAnswer = userAnswer;
+    public HistoryItem(Long historyId, Long questionId, Long correctAnswerId, Long userAnswerId, boolean isCorrect) {
+        this.historyId = historyId;
+        this.questionId = questionId;
+        this.correctAnswerId = correctAnswerId;
+        this.userAnswerId = userAnswerId;
+        this.isCorrect = isCorrect;
     }
 }

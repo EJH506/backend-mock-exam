@@ -1,6 +1,6 @@
-
 $(document).ready(function() {
 
+    // 아이디 중복 여부 비동기
     $('#accountId').on('blur', function() {
         const accountId = $(this).val();
 

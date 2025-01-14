@@ -9,7 +9,7 @@ DROP TABLE IF EXISTS questions;
 DROP TABLE IF EXISTS answers;
 DROP TABLE IF EXISTS question_unit_setting;
 DROP TABLE IF EXISTS exam_history;
-DROP TABLE IF EXISTS history_questions;
+DROP TABLE IF EXISTS history_items;
 
 CREATE TABLE users (
 	user_id INT AUTO_INCREMENT PRIMARY KEY,										-- 식별자
@@ -79,14 +79,13 @@ CREATE TABLE exam_history (
 	update_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP	-- 수정일시
 )
 
-INSERT INTO exam_history (user_id, subject_name, level, total_questions_count, correct_questions_count, correct_rate) VALUES
-(3, "운영체제", 2, 5, 1, 20);
-
-CREATE TABLE history_questions (
-	history_questions_id INT AUTO_INCREMENT PRIMARY KEY,						-- 식별자
+CREATE TABLE history_items (
+	history_items_id INT AUTO_INCREMENT PRIMARY KEY,							-- 식별자
+	history_id INT NOT NULL,													-- 외래키
 	question_id INT NOT NULL,													-- 문제 ID
+	correct_answer_id INT NOT NULL,												-- 정답 ID
+	user_answer_id INT NOT NULL,												-- 사용자의 답 ID
 	is_correct boolean NOT NULL,												-- 맞혔는지 여부
-	user_answer INT NOT NULL,													-- 사용자의 답
 	created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,								-- 생성일시
 	update_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP	-- 수정일시
 )
@@ -98,20 +97,10 @@ SELECT * FROM questions;
 SELECT * FROM answers;
 SELECT * FROM question_unit_setting;
 SELECT * FROM exam_history;
-SELECT * FROM history_questions;
+SELECT * FROM history_items;
 
-SELECT count(*) FROM questions WHERE subject_id = 1 AND level = 3;
-
-INSERT INTO question_unit_setting (question_unit) VALUES (5);
-SELECT question_unit FROM question_unit_setting ORDER BY question_unit_id desc LIMIT 1;
-
-SELECT * FROM questions WHERE LEVEL = 1;
-
-SELECT * FROM QUESTIONS Q WHERE SUBJECT_ID = 3 and LEVEL = 2 ORDER BY RAND() LIMIT 5;
-
-SELECT * FROM ANSWERS A WHERE question_id = 99 ORDER BY RAND() ;
-
-SELECT * FROM answers WHERE question_id = 99 AND is_correct = TRUE;
+SELECT * FROM exam_history WHERE history_id = 1;
+SELECT question_id FROM history_items WHERE history_id = 1
 /*
 SELECT * FROM options
 WHERE question_id = ?  -- 특정 문제 ID에 대해

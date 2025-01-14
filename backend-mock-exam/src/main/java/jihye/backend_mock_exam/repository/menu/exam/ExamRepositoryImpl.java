@@ -1,9 +1,6 @@
 package jihye.backend_mock_exam.repository.menu.exam;
 
-import jihye.backend_mock_exam.domain.exam.Answer;
-import jihye.backend_mock_exam.domain.exam.ExamHistory;
-import jihye.backend_mock_exam.domain.exam.Question;
-import jihye.backend_mock_exam.domain.exam.Subject;
+import jihye.backend_mock_exam.domain.exam.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
@@ -59,7 +56,7 @@ public class ExamRepositoryImpl implements ExamRepository {
 
     // 주제,난이도,문항수에 해당하는 문제 목록 조회
     @Override
-    public List<Question> findShuffledQuestions(Long subjectId, int level, int number) {
+    public List<Long> findShuffledQuestions(Long subjectId, int level, int number) {
         return examMapper.findShuffledQuestions(subjectId, level, number);
     }
 
@@ -92,5 +89,24 @@ public class ExamRepositoryImpl implements ExamRepository {
     @Override
     public Answer findAnswerById(Long answerId) {
         return examMapper.findAnswerById(answerId);
+    }
+
+    // 시험 히스토리 문항 저장
+    @Override
+    public HistoryItem saveExamHistoryItems(HistoryItem historyItem) {
+        examMapper.saveExamHistoryItems(historyItem);
+        return historyItem;
+    }
+
+    // 히스토리 ID로 히스토리 조회
+    @Override
+    public ExamHistory findExamHistoryById(Long historyId) {
+        return examMapper.findExamHistoryById(historyId);
+    }
+
+    // 히스토리 ID로 히스토리 문항 조회
+    @Override
+    public List<Long> findQuestionsIdOfHistory(Long historyId, boolean isCorrect) {
+        return examMapper.findQuestionsIdOfHistory(historyId, isCorrect);
     }
 }

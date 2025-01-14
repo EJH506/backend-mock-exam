@@ -82,18 +82,12 @@ public class ExamServiceImpl implements ExamService {
 
     // 주제,난이도,문항수에 해당하는 문제 목록 조회 (순서 랜덤)
     @Override
-    public List<Question> shuffledQuestionList(String subjectName, String level, int number) {
+    public List<Long> shuffledQuestionList(String subjectName, String level, int number) {
 
         QuestionFilter questionFilter = questionFilterConvert(subjectName, level);
-        List<Question> questions = examRepository.findShuffledQuestions(questionFilter.getSubjectId(), questionFilter.getLevelInt(), number);
-        
-        // 주제 이름까지 담아서 반환
-        for (Question question : questions) {
-            Subject subject = examRepository.findSubjectById(question.getSubjectId());
-            question.setSubjectName(subject.getSubjectName());
-        }
+        List<Long> questionsId = examRepository.findShuffledQuestions(questionFilter.getSubjectId(), questionFilter.getLevelInt(), number);
 
-        return questions;
+        return questionsId;
     }
 
     // 문제의 보기 조회 (순서 랜덤)
@@ -104,17 +98,26 @@ public class ExamServiceImpl implements ExamService {
 
     // 시험 만들어 반환
     @Override
-    public List<QuestionItem> createExam(List<Question> questions) {
-        ArrayList<QuestionItem> exam = new ArrayList<>();
+    public List<ExamItem> createExam(List<Long> questionsId) {
+
+        List<Question> questions = findFilteredHistoryQuestions(questionsId);
+
+        // 주제 이름까지 담아서 반환
+        for (Question question : questions) {
+            Subject subject = examRepository.findSubjectById(question.getSubjectId());
+            question.setSubjectName(subject.getSubjectName());
+        }
+
+        ArrayList<ExamItem> exam = new ArrayList<>();
 
         for (Question question : questions) {
-            QuestionItem questionItem = new QuestionItem();
-            questionItem.setQuestion(question);
+            ExamItem examItem = new ExamItem();
+            examItem.setQuestion(question);
 
             List<Answer> answers = shuffledAnswerListByQuestion(question.getQuestionId());
-            questionItem.setAnswers(answers);
+            examItem.setAnswers(answers);
 
-            exam.add(questionItem);
+            exam.add(examItem);
         }
 
         return exam;
@@ -124,7 +127,8 @@ public class ExamServiceImpl implements ExamService {
     @Override
     public ExamHistory createExamHistory(SubmittedExamDto dto) {
 
-        ExamHistory examHistory = new ExamHistory(dto.getUserId(), dto.getSubjectName(), dto.getLevel(), dto.getQuestions(), dto.getUserAnswers(), dto.getTotalQuestionsCount());
+        QuestionFilter questionFilter = questionFilterConvert(dto.getSubject(), dto.getLevel());
+        ExamHistory examHistory = new ExamHistory(dto.getUserId(), dto.getSubject(), questionFilter.getLevelInt(), dto.getQuestions(), dto.getUserAnswers(), dto.getTotalQuestionsCount());
         ArrayList<Long> correctAnswers = new ArrayList<>();
         List<Long> incorrectQuestions = new ArrayList<>();
 
@@ -153,7 +157,26 @@ public class ExamServiceImpl implements ExamService {
 
         // DB에 저장 (회원일 시 저장, 비회원일 시 세션 등)
         if (examHistory.getUserId() > 0) {
+            // 시험 결과
             examRepository.saveExamHistory(examHistory);
+
+            // 시험 문제
+            Long historyId = examHistory.getHistoryId();
+
+            for (int i=0; i < examHistory.getTotalQuestionsCount(); i++) {
+                Long question = examHistory.getQuestions().get(i);
+                Long correctAnswer = examRepository.findCorrectAnswerByQuestion(question);
+                Long userAnswer = examHistory.getUserAnswers().get(i);
+
+                boolean isCorrect = false;
+
+                if (correctAnswer.equals(userAnswer)) {
+                    isCorrect = true;
+                }
+
+                examRepository.saveExamHistoryItems(new HistoryItem(historyId, question, correctAnswer, userAnswer, isCorrect));
+            }
+
         }
 
         return examHistory;
@@ -161,17 +184,33 @@ public class ExamServiceImpl implements ExamService {
 
     // 히스토리 상세 반환
     @Override
-    public List<HistoryItem> createHistoryDetails(List<Long> questionsId, List<Long> correctAnswersId, List<Long> userAnswersId) {
-        List<HistoryItem> historyDetails = new ArrayList<>();
-        List<Question> questions = findFilteredHistoryQuestions(questionsId);
-        List<Answer> correctAnswers = findFilteredHistoryAnswers(correctAnswersId);
-        List<Answer> userAnswers = findFilteredHistoryAnswers(userAnswersId);
+    public List<HistoryItemObject> createHistoryDetails(ExamHistory examHistory) {
+        List<HistoryItemObject> historyDetails = new ArrayList<>();
+
+        Long historyId = examHistory.getHistoryId();
+        log.info("examHistory={}", examHistory);
+
+        List<Question> questions = findFilteredHistoryQuestions(examHistory.getQuestions());
+        List<Answer> correctAnswers = findFilteredHistoryAnswers(examHistory.getCorrectAnswers());
+        List<Answer> userAnswers = findFilteredHistoryAnswers(examHistory.getUserAnswers());
 
         for (int i=0; i<questions.size(); i++) {
-            historyDetails.add(new HistoryItem(questions.get(i), correctAnswers.get(i), userAnswers.get(i)));
+            historyDetails.add(new HistoryItemObject(questions.get(i), correctAnswers.get(i), userAnswers.get(i)));
         }
 
         return historyDetails;
+    }
+
+    // 히스토리 조회
+    @Override
+    public ExamHistory findExamHistoryById(Long historyId) {
+        return examRepository.findExamHistoryById(historyId);
+    }
+
+    // 히스토리에 속한 문제ID 조회
+    @Override
+    public List<Long> findQuestionsIdOfHistory(Long historyId, boolean isCorrect) {
+        return examRepository.findQuestionsIdOfHistory(historyId, isCorrect);
     }
 
     // 조건에 맞는 문항 조회

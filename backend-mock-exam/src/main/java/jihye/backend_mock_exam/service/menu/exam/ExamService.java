@@ -12,7 +12,7 @@ public interface ExamService {
 
     // 주제 목록을 이름만 반환
     List<String> subjectNames(List<Subject> subjects);
-    
+
     // 주제 이름으로 주제 조회
     Subject findSubjectByName(String subjectName);
     
@@ -26,17 +26,23 @@ public interface ExamService {
     List<Integer> createQuestionNumberList(String subjectName, String level);
     
     // 주제,난이도,문항수에 해당하는 문제 목록 조회 (순서 랜덤)
-    List<Question> shuffledQuestionList(String subjectName, String level, int number);
+    List<Long> shuffledQuestionList(String subjectName, String level, int number);
 
     // 문제의 보기 조회 (순서 랜덤)
     List<Answer> shuffledAnswerListByQuestion(Long questionId);
 
     // 시험 만들어 반환
-    List<QuestionItem> createExam(List<Question> questions);
+    List<ExamItem> createExam(List<Long> questionsId);
 
     // 시험 히스토리 생성
     ExamHistory createExamHistory(SubmittedExamDto dto);
 
     // 히스토리 상세 반환
-    List<HistoryItem> createHistoryDetails(List<Long> questionsId, List<Long> correctAnswersId, List<Long> userAnswersId);
+    List<HistoryItemObject> createHistoryDetails(ExamHistory examHistory);
+
+    // 히스토리 조회
+    ExamHistory findExamHistoryById(Long historyId);
+    
+    // 히스토리에 속한 문제ID 조회 (전체를 찾으려면 true, 틀린문제만이면 false)
+    List<Long> findQuestionsIdOfHistory(Long historyId, boolean isCorrect);
 }

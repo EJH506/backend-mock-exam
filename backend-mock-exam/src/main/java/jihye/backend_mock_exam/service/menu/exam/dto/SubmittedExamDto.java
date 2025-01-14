@@ -8,8 +8,8 @@ import java.util.List;
 public class SubmittedExamDto {
 
     private Long userId;
-    private String subjectName;
-    private int level;
+    private String subject;
+    private String level;
 
     private List<Long> questions;
     private List<Long> userAnswers;

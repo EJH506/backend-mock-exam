@@ -1,9 +1,6 @@
 package jihye.backend_mock_exam.repository.menu.exam;
 
-import jihye.backend_mock_exam.domain.exam.Answer;
-import jihye.backend_mock_exam.domain.exam.ExamHistory;
-import jihye.backend_mock_exam.domain.exam.Question;
-import jihye.backend_mock_exam.domain.exam.Subject;
+import jihye.backend_mock_exam.domain.exam.*;
 
 import java.util.List;
 
@@ -31,7 +28,7 @@ public interface ExamRepository {
     Integer findQuestionUnitSetting();
 
     // 주제,난이도,문항수에 해당하는 문제 목록 조회
-    List<Question> findShuffledQuestions(Long subjectId, int level, int number);
+    List<Long> findShuffledQuestions(Long subjectId, int level, int number);
 
     // 문제의 보기 목록 조회 (순서 랜덤)
     List<Answer> findShuffledAnswers(Long questionId);
@@ -47,4 +44,13 @@ public interface ExamRepository {
 
     // 보기 ID로 보기 조회
     Answer findAnswerById(Long answerId);
+
+    // 시험 히스토리 문항 저장
+    HistoryItem saveExamHistoryItems(HistoryItem historyItem);
+
+    // 히스토리 ID로 히스토리 조회
+    ExamHistory findExamHistoryById(Long historyId);
+    
+    // 히스토리 ID로 히스토리 문항 조회
+    List<Long> findQuestionsIdOfHistory(Long historyId, boolean isCorrect);
 }

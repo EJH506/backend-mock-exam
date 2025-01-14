@@ -4,48 +4,55 @@
     <meta charset="UTF-8">
     <title th:text="#{page.take-exam} + ' | ' + #{title}">문제풀기 | 백엔드 모의고사</title>
     <script th:src="@{https://code.jquery.com/jquery-3.6.0.min.js}"></script>
-    <script th:src="@{/js/take-exam.js}"></script>
+    <script th:src="@{/js/exam/take-exam.js}"></script>
 </head>
 <body>
 <div class="wrap">
 <header th:replace="~{fragment/home-header :: header (${user.userId}, ${user.nickname}, ${isMember})}"></header>
 
 <section>
-    <h2 th:text="${subject} + ' Lv. ' + ${level}">네트워크 Lv. 2(목업)</h2>
+    <h2 th:text="${exam.subject} + ' Lv. ' + ${exam.level == 0 ? '전체' : exam.level}">네트워크 Lv. 2(목업)</h2>
 
-    <form th:action method="post" th:object="${submittedExamDto}">
+    <div th:if="${exam.totalQuestionsCount > 0}">
+        <form th:action method="post" th:object="${submittedExamDto}">
 
-        <input type="hidden" th:name="userId" th:value="${user.userId}" />
-        <input type="hidden" th:name="subjectName" th:value="${subject}" />
-        <input type="hidden" th:name="totalQuestionsCount" th:value="${totalQuestionsCount}" />
+            <input type="hidden" th:name="userId" th:value="${user.userId}" />
+            <input type="hidden" th:name="totalQuestionsCount" th:value="${exam.totalQuestionsCount}" />
 
-        <div id="testArea" th:class="slide-wrap">
-            <div class="slide-box" th:each="questionItem, stat : ${questionItems}">
-                <span th:text="'(' + ${stat.index + 1} + '/' + ${totalQuestionsCount} + ')'">(1/15)</span>
-                <input type="hidden" th:name="questions" th:value="${questionItem.question.questionId}">
-                <span class="개발자용" th:text="'(Sid=' + ${questionItem.question.subjectId} + ')'"></span>
-                <p th:text="${questionItem.question.subjectName} + ' Lv. ' + ${questionItem.question.level}">네트워크 Lv. 2</p>
-                <span class="개발자용" th:text="'(Sid=' + ${questionItem.question.subjectId} + ' / Qid=' + ${questionItem.question.questionId} + ') '"></span>
-                <p th:text="${questionItem.question.questionText}">문제내용</p>
+            <div id="testArea" th:class="slide-wrap">
+                <div class="slide-box" th:each="examItem, stat : ${exam.examItems}">
+                    <span th:text="'(' + ${stat.index + 1} + '/' + ${exam.totalQuestionsCount} + ')'">(1/15)</span>
+                    <input type="hidden" th:name="questions" th:value="${examItem.question.questionId}">
+                    <span class="개발자용" th:text="'(Sid=' + ${examItem.question.subjectId} + ')'"></span>
+                    <p th:text="${examItem.question.subjectName} + ' Lv. ' + ${examItem.question.level}">네트워크 Lv. 2</p>
+                    <span class="개발자용" th:text="'(Sid=' + ${examItem.question.subjectId} + ' / Qid=' + ${examItem.question.questionId} + ') '"></span>
+                    <p th:text="${examItem.question.questionText}">문제내용</p>
 
-                <ul>
-                    <li th:each="answer : ${questionItem.answers}">
-                        <span class="개발자용" th:text="'(Qid=' + ${answer.questionId} + ' / Aid=' + ${answer.answerId} + ') '"></span>
-                        <label th:for="${#ids.next('userAnswers')}" th:text="${answer.answerText}"></label>
-                        <input type="checkbox" th:field="*{userAnswers}" th:value="${answer.answerId}">
-                        <span th:text="${answer.isCorrect}"></span>
-                    </li>
-                </ul>
+                    <ul>
+                        <li th:each="answer : ${examItem.answers}">
+                            <span class="개발자용" th:text="'(Qid=' + ${answer.questionId} + ' / Aid=' + ${answer.answerId} + ') '"></span>
+                            <label th:for="${#ids.next('userAnswers')}" th:text="${answer.answerText}"></label>
+                            <input type="checkbox" th:field="*{userAnswers}" th:value="${answer.answerId}">
+                            <span th:text="${answer.isCorrect}"></span>
+                        </li>
+                    </ul>
 
-                <!-- 버튼 클릭 시 현재문항 숫자 동적으로 변경 -->
-                <button type="button" class="btn_prev" th:text="#{button.prev}">이전</button> <!-- 1번 문항이면 미출력 -->
-                <button type="button" class="btn_next" th:text="#{button.skip}">건너뛰기</button> <!-- 선택하면 "다음", 마지막이면 "제출"(submit) -->
+                    <!-- 버튼 클릭 시 현재문항 숫자 동적으로 변경 -->
+                    <button type="button" class="btn_prev" th:text="#{button.prev}">이전</button> <!-- 1번 문항이면 미출력 -->
+                    <button type="button" class="btn_next" th:text="#{button.skip}">건너뛰기</button> <!-- 선택하면 "다음", 마지막이면 "제출"(submit) -->
+                </div>
+
             </div>
+            <!--임시-->
+            <button type="submit" th:text="#{button.submit}">제출</button>
+        </form>
+    </div>
 
-        </div>
-        <!--임시-->
-        <button type="submit" th:text="#{button.submit}">제출</button>
-    </form>
+    <div th:if="${exam.totalQuestionsCount == 0}">
+        <p>문제가 없습니다</p>
+        <a th:href="@{/exam/subject}">다른 문제 풀기</a>
+    </div>
+
 </section>
 </div>
 

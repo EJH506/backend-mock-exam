@@ -1,9 +1,9 @@
 package jihye.backend_mock_exam.controller.menu;
 
+import jihye.backend_mock_exam.domain.exam.Exam;
 import jihye.backend_mock_exam.domain.exam.ExamHistory;
-import jihye.backend_mock_exam.domain.exam.HistoryItem;
-import jihye.backend_mock_exam.domain.exam.Question;
-import jihye.backend_mock_exam.domain.exam.QuestionItem;
+import jihye.backend_mock_exam.domain.exam.ExamItem;
+import jihye.backend_mock_exam.domain.exam.HistoryItemObject;
 import jihye.backend_mock_exam.service.menu.exam.ExamService;
 import jihye.backend_mock_exam.service.menu.exam.dto.SubmittedExamDto;
 import lombok.RequiredArgsConstructor;
@@ -31,8 +31,8 @@ public class ExamController {
     @GetMapping("/subject")
     public String subject(Model model) {
 
+        // 주제 목록
         List<String> subjectNames = examService.subjectNames(examService.findAllSubjects());
-
         model.addAttribute("subjects", subjectNames);
 
         return "menu/exam/exam-subject";
@@ -41,9 +41,7 @@ public class ExamController {
     @GetMapping("/level")
     public String level(@RequestParam("subject") String subjectName, Model model) {
 
-        if (subjectName == null) {
-            return "redirect:/exam/subject";
-        }
+        if (subjectName == null) { return "redirect:/exam/subject"; }
 
         List<Integer> levels = examService.levelListOfSubject(subjectName);
 
@@ -58,9 +56,7 @@ public class ExamController {
                          @RequestParam("level") String level,
                          Model model) {
 
-        if (level == null) {
-            return "redirect:/exam/subject";
-        }
+        if (subjectName == null || level == null) { return "redirect:/exam/subject"; }
 
         Long numberOfSubject = examService.NumberOfSubject(subjectName, level);
         List<Integer> selectableNumbers = examService.createQuestionNumberList(subjectName, level);
@@ -74,18 +70,30 @@ public class ExamController {
     }
 
     @GetMapping("/take-exam")
-    public String takeExamPage(@RequestParam("subject") String subjectName,
-                           @RequestParam("level") String level,
-                           @RequestParam("number") int number,
-                           Model model) {
+    public String takeExamPage(@RequestParam(value = "historyId", required = false) Long historyId,
+                               @RequestParam(value = "subject", required = false) String subjectName,
+                               @RequestParam(value = "level", required = false) String level,
+                               @RequestParam(value = "number", required = false) Integer number,
+                               Model model) {
 
-        List<Question> questions = examService.shuffledQuestionList(subjectName, level, number);
-        List<QuestionItem> QuestionItems = examService.createExam(questions);
+        List<Long> questionsId = null;
 
-        model.addAttribute("subject", subjectName);
-        model.addAttribute("level", level);
-        model.addAttribute("totalQuestionsCount", number);
-        model.addAttribute("questionItems", QuestionItems);
+        // 틀린문제만 재도전이 아닐경우
+        if (historyId == null) {
+            if (subjectName == null || level == null || number == null) { return "redirect:/exam/subject"; }
+            questionsId = examService.shuffledQuestionList(subjectName, level, number);
+        }
+
+        // 틀린문제만 재도전일 경우
+        if (historyId != null) {
+            ExamHistory history = examService.findExamHistoryById(historyId);
+            questionsId = examService.findQuestionsIdOfHistory(historyId, false);
+        }
+
+        List<ExamItem> examItems = examService.createExam(questionsId);
+        number = examItems.size();
+
+        model.addAttribute("exam", new Exam(subjectName, level, number, examItems));
         model.addAttribute("submittedExamDto", new SubmittedExamDto());
 
         return "menu/exam/take-exam";
@@ -94,28 +102,20 @@ public class ExamController {
     @PostMapping("/take-exam")
     public String takeExam(@ModelAttribute SubmittedExamDto dto, RedirectAttributes redirectAttributes) {
 
-//        if (bindingResult.hasErrors()) {
-//            log.info("errors={}", bindingResult);
-//            return "menu/exam/take-exam";
-//        }
-
+        log.info("");
         ExamHistory examHistory = examService.createExamHistory(dto);
         redirectAttributes.addFlashAttribute("examHistory", examHistory);
         return "redirect:/exam/result";
     }
 
     @GetMapping("/result")
-    public String examResultPage(@ModelAttribute ExamHistory examHistory, Model model) {
+    public String examResultPage(@ModelAttribute("examHistory") ExamHistory examHistory, Model model) {
 
-        List<Long> questionsId = examHistory.getQuestions();
-        List<Long> correctAnswersId = examHistory.getCorrectAnswers();
-        List<Long> userAnswersId = examHistory.getUserAnswers();
-
-        List<HistoryItem> historyDetails = examService.createHistoryDetails(questionsId, correctAnswersId, userAnswersId);
+        List<HistoryItemObject> historyDetails = examService.createHistoryDetails(examHistory);
 
         model.addAttribute("historyDetails", historyDetails);
-        log.info("historyDetails={}", model.getAttribute("historyDetails"));
 
         return "menu/exam/exam-result";
     }
+
 }

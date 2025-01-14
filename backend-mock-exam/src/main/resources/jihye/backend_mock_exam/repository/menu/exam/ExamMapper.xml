@@ -39,8 +39,8 @@
         SELECT question_unit FROM question_unit_setting ORDER BY question_unit_id desc LIMIT 1
     </select>
 
-    <select id="findShuffledQuestions" resultType="question">
-        SELECT * FROM questions
+    <select id="findShuffledQuestions" resultType="Long">
+        SELECT question_id FROM questions
         <where>
             <if test="subjectId > 0">
                 subject_id = #{subjectId}
@@ -77,5 +77,25 @@
     <select id="findAnswerById" resultType="answer">
         SELECT * FROM answers
         WHERE answer_id = #{answerId}
+    </select>
+
+    <insert id="saveExamHistoryItems" useGeneratedKeys="true" keyProperty="historyItemsId">
+        INSERT INTO history_items (history_id, question_id, correct_answer_id, user_answer_id, is_correct)
+        VALUES (${historyId}, ${questionId}, ${correctAnswerId}, ${userAnswerId}, ${isCorrect});
+    </insert>
+
+    <select id="findExamHistoryById" resultType="examHistory">
+        SELECT * FROM exam_history
+        WHERE history_id = #{historyId}
+    </select>
+
+    <select id="findQuestionsIdOfHistory" resultType="Long">
+        SELECT question_id FROM history_items
+        <where>
+            history_id = ${historyId}
+            <if test="!isCorrect">
+                AND is_correct = ${isCorrect}
+            </if>
+        </where>
     </select>
 </mapper>
