@@ -14,7 +14,7 @@ public class AuthRepositoryImpl implements AuthRepository {
 
     // 회원저장
     @Override
-    public User userSave(User user) {
+    public User saveUser(User user) {
         authMapper.userSave(user);
         return user;
     }

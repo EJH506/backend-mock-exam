@@ -36,4 +36,7 @@ public interface ExamService {
 
     // 시험 히스토리 생성
     ExamHistory createExamHistory(SubmittedExamDto dto);
+
+    // 히스토리 상세 반환
+    List<HistoryItem> createHistoryDetails(List<Long> questionsId, List<Long> correctAnswersId, List<Long> userAnswersId);
 }

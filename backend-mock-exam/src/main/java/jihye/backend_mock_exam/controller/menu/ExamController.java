@@ -1,5 +1,7 @@
 package jihye.backend_mock_exam.controller.menu;
 
+import jihye.backend_mock_exam.domain.exam.ExamHistory;
+import jihye.backend_mock_exam.domain.exam.HistoryItem;
 import jihye.backend_mock_exam.domain.exam.Question;
 import jihye.backend_mock_exam.domain.exam.QuestionItem;
 import jihye.backend_mock_exam.service.menu.exam.ExamService;
@@ -9,6 +11,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 
@@ -89,16 +92,30 @@ public class ExamController {
     }
 
     @PostMapping("/take-exam")
-    public String takeExam(@ModelAttribute SubmittedExamDto dto) {
+    public String takeExam(@ModelAttribute SubmittedExamDto dto, RedirectAttributes redirectAttributes) {
 
-        log.info("dto={}", dto);
+//        if (bindingResult.hasErrors()) {
+//            log.info("errors={}", bindingResult);
+//            return "menu/exam/take-exam";
+//        }
 
-        examService.createExamHistory(dto);
+        ExamHistory examHistory = examService.createExamHistory(dto);
+        redirectAttributes.addFlashAttribute("examHistory", examHistory);
         return "redirect:/exam/result";
     }
 
     @GetMapping("/result")
-    public String examResultPage() {
+    public String examResultPage(@ModelAttribute ExamHistory examHistory, Model model) {
+
+        List<Long> questionsId = examHistory.getQuestions();
+        List<Long> correctAnswersId = examHistory.getCorrectAnswers();
+        List<Long> userAnswersId = examHistory.getUserAnswers();
+
+        List<HistoryItem> historyDetails = examService.createHistoryDetails(questionsId, correctAnswersId, userAnswersId);
+
+        model.addAttribute("historyDetails", historyDetails);
+        log.info("historyDetails={}", model.getAttribute("historyDetails"));
+
         return "menu/exam/exam-result";
     }
 }

@@ -1,6 +1,7 @@
 package jihye.backend_mock_exam.repository.menu.exam;
 
 import jihye.backend_mock_exam.domain.exam.Answer;
+import jihye.backend_mock_exam.domain.exam.ExamHistory;
 import jihye.backend_mock_exam.domain.exam.Question;
 import jihye.backend_mock_exam.domain.exam.Subject;
 import lombok.RequiredArgsConstructor;
@@ -72,5 +73,24 @@ public class ExamRepositoryImpl implements ExamRepository {
     @Override
     public Long findCorrectAnswerByQuestion(Long questionId) {
         return examMapper.findCorrectAnswerByQuestion(questionId);
+    }
+
+    // 시험 히스토리 저장
+    @Override
+    public ExamHistory saveExamHistory(ExamHistory examHistory) {
+        examMapper.saveExamHistory(examHistory);
+        return examHistory;
+    }
+
+    // 문항 ID로 문항 조회
+    @Override
+    public Question findQuestionsById(Long questionId) {
+        return examMapper.findQuestionsById(questionId);
+    }
+
+    // 보기 ID로 보기 조회
+    @Override
+    public Answer findAnswerById(Long answerId) {
+        return examMapper.findAnswerById(answerId);
     }
 }

@@ -1,6 +1,7 @@
 package jihye.backend_mock_exam.repository.menu.exam;
 
 import jihye.backend_mock_exam.domain.exam.Answer;
+import jihye.backend_mock_exam.domain.exam.ExamHistory;
 import jihye.backend_mock_exam.domain.exam.Question;
 import jihye.backend_mock_exam.domain.exam.Subject;
 import org.apache.ibatis.annotations.Mapper;
@@ -40,4 +41,13 @@ public interface ExamMapper {
 
     // 문제의 정답 조회
     Long findCorrectAnswerByQuestion(Long questionId);
+
+    // 시험 히스토리 저장
+    void saveExamHistory(ExamHistory examHistory);
+
+    // 문항 ID로 문항 조회
+    Question findQuestionsById(Long questionId);
+
+    // 보기 ID로 보기 조회
+    Answer findAnswerById(Long answerId);
 }

@@ -5,7 +5,7 @@ import jihye.backend_mock_exam.domain.user.User;
 public interface AuthRepository {
 
     // 회원저장
-    User userSave(User user);
+    User saveUser(User user);
 
     // 아이디 존재 여부 조회
     boolean isIdExists(String accountId);

@@ -53,7 +53,7 @@ CREATE TABLE questions (
 
 CREATE TABLE answers (
 	answer_id INT AUTO_INCREMENT PRIMARY KEY,									-- 식별자
-	question_id INT NOT NULL,													-- 문제 ID
+	question_id INT NOT NULL,													-- 질문 ID
 	answer_text TEXT NOT NULL,													-- 보기 내용
 	is_correct BOOLEAN,															-- 정답 여부
 	created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,								-- 생성일시
@@ -69,20 +69,24 @@ CREATE TABLE question_unit_setting (
 
 CREATE TABLE exam_history (
 	history_id INT AUTO_INCREMENT PRIMARY KEY,									-- 식별자
-	user_id INT NOT NULL,														-- 유저 ID
+	user_id INT NOT NULL,														-- 유저 ID 외래키
 	subject_name VARCHAR(255) NOT NULL,											-- 주제명
 	level INT NOT NULL,															-- 레벨
 	total_questions_count INT NOT NULL,											-- 총 문항 수
 	correct_questions_count INT NOT NULL,										-- 맞힌 문항 수
+	correct_rate DOUBLE NOT NULL,												-- 정답률
 	created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,								-- 생성일시
 	update_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP	-- 수정일시
 )
 
+INSERT INTO exam_history (user_id, subject_name, level, total_questions_count, correct_questions_count, correct_rate) VALUES
+(3, "운영체제", 2, 5, 1, 20);
+
 CREATE TABLE history_questions (
-	history_id INT NOT NULL,													-- 히스토리 ID
+	history_questions_id INT AUTO_INCREMENT PRIMARY KEY,						-- 식별자
 	question_id INT NOT NULL,													-- 문제 ID
 	is_correct boolean NOT NULL,												-- 맞혔는지 여부
-	user_answer INT,															-- 사용자의 답
+	user_answer INT NOT NULL,													-- 사용자의 답
 	created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,								-- 생성일시
 	update_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP	-- 수정일시
 )

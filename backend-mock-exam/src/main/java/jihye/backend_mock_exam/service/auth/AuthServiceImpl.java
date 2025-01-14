@@ -29,7 +29,7 @@ public class AuthServiceImpl implements AuthService {
         User user = new User(dto.getAccountId(), dto.getNickname(), hashedPassword, dto.getFindPasswordQuestion(), dto.getFindPasswordAnswer(), dto.getGender(), dto.getBirthYear(), dto.getRoles());
         user.setRoles(RoleConst.ROLE_USER);
 
-        return authRepository.userSave(user);
+        return authRepository.saveUser(user);
     }
 
     // 회원가입 - 아이디 중복검사

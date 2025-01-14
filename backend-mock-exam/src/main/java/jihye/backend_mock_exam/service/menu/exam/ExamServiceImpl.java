@@ -8,7 +8,9 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 
 @Slf4j
 @Service
@@ -123,16 +125,80 @@ public class ExamServiceImpl implements ExamService {
     public ExamHistory createExamHistory(SubmittedExamDto dto) {
 
         ExamHistory examHistory = new ExamHistory(dto.getUserId(), dto.getSubjectName(), dto.getLevel(), dto.getQuestions(), dto.getUserAnswers(), dto.getTotalQuestionsCount());
-        ArrayList<Long> correctAnswer = new ArrayList<>();
+        ArrayList<Long> correctAnswers = new ArrayList<>();
+        List<Long> incorrectQuestions = new ArrayList<>();
 
+        int totalQuestionCount = examHistory.getTotalQuestionsCount();
+
+        // 사용자의 답과 비교할 정답 목록 담기
         for (Long question : dto.getQuestions()) {
-            correctAnswer.add(examRepository.findCorrectAnswerByQuestion(question));
+            correctAnswers.add(examRepository.findCorrectAnswerByQuestion(question));
+        }
+        examHistory.setCorrectAnswers(correctAnswers);
+
+        // 틀린 문항 담기
+        for (int i=0; i < totalQuestionCount; i++) {
+            if (!Objects.equals(examHistory.getCorrectAnswers().get(i), examHistory.getUserAnswers().get(i))) {
+                incorrectQuestions.add(examHistory.getQuestions().get(i));
+            }
+        }
+        examHistory.setIncorrectQuestions(incorrectQuestions);
+
+        // 정답률 연산하여 담기
+        int correctQuestionsCount = examHistory.getTotalQuestionsCount() - examHistory.getIncorrectQuestions().size();
+        double correctRate = ((double) correctQuestionsCount / totalQuestionCount) * 100;
+
+        examHistory.setCorrectQuestionsCount(correctQuestionsCount);
+        examHistory.setCorrectRate(correctRate);
+
+        // DB에 저장 (회원일 시 저장, 비회원일 시 세션 등)
+        if (examHistory.getUserId() > 0) {
+            examRepository.saveExamHistory(examHistory);
         }
 
-        log.info("correctAnswer={}", correctAnswer);
-        examHistory.setCorrectAnswers(correctAnswer);
+        return examHistory;
+    }
 
-        return null;
+    // 히스토리 상세 반환
+    @Override
+    public List<HistoryItem> createHistoryDetails(List<Long> questionsId, List<Long> correctAnswersId, List<Long> userAnswersId) {
+        List<HistoryItem> historyDetails = new ArrayList<>();
+        List<Question> questions = findFilteredHistoryQuestions(questionsId);
+        List<Answer> correctAnswers = findFilteredHistoryAnswers(correctAnswersId);
+        List<Answer> userAnswers = findFilteredHistoryAnswers(userAnswersId);
+
+        for (int i=0; i<questions.size(); i++) {
+            historyDetails.add(new HistoryItem(questions.get(i), correctAnswers.get(i), userAnswers.get(i)));
+        }
+
+        return historyDetails;
+    }
+
+    // 조건에 맞는 문항 조회
+    private List<Question> findFilteredHistoryQuestions(List<Long> questionsId) {
+
+        List<Question> questions = new ArrayList<>();
+        
+        for (Long questionId : questionsId) {
+            Question question = examRepository.findQuestionsById(questionId);
+            Subject subject = examRepository.findSubjectById(question.getSubjectId());
+            question.setSubjectName(subject.getSubjectName());
+            questions.add(question);
+        }
+
+        return questions;
+    }
+
+    // 조건에 맞는 보기 조회
+    private List<Answer> findFilteredHistoryAnswers(List<Long> answersId) {
+
+        List<Answer> correctAnswers = new ArrayList<>();
+
+        for (Long answerId : answersId) {
+            correctAnswers.add(examRepository.findAnswerById(answerId));
+        }
+
+        return correctAnswers;
     }
 
     // 매개변수로 사용될 subject와 level의 값을 통합인지 아닌지에 따라 적절히 변환

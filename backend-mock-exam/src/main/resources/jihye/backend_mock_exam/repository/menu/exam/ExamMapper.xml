@@ -63,4 +63,19 @@
         SELECT answer_id FROM answers
         WHERE question_id = #{questionId} AND is_correct = TRUE;
     </select>
+
+    <insert id="saveExamHistory" useGeneratedKeys="true" keyProperty="historyId">
+        INSERT INTO exam_history (user_id, subject_name, level, total_questions_count, correct_questions_count, correct_rate)
+        VALUES (#{userId}, #{subjectName}, #{level}, #{totalQuestionsCount}, #{correctQuestionsCount}, #{correctRate});
+    </insert>
+
+    <select id="findQuestionsById" resultType="question">
+        SELECT * FROM questions
+        WHERE QUESTION_ID = #{questionId}
+    </select>
+
+    <select id="findAnswerById" resultType="answer">
+        SELECT * FROM answers
+        WHERE answer_id = #{answerId}
+    </select>
 </mapper>
