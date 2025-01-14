@@ -12,7 +12,6 @@
 
 <section>
     <h2 th:text="${subject} + ' Lv. ' + ${level}">네트워크 Lv. 2(목업)</h2>
-    <span th:text="'(' + '수정' + '/' + ${totalQuestionsCount} + ')'">(1/15)</span>
 
     <form th:action method="post" th:object="${submittedExamDto}">
 
@@ -21,7 +20,8 @@
         <input type="hidden" th:name="totalQuestionsCount" th:value="${totalQuestionsCount}" />
 
         <div id="testArea" th:class="slide-wrap">
-            <div class="slide-box" th:each="questionItem : ${questionItems}">
+            <div class="slide-box" th:each="questionItem, stat : ${questionItems}">
+                <span th:text="'(' + ${stat.index + 1} + '/' + ${totalQuestionsCount} + ')'">(1/15)</span>
                 <input type="hidden" th:name="questions" th:value="${questionItem.question.questionId}">
                 <span class="개발자용" th:text="'(Sid=' + ${questionItem.question.subjectId} + ')'"></span>
                 <p th:text="${questionItem.question.subjectName} + ' Lv. ' + ${questionItem.question.level}">네트워크 Lv. 2</p>
