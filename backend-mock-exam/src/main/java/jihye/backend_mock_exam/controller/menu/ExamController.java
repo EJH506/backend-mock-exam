@@ -43,6 +43,7 @@ public class ExamController {
 
         if (subjectName == null) { return "redirect:/exam/subject"; }
 
+        // 난이도 목록
         List<Integer> levels = examService.levelListOfSubject(subjectName);
 
         model.addAttribute("levels", levels);
@@ -58,6 +59,7 @@ public class ExamController {
 
         if (subjectName == null || level == null) { return "redirect:/exam/subject"; }
 
+        // 문항 수 목록
         Long numberOfSubject = examService.NumberOfSubject(subjectName, level);
         List<Integer> selectableNumbers = examService.createQuestionNumberList(subjectName, level);
 
@@ -90,6 +92,7 @@ public class ExamController {
             questionsId = examService.findQuestionsIdOfHistory(historyId, false);
         }
 
+        // 시험 문항 생성
         List<ExamItem> examItems = examService.createExam(questionsId);
         number = examItems.size();
 
@@ -102,7 +105,7 @@ public class ExamController {
     @PostMapping("/take-exam")
     public String takeExam(@ModelAttribute SubmittedExamDto dto, RedirectAttributes redirectAttributes) {
 
-        log.info("");
+        // 시험 히스토리 생성
         ExamHistory examHistory = examService.createExamHistory(dto);
         redirectAttributes.addFlashAttribute("examHistory", examHistory);
         return "redirect:/exam/result";
@@ -111,10 +114,9 @@ public class ExamController {
     @GetMapping("/result")
     public String examResultPage(@ModelAttribute("examHistory") ExamHistory examHistory, Model model) {
 
+        // 히스토리 정보에 해당하는 문항과 답변 기록 추출
         List<HistoryItemObject> historyDetails = examService.createHistoryDetails(examHistory);
-
         model.addAttribute("historyDetails", historyDetails);
-
         return "menu/exam/exam-result";
     }
 

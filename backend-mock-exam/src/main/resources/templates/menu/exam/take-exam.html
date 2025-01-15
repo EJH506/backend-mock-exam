@@ -37,14 +37,13 @@
                         </li>
                     </ul>
 
-                    <!-- 버튼 클릭 시 현재문항 숫자 동적으로 변경 -->
-                    <button type="button" class="btn_prev" th:text="#{button.prev}">이전</button> <!-- 1번 문항이면 미출력 -->
-                    <button type="button" class="btn_next" th:text="#{button.skip}">건너뛰기</button> <!-- 선택하면 "다음", 마지막이면 "제출"(submit) -->
+                    <button th:if="${stat.index > 0}" type="button" class="btn_prev" th:text="#{button.prev}">이전</button>
+                    <button th:if="${!stat.last}" type="button" class="btn_skip" th:text="#{button.skip}">건너뛰기</button>
+                    <button th:if="${!stat.last}" type="button" class="btn_next" th:text="#{button.next}" style="display: none">다음</button>
+                    <button th:if="${stat.last}" type="submit" th:text="#{button.submit}">제출</button>
                 </div>
 
             </div>
-            <!--임시-->
-            <button type="submit" th:text="#{button.submit}">제출</button>
         </form>
     </div>
 
