@@ -1,3 +1,4 @@
+CREATE DATABASE backend_mock_exam;
 
 USE backend_mock_exam;
 

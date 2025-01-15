@@ -1,5 +1,7 @@
 package jihye.backend_mock_exam.controller.menu;
 
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import jihye.backend_mock_exam.domain.exam.*;
 import jihye.backend_mock_exam.service.menu.exam.ExamService;
 import jihye.backend_mock_exam.service.menu.exam.dto.SubmittedExamDto;
@@ -10,7 +12,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Slf4j
 @Controller
@@ -100,21 +104,36 @@ public class ExamController {
     }
 
     @PostMapping("/take-exam")
-    public String takeExam(@ModelAttribute SubmittedExamDto dto, RedirectAttributes redirectAttributes) {
+    public String takeExam(@ModelAttribute SubmittedExamDto dto, RedirectAttributes redirectAttributes, HttpServletRequest request) {
 
         // 시험 히스토리 생성
         ExamHistory examHistory = examService.createExamHistory(dto);
-        redirectAttributes.addFlashAttribute("examHistory", examHistory);
+        request.getSession().setAttribute("examHistory", examHistory);
+//        redirectAttributes.addFlashAttribute("examHistory", examHistory);
         return "redirect:/exam/result";
     }
 
     @GetMapping("/result")
-    public String examResultPage(@ModelAttribute("examHistory") ExamHistory examHistory, Model model) {
+    public String examResultPage(@RequestParam(value = "option", defaultValue = "all") String option,
+//                                 @ModelAttribute("examHistory") ExamHistory examHistory,
+                                 HttpServletRequest request,
+                                 Model model) {
+
+        // Ajax 요청인지 확인
+        boolean isAjaxRequest = "XMLHttpRequest".equals(request.getHeader("X-Requested-With"));
+
+        ExamHistory examHistory = (ExamHistory) request.getSession(false).getAttribute("examHistory");
 
         // 히스토리 정보에 해당하는 문항과 답변 기록 추출
-        List<HistoryItemObject> historyDetails = examService.createHistoryDetails(examHistory);
+        List<HistoryItemObject> historyDetails = examService.createHistoryDetails(examHistory, option);
+        model.addAttribute("examHistory", examHistory);
         model.addAttribute("historyDetails", historyDetails);
-        return "menu/exam/exam-result";
+
+        if (isAjaxRequest) {
+            return "menu/exam/exam-result :: viewQuestionsArea";
+        } else {
+            return "menu/exam/exam-result";
+        }
     }
 
 }

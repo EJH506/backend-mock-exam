@@ -20,23 +20,23 @@ SELECT * FROM incorrect_note WHERE SUBJECT_ID = 1 AND LEVEL = 1 ORDER BY INCORRE
 SELECT * FROM incorrect_note;
 
 SELECT level FROM QUESTIONS Q WHERE QUESTION_ID = 108;
-INSERT INTO incorrect_note (question_id, subject_id, level) VALUES
-(1, 1, 1),
-(4, 1, 1),
-(61, 4, 3),
-(43, 3, 3),
-(11, 1, 3),
-(125, 8, 2),
-(134, 8, 2),
-(65, 4, 1),
-(97, 6, 3),
-(74, 5, 2),
-(25, 2, 2),
-(78, 5, 3),
-(3, 1, 1),
-(6, 1, 2),
-(24, 2, 2),
-(108, 7, 2);
+INSERT INTO incorrect_note (user_id, question_id, subject_id, level) VALUES
+(1, 1, 1, 1),
+(1, 4, 1, 1),
+(1, 61, 4, 3),
+(1, 43, 3, 3),
+(1, 11, 1, 3),
+(1, 125, 8, 2),
+(1, 134, 8, 2),
+(1, 65, 4, 1),
+(1, 97, 6, 3),
+(1, 74, 5, 2),
+(1, 25, 2, 2),
+(1, 78, 5, 3),
+(1, 3, 1, 1),
+(1, 6, 1, 2),
+(1, 24, 2, 2),
+(1, 108, 7, 2);
 
 INSERT INTO incorrect_note (question_id, subject_id, level) VALUES
 (108, (SELECT subject_id FROM QUESTIONS WHERE QUESTION_ID = 108), (SELECT LEVEL FROM QUESTIONS WHERE QUESTION_ID = 108));
