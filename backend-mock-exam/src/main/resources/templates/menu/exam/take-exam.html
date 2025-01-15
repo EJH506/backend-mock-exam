@@ -11,7 +11,7 @@
 <header th:replace="~{fragment/home-header :: header (${user.userId}, ${user.nickname}, ${isMember})}"></header>
 
 <section>
-    <h2 th:text="${exam.subject} + ' Lv. ' + ${exam.level == 0 ? '전체' : exam.level}">네트워크 Lv. 2(목업)</h2>
+    <h2 th:text="${subject.subjectName} + ' Lv. ' + ${exam.level == 0 ? '전체' : exam.level}">네트워크 Lv. 2(목업)</h2>
 
     <div th:if="${exam.totalQuestionsCount > 0}">
         <form th:action method="post" th:object="${submittedExamDto}">

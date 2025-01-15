@@ -13,8 +13,8 @@
     <p>문제의 주제를 선택해 주세요</p>
 
     <ul>
-        <li><a th:href="@{|/exam/level?subject=#{page.subject.all}|}" th:text="#{page.subject.all}">통합 문제(목업)</a></li>
-        <li th:each="subject : ${subjects}"><a th:href="@{|/exam/level?subject=${subject}|}" th:text="${subject}">주제명</a></li>
+        <li><a th:href="@{|/exam/level?subject=#{param.subject.all}|}" th:text="#{page.subject.all}">통합 문제(목업)</a></li>
+        <li th:each="subject : ${subjects}"><a th:href="@{|/exam/level?subject=${subject.subjectId}|}" th:text="${subject.subjectName}">주제명</a></li>
     </ul>
 </section>
 </div>

@@ -9,8 +9,8 @@ public class ExamHistory {
 
     private Long historyId;
     private Long userId;
-    private String subjectName;
-    private int level;
+    private Long subjectId;
+    private Integer level;
     private List<Long> questions;          // 문항 목록
     private List<Long> userAnswers;        // 제출된 답
     private List<Long> correctAnswers;     // 정답
@@ -24,9 +24,9 @@ public class ExamHistory {
     public ExamHistory() {
     }
 
-    public ExamHistory(Long userId, String subjectName, int level, List<Long> questions, List<Long> userAnswers, int totalQuestionsCount) {
+    public ExamHistory(Long userId, Long subjectId, int level, List<Long> questions, List<Long> userAnswers, int totalQuestionsCount) {
         this.userId = userId;
-        this.subjectName = subjectName;
+        this.subjectId = subjectId;
         this.level = level;
         this.questions = questions;
         this.userAnswers = userAnswers;

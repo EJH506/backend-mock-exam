@@ -2,9 +2,54 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title> | 백엔드 모의고사</title>
+    <title th:text="#{page.incorrect-note} + ' | ' + #{title}">오답노트 | 백엔드 모의고사</title>
 </head>
 <body>
-오답노트 - 주제선택 후 리스트
+<div class="wrap">
+<header th:replace="~{fragment/home-header :: header (${user.userId}, ${user.nickname}, ${isMember})}"></header>
+
+<section>
+    <h2 th:text="${subject}">네트워크(목업)</h2>
+
+    <div>
+        <ul>
+            <li><a th:href="@{|/incorrect-note/list?subject=${subject}&level=#{page.level.all}|}" th:text="#{page.incorrectSubject.all}">전체(목업)</a></li>
+            <li th:each="level : ${levels}"><a th:href="@{|/incorrect-note/list?subject=${subject}&level=${level}|}" th:text="'Lv. ' + ${level}">Lv. 1(목업)</a></li>
+        </ul>
+
+        <ul>
+            <li>
+                <div class="title">
+                    <span>Lv. 1</span>
+                    <span>HTTP와 HTTPS의 차이점으로 옳은 것을 고르세요</span>
+                    <span>★</span>
+                </div>
+
+                <div class="content" style="display: none">
+                    <ul>
+                        <li>HTTP는 더 빠르다</li>
+                        <li>HTTPS는 암호화된 통신을 사용한다</li>
+                        <li>HTTPS는 HTTP보다 더 적은 데이터를 전송한다</li>
+                        <li>HTTP는 모바일 환경에서만 사용된다</li>
+                    </ul>
+                    <span>정답보기</span>
+                </div>
+            </li>
+        </ul>
+
+        <ul>
+            <li><a th:href="@{|/incorrect-note/list?subject=${subject}&level=${level != null ? level : ''}&page=2|}">2</a></li>
+        </ul>
+
+        <form th:action method="post" th:object="${incorrectNoteSearchDto}">
+            <label for="searchKeyword">검색어</label>
+            <input type="text" id="searchKeyword" th:field="*{searchKeyword}" th:placeholder="#{text.search.enterSearch}" />
+            <button type="submit" th:text="#{button.search}">검색(목업)</button>
+        </form>
+    </div>
+
+    <a th:href="@{/incorrect-note}" th:text="#{button.go-list}">목록으로</a>
+</section>
+</div>
 </body>
 </html>

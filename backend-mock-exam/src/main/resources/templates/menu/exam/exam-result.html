@@ -8,7 +8,7 @@
 <div class="wrap">
 <header th:replace="~{fragment/home-header :: header (${user.userId}, ${user.nickname}, ${isMember})}"></header>
 <section>
-    <h2 th:text="${examHistory.subjectName} + ' Lv. ' + ${examHistory.level}">네트워크 Lv. 2(목업)</h2>
+    <h2 th:text="${examHistory.subjectId} + ' Lv. ' + ${examHistory.level}">네트워크 Lv. 2(목업)</h2>
 
     <div id="resultData">
         <p th:text="#{text.result.correctRate}">정답률 (목업)</p>
@@ -36,7 +36,7 @@
 
             <div class="questionsDetail">
                 <div class="questionsText">
-                    <p th:text="${history.question.subjectName} + ' / Lv. ' + ${history.question.level == 0 ? '전체' : history.question.level}">네트워크 / Lv. 2 (목업)</p>
+                    <p th:text="${history.question.subjectId} + ' / Lv. ' + ${history.question.level == 0 ? '전체' : history.question.level}">네트워크 / Lv. 2 (목업)</p>
                     <h4 th:text="${history.question.questionText}">문항 내용</h4>
                 </div>
 
@@ -55,9 +55,9 @@
     </div> <!--viewQuestionsArea-->
 
     <div id="resultManager">
-        <a th:href="@{|/exam/take-exam?subject=${examHistory.subjectName}&level=${examHistory.level}&number=${examHistory.totalQuestionsCount}|}">재도전</a>
+        <a th:href="@{|/exam/take-exam?subject=${examHistory.subjectId}&level=${examHistory.level}&number=${examHistory.totalQuestionsCount}|}">재도전</a>
         <a th:if="${user.userId == 0}" th:onclick="javascript:signinConfirm()">틀린 문제만 재도전</a>
-        <a th:if="${user.userId != 0}" th:href="@{|/exam/take-exam?historyId=${examHistory.historyId}&subject=${examHistory.subjectName}&level=${examHistory.level}&number=${examHistory.totalQuestionsCount}|}">틀린 문제만 재도전</a>
+        <a th:if="${user.userId != 0}" th:href="@{|/exam/take-exam?historyId=${examHistory.historyId}&subject=${examHistory.subjectId}&level=${examHistory.level}&number=${examHistory.totalQuestionsCount}|}">틀린 문제만 재도전</a>
         <a th:href="@{/exam/subject}">다른 문제 풀기</a>
     </div>
 </section>

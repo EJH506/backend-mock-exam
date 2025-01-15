@@ -1,9 +1,6 @@
 package jihye.backend_mock_exam.controller.menu;
 
-import jihye.backend_mock_exam.domain.exam.Exam;
-import jihye.backend_mock_exam.domain.exam.ExamHistory;
-import jihye.backend_mock_exam.domain.exam.ExamItem;
-import jihye.backend_mock_exam.domain.exam.HistoryItemObject;
+import jihye.backend_mock_exam.domain.exam.*;
 import jihye.backend_mock_exam.service.menu.exam.ExamService;
 import jihye.backend_mock_exam.service.menu.exam.dto.SubmittedExamDto;
 import lombok.RequiredArgsConstructor;
@@ -32,40 +29,44 @@ public class ExamController {
     public String subject(Model model) {
 
         // 주제 목록
-        List<String> subjectNames = examService.subjectNames(examService.findAllSubjects());
-        model.addAttribute("subjects", subjectNames);
+        List<Subject> subjects = examService.findAllSubjects();
+        model.addAttribute("subjects", subjects);
 
         return "menu/exam/exam-subject";
     }
 
     @GetMapping("/level")
-    public String level(@RequestParam("subject") String subjectName, Model model) {
+    public String level(@RequestParam("subject") Long subjectId, Model model) {
 
-        if (subjectName == null) { return "redirect:/exam/subject"; }
+        if (subjectId == null) { return "redirect:/exam/subject"; }
 
         // 난이도 목록
-        List<Integer> levels = examService.levelListOfSubject(subjectName);
+        List<Integer> levels = examService.levelListOfSubject(subjectId);
+        Subject subject = examService.findSubjectById(subjectId);
 
         model.addAttribute("levels", levels);
-        model.addAttribute("subject", subjectName);
+        model.addAttribute("subject", subject);
 
         return "menu/exam/exam-level";
     }
 
     @GetMapping("/number")
-    public String number(@RequestParam("subject") String subjectName,
-                         @RequestParam("level") String level,
+    public String number(@RequestParam("subject") Long subjectId,
+                         @RequestParam("level") Integer level,
                          Model model) {
 
-        if (subjectName == null || level == null) { return "redirect:/exam/subject"; }
+        if (subjectId == null || level == null) { return "redirect:/exam/subject"; }
 
         // 문항 수 목록
-        Long numberOfSubject = examService.NumberOfSubject(subjectName, level);
-        List<Integer> selectableNumbers = examService.createQuestionNumberList(subjectName, level);
+        Long numberOfSubject = examService.NumberOfSubject(subjectId, level);
+        List<Integer> selectableNumbers = examService.createQuestionNumberList(subjectId, level);
+
+        Subject subject = examService.findSubjectById(subjectId);
 
         model.addAttribute("numberOfSubject", numberOfSubject);
         model.addAttribute("selectableNumbers", selectableNumbers);
-        model.addAttribute("subject", subjectName);
+        model.addAttribute("subject", subject);
+        model.addAttribute("subjectId", subjectId);
         model.addAttribute("level", level);
 
         return "menu/exam/exam-number";
@@ -73,8 +74,8 @@ public class ExamController {
 
     @GetMapping("/take-exam")
     public String takeExamPage(@RequestParam(value = "historyId", required = false) Long historyId,
-                               @RequestParam(value = "subject", required = false) String subjectName,
-                               @RequestParam(value = "level", required = false) String level,
+                               @RequestParam(value = "subject", required = false) Long subjectId,
+                               @RequestParam(value = "level", required = false) Integer level,
                                @RequestParam(value = "number", required = false) Integer number,
                                Model model) {
 
@@ -82,13 +83,13 @@ public class ExamController {
 
         // 틀린문제만 재도전이 아닐경우
         if (historyId == null) {
-            if (subjectName == null || level == null || number == null) { return "redirect:/exam/subject"; }
-            questionsId = examService.shuffledQuestionList(subjectName, level, number);
+            if (subjectId == null || level == null || number == null) { return "redirect:/exam/subject"; }
+            questionsId = examService.shuffledQuestionList(subjectId, level, number);
         }
 
         // 틀린문제만 재도전일 경우
         if (historyId != null) {
-            ExamHistory history = examService.findExamHistoryById(historyId);
+//            ExamHistory history = examService.findExamHistoryById(historyId);
             questionsId = examService.findQuestionsIdOfHistory(historyId, false);
         }
 
@@ -96,8 +97,11 @@ public class ExamController {
         List<ExamItem> examItems = examService.createExam(questionsId);
         number = examItems.size();
 
-        model.addAttribute("exam", new Exam(subjectName, level, number, examItems));
+        Subject subject = examService.findSubjectById(subjectId);
+
+        model.addAttribute("exam", new Exam(subjectId, level, number, examItems));
         model.addAttribute("submittedExamDto", new SubmittedExamDto());
+        model.addAttribute("subject", subject);
 
         return "menu/exam/take-exam";
     }
@@ -113,6 +117,7 @@ public class ExamController {
 
     @GetMapping("/result")
     public String examResultPage(@ModelAttribute("examHistory") ExamHistory examHistory, Model model) {
+        log.info("examHistory={}",examHistory);
 
         // 히스토리 정보에 해당하는 문항과 답변 기록 추출
         List<HistoryItemObject> historyDetails = examService.createHistoryDetails(examHistory);

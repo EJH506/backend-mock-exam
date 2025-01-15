@@ -24,4 +24,14 @@ public class IncorrectNoteService {
     public List<String> subjectNames(List<Subject> subjects) {
         return examService.subjectNames(subjects);
     }
+
+    // 주제별 난이도 목록 조회
+    public List<Integer> levelListOfSubject(Long subjectId) {
+        return examService.levelListOfSubject(subjectId);
+    }
+
+    //
+//    public List<IncorrectNote> incorrectList(String subjectName, String ) {
+//        return
+//    }
 }

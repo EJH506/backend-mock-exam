@@ -65,8 +65,8 @@
     </select>
 
     <insert id="saveExamHistory" useGeneratedKeys="true" keyProperty="historyId">
-        INSERT INTO exam_history (user_id, subject_name, level, total_questions_count, correct_questions_count, correct_rate)
-        VALUES (#{userId}, #{subjectName}, #{level}, #{totalQuestionsCount}, #{correctQuestionsCount}, #{correctRate});
+        INSERT INTO exam_history (user_id, subject_id, level, total_questions_count, correct_questions_count, correct_rate)
+        VALUES (#{userId}, #{subjectId}, #{level}, #{totalQuestionsCount}, #{correctQuestionsCount}, #{correctRate});
     </insert>
 
     <select id="findQuestionsById" resultType="question">

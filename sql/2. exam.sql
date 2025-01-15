@@ -52,7 +52,7 @@ CREATE TABLE answers (
 CREATE TABLE exam_history (
 	history_id INT AUTO_INCREMENT PRIMARY KEY,									-- 식별자
 	user_id INT NOT NULL,														-- 유저 ID 외래키
-	subject_name VARCHAR(255) NOT NULL,											-- 주제명
+	subject_id INT NOT NULL,													-- 주제 ID
 	level INT NOT NULL,															-- 레벨
 	total_questions_count INT NOT NULL,											-- 총 문항 수
 	correct_questions_count INT NOT NULL,										-- 맞힌 문항 수
