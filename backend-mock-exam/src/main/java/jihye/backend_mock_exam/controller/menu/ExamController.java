@@ -31,7 +31,7 @@ public class ExamController {
     @GetMapping("/subject")
     public String subject(Model model) {
 
-        // 주제 목록
+        // 주제 목록 test
         List<String> subjectNames = examService.subjectNames(examService.findAllSubjects());
         model.addAttribute("subjects", subjectNames);
 
