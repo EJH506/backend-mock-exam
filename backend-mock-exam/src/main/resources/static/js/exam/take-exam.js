@@ -33,4 +33,23 @@ $(document).ready(function() {
             $ul.append($input);
         }
     });
+
+    // "제출" 눌렀을 때 체크 안되어있을 시 0값을 보내면서 서브밋
+    $(".btn_submit").click(function(event) {
+        $(".slide-box").each(function() {
+            const $ul = $(this).find("ul");
+
+            if ($ul.find("input:checkbox:checked").length === 0) {
+                const $input = document.createElement("input");
+                $input.type = "checkbox";
+                $input.name = "userAnswers";
+                $input.classList.add("zero");
+                $input.value = 0;
+                $input.checked = true;
+                $input.style = "display: none";
+
+                $ul.append($input);
+            }
+        });
+    });
 });

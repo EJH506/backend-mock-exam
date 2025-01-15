@@ -1,30 +1,19 @@
-CREATE DATABASE backend_mock_exam;
 
 USE backend_mock_exam;
 
-DROP TABLE IF EXISTS users;
 DROP TABLE IF EXISTS subjects;
 DROP TABLE IF EXISTS levels;
 DROP TABLE IF EXISTS questions;
 DROP TABLE IF EXISTS answers;
-DROP TABLE IF EXISTS question_unit_setting;
 DROP TABLE IF EXISTS exam_history;
 DROP TABLE IF EXISTS history_items;
 
-CREATE TABLE users (
-	user_id INT AUTO_INCREMENT PRIMARY KEY,										-- 식별자
-	account_id VARCHAR(255) NOT NULL,											-- 아이디
-	nickname VARCHAR(255) NOT NULL,												-- 닉네임
-	hashed_password VARCHAR(255) NOT NULL,										-- 암호화된 비밀번호
-	find_password_question VARCHAR(255) NOT NULL,								-- 비밀번호 찾기 질문
-	find_password_answer VARCHAR(255) NOT NULL,									-- 비밀번호 찾기 질문에 대한 답변
-	gender ENUM('male', 'female'),												-- 성별
-	birth_year INT,																-- 출생년도
-	roles VARCHAR(255) NOT NULL,												-- 역할 (ROLE_USER, ROLE_ADMIN)
-	create_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,								-- 생성일시
-	update_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,	-- 수정일시
-	UNIQUE (account_id)															-- 아이디의 유일성 보장
-);
+SELECT * FROM subjects;
+SELECT * FROM levels;
+SELECT * FROM questions;
+SELECT * FROM answers;
+SELECT * FROM exam_history;
+SELECT * FROM history_items;
 
 CREATE TABLE subjects (
 	subject_id INT AUTO_INCREMENT PRIMARY KEY,									-- 식별자
@@ -60,13 +49,6 @@ CREATE TABLE answers (
 	update_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP	-- 수정일시
 )
 
-CREATE TABLE question_unit_setting (
-	question_unit_id INT AUTO_INCREMENT PRIMARY KEY,							-- 식별자
-	question_unit INT NOT NULL,													-- 관리자가 설정한 문항 분류 단위
-	created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,								-- 생성일시
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP	-- 수정일시
-)
-
 CREATE TABLE exam_history (
 	history_id INT AUTO_INCREMENT PRIMARY KEY,									-- 식별자
 	user_id INT NOT NULL,														-- 유저 ID 외래키
@@ -89,21 +71,3 @@ CREATE TABLE history_items (
 	created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,								-- 생성일시
 	update_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP	-- 수정일시
 )
-
-SELECT * FROM users;
-SELECT * FROM subjects;
-SELECT * FROM levels;
-SELECT * FROM questions;
-SELECT * FROM answers;
-SELECT * FROM question_unit_setting;
-SELECT * FROM exam_history;
-SELECT * FROM history_items;
-
-SELECT * FROM exam_history WHERE history_id = 1;
-SELECT question_id FROM history_items WHERE history_id = 1
-/*
-SELECT * FROM options
-WHERE question_id = ?  -- 특정 문제 ID에 대해
-ORDER BY RAND()        -- 보기 순서 랜덤 정렬
-LIMIT 4;               -- 최대 4개 보기 출력
-*/

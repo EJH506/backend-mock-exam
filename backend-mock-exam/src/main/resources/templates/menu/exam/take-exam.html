@@ -40,7 +40,7 @@
                     <button th:if="${stat.index > 0}" type="button" class="btn_prev" th:text="#{button.prev}">이전</button>
                     <button th:if="${!stat.last}" type="button" class="btn_skip" th:text="#{button.skip}">건너뛰기</button>
                     <button th:if="${!stat.last}" type="button" class="btn_next" th:text="#{button.next}" style="display: none">다음</button>
-                    <button th:if="${stat.last}" type="submit" th:text="#{button.submit}">제출</button>
+                    <button th:if="${stat.last}" type="submit" class="btn_submit" th:text="#{button.submit}">제출</button>
                 </div>
 
             </div>

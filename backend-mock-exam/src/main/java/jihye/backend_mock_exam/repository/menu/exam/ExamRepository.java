@@ -40,10 +40,10 @@ public interface ExamRepository {
     ExamHistory saveExamHistory(ExamHistory examHistory);
 
     // 문항 ID로 문항 조회
-    Question findQuestionsById(Long questionId);
+    Question findQuestionsById(Long id);
 
     // 보기 ID로 보기 조회
-    Answer findAnswerById(Long answerId);
+    Answer findAnswerById(Long id);
 
     // 시험 히스토리 문항 저장
     HistoryItem saveExamHistoryItems(HistoryItem historyItem);
