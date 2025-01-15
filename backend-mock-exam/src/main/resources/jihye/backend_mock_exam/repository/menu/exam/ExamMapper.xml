@@ -27,7 +27,7 @@
         SELECT count(*) FROM questions
         <where>
             <if test="subjectId > 0">
-                subject_id = #{subjectId}
+                AND subject_id = #{subjectId}
             </if>
             <if test="level > 0">
                 AND level = #{level}
@@ -43,7 +43,7 @@
         SELECT question_id FROM questions
         <where>
             <if test="subjectId > 0">
-                subject_id = #{subjectId}
+                AND subject_id = #{subjectId}
             </if>
             <if test="level > 0">
                 AND level = #{level}

@@ -8,13 +8,6 @@ DROP TABLE IF EXISTS answers;
 DROP TABLE IF EXISTS exam_history;
 DROP TABLE IF EXISTS history_items;
 
-SELECT * FROM subjects;
-SELECT * FROM levels;
-SELECT * FROM questions;
-SELECT * FROM answers;
-SELECT * FROM exam_history;
-SELECT * FROM history_items;
-
 CREATE TABLE subjects (
 	subject_id INT AUTO_INCREMENT PRIMARY KEY,									-- 식별자
 	subject_name VARCHAR(255) NOT NULL,											-- 주제명
@@ -71,3 +64,11 @@ CREATE TABLE history_items (
 	created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,								-- 생성일시
 	update_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP	-- 수정일시
 )
+
+
+SELECT * FROM subjects;
+SELECT * FROM levels;
+SELECT * FROM questions;
+SELECT * FROM answers;
+SELECT * FROM exam_history;
+SELECT * FROM history_items;

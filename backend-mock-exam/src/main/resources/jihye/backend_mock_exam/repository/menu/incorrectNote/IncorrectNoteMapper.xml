@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jihye.backend_mock_exam.repository.menu.incorrectNote.IncorrectNoteMapper">
+
+    <select id="findIncorrectList" resultType="incorrectNote">
+        SELECT * FROM incorrect_note
+        <where>
+            <if test="subjectId > 0">
+                AND subject_id = #{subjectId}
+            </if>
+            <if test="level > 0">
+                AND level = #{level}
+            </if>
+            AND user_id = ${userId}
+        </where>
+        ORDER BY incorrect_note_id DESC
+    </select>
+
+    <delete id="deleteQuestionFromIncorrectNote">
+        DELETE FROM incorrect_note
+        WHERE question_id = #{questionId}
+        AND user_id = #{userId}
+    </delete>
+
+    <insert id="insertQuestionFromIncorrectNote">
+        INSERT INTO incorrect_note (user_id, question_id, subject_id, level)
+        SELECT #{userId}, q.question_id, q.subject_id, q.level
+        FROM questions q
+        WHERE q.question_id = #{questionId}
+    </insert>
+</mapper>

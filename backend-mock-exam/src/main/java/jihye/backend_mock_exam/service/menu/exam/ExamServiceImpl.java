@@ -25,17 +25,6 @@ public class ExamServiceImpl implements ExamService {
         return examRepository.findAllSubjects();
     }
 
-    // 주제 목록을 이름만 반환
-    @Override
-    public List<String> subjectNames(List<Subject> subjects) {
-
-        List<String> subjectNames = new ArrayList<>();
-        for (Subject subject : subjects) {
-            subjectNames.add(subject.getSubjectName());
-        }
-        return subjectNames;
-    }
-
     // 주제 이름으로 주제 조회
     @Override
     public Subject findSubjectByName(String subjectName) {
@@ -80,7 +69,7 @@ public class ExamServiceImpl implements ExamService {
         return selectableNumbers;
     }
 
-    // 주제,난이도,문항수에 해당하는 문제 목록 조회 (순서 랜덤)
+    // 주제,난이도,문항수에 해당하는 문제 목록 반환 (순서 랜덤)
     @Override
     public List<Long> shuffledQuestionList(String subjectName, String level, int number) {
 
@@ -213,8 +202,9 @@ public class ExamServiceImpl implements ExamService {
         return examRepository.findQuestionsIdOfHistory(historyId, isCorrect);
     }
 
+    @Override
     // 조건에 맞는 문항 조회
-    private List<Question> findFilteredHistoryQuestions(List<Long> questionsId) {
+    public List<Question> findFilteredHistoryQuestions(List<Long> questionsId) {
 
         List<Question> questions = new ArrayList<>();
         
@@ -228,8 +218,9 @@ public class ExamServiceImpl implements ExamService {
         return questions;
     }
 
+    @Override
     // 조건에 맞는 보기 조회
-    private List<Answer> findFilteredHistoryAnswers(List<Long> answersId) {
+    public List<Answer> findFilteredHistoryAnswers(List<Long> answersId) {
 
         List<Answer> correctAnswers = new ArrayList<>();
 

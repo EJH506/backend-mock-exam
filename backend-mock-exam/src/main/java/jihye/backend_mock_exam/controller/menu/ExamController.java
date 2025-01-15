@@ -1,9 +1,6 @@
 package jihye.backend_mock_exam.controller.menu;
 
-import jihye.backend_mock_exam.domain.exam.Exam;
-import jihye.backend_mock_exam.domain.exam.ExamHistory;
-import jihye.backend_mock_exam.domain.exam.ExamItem;
-import jihye.backend_mock_exam.domain.exam.HistoryItemObject;
+import jihye.backend_mock_exam.domain.exam.*;
 import jihye.backend_mock_exam.service.menu.exam.ExamService;
 import jihye.backend_mock_exam.service.menu.exam.dto.SubmittedExamDto;
 import lombok.RequiredArgsConstructor;
@@ -32,8 +29,8 @@ public class ExamController {
     public String subject(Model model) {
 
         // 주제 목록 test
-        List<String> subjectNames = examService.subjectNames(examService.findAllSubjects());
-        model.addAttribute("subjects", subjectNames);
+        List<Subject> subjects = examService.findAllSubjects();
+        model.addAttribute("subjects", subjects);
 
         return "menu/exam/exam-subject";
     }

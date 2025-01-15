@@ -9,10 +9,7 @@ public interface ExamService {
 
     // 주제 목록 조회
     List<Subject> findAllSubjects();
-
-    // 주제 목록을 이름만 반환
-    List<String> subjectNames(List<Subject> subjects);
-
+    
     // 주제 이름으로 주제 조회
     Subject findSubjectByName(String subjectName);
     
@@ -25,7 +22,7 @@ public interface ExamService {
     // 출제 문항 수 목록 연산
     List<Integer> createQuestionNumberList(String subjectName, String level);
     
-    // 주제,난이도,문항수에 해당하는 문제 목록 조회 (순서 랜덤)
+    // 주제,난이도,문항수에 해당하는 문제 목록 반환 (순서 랜덤)
     List<Long> shuffledQuestionList(String subjectName, String level, int number);
 
     // 문제의 보기 조회 (순서 랜덤)
@@ -45,4 +42,10 @@ public interface ExamService {
     
     // 히스토리에 속한 문제ID 조회 (전체를 찾으려면 true, 틀린문제만이면 false)
     List<Long> findQuestionsIdOfHistory(Long historyId, boolean isCorrect);
+
+    // 조건에 맞는 문항 조회
+    public List<Question> findFilteredHistoryQuestions(List<Long> questionsId);
+
+    // 조건에 맞는 보기 조회
+    public List<Answer> findFilteredHistoryAnswers(List<Long> answersId);
 }

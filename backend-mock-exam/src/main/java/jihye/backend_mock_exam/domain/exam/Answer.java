@@ -9,4 +9,5 @@ public class Answer {
     private Long questionId;
     private String answerText;
     private boolean isCorrect;
+
 }

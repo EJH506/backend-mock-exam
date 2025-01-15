@@ -13,8 +13,8 @@
         <p>문제의 주제를 선택해 주세요</p>
 
         <ul>
-            <li><a th:href="@{|/incorrect-note/list?subject=#{page.incorrectSubject.all}|}" th:text="#{page.incorrectSubject.all}">전체(목업)</a></li>
-            <li th:each="subject : ${subjects}"><a th:href="@{|/incorrect-note/list?subject=${subject}|}" th:text="${subject}">주제명</a></li>
+            <li><a th:href="@{|/incorrect-note/list?subject=#{page.subject.all}|}" th:text="#{page.subject.all}">전체(목업)</a></li>
+            <li th:each="subject : ${subjects}"><a th:href="@{|/incorrect-note/list?subject=${subject.subjectName}|}" th:text="${subject.subjectName}">주제명</a></li>
         </ul>
     </section>
 </div>
