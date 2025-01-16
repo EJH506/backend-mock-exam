@@ -7,11 +7,11 @@ $(document).ready(function() {
 
             // 한 문제 안에서 하나라도 답변이 선택되어 있으면 건너뛰기버튼 숨기고 다음버튼
             if ($checkboxes.filter(":checked").length > 0) {
-                $(this).closest("ul").siblings(".btn_skip").css("display", "none");
-                $(this).closest("ul").siblings(".btn_next").css("display", "initial");
+                $(this).closest("ul").siblings('.buttons').find(".btn_skip").css("display", "none");
+                $(this).closest("ul").siblings('.buttons').find(".btn_next").css("display", "initial");
             } else {
-                $(this).closest("ul").siblings(".btn_next").css("display", "none");
-                $(this).closest("ul").siblings(".btn_skip").css("display", "initial");
+                $(this).closest("ul").siblings('.buttons').find(".btn_next").css("display", "none");
+                $(this).closest("ul").siblings('.buttons').find(".btn_skip").css("display", "initial");
             }
         });
     });
@@ -52,4 +52,14 @@ $(document).ready(function() {
             }
         });
     });
+
+    let margin = 0;
+    $('.btn_skip, .btn_next').click(function() {
+        margin -= 800;
+        $(this).closest('form').css("marginLeft", margin + 'px');
+    })
+    $('.btn_prev').click(function() {
+        margin += 800;
+        $(this).closest('form').css("marginLeft", margin + 'px');
+    })
 });

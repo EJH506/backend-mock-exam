@@ -145,7 +145,7 @@ header #profile > ul a:hover {
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 720px;
+  width: 800px;
   height: 60px;
   padding: 0 24px;
   box-sizing: border-box;
@@ -161,6 +161,23 @@ header #profile > ul a:hover {
   border-color: #71B961;
 }
 
+.systemButton_md {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 395px;
+  height: 60px;
+  color: #fff;
+  font-size: 14px;
+  font-family: "Pretendard-SemiBold";
+  border: none;
+  box-sizing: border-box;
+  outline: none;
+  border: 3px solid #CCC;
+  border-radius: 7px;
+  cursor: pointer;
+}
+
 .systemButton_lg {
   display: flex;
   justify-content: center;
@@ -171,6 +188,7 @@ header #profile > ul a:hover {
   font-size: 24px;
   font-family: "Pretendard-SemiBold";
   border: none;
+  box-sizing: border-box;
   outline: none;
   border: 3px solid #CCC;
   border-radius: 7px;
@@ -188,6 +206,7 @@ header #profile > ul a:hover {
   background-color: white;
   border: 3px solid #CCC;
   border-radius: 10px;
+  box-sizing: border-box;
   outline: none;
   cursor: pointer;
 }
@@ -201,6 +220,7 @@ header #profile > ul a:hover {
   color: #fff;
   border-radius: 7px;
   background-color: #71B961;
+  box-sizing: border-box;
   outline: none;
   cursor: pointer;
 }
@@ -209,7 +229,7 @@ header #profile > ul a:hover {
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 330px;
+  width: 395px;
   height: 120px;
   padding: 0 24px;
   box-sizing: border-box;
@@ -335,56 +355,52 @@ section > h2 {
   align-self: flex-start;
   border: 1px solid black;
   font-size: 30px;
-  margin-bottom: 30px;
+  margin-bottom: 10px;
   transform: translate(-50%, -50%);
 }
 section > #menuArea {
   display: flex;
   flex-flow: row wrap;
   gap: 10px;
-  width: 672px;
   outline: 1px solid black;
 }
-section > form {
+section form {
   margin-bottom: 30px;
 }
-section > form > div {
+section form > div {
   display: flex;
   flex-flow: column wrap;
   gap: 5px;
 }
-section > form > div.required {
+section form > div.required {
   margin-bottom: 30px;
 }
-section > form > div.optional > div {
+section form > div.optional > div {
   display: flex;
   gap: 0 10px;
 }
-section > form > div.optional > div label {
-  cursor: pointer;
+section form > div.optional > div label {
+  width: 395px;
   height: 60px;
   font-size: 14px;
+  cursor: pointer;
 }
-section > form > div.optional > div input[type=checkbox]:checked ~ label {
+section form > div.optional > div input[type=checkbox]:checked ~ label {
   background-color: #71B961;
   border-color: #71B961;
   color: #fff;
 }
-section > form > div.optional > select {
+section form > div.optional > select {
   width: 100%;
 }
-section > form > div#signup_buttons > .systemButton_lg {
-  height: 60px;
-  font-size: 14px;
-}
-section > form + .systemButton_sm {
+section form + .systemButton_sm {
   position: absolute;
   top: 100%;
   left: 0;
   color: #CCC;
   border-color: #CCC;
 }
-section > form + .systemButton_sm:hover {
+section form + .systemButton_sm:hover {
   color: #FF6F74;
   border-color: #FF6F74;
 }
@@ -410,6 +426,66 @@ section > div > form .systemButton_sm:first-of-type {
 section > div > form .systemButton_sm:last-of-type {
   color: #FF6F74;
   border-color: #FF6F74;
+}
+
+#takeTest > form {
+  overflow: hidden;
+}
+#takeTest > form > #testArea {
+  display: flex;
+  flex-flow: row nowrap;
+  gap: initial;
+  width: 100%;
+}
+#takeTest > form > #testArea > .slide-box {
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  width: 800px;
+}
+#takeTest > form > #testArea > .slide-box > span {
+  font-size: 18px;
+  margin-bottom: 20px;
+}
+#takeTest > form > #testArea > .slide-box > p {
+  font-family: "Pretendard-SemiBold";
+}
+#takeTest > form > #testArea > .slide-box > p:first-of-type {
+  color: #CCC;
+}
+#takeTest > form > #testArea > .slide-box > p:last-of-type {
+  font-size: 20px;
+}
+#takeTest > form > #testArea > .slide-box > ul {
+  display: flex;
+  flex-flow: column wrap;
+  gap: 5px;
+  margin-top: 15px;
+}
+#takeTest > form > #testArea > .slide-box > ul .systemInput_md {
+  border-color: #71B961;
+}
+#takeTest > form > #testArea > .slide-box > ul .systemInput_md:hover {
+  transform: scale(1.01);
+}
+#takeTest > form > #testArea > .slide-box > ul input:checked ~ .systemInput_md {
+  border-color: #9ACDFF;
+  box-shadow: 1px 1px 1px #CCC;
+}
+#takeTest > form > #testArea > .slide-box .buttons .btn_skip {
+  background-color: white;
+  border-color: #71B961;
+  color: #71B961;
+}
+#takeTest > form > #testArea > .slide-box .buttons .btn_prev {
+  background-color: #E6E9DE;
+  border-color: #E6E9DE;
+}
+#takeTest > form > #testArea > .slide-box .buttons .btn_next, #takeTest > form > #testArea > .slide-box .buttons .btn_submit {
+  background-color: #71B961;
+  border-color: #71B961;
 }
 
 /*# sourceMappingURL=main.css.map */

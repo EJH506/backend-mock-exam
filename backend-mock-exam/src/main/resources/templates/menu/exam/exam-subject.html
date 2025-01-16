@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title th:text="#{page.take-exam} + ' | ' + #{title}">문제풀기 | 백엔드 모의고사</title>
+    <link rel="stylesheet" th:href="@{/css/main.css}">
 </head>
 <body>
 <div class="wrap">
@@ -12,9 +13,9 @@
     <h2 th:text="#{page.take-exam}">문제풀기(목업)</h2>
     <p>문제의 주제를 선택해 주세요</p>
 
-    <ul>
-        <li><a th:href="@{|/exam/level?subject=#{page.subject.all}|}" th:text="#{page.subject.all}">통합 문제(목업)</a></li>
-        <li th:each="subject : ${subjects}"><a th:href="@{|/exam/level?subject=${subject.subjectName}|}" th:text="${subject.subjectName}">주제명</a></li>
+    <ul id="menuArea">
+        <li><a class="systemMenu_lg" th:href="@{|/exam/level?subject=#{page.subject.all}|}" th:text="#{page.subject.all}">통합 문제(목업)</a></li>
+        <li th:each="subject : ${subjects}"><a class="systemMenu_lg" th:href="@{|/exam/level?subject=${subject.subjectName}|}" th:text="${subject.subjectName}">주제명</a></li>
     </ul>
 </section>
 </div>

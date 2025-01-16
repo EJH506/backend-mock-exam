@@ -12,7 +12,7 @@ section {
     align-self: flex-start;
     border: 1px solid black;
     font-size: 30px;
-    margin-bottom: 30px;
+    margin-bottom: 10px;
     transform: translate(-50%, -50%);
   }
 
@@ -21,12 +21,11 @@ section {
     display: flex;
     flex-flow: row wrap;
     gap: 10px;
-    width: 672px;
     outline: 1px solid black;
   }
 
   // 회원정보 수정
-  >form {
+  form {
     margin-bottom: 30px;
     >div {
       display: flex;
@@ -43,9 +42,10 @@ section {
           gap: 0 10px;
 
           label {
-            cursor: pointer;
+            width: 395px;
             height: 60px;
             font-size: 14px;
+            cursor: pointer;
           }
 
           input[type="checkbox"]:checked ~ label {
@@ -60,12 +60,6 @@ section {
         }
       } //&.optional
 
-      &#signup_buttons {
-        >.systemButton_lg {
-          height: 60px;
-          font-size: 14px;
-        }
-      }
     } //div
 
     & + .systemButton_sm {
@@ -111,6 +105,78 @@ section {
         }
       }
     }
-  }
-
+  } // div (회원탈퇴)
 }
+
+// 문제풀기
+#takeTest {
+
+  >form {
+
+    overflow: hidden;
+    >#testArea {
+      display: flex;
+      flex-flow: row nowrap;
+      gap: initial;
+      width: 100%;
+
+      >.slide-box {
+        display: flex;
+        flex-flow: column nowrap;
+        justify-content: center;
+        align-items: center;
+        gap: 5px;
+        width: 800px;
+
+        >span { // 현재 문항수
+          font-size: 18px;
+          margin-bottom: 20px;
+        }
+
+        >p {
+          font-family: 'Pretendard-SemiBold';
+
+          &:first-of-type { color: $placeholder; } // 주제명 Lv. 레벨
+          &:last-of-type { font-size: 20px; } // 문항 내용
+        }
+
+        >ul { //보기 목록
+          display: flex;
+          flex-flow: column wrap;
+          gap: 5px;
+          margin-top: 15px;
+
+          .systemInput_md {
+            border-color: $theme-exam;
+            &:hover { transform: scale(1.01); }
+          }
+
+          input:checked ~ .systemInput_md {
+            border-color: $accent-checked;
+            box-shadow: 1px 1px 1px $placeholder;
+          }
+        } // ul (보기목록)
+
+        .buttons {
+          .btn_skip {
+            background-color: white;
+            border-color: $theme-exam;
+            color: $theme-exam;
+          }
+
+          .btn_prev {
+            background-color: $theme-sub;
+            border-color: $theme-sub;
+          }
+          .btn_next, .btn_submit {
+            background-color: $theme-exam;
+            border-color: $theme-exam;
+          }
+        } //.buttons
+      }
+    }
+  } // form>#testArea (slide-wrap)
+
+
+
+} // div#takeTest (시험있으면 시험, 없으면 없습니다를 나누는 div)
