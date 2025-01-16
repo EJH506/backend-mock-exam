@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title th:text="#{page.sign-in} + ' | ' + #{title}">로그인 | 백엔드 모의고사</title>
+    <link rel="stylesheet" th:href="@{/css/auth/style.css}">
 </head>
 <body>
 <div class="wrap">
@@ -11,28 +12,28 @@
 <section>
     <h2 th:text="#{page.sign-in}">로그인(목업)</h2>
     <form th:action method="post" th:object="${signInDto}">
-        <div th:if="${#fields.hasGlobalErrors()}">
+        <div th:if="${#fields.hasGlobalErrors()}" th:class="errorclass">
             <p th:each="err : ${#fields.globalErrors()}" th:text="${err}">전체 오류 메시지</p>
         </div>
 
         <div>
-            <label for="accountId" th:text="#{label.user.accountId}">아이디(목업)</label>
-            <input type="text" id="accountId" th:placeholder="#{label.user.accountId}"
+            <label class="sr-only" for="accountId" th:text="#{label.user.accountId}">아이디(목업)</label>
+            <input class="systemInput_lg" type="text" id="accountId" th:placeholder="#{label.user.accountId}"
                    th:field="*{accountId}" required />
             <div th:errors="*{accountId}" />
 
-            <label for="password" th:text="#{label.user.password}">비밀번호(목업)</label>
-            <input type="password" id="password" th:placeholder="#{label.user.password}" th:field="*{password}" required />
+            <label class="sr-only" for="password" th:text="#{label.user.password}">비밀번호(목업)</label>
+            <input class="systemInput_lg" type="password" id="password" th:placeholder="#{label.user.password}" th:field="*{password}" required />
             <div th:errors="*{password}" />
         </div>
         <!--
         <label for="rememberMe">자동 로그인</label>
         <input type="checkbox" id="rememberMe" th:field="*{rememberMe}" />
         -->
-        <button type="submit" th:text="#{page.sign-in}">로그인(목업)</button>
+        <button class="systemButton_lg" type="submit" th:text="#{page.sign-in}">로그인(목업)</button>
     </form>
 
-    <div class="authManager">
+    <div class="manager">
         <a th:href="@{/auth/sign-up}" th:text="#{page.sign-up}">회원가입(목업)</a>
         <a th:href="@{/auth/forgot-password}" th:text="#{page.forgot-password}">비밀번호 찾기(목업)</a>
     </div>

@@ -3,30 +3,38 @@
 <head>
     <meta charset="UTF-8">
     <title th:text="#{page.welcome} + ' | ' + #{title}"></title>
+    <link rel="stylesheet" th:href="@{/css/auth/style.css}">
 </head>
 <body>
 <div class="wrap">
-<div id="text">
-    <h1>
-        백엔드<br />
-        기술면접 모의고사
-    </h1>
-    <p>
-        대충 어떤내용들
-    </p>
-</div>
+    <div id="welcome">
+        <div id="welcomeText">
+            <h1>
+                백엔드<br />
+                기술면접 모의고사
+            </h1>
+            <p>
+                모든 국민은 인간다운 생활을 할 권리를 가진다.<br /><br />
 
-<ul id="buttons">
-    <li class="systemButton_lg">
-        <a th:href="@{/auth/sign-in}" th:text="#{page.sign-in}" class="fill">로그인(목업)</a>
-    </li>
-    <li class="systemButton_lg">
-        <a th:href="@{/auth/sign-up}" th:text="#{page.sign-up}" class="fill">회원가입(목업)</a>
-    </li>
-    <li class="systemButton_lg">
-        <a th:href="@{/auth/guest-start}" th:text="#{page.guest-start}">비회원으로 시작(목업)</a>
-    </li>
-</ul>
+                모든 국민은 소급입법에 의하여 참정권의 제한을 받거나 재산권을 박탈당하지 아니한다.
+                법률이 정하는 주요방위산 업체에 종사하는 근로자의 단체행동권은 법률이 정하는 바 에
+                의하여 이를 제한하거나 인정하지 아니할 수 있다.
+            </p>
+        </div>
+
+        <ul id="buttons">
+            <li>
+                <a th:class="systemButton_lg" th:href="@{/auth/sign-in}" th:text="#{page.sign-in}">로그인(목업)</a>
+            </li>
+            <li>
+                <a th:class="systemButton_lg" th:href="@{/auth/sign-up}" th:text="#{page.sign-up}">회원가입(목업)</a>
+            </li>
+            <li>
+                <a th:class="systemButton_lg" th:href="@{/auth/guest-start}" th:text="#{page.guest-start}">비회원으로 시작(목업)</a>
+            </li>
+        </ul>
+    </div>
+
 </div>
 </body>
 </html>

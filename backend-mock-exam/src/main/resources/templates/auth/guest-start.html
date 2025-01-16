@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title th:text="#{page.guest-start} + ' | ' + #{title}">비회원으로 시작 | 백엔드 모의고사(목업)</title>
+    <link rel="stylesheet" th:href="@{/css/auth/style.css}">
 </head>
 <body>
 <div class="wrap">
@@ -12,14 +13,14 @@
     <h2 th:text="#{page.guest-start} + '하기'">비회원으로 시작하기(목업)</h2>
 
     <form th:action method="post" th:object="${guestStartDto}">
-        <label for="nickname" th:text="#{label.user.nickname}">닉네임(목업)</label>
-        <input type="text" id="nickname" th:field="*{nickname}" th:placeholder="#{label.user.nickname}"/>
+        <label class="sr-only" for="nickname" th:text="#{label.user.nickname}">닉네임(목업)</label>
+        <input class="systemInput_lg" type="text" id="nickname" th:field="*{nickname}" th:placeholder="#{label.user.nickname}"/>
         <div id="nicknameError" th:errors="*{nickname}">닉네임 오류 내용</div>
 
-        <button type="submit" th:text="#{page.guest-start}">비회원으로 시작(목업)</button>
+        <button class="systemButton_lg" type="submit" th:text="#{page.guest-start}">비회원으로 시작(목업)</button>
     </form>
 
-    <div class="authManager">
+    <div class="manager">
         <a th:href="@{/auth/sign-in}" th:text="#{page.sign-in}">로그인(목업)</a>
         <a th:href="@{/auth/sign-up}" th:text="#{page.sign-up}">회원가입(목업)</a>
     </div>

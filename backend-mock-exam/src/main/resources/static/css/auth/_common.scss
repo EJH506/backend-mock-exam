@@ -1,0 +1,168 @@
+
+@font-face {
+  font-family: 'Pretendard-Regular';
+  src: url('https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Pretendard-SemiBold';
+  src: url('https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-SemiBold.woff') format('woff');
+  font-weight: 600;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Pretendard-Bold';
+  src: url('https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Bold.woff') format('woff');
+  font-weight: 700;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Pretendard-Black';
+  src: url('https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Black.woff') format('woff');
+  font-weight: 900;
+  font-style: normal;
+}
+
+// 테마색상
+$theme-exam: #71B961;
+$theme-incorrectNote: #FFD395;
+$theme-admin: #544D4D;
+$theme-history: #F5B7B1;
+$theme-memo: #B3CDE0;
+$theme-myQuestion: #A2BFF7;
+$theme-sub: #E6E9DE;
+
+// 강조색상
+$accent-caution: #FF6F74;
+$accent-correct: #00E6AC;
+$accent-admin: #CDBBB6;
+$accent-checked: #9ACDFF;
+
+// 아이콘
+$icon-star: #FFE875;
+
+// 원시색상
+$black: #222222;
+$white: #fff;
+$deep-gray: #555555;
+$placeholder: #CCC;
+
+
+* {
+  font-family: 'Pretendard-Regular';
+  color: $black;
+}
+
+.wrap {
+  width: 1200px;
+  margin: 0 auto;
+  letter-spacing: -2px;
+}
+
+.systemInput_lg {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 360px;
+  height: 80px;
+  padding: 0 24px;
+  box-sizing: border-box;
+  font-size: 18px;
+  font-family: 'Pretendard-SemiBold';
+  border: none;
+  outline: none;
+  border: 3px solid $placeholder;
+
+  &:focus {
+    border-color: $theme-exam;
+  }
+
+  border-radius: 7px;
+}
+
+.systemButton_lg {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 360px;
+  height: 90px;
+  color: $white;
+  font-size: 24px;
+  font-family: 'Pretendard-SemiBold';
+  border: none;
+  outline: none;
+  border: 3px solid $placeholder;
+  border-radius: 7px;
+  cursor: pointer;
+}
+
+.systemButton_sm {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 120px;
+  height: 40px;
+  color: $white;
+  border-radius: 7px;
+  background-color: $theme-exam;
+  outline: none;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0,0,0,0); /* 구형 브라우저를 위해 사용 */
+  clip-path: polygon(0 0, 0 0, 0 0); /* inset(50%) 와 동일한 표현 */
+  border: 0;
+}
+
+.manager {
+  display: flex;
+  font-size: 16px;
+
+  >a {
+    display: block;
+    padding: 0 7px;
+    color: #555;
+    border-right: 2px solid #555;
+
+    &:last-child {
+      border: none;
+    }
+  }
+}
+
+section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 50px;
+
+  h2 + p {
+      margin: 20px 0 30px;
+      font-size: 20px;
+  }
+
+  p + form {
+    margin-top: 10px;
+  }
+}
+
+.errorclass {
+  color: $accent-caution;
+  font-family: 'Pretendard-SemiBold';
+
+  >p {
+    display: flex;
+    justify-content: center;
+    color: $accent-caution;
+    font-family: 'Pretendard-SemiBold';
+  }
+}

@@ -3,18 +3,19 @@
 <head>
   <meta charset="UTF-8">
   <title th:text="#{page.sign-in.success} + ' | ' + #{title}">환영합니다 | 백엔드 모의고사</title>
+  <link rel="stylesheet" th:href="@{/css/auth/style.css}">
 </head>
 <body>
 <div class="wrap">
 <header th:replace="~{fragment/auth-header :: header}"></header>
 
 <section>
-  <div id="text">
+  <div id="authSuccess">
     <h2>환영합니다!</h2>
     <p>회원가입에 성공하였습니다.</p>
   </div>
 
-  <a th:href="@{/auth/sign-in}" th:text="#{page.sign-in}">로그인(목업)</a>
+  <a class="systemButton_lg" th:href="@{/auth/sign-in}" th:text="#{page.sign-in}">로그인(목업)</a>
 </section>
 </div>
 </body>
