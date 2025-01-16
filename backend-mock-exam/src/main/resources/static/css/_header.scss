@@ -61,9 +61,11 @@ header {
     display: flex;
     justify-content: center;
     align-items: center;
+    width: 200px;
     color: $theme-exam;
     font-family: 'Pretendard-Bold';
     font-size: 30px;
+    border: 1px solid red;
   } //a>h1
 
   ul {
@@ -80,7 +82,9 @@ header {
     }
   } //ul
 
-  // home 헤더 (프로필)
+  // home 헤더
+  >nav li:hover a { color: $theme-exam }
+
   #profile {
     position: relative;
 

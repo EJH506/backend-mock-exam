@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title th:text="#{page.delete-account} + ' | ' + #{title}">회원탈퇴 | 백엔드 모의고사(목업)</title>
+    <link rel="stylesheet" th:href="@{/css/main.css}">
     <script th:src="@{/js/user/delete-account.js}"></script>
 </head>
 <body>
@@ -18,12 +19,14 @@
         <strong>※ 탈퇴한 계정은 복구할 수 없습니다</strong>
 
         <form th:action method="post" name="deleteAccountForm" th:object="${deleteAccountDto}">
-            <label for="password" th:text="#{label.user.password}">비밀번호(목업)</label>
-            <input type="password" id="password" th:field="*{password}" th:placeholder="#{label.user.password}" required />
-            <div id="passwordError" th:errors="*{password}">비밀번호 오류 내용</div>
+            <label class="sr-only" for="password" th:text="#{label.user.password}">비밀번호(목업)</label>
+            <input class="systemInput_md" type="password" id="password" th:field="*{password}" th:placeholder="#{label.user.password}" required />
+            <div class="errorclass" id="passwordError" th:errors="*{password}">비밀번호 오류 내용</div>
 
-            <button type="submit" th:text="#{button.delete-account}">회원 탈퇴하기(목업)</button>
-            <button type="button" th:text="#{button.cancel}" th:onclick="javascript:history.back()">취소(목업)</button>
+            <div class="buttons">
+                <button class="systemButton_sm" type="submit" th:text="#{button.delete-account}">회원 탈퇴하기(목업)</button>
+                <button class="systemButton_sm" type="button" th:text="#{button.cancel}" th:onclick="javascript:history.back()">취소(목업)</button>
+            </div>
         </form>
     </div>
 </section>

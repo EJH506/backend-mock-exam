@@ -14,8 +14,8 @@
             <li th:each="menu, stat : ${menus}">
                 <a th:text="${menu.value.name}"
                    th:href="@{${menu.value.able} ? |/${menu.key}| : '#'}"
-                   th:style="${menu.value.able ? '' : 'pointer-events: none; color: gray; text-decoration: none;'}"
-                   th:class="${stat.last ? 'systemButton_sm' : ''}"></a>
+                   th:style="${menu.value.able ? '' : 'pointer-events: none; border-color: #CCC; color: #CCC;'}"
+                   th:class="${stat.last ? 'navButton_sm' : ''}"></a>
             </li>
         </ul>
     </nav>

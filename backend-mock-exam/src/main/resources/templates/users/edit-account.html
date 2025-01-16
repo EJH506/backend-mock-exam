@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title th:text="#{page.edit-account} + ' | ' + #{title}">회원정보 수정 | 백엔드 모의고사(목업)</title>
-    <link rel="stylesheet" th:href="@{/css/auth.css}">
+    <link rel="stylesheet" th:href="@{/css/main.css}">
     <script th:src="@{/js/createBirthYears.js}"></script>
 </head>
 <body>
@@ -21,42 +21,44 @@
 
         <div class="required">
             <p>필수항목 (*)</p>
-            <label for="nickname" th:text="#{label.user.nickname}">닉네임(목업)</label>
-            <input type="text" id="nickname" th:field="*{nickname}" th:placeholder="#{label.user.nickname}" required />
-            <div id="nicknameError" th:errors="*{nickname}">닉네임 오류 내용</div>
+            <label class="sr-only" for="nickname" th:text="#{label.user.nickname}">닉네임(목업)</label>
+            <input class="systemInput_md" type="text" id="nickname" th:field="*{nickname}" th:placeholder="#{label.user.nickname}" required />
+            <div class="errorclass" id="nicknameError" th:errors="*{nickname}">닉네임 오류 내용</div>
 
-            <label for="accountId" th:text="#{label.user.accountId}">아이디(목업)</label>
-            <input type="text" id="accountId" th:field="*{accountId}" th:placeholder="#{label.user.accountId}" readonly />
-            <div id="accountIdError" th:text="${#fields.errors('accountId').size() > 0 ? #fields.errors('accountId').get(0) : ''}">아이디 오류 내용</div>
+            <label class="sr-only" for="accountId" th:text="#{label.user.accountId}">아이디(목업)</label>
+            <input class="systemInput_md" type="text" id="accountId" th:field="*{accountId}" th:placeholder="#{label.user.accountId}" readonly />
 
-            <label for="password" th:text="#{label.user.password}">비밀번호(목업)</label>
-            <input type="password" id="password" th:field="*{password}" th:placeholder="#{label.user.password}" required />
-            <div id="passwordError" th:errors="*{password}">비밀번호 오류 내용</div>
+            <label class="sr-only" for="password" th:text="#{label.user.password}">비밀번호(목업)</label>
+            <input class="systemInput_md" type="password" id="password" th:field="*{password}" th:placeholder="#{label.user.password}" required />
+            <div class="errorclass" id="passwordError" th:errors="*{password}">비밀번호 오류 내용</div>
         </div>
 
         <div class="optional">
             <p>선택항목</p>
             <div>
                 <span>
-                    <input type="checkbox" id="male" th:field="*{gender}" th:value="male" />
-                    <label for="male" th:text="#{label.user.gender.male}">남성(목업)</label>
+                    <input class="sr-only" type="checkbox" id="male" th:field="*{gender}" th:value="male" />
+                    <label class="systemInput_lg" for="male" th:text="#{label.user.gender.male}">남성(목업)</label>
                 </span>
                 <span>
-                    <input type="checkbox" id="female" th:field="*{gender}" th:value="female" />
-                    <label for="female" th:text="#{label.user.gender.female}">여성(목업)</label>
+                    <input class="sr-only" type="checkbox" id="female" th:field="*{gender}" th:value="female" />
+                    <label class="systemInput_lg" for="female" th:text="#{label.user.gender.female}">여성(목업)</label>
                 </span>
             </div>
 
-            <select id="birthYear" th:field="*{birthYear}">
+
+            <select class="systemInput_md" id="birthYear" th:field="*{birthYear}">
                 <option th:text="#{label.user.birthYear}" value="">출생년도(목업)</option>
             </select>
         </div>
 
-        <button type="button" th:text="#{button.cancel}" th:onclick="javascript:history.back()">취소(목업)</button>
-        <button type="submit" th:text="#{button.modify}">수정(목업)</button>
+        <div id="signup_buttons">
+            <button class="systemButton_lg" type="button" th:text="#{button.cancel}" th:onclick="javascript:history.back()">취소(목업)</button>
+            <button class="systemButton_lg" type="submit" th:text="#{button.modify}">수정(목업)</button>
+        </div>
     </form>
 
-    <a th:href="@{|/users/delete/${userId}|}" th:text="#{button.delete-account}">회원 탈퇴하기(목업)</a>
+    <a class="systemButton_sm" th:href="@{|/users/delete/${userId}|}" th:text="#{button.delete-account}">회원 탈퇴하기(목업)</a>
 </section>
 </div>
 

@@ -1,0 +1,116 @@
+@import "reset.css";
+@import "header";
+@import "common";
+
+header {border: 1px solid black;}
+#wrap {border: 1px solid black;}
+section {
+  position: relative;
+  border: 1px solid black;
+
+  >h2 {
+    align-self: flex-start;
+    border: 1px solid black;
+    font-size: 30px;
+    margin-bottom: 30px;
+    transform: translate(-50%, -50%);
+  }
+
+  // 홈 화면
+  >#menuArea {
+    display: flex;
+    flex-flow: row wrap;
+    gap: 10px;
+    width: 672px;
+    outline: 1px solid black;
+  }
+
+  // 회원정보 수정
+  >form {
+    margin-bottom: 30px;
+    >div {
+      display: flex;
+      flex-flow: column wrap;
+      gap: 5px;
+
+      &.required {
+        margin-bottom: 30px;
+      } //&.required
+
+      &.optional {
+        >div { // 성별선택란
+          display: flex;
+          gap: 0 10px;
+
+          label {
+            cursor: pointer;
+            height: 60px;
+            font-size: 14px;
+          }
+
+          input[type="checkbox"]:checked ~ label {
+            background-color: $theme-exam;
+            border-color: $theme-exam;
+            color: $white;
+          }
+        } // 성별선택란
+
+        >select {
+          width: 100%;
+        }
+      } //&.optional
+
+      &#signup_buttons {
+        >.systemButton_lg {
+          height: 60px;
+          font-size: 14px;
+        }
+      }
+    } //div
+
+    & + .systemButton_sm {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      color: $placeholder;
+      border-color: $placeholder;
+
+      &:hover {
+        color: $accent-caution;
+        border-color: $accent-caution;
+      }
+    }
+  } //form
+
+  // 회원탈퇴
+  >div {
+    display: flex;
+    flex-flow: column wrap;
+    align-items: center;
+
+    >strong {
+      margin-top: 30px;
+      margin-bottom: 10px;
+      font-family: 'Pretendard-SemiBold';
+    }
+
+    >form {
+      display: flex;
+      flex-flow: column wrap;
+
+      .systemButton_sm {
+        &:first-of-type {
+          background-color: $accent-caution;
+          border-color: $accent-caution;
+          color: white;
+        }
+
+        &:last-of-type {
+          color: $accent-caution;
+          border-color: $accent-caution;
+        }
+      }
+    }
+  }
+
+}

@@ -35,9 +35,11 @@ header > a > h1 {
   display: flex;
   justify-content: center;
   align-items: center;
+  width: 200px;
   color: #71B961;
   font-family: "Pretendard-Bold";
   font-size: 30px;
+  border: 1px solid red;
 }
 header ul {
   display: flex;
@@ -51,6 +53,9 @@ header ul > li > a {
   align-items: center;
   width: 120px;
   height: 40px;
+}
+header > nav li:hover a {
+  color: #71B961;
 }
 header #profile {
   position: relative;
@@ -126,12 +131,33 @@ header #profile > ul a:hover {
   box-sizing: border-box;
   font-size: 18px;
   font-family: "Pretendard-SemiBold";
+  background-color: white;
   border: none;
   outline: none;
   border: 3px solid #CCC;
   border-radius: 7px;
 }
 .systemInput_lg:focus {
+  border-color: #71B961;
+}
+
+.systemInput_md {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 720px;
+  height: 60px;
+  padding: 0 24px;
+  box-sizing: border-box;
+  font-size: 14px;
+  font-family: "Pretendard-SemiBold";
+  background-color: white;
+  border: none;
+  outline: none;
+  border: 3px solid #CCC;
+  border-radius: 7px;
+}
+.systemInput_md:focus {
   border-color: #71B961;
 }
 
@@ -155,12 +181,48 @@ header #profile > ul a:hover {
   display: flex;
   justify-content: center;
   align-items: center;
+  width: 200px;
+  height: 40px;
+  color: #CCC;
+  font-family: "Pretendard-SemiBold";
+  background-color: white;
+  border: 3px solid #CCC;
+  border-radius: 10px;
+  outline: none;
+  cursor: pointer;
+}
+
+.navButton_sm {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   width: 120px;
   height: 40px;
   color: #fff;
   border-radius: 7px;
   background-color: #71B961;
   outline: none;
+  cursor: pointer;
+}
+
+.systemMenu_lg {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 330px;
+  height: 120px;
+  padding: 0 24px;
+  box-sizing: border-box;
+  font-size: 24px;
+  font-family: "Pretendard-SemiBold";
+  border: none;
+  outline: none;
+  border: 3px solid #71B961;
+  cursor: pointer;
+  border-radius: 7px;
+}
+.systemMenu_lg:hover {
+  transform: scale(1.05);
 }
 
 .sr-only {
@@ -191,9 +253,20 @@ header #profile > ul a:hover {
 
 section {
   display: flex;
+  flex-flow: column wrap;
   justify-content: center;
   align-items: center;
+  width: 800px;
+  margin: 0 auto;
   margin-top: 50px;
+  border: 1px solid red;
+}
+section h2 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: "Pretendard-Bold";
+  border: 1px solid black;
 }
 section h2 + p {
   margin: 20px 0 30px;
@@ -201,6 +274,11 @@ section h2 + p {
 }
 section p + form {
   margin-top: 10px;
+}
+section > form {
+  display: flex;
+  flex-flow: column wrap;
+  gap: 10px;
 }
 
 .errorclass {
@@ -214,23 +292,31 @@ section p + form {
   font-family: "Pretendard-SemiBold";
 }
 
-.systemMenu_lg {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 360px;
-  height: 90px;
-  padding: 0 24px;
-  box-sizing: border-box;
-  font-size: 18px;
-  font-family: "Pretendard-SemiBold";
-  border: none;
-  outline: none;
-  border: 3px solid #71B961;
-  border-radius: 7px;
+div#signup_buttons {
+  flex-flow: row wrap;
+  gap: 10px;
+  margin-top: 20px;
 }
-.systemMenu_lg:focus {
-  transform: scale(1.2);
+div#signup_buttons > button.systemButton_lg {
+  border: none;
+  background-color: #71B961;
+}
+div#signup_buttons > button.systemButton_lg:first-child {
+  background-color: #E6E9DE;
+}
+
+.buttons {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+h3 {
+  font-family: "Pretendard-SemiBold";
+  font-size: 24px;
+  margin: 12px 0;
 }
 
 #welcome {
@@ -272,28 +358,16 @@ section p + form {
   border: none;
 }
 
-section {
-  display: flex;
-  flex-flow: column wrap;
-  justify-content: center;
-  align-items: center;
-}
 section h2 {
-  margin: 0 auto;
-  font-family: "Pretendard-Bold";
   font-size: 40px;
 }
 section > form {
-  display: flex;
-  flex-flow: column wrap;
   margin: 50px 0;
-  gap: 10px;
 }
 section > form > div {
   display: flex;
   flex-flow: column wrap;
   gap: 5px;
-  z-index: 600;
 }
 section > form .systemButton_lg {
   background-color: #71B961;
@@ -325,17 +399,6 @@ section > form > div.optional > div input[type=checkbox]:checked ~ label {
 }
 section > form > div.optional > select {
   width: 100%;
-}
-section > form > div#signup_buttons {
-  flex-flow: row wrap;
-  gap: 10px;
-}
-section > form > div#signup_buttons > button.systemButton_lg {
-  border: none;
-  background-color: #71B961;
-}
-section > form > div#signup_buttons > button.systemButton_lg:first-child {
-  background-color: #E6E9DE;
 }
 section #authSuccess {
   display: flex;

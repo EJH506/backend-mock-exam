@@ -72,6 +72,7 @@ $placeholder: #CCC;
   box-sizing: border-box;
   font-size: 18px;
   font-family: 'Pretendard-SemiBold';
+  background-color: white;
   border: none;
   outline: none;
   border: 3px solid $placeholder;
@@ -83,7 +84,29 @@ $placeholder: #CCC;
   border-radius: 7px;
 }
 
-.systemButton_lg {
+.systemInput_md {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 720px;
+  height: 60px;
+  padding: 0 24px;
+  box-sizing: border-box;
+  font-size: 14px;
+  font-family: 'Pretendard-SemiBold';
+  background-color: white;
+  border: none;
+  outline: none;
+  border: 3px solid $placeholder;
+
+  &:focus {
+    border-color: $theme-exam;
+  }
+
+  border-radius: 7px;
+}
+
+.systemButton_lg { // 로그인, 회원가입 등 auth용
   display: flex;
   justify-content: center;
   align-items: center;
@@ -99,7 +122,22 @@ $placeholder: #CCC;
   cursor: pointer;
 }
 
-.systemButton_sm {
+.systemButton_sm { // 목록으로, 회원탈퇴하기 등
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 200px;
+  height: 40px;
+  color: $placeholder;
+  font-family: 'Pretendard-SemiBold';
+  background-color: white;
+  border: 3px solid $placeholder;
+  border-radius: 10px;
+  outline: none;
+  cursor: pointer;
+}
+
+.navButton_sm { // nav의 작은버튼
   display: flex;
   justify-content: center;
   align-items: center;
@@ -109,6 +147,29 @@ $placeholder: #CCC;
   border-radius: 7px;
   background-color: $theme-exam;
   outline: none;
+  cursor: pointer;
+}
+
+.systemMenu_lg {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 330px;
+  height: 120px;
+  padding: 0 24px;
+  box-sizing: border-box;
+  font-size: 24px;
+  font-family: 'Pretendard-SemiBold';
+  border: none;
+  outline: none;
+  border: 3px solid $theme-exam;
+  cursor: pointer;
+
+  &:hover {
+    transform: scale(1.05);
+  }
+
+  border-radius: 7px;
 }
 
 .sr-only {
@@ -141,9 +202,21 @@ $placeholder: #CCC;
 
 section {
   display: flex;
+  flex-flow: column wrap;
   justify-content: center;
   align-items: center;
+  width: 800px;
+  margin: 0 auto;
   margin-top: 50px;
+  border: 1px solid red;
+
+  h2 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Pretendard-Bold';
+    border: 1px solid black;
+  }
 
   h2 + p {
       margin: 20px 0 30px;
@@ -152,6 +225,12 @@ section {
 
   p + form {
     margin-top: 10px;
+  }
+
+  >form {
+    display: flex;
+    flex-flow: column wrap;
+    gap: 10px;
   }
 }
 
@@ -167,25 +246,31 @@ section {
   }
 }
 
+div#signup_buttons {
+  flex-flow: row wrap;
+  gap: 10px;
+  margin-top: 20px;
 
+  >button.systemButton_lg {
+    border: none;
+    background-color: $theme-exam;
 
-.systemMenu_lg {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 360px;
-  height: 90px;
-  padding: 0 24px;
-  box-sizing: border-box;
-  font-size: 18px;
-  font-family: 'Pretendard-SemiBold';
-  border: none;
-  outline: none;
-  border: 3px solid $theme-exam;
-
-  &:focus {
-    transform: scale(1.2);
+    &:first-child {
+      background-color: $theme-sub;
+    }
   }
+}
 
-  border-radius: 7px;
+.buttons {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+h3 {
+  font-family: 'Pretendard-SemiBold';
+  font-size: 24px;
+  margin: 12px 0;
 }
