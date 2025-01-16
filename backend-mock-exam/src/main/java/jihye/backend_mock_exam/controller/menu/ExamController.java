@@ -1,7 +1,6 @@
 package jihye.backend_mock_exam.controller.menu;
 
 import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpSession;
 import jihye.backend_mock_exam.domain.exam.*;
 import jihye.backend_mock_exam.service.menu.exam.ExamService;
 import jihye.backend_mock_exam.service.menu.exam.dto.SubmittedExamDto;
@@ -12,9 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @Slf4j
 @Controller
@@ -128,6 +125,10 @@ public class ExamController {
         List<HistoryItemObject> historyDetails = examService.createHistoryDetails(examHistory, option);
         model.addAttribute("examHistory", examHistory);
         model.addAttribute("historyDetails", historyDetails);
+
+        for (HistoryItemObject historyDetail : historyDetails) {
+            log.info("historyDetail={}", historyDetail);
+        }
 
         if (isAjaxRequest) {
             return "menu/exam/exam-result :: viewQuestionsArea";

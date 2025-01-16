@@ -1,6 +1,7 @@
 package jihye.backend_mock_exam.repository.menu.exam;
 
 import jihye.backend_mock_exam.domain.exam.*;
+import jihye.backend_mock_exam.domain.incorrectNote.IncorrectNote;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -56,4 +57,8 @@ public interface ExamMapper {
 
     // 히스토리 ID로 히스토리 문항 조회
     List<Long> findQuestionsIdOfHistory(@Param("historyId") Long historyId, @Param("isCorrect") boolean isCorrect);
+
+    // 문항 ID로 오답노트 조회
+    IncorrectNote findIncorrectNoteById(@Param("userId") Long userId, @Param("questionId") Long questionId);
+
 }

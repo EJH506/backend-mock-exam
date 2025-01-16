@@ -6,6 +6,7 @@ import lombok.Data;
 public class IncorrectNote {
 
     private Long incorrectNoteId;
+    private Long userId;
     private Long questionId;
     private Long subjectId;
     private int level;

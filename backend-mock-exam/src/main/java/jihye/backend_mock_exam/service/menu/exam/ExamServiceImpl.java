@@ -183,20 +183,23 @@ public class ExamServiceImpl implements ExamService {
         List<Answer> userAnswers = findFilteredHistoryAnswers(examHistory.getUserAnswers());
 
         for (int i=0; i<questions.size(); i++) {
+
+            boolean incorrectNoteSaved = isSavedToIncorrectNote(examHistory.getUserId(), questions.get(i).getQuestionId());
+
             if ("correctOnly".equals(option)) {
                 if (correctAnswers.get(i).equals(userAnswers.get(i))) {
-                    historyDetails.add(new HistoryItemObject(questions.get(i), correctAnswers.get(i), userAnswers.get(i)));
+                    historyDetails.add(new HistoryItemObject(questions.get(i), correctAnswers.get(i), userAnswers.get(i), incorrectNoteSaved));
                 }
             }
 
             if ("incorrectOnly".equals(option)) {
                 if (!correctAnswers.get(i).equals(userAnswers.get(i))) {
-                    historyDetails.add(new HistoryItemObject(questions.get(i), correctAnswers.get(i), userAnswers.get(i)));
+                    historyDetails.add(new HistoryItemObject(questions.get(i), correctAnswers.get(i), userAnswers.get(i), incorrectNoteSaved));
                 }
             }
 
             if ("all".equals(option)) {
-                historyDetails.add(new HistoryItemObject(questions.get(i), correctAnswers.get(i), userAnswers.get(i)));
+                historyDetails.add(new HistoryItemObject(questions.get(i), correctAnswers.get(i), userAnswers.get(i), incorrectNoteSaved));
             }
         }
 
@@ -242,6 +245,12 @@ public class ExamServiceImpl implements ExamService {
         }
 
         return correctAnswers;
+    }
+
+    // 문항 ID로 오답노트 저장 유무 조회
+    @Override
+    public boolean isSavedToIncorrectNote(Long userId, Long questionId) {
+        return examRepository.findIncorrectNoteById(userId, questionId) != null;
     }
 
     // 매개변수로 사용될 subject와 level의 값을 통합인지 아닌지에 따라 적절히 변환

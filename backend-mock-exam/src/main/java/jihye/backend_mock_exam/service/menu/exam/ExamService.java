@@ -48,4 +48,7 @@ public interface ExamService {
 
     // 조건에 맞는 보기 조회
     public List<Answer> findFilteredHistoryAnswers(List<Long> answersId);
+
+    // 문항 ID로 오답노트 저장 유무 조회
+    public boolean isSavedToIncorrectNote(Long userId, Long questionId);
 }

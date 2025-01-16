@@ -1,6 +1,7 @@
 package jihye.backend_mock_exam.repository.menu.exam;
 
 import jihye.backend_mock_exam.domain.exam.*;
+import jihye.backend_mock_exam.domain.incorrectNote.IncorrectNote;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
@@ -109,4 +110,9 @@ public class ExamRepositoryImpl implements ExamRepository {
     public List<Long> findQuestionsIdOfHistory(Long historyId, boolean isCorrect) {
         return examMapper.findQuestionsIdOfHistory(historyId, isCorrect);
     }
+
+    // 문항 ID로 오답노트 저장 유무 조회
+    public IncorrectNote findIncorrectNoteById(Long userId, Long questionId) {
+        return examMapper.findIncorrectNoteById(userId, questionId);
+    };
 }

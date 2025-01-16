@@ -1,6 +1,7 @@
 package jihye.backend_mock_exam.repository.menu.exam;
 
 import jihye.backend_mock_exam.domain.exam.*;
+import jihye.backend_mock_exam.domain.incorrectNote.IncorrectNote;
 
 import java.util.List;
 
@@ -53,4 +54,7 @@ public interface ExamRepository {
     
     // 히스토리 ID로 히스토리 문항 조회
     List<Long> findQuestionsIdOfHistory(Long historyId, boolean isCorrect);
+
+    // 문항 ID로 오답노트 저장 유무 조회
+    public IncorrectNote findIncorrectNoteById(Long userId, Long questionId);
 }

@@ -98,4 +98,9 @@
             </if>
         </where>
     </select>
+
+    <select id="findIncorrectNoteById" resultType="incorrectNote">
+        SELECT * FROM incorrect_note
+        WHERE USER_ID = #{userId} AND QUESTION_ID = #{questionId}
+    </select>
 </mapper>
