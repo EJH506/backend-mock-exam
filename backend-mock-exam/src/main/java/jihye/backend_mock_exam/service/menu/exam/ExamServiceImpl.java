@@ -173,10 +173,9 @@ public class ExamServiceImpl implements ExamService {
 
     // 히스토리 상세 반환
     @Override
-    public List<HistoryItemObject> createHistoryDetails(ExamHistory examHistory) {
+    public List<HistoryItemObject> createHistoryDetails(ExamHistory examHistory, String option) {
         List<HistoryItemObject> historyDetails = new ArrayList<>();
 
-        Long historyId = examHistory.getHistoryId();
         log.info("examHistory={}", examHistory);
 
         List<Question> questions = findFilteredHistoryQuestions(examHistory.getQuestions());
@@ -184,7 +183,21 @@ public class ExamServiceImpl implements ExamService {
         List<Answer> userAnswers = findFilteredHistoryAnswers(examHistory.getUserAnswers());
 
         for (int i=0; i<questions.size(); i++) {
-            historyDetails.add(new HistoryItemObject(questions.get(i), correctAnswers.get(i), userAnswers.get(i)));
+            if ("correctOnly".equals(option)) {
+                if (correctAnswers.get(i).equals(userAnswers.get(i))) {
+                    historyDetails.add(new HistoryItemObject(questions.get(i), correctAnswers.get(i), userAnswers.get(i)));
+                }
+            }
+
+            if ("incorrectOnly".equals(option)) {
+                if (!correctAnswers.get(i).equals(userAnswers.get(i))) {
+                    historyDetails.add(new HistoryItemObject(questions.get(i), correctAnswers.get(i), userAnswers.get(i)));
+                }
+            }
+
+            if ("all".equals(option)) {
+                historyDetails.add(new HistoryItemObject(questions.get(i), correctAnswers.get(i), userAnswers.get(i)));
+            }
         }
 
         return historyDetails;

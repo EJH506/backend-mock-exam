@@ -35,7 +35,7 @@ public interface ExamService {
     ExamHistory createExamHistory(SubmittedExamDto dto);
 
     // 히스토리 상세 반환
-    List<HistoryItemObject> createHistoryDetails(ExamHistory examHistory);
+    List<HistoryItemObject> createHistoryDetails(ExamHistory examHistory, String option);
 
     // 히스토리 조회
     ExamHistory findExamHistoryById(Long historyId);

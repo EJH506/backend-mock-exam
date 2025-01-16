@@ -2,10 +2,11 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title th:text="#{page.exam-result} + ' | ' + ${title}">시험결과 | 백엔드 모의고사</title>
+    <title th:text="#{page.exam-result} + ' | ' + #{title}">시험결과 | 백엔드 모의고사</title>
     <script th:src="@{https://code.jquery.com/jquery-3.6.0.min.js}"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" />
     <script th:src="@{/js/incorrectNoteSaveToggle.js}"></script>
+    <script th:src="@{/js/exam/exam-result.js}"></script>
 </head>
 <body>
 <div class="wrap">
@@ -22,9 +23,9 @@
     <div id="resultOptions">
         <p th:text="#{text.result.viewResult}">결과보기(목업)</p>
         <ul>
-            <li th:onclick="비동기요청함수" th:text="#{button.result.all}">전체</li>
-            <li th:onclick="비동기요청함수" th:text="#{button.result.correctOnly}">정답만</li>
-            <li th:onclick="비동기요청함수" th:text="#{button.result.incorrectOnly}">오답만</li>
+            <li th:class="resultOption" th:id="all" th:text="#{button.result.all}">전체</li>
+            <li th:class="resultOption" th:id="correctOnly" th:text="#{button.result.correctOnly}">정답만</li>
+            <li th:class="resultOption" th:id="incorrectOnly" th:text="#{button.result.incorrectOnly}">오답만</li>
         </ul>
 
         <p onclick="아래 checkbox 전체선택 js함수">
@@ -33,8 +34,9 @@
         </p>
     </div>
 
-    <div id="viewQuestionsArea">
+    <div id="viewQuestionsArea"  th:fragment="viewQuestionsArea">
         <div th:each="history, stat : ${historyDetails}">
+            <span>============================================================</span>
             <p th:text="${stat.index + 1} + '번 문제'">n번 문제</p>
 
             <div class="questionsDetail">
@@ -67,13 +69,5 @@
 </section>
 
 </div>
-
-<script>
-function signinConfirm() {
-    if(confirm("로그인이 필요한 서비스입니다. \n로그인 하시겠습니까?")) {
-        location.href="/auth/sign-in";
-    }
-}
-</script>
 </body>
 </html>
