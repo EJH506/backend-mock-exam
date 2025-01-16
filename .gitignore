@@ -11,3 +11,5 @@ bin/
 기획/개발자료/
 
 backend-mock-exam/.env
+
+backend-mock-exam/node_modules

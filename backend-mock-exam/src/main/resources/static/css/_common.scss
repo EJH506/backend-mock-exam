@@ -166,3 +166,26 @@ section {
     font-family: 'Pretendard-SemiBold';
   }
 }
+
+
+
+.systemMenu_lg {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 360px;
+  height: 90px;
+  padding: 0 24px;
+  box-sizing: border-box;
+  font-size: 18px;
+  font-family: 'Pretendard-SemiBold';
+  border: none;
+  outline: none;
+  border: 3px solid $theme-exam;
+
+  &:focus {
+    transform: scale(1.2);
+  }
+
+  border-radius: 7px;
+}

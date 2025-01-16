@@ -11,24 +11,21 @@
 
     <nav>
         <ul>
-            <li th:each="menu : ${menus}">
+            <li th:each="menu, stat : ${menus}">
                 <a th:text="${menu.value.name}"
                    th:href="@{${menu.value.able} ? |/${menu.key}| : '#'}"
-                   th:style="${menu.value.able ? '' : 'pointer-events: none; color: gray; text-decoration: none;'}"></a>
+                   th:style="${menu.value.able ? '' : 'pointer-events: none; color: gray; text-decoration: none;'}"
+                   th:class="${stat.last ? 'systemButton_sm' : ''}"></a>
             </li>
         </ul>
     </nav>
 
     <div id="profile">
-        <div th:text="'닉네임 : ' + ${nickname}">닉네임(목업)</div>
+        <div th:text="${#strings.substring(nickname, 0, 1)}">닉네임(목업)</div>
 
         <ul th:if="${hasAuthority}">
             <li th:if="${isMember}"><a th:href="@{|/users/edit/${userId}|}" th:text="#{page.edit-account}">회원정보 수정(목업)</a></li>
-            <li>
-                <form th:action="@{/logout}" method="post">
-                    <button th:text="#{page.sign-out}">로그아웃(목업)</button>
-                </form>
-            </li>
+            <li><a href="/logout" th:text="#{page.sign-out}">로그아웃(목업)</a></li>
         </ul>
 
         <ul th:if="${!hasAuthority}">

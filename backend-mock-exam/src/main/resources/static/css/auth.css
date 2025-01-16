@@ -1,5 +1,5 @@
 @charset "UTF-8";
-@import "../reset.css";
+@import "reset.css";
 @font-face {
   font-family: "Pretendard-Regular";
   src: url("https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff") format("woff");
@@ -39,18 +39,46 @@ header > a > h1 {
   font-family: "Pretendard-Bold";
   font-size: 30px;
 }
-header > ul {
+header ul {
   display: flex;
 }
-header > ul > li {
+header ul > li {
   font-family: "Pretendard-SemiBold";
 }
-header > ul > li > a {
+header ul > li > a {
   display: flex;
   justify-content: center;
   align-items: center;
   width: 120px;
   height: 40px;
+}
+header #profile {
+  position: relative;
+}
+header #profile > div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 50px;
+  height: 50px;
+  color: #fff;
+  font-size: 20px;
+  font-family: "Pretendard-SemiBold";
+  background-color: #CCC;
+  border-radius: 50%;
+}
+header #profile > ul {
+  display: flex;
+  flex-flow: column wrap;
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translate(-50%, 10px);
+  border: 1px solid #CCC;
+  border-radius: 5px;
+}
+header #profile > ul a:hover {
+  color: #CCC;
 }
 
 @font-face {
@@ -186,6 +214,25 @@ section p + form {
   font-family: "Pretendard-SemiBold";
 }
 
+.systemMenu_lg {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 360px;
+  height: 90px;
+  padding: 0 24px;
+  box-sizing: border-box;
+  font-size: 18px;
+  font-family: "Pretendard-SemiBold";
+  border: none;
+  outline: none;
+  border: 3px solid #71B961;
+  border-radius: 7px;
+}
+.systemMenu_lg:focus {
+  transform: scale(1.2);
+}
+
 #welcome {
   display: flex;
   justify-content: space-between;
@@ -301,4 +348,4 @@ section #authSuccess + .systemButton_lg {
   border-color: #71B961;
 }
 
-/*# sourceMappingURL=style.css.map */
+/*# sourceMappingURL=auth.css.map */
