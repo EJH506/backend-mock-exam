@@ -40,13 +40,17 @@ public class IncorrectNoteController {
     }
 
     @GetMapping("/list")
-    public String list(@RequestAttribute("user") User user, @RequestParam("subject") String subjectName, @RequestParam(value = "level", required = false) String level, Model model) {
+    public String list(@RequestAttribute("user") User user,
+                       @RequestParam("subject") String subjectName,
+                       @RequestParam(value = "level", required = false) String level,
+                       @RequestParam(value = "incorrectNoteSearchDto", required = false) IncorrectNoteSearchDto dto,
+                       Model model) {
 
         // 선택한 주제에 존재하는 난이도 목록
         List<Integer> levels = incorrectNoteService.levelListOfSubject(subjectName);
 
         // 오답노트 목록 반환
-        List<IncorrectItem> incorrectItemList = incorrectNoteService.incorrectList(user.getUserId(), subjectName, level);
+        List<IncorrectItem> incorrectItemList = incorrectNoteService.incorrectList(user.getUserId(), subjectName, level, dto);
 
         model.addAttribute("subject", subjectName);
         model.addAttribute("levels", levels);

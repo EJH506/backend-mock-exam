@@ -10,7 +10,7 @@ import java.util.List;
 public interface IncorrectNoteMapper {
 
     // 주제, 난이도 선택에 따른 오답노트 목록
-    List<IncorrectNote> findIncorrectList(@Param("userId") Long userId, @Param("subjectId") Long subjectId, @Param("level") int level);
+    List<IncorrectNote> findIncorrectList(@Param("userId") Long userId, @Param("subjectId") Long subjectId, @Param("level") int level, @Param("searchKeyword") String searchKeyword);
 
     // 오답노트에서 문항 삭제
     void deleteQuestionFromIncorrectNote(@Param("userId") Long userId, @Param("questionId") Long questionId);

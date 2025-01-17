@@ -17,7 +17,21 @@ SELECT * FROM users;
 SELECT question_id FROM incorrect_note WHERE question_id=108;
 DELETE FROM incorrect_note;
 SELECT * FROM incorrect_note WHERE SUBJECT_ID = 1 AND LEVEL = 1 ORDER BY INCORRECT_NOTE_ID DESC ;
-SELECT * FROM incorrect_note;
+
+select *
+from (SELECT i.incorrect_note_id, i.user_id, i.question_id, i.subject_id, i.level, q.question_text, i.created_at
+	  FROM incorrect_note i, questions q
+	  where i.question_id = q.question_id) d
+where question_text like '%세번째%';
+
+SELECT i.incorrect_note_id, i.user_id, i.question_id, i.subject_id, i.level, q.question_text, i.created_at
+FROM incorrect_note i
+JOIN questions q ON i.question_id = q.question_id
+WHERE q.question_text LIKE '%세번째%';
+
+select * from incorrect_note;
+SELECT * FROM incorrect_note i, questions q where i.question_id = q.question_id;
+SELECT q.question_text a FROM incorrect_note i, questions q where i.question_id = q.question_id;
 
 SELECT level FROM QUESTIONS Q WHERE QUESTION_ID = 108;
 INSERT INTO incorrect_note (user_id, question_id, subject_id, level) VALUES

@@ -8,6 +8,7 @@ import jihye.backend_mock_exam.domain.incorrectNote.IncorrectItem;
 import jihye.backend_mock_exam.domain.incorrectNote.IncorrectNote;
 import jihye.backend_mock_exam.repository.menu.incorrectNote.IncorrectNoteRepository;
 import jihye.backend_mock_exam.service.menu.exam.ExamService;
+import jihye.backend_mock_exam.service.menu.incorrectNote.dto.IncorrectNoteSearchDto;
 import jihye.backend_mock_exam.service.menu.incorrectNote.dto.saveIncorrectAllDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -36,9 +37,9 @@ public class IncorrectNoteService {
     }
 
     // 주제, 난이도 선택에 따른 오답노트 목록
-    public List<IncorrectItem> incorrectList(Long userId, String subjectName, String level) {
+    public List<IncorrectItem> incorrectList(Long userId, String subjectName, String level, IncorrectNoteSearchDto dto) {
         QuestionFilter questionFilter = incorrectQuestionFilterConvert(subjectName, level);
-        List<IncorrectNote> incorrectList = incorrectNoteRepository.findIncorrectList(userId, questionFilter.getSubjectId(), questionFilter.getLevelInt());
+        List<IncorrectNote> incorrectList = incorrectNoteRepository.findIncorrectList(userId, questionFilter.getSubjectId(), questionFilter.getLevelInt(), dto.getSearchKeyword());
 
         List<Long> questionsId = new ArrayList<>();
         for (IncorrectNote incorrectNote : incorrectList) {

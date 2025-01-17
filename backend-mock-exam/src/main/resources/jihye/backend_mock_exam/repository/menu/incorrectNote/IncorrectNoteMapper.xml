@@ -4,15 +4,20 @@
 <mapper namespace="jihye.backend_mock_exam.repository.menu.incorrectNote.IncorrectNoteMapper">
 
     <select id="findIncorrectList" resultType="incorrectNote">
-        SELECT * FROM incorrect_note
+        SELECT i.incorrect_note_id, i.user_id, i.question_id, i.subject_id, i.level, q.question_text, i.created_at
+        FROM incorrect_note i
+        JOIN questions q ON i.question_id = q.question_id
         <where>
             <if test="subjectId > 0">
-                AND subject_id = #{subjectId}
+                AND i.subject_id = #{subjectId}
             </if>
             <if test="level > 0">
-                AND level = #{level}
+                AND i.level = #{level}
             </if>
-            AND user_id = ${userId}
+            <if test="searchKeyword != null">
+                AND q.question_text like CONCAT('%', #{searchKeyword}, '%')
+            </if>
+            AND user_id = #{userId}
         </where>
         ORDER BY incorrect_note_id DESC
     </select>
