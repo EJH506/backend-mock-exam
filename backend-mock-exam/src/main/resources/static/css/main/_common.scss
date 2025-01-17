@@ -27,6 +27,7 @@
 }
 
 // 테마색상
+$theme-main: #71B961;
 $theme-exam: #71B961;
 $theme-incorrectNote: #FFD395;
 $theme-admin: #544D4D;
@@ -50,6 +51,9 @@ $white: #fff;
 $deep-gray: #555555;
 $placeholder: #CCC;
 
+.incorrectNote {
+  $theme-main: #FFD395;
+}
 
 * {
   font-family: 'Pretendard-Medium';
@@ -78,7 +82,7 @@ $placeholder: #CCC;
   border: 3px solid $placeholder;
 
   &:focus {
-    border-color: $theme-exam;
+    border-color: $theme-main;
   }
 
   border-radius: 7px;
@@ -100,7 +104,7 @@ $placeholder: #CCC;
   border: 3px solid $placeholder;
 
   &:focus {
-    border-color: $theme-exam;
+    border-color: $theme-main;
   }
 
   border-radius: 7px;
@@ -163,7 +167,7 @@ $placeholder: #CCC;
   height: 40px;
   color: $white;
   border-radius: 7px;
-  background-color: $theme-exam;
+  background-color: $theme-main;
   box-sizing: border-box;
   outline: none;
   cursor: pointer;
@@ -181,7 +185,7 @@ $placeholder: #CCC;
   font-family: 'Pretendard-SemiBold';
   border: none;
   outline: none;
-  border: 3px solid $theme-exam;
+  border: 3px solid $theme-main;
   cursor: pointer;
 
   &:hover {
@@ -249,7 +253,7 @@ $placeholder: #CCC;
       }
       >.systemInput_md { flex: 1 1 0; }
 
-      &:first-of-type .systemInput_md { border-color: $theme-exam; }
+      &:first-of-type .systemInput_md { border-color: $theme-main; }
       &:last-of-type .wrong { border-color: $accent-caution; }
       &:last-of-type .correct { border-color: $accent-correct; }
     }
@@ -333,7 +337,7 @@ div#signup_buttons {
 
   >button.systemButton_lg {
     border: none;
-    background-color: $theme-exam;
+    background-color: $theme-main;
 
     &:first-child {
       background-color: $theme-sub;

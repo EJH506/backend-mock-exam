@@ -1,0 +1,125 @@
+
+@font-face {
+  font-family: 'Pretendard-Medium';
+  src: url('https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Medium.woff') format('woff');
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Pretendard-SemiBold';
+  src: url('https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-SemiBold.woff') format('woff');
+  font-weight: 600;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Pretendard-Bold';
+  src: url('https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Bold.woff') format('woff');
+  font-weight: 700;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Pretendard-Black';
+  src: url('https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Black.woff') format('woff');
+  font-weight: 900;
+  font-style: normal;
+}
+
+// 테마색상
+$theme-main: #FFD395;
+$theme-exam: #71B961;
+$theme-incorrectNote: #FFD395;
+$theme-admin: #544D4D;
+$theme-history: #F5B7B1;
+$theme-memo: #B3CDE0;
+$theme-myQuestion: #A2BFF7;
+$theme-sub: #E6E9DE;
+
+// 강조색상
+$accent-caution: #FF6F74;
+$accent-correct: #00E6AC;
+$accent-admin: #CDBBB6;
+$accent-checked: #9ACDFF;
+
+// 아이콘
+$icon-star: #FFE875;
+
+// 원시색상
+$black: #222222;
+$white: #fff;
+$deep-gray: #555555;
+$placeholder: #CCC;
+
+.incorrectNote {
+  $theme-main: #FFD395;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 70px;
+  padding: 0 24px;
+
+  >a>h1 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 200px;
+    color: $theme-main;
+    font-family: 'Pretendard-Bold';
+    font-size: 30px;
+  } //a>h1
+
+  ul {
+    display: flex;
+    >li {
+      font-family: 'Pretendard-SemiBold';
+      >a {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 120px;
+        height: 40px;
+      }
+    }
+  } //ul
+
+  // home 헤더
+  >nav li:hover a { color: $theme-main }
+
+  #profile {
+    position: relative;
+
+    >div {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 50px;
+      height: 50px;
+      color: $white;
+      font-size: 20px;
+      font-family: 'Pretendard-SemiBold';
+      background-color: $placeholder;
+      border-radius: 50%;
+      cursor: pointer;
+    }
+
+    >ul {
+      display: flex;
+      flex-flow: column wrap;
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      transform: translate(-50%, 10px);
+      border: 1px solid $placeholder;
+      border-radius: 5px;
+
+      a:hover {
+        color: $placeholder;
+      }
+    }
+  }
+
+} //header

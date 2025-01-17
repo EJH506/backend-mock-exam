@@ -1,6 +1,10 @@
-@import "reset.css";
+@import "../reset.css";
 @import "header";
 @import "common";
+
+.incorrectNote {
+  $theme-main: #FFD395;
+}
 
 section {
   padding-top: 30px;
@@ -52,8 +56,8 @@ section {
           }
 
           input[type="checkbox"]:checked ~ label {
-            background-color: $theme-exam;
-            border-color: $theme-exam;
+            background-color: $theme-main;
+            border-color: $theme-main;
             color: $white;
           }
         } // 성별선택란
@@ -71,8 +75,8 @@ section {
         background-color: $theme-sub;
       }
       >.systemButton_md:last-child {
-        border-color: $theme-exam;
-        background-color: $theme-exam;
+        border-color: $theme-main;
+        background-color: $theme-main;
       }
     }
 
@@ -164,7 +168,7 @@ section {
           margin-top: 15px;
 
           .systemInput_md {
-            border-color: $theme-exam;
+            border-color: $theme-main;
             &:hover { border-color: $accent-checked; }
           }
 
@@ -177,8 +181,8 @@ section {
         .buttons {
           .btn_skip {
             background-color: white;
-            border-color: $theme-exam;
-            color: $theme-exam;
+            border-color: $theme-main;
+            color: $theme-main;
           }
 
           .btn_prev {
@@ -186,8 +190,8 @@ section {
             border-color: $theme-sub;
           }
           .btn_next, .btn_submit {
-            background-color: $theme-exam;
-            border-color: $theme-exam;
+            background-color: $theme-main;
+            border-color: $theme-main;
           }
         } //.buttons
       }
@@ -218,8 +222,8 @@ section {
     margin-top: 30px;
     padding: 0 50px;
     box-sizing: initial;
-    border-color: $theme-exam;
-    background-color: $theme-exam;
+    border-color: $theme-main;
+    background-color: $theme-main;
     cursor: pointer;
 
     >span, span>i { color: white; }

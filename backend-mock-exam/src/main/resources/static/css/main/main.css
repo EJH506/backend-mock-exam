@@ -1,5 +1,5 @@
 @charset "UTF-8";
-@import "reset.css";
+@import "../reset.css";
 @font-face {
   font-family: "Pretendard-Medium";
   src: url("https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Medium.woff") format("woff");
@@ -399,105 +399,195 @@ h3 {
   margin: 12px 0;
 }
 
-#welcome {
-  display: flex;
-  justify-content: space-between;
-  position: absolute;
-  top: 50%;
-  transform: translate(0, -50%);
-}
-#welcome > #welcomeText {
-  display: flex;
-  flex-flow: column wrap;
-  justify-content: center;
-  width: 780px;
-}
-#welcome > #welcomeText > h1 {
-  margin-bottom: 50px;
-  font-size: 70px;
-  font-family: "Pretendard-Black";
-  text-shadow: 5px 5px 5px #aaa;
-}
-#welcome > #welcomeText > p {
-  font-size: 24px;
-}
-#welcome > #buttons {
-  display: flex;
-  flex-flow: column wrap;
-  justify-content: center;
-  align-content: flex-end;
-  gap: 10px 0;
-  width: 420px;
-}
-#welcome > #buttons > li > .systemButton_lg {
-  background-color: #71B961;
-  border: none;
-}
-#welcome > #buttons > li:last-child > .systemButton_lg {
-  background-color: #E6E9DE;
-  border: none;
-}
-
 section {
-  padding-top: 50px;
+  padding-top: 30px;
+  position: relative;
 }
-section.signup {
-  padding-top: 0;
+section > h2 {
+  align-self: flex-start;
+  font-size: 30px;
+  margin-bottom: 10px;
+  transform: translate(-50%, -50%);
 }
-section h2 {
-  font-size: 40px;
+section > h2 + p {
+  font-family: "Pretendard-SemiBold";
+  font-size: 20px;
+  margin: 0 0 30px;
 }
-section h2 + p {
-  margin: 30px 0;
-}
-section > form {
-  margin: 50px 0;
-}
-section > form > div {
+section > #menuArea {
   display: flex;
-  flex-flow: column wrap;
-  gap: 5px;
+  flex-flow: row wrap;
+  gap: 10px;
 }
-section > form .systemButton_lg {
-  background-color: #71B961;
-  border-color: #71B961;
-}
-section > form > div.required {
+section form {
   margin-bottom: 30px;
 }
-section > form > div.required > div {
-  display: flex;
-  gap: 0 10px;
-}
-section > form > div.required > div > .requiredItems {
+section form > div {
   display: flex;
   flex-flow: column wrap;
   gap: 5px;
 }
-section > form > div.optional > div {
+section form > div.required {
+  margin-bottom: 30px;
+}
+section form > div.optional > div {
   display: flex;
   gap: 0 10px;
 }
-section > form > div.optional > div label {
+section form > div.optional > div label {
+  width: 395px;
+  height: 60px;
+  color: #222222;
+  font-size: 14px;
   cursor: pointer;
 }
-section > form > div.optional > div input[type=checkbox]:checked ~ label {
+section form > div.optional > div input[type=checkbox]:checked ~ label {
   background-color: #71B961;
   border-color: #71B961;
   color: #fff;
 }
-section > form > div.optional > select {
+section form > div.optional > select {
   width: 100%;
 }
-section #authSuccess {
+section form > #signup_buttons > .systemButton_md:first-child {
+  border-color: #E6E9DE;
+  background-color: #E6E9DE;
+}
+section form > #signup_buttons > .systemButton_md:last-child {
+  border-color: #71B961;
+  background-color: #71B961;
+}
+section form + .systemButton_sm {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  color: #CCC;
+  border-color: #CCC;
+}
+section form + .systemButton_sm:hover {
+  color: #FF6F74;
+  border-color: #FF6F74;
+}
+section > div {
   display: flex;
   flex-flow: column wrap;
-  justify-content: center;
-  margin-top: 120px;
+  align-items: center;
 }
-section #authSuccess + .systemButton_lg {
+section > div > strong {
+  margin-top: 30px;
+  margin-bottom: 10px;
+  font-family: "Pretendard-SemiBold";
+}
+section > div > form {
+  display: flex;
+  flex-flow: column wrap;
+}
+section > div > form .systemButton_sm:first-of-type {
+  background-color: #FF6F74;
+  border-color: #FF6F74;
+  color: white;
+}
+section > div > form .systemButton_sm:last-of-type {
+  color: #FF6F74;
+  border-color: #FF6F74;
+}
+
+#takeTest > form {
+  width: 800px;
+  overflow: hidden;
+}
+#takeTest > form > #testArea {
+  display: flex;
+  flex-flow: row nowrap;
+  gap: initial;
+}
+#takeTest > form > #testArea > .slide-box {
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  width: 800px;
+}
+#takeTest > form > #testArea > .slide-box > span {
+  font-size: 18px;
+  margin-bottom: 20px;
+}
+#takeTest > form > #testArea > .slide-box > p {
+  font-family: "Pretendard-SemiBold";
+}
+#takeTest > form > #testArea > .slide-box > p:first-of-type {
+  color: #CCC;
+}
+#takeTest > form > #testArea > .slide-box > p:last-of-type {
+  font-family: "Pretendard-Bold";
+  font-size: 20px;
+}
+#takeTest > form > #testArea > .slide-box > ul {
+  display: flex;
+  flex-flow: column wrap;
+  gap: 5px;
+  margin-top: 15px;
+}
+#takeTest > form > #testArea > .slide-box > ul .systemInput_md {
+  border-color: #71B961;
+}
+#takeTest > form > #testArea > .slide-box > ul .systemInput_md:hover {
+  border-color: #9ACDFF;
+}
+#takeTest > form > #testArea > .slide-box > ul input:checked ~ .systemInput_md {
+  border-color: #9ACDFF;
+  box-shadow: 3px 3px 3px #CCC;
+}
+#takeTest > form > #testArea > .slide-box .buttons .btn_skip {
+  background-color: white;
+  border-color: #71B961;
+  color: #71B961;
+}
+#takeTest > form > #testArea > .slide-box .buttons .btn_prev {
+  background-color: #E6E9DE;
+  border-color: #E6E9DE;
+}
+#takeTest > form > #testArea > .slide-box .buttons .btn_next, #takeTest > form > #testArea > .slide-box .buttons .btn_submit {
   background-color: #71B961;
   border-color: #71B961;
 }
 
-/*# sourceMappingURL=auth.css.map */
+#resultData > h3 {
+  font-size: 60px;
+}
+
+#resultOptions {
+  display: flex;
+  justify-content: center;
+  margin-top: 30px;
+  font-family: "Pretendard-SemiBold";
+}
+#resultOptions .systemInput_md {
+  position: absolute;
+  left: 50%;
+  top: 100%;
+  transform: translateX(-50%);
+  width: 800px;
+  height: 40px;
+  margin-top: 30px;
+  padding: 0 50px;
+  box-sizing: initial;
+  border-color: #71B961;
+  background-color: #71B961;
+  cursor: pointer;
+}
+#resultOptions .systemInput_md > span, #resultOptions .systemInput_md span > i {
+  color: white;
+}
+
+#viewQuestionsArea {
+  position: absolute;
+  left: 50%;
+  top: 100%;
+  transform: translateX(-50%);
+  margin-top: 100px;
+  padding: 30px 0;
+}
+
+/*# sourceMappingURL=main.css.map */

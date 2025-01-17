@@ -27,6 +27,7 @@
 }
 
 // 테마색상
+$theme-main: #71B961;
 $theme-exam: #71B961;
 $theme-incorrectNote: #FFD395;
 $theme-admin: #544D4D;
@@ -50,6 +51,10 @@ $white: #fff;
 $deep-gray: #555555;
 $placeholder: #CCC;
 
+.incorrectNote {
+  $theme-main: #FFD395;
+}
+
 header {
   display: flex;
   justify-content: space-between;
@@ -62,7 +67,7 @@ header {
     justify-content: center;
     align-items: center;
     width: 200px;
-    color: $theme-exam;
+    color: $theme-main;
     font-family: 'Pretendard-Bold';
     font-size: 30px;
   } //a>h1
@@ -82,7 +87,7 @@ header {
   } //ul
 
   // home 헤더
-  >nav li:hover a { color: $theme-exam }
+  >nav li:hover a { color: $theme-main }
 
   #profile {
     position: relative;

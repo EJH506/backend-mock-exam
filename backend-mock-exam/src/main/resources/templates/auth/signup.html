@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <title th:text="#{page.sign-up} + ' | ' + #{title}">회원가입 | 백엔드 모의고사</title>
-    <link rel="stylesheet" th:href="@{/css/auth.css}">
+    <link rel="stylesheet" th:href="@{/css/main/auth.css}">
     <script th:src="@{https://code.jquery.com/jquery-3.6.0.min.js}"></script>
     <script th:src="@{/js/auth/sign-up.js}"></script>
     <script th:src="@{/js/createBirthYears.js}"></script>
 </head>
-<body>
+<body class="main">
 <div class="wrap">
 <header th:replace="~{fragment/auth-header :: header}"></header>
 

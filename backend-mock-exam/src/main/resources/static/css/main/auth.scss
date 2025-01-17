@@ -1,0 +1,133 @@
+@import "../reset.css";
+@import "header";
+@import "common";
+
+#welcome {
+  display: flex;
+  justify-content: space-between;
+  position: absolute;
+  top: 50%;
+  transform: translate(0, -50%);
+
+  >#welcomeText {
+    display: flex;
+    flex-flow: column wrap;
+    justify-content: center;
+    width: 780px;
+
+    >h1 {
+      margin-bottom: 50px;
+      font-size: 70px;
+      font-family: 'Pretendard-Black';
+      text-shadow: 5px 5px 5px #aaa;
+    }
+
+    >p {
+      font-size: 24px;
+    }
+  } //#welcomeText
+
+  >#buttons {
+    display: flex;
+    flex-flow: column wrap;
+    justify-content: center;
+    align-content: flex-end;
+    gap: 10px 0;
+    width: 420px;
+
+    >li {
+      >.systemButton_lg {
+        background-color: $theme-main;
+        border: none;
+      }
+
+      &:last-child>.systemButton_lg {
+        background-color: $theme-sub;
+        border: none;
+      }
+    } //li
+  } //#buttons
+} //#welcome
+
+section {
+
+  padding-top: 50px;
+
+  &.signup { padding-top: 0;}
+
+  h2 {
+    font-size: 40px;
+
+    & + p {
+      margin: 30px 0;
+    }
+  }
+
+  >form {
+    margin: 50px 0;
+    // 로그인 페이지
+    >div {
+      display: flex;
+      flex-flow: column wrap;
+      gap: 5px;
+    }
+
+    .systemButton_lg {
+      background-color: $theme-main;
+      border-color: $theme-main;
+    }
+
+    // 회원가입 페이지
+    >div.required {
+      margin-bottom: 30px;
+
+      >div { // 필수항목 좌우를 묶음
+        display: flex;
+        gap: 0 10px;
+
+        >.requiredItems {
+          display: flex;
+          flex-flow: column wrap;
+          gap: 5px;
+        }
+      }
+    } //div.required
+
+    >div.optional {
+
+      >div { // 성별선택란
+        display: flex;
+        gap: 0 10px;
+
+        label {
+          cursor: pointer;
+        }
+
+        input[type="checkbox"]:checked ~ label {
+          background-color: $theme-main;
+          border-color: $theme-main;
+          color: $white;
+        }
+      }
+
+      >select {
+        width: 100%;
+      }
+    }
+
+  } //form
+
+  // 회원가입 성공/비번재설정 설공 페이지
+  #authSuccess {
+    display: flex;
+    flex-flow: column wrap;
+    justify-content: center;
+    margin-top: 120px;
+
+    & + .systemButton_lg {
+      background-color: $theme-main;
+      border-color: $theme-main;
+    }
+  }
+
+} // section
