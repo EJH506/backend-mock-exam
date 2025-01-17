@@ -8,12 +8,14 @@ import jihye.backend_mock_exam.domain.incorrectNote.IncorrectItem;
 import jihye.backend_mock_exam.domain.incorrectNote.IncorrectNote;
 import jihye.backend_mock_exam.repository.menu.incorrectNote.IncorrectNoteRepository;
 import jihye.backend_mock_exam.service.menu.exam.ExamService;
+import jihye.backend_mock_exam.service.menu.incorrectNote.dto.saveIncorrectAllDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @Slf4j
 @Service
@@ -81,6 +83,22 @@ public class IncorrectNoteService {
     public Long saveIncorrectNote(Long userId, Long questionId) {
         incorrectNoteRepository.insertQuestionFromIncorrectNote(userId, questionId);
         return questionId;
+    }
+
+    // 오답노트에 오답 문항 전체 저장
+    public List<Long> saveIncorrectAll(Long userId, List<saveIncorrectAllDto.wrongQuestion> questions) {
+
+        List<Long> savedQuestionsId = new ArrayList<>();
+
+        for (saveIncorrectAllDto.wrongQuestion question : questions) {
+            // 저장 되어있지 않은 것만
+            if (!question.getIsSaved()) {
+                incorrectNoteRepository.insertQuestionFromIncorrectNote(userId, question.getQuestionId());
+                savedQuestionsId.add(question.getQuestionId());
+            }
+        }
+
+        return savedQuestionsId;
     }
 
 

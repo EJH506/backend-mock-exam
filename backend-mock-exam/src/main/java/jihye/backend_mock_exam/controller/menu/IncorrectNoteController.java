@@ -5,12 +5,15 @@ import jihye.backend_mock_exam.domain.incorrectNote.IncorrectItem;
 import jihye.backend_mock_exam.domain.user.User;
 import jihye.backend_mock_exam.service.menu.incorrectNote.IncorrectNoteService;
 import jihye.backend_mock_exam.service.menu.incorrectNote.dto.IncorrectNoteSearchDto;
+import jihye.backend_mock_exam.service.menu.incorrectNote.dto.saveIncorrectAllDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -76,5 +79,17 @@ public class IncorrectNoteController {
         }
 
         return response;
+    }
+
+    @PostMapping("/saveIncorrectAll")
+    @ResponseBody
+    public Map<String, List<Long>> saveIncorrectAll(@RequestBody saveIncorrectAllDto dto) {
+
+        List<Long> savedQuestionsId = incorrectNoteService.saveIncorrectAll(dto.getUserId(), dto.getWrongQuestions());
+
+        Map<String, List<Long>> savedQuestionJson = new HashMap<>();
+        savedQuestionJson.put("savedQuestionId", savedQuestionsId);
+
+        return savedQuestionJson;
     }
 }
