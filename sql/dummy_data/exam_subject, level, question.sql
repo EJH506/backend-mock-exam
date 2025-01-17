@@ -1,3 +1,6 @@
+
+INSERT INTO question_unit_setting (question_unit) VALUES (5);
+
 INSERT INTO SUBJECTS (SUBJECT_NAME) VALUES
 ('자료구조'),
 ('알고리즘'),

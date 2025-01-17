@@ -65,6 +65,13 @@ CREATE TABLE history_items (
 	update_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP	-- 수정일시
 )
 
+SELECT * FROM levels where subject_id = (select subject_id from subjects where subject_name = "알고리즘");
+
+SELECT l.*
+FROM levels l
+JOIN subjects s ON l.subject_id = s.subject_id
+WHERE s.subject_name = '알고리즘';
+
 
 SELECT * FROM subjects;
 SELECT * FROM levels;

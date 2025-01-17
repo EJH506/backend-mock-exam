@@ -22,11 +22,11 @@ public class UserInfoInterceptor implements HandlerInterceptor {
         if (authentication != null && authentication.getPrincipal() instanceof User) {
             User user = (User) authentication.getPrincipal();
             request.setAttribute("user", user);
-        }
-
-        if (session != null && session.getAttribute("guest") != null) {
-            Guest guest = (Guest) session.getAttribute("guest");
-            request.setAttribute("user", guest);
+        } else {
+            if (session != null && session.getAttribute("guest") != null) {
+                Guest guest = (Guest) session.getAttribute("guest");
+                request.setAttribute("user", guest);
+            }
         }
 
         String requestURI = request.getRequestURI();
@@ -37,6 +37,7 @@ public class UserInfoInterceptor implements HandlerInterceptor {
             }
         }
 
+        log.info("인터셉터!={}", request.getAttribute("user"));
         return true;
     }
 }

@@ -37,8 +37,7 @@ public class ExamServiceImpl implements ExamService {
 
         // 통합 문제가 아닐 시
         if (!(ExamConst.SUBJECT_ALL.equals(subjectName))) {
-            Long subjectId = findSubjectByName(subjectName).getSubjectId();
-            return examRepository.findLevelsBySubject(subjectId);
+            return examRepository.findLevelsBySubject(subjectName);
         }
 
         // 통합 문제일 시
@@ -48,9 +47,7 @@ public class ExamServiceImpl implements ExamService {
     // 주제,난이도별 문제 수 조회
     @Override
     public Long NumberOfSubject(String subjectName, String level) {
-
         QuestionFilter questionFilter = questionFilterConvert(subjectName, level);
-
         return examRepository.findNumberOfSubject(questionFilter.getSubjectId(), questionFilter.getLevelInt());
     }
 
@@ -140,9 +137,10 @@ public class ExamServiceImpl implements ExamService {
         // 정답률 연산하여 담기
         int correctQuestionsCount = examHistory.getTotalQuestionsCount() - examHistory.getIncorrectQuestions().size();
         double correctRate = ((double) correctQuestionsCount / totalQuestionCount) * 100;
+        double formatedCorrectRate = Math.round(correctRate * 10) / 10.0;
 
         examHistory.setCorrectQuestionsCount(correctQuestionsCount);
-        examHistory.setCorrectRate(correctRate);
+        examHistory.setCorrectRate(formatedCorrectRate);
 
         // DB에 저장 (회원일 시 저장, 비회원일 시 세션 등)
         if (examHistory.getUserId() > 0) {

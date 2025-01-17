@@ -16,7 +16,10 @@
     </select>
     
     <select id="findLevelsBySubject" resultType="int">
-        SELECT level FROM levels WHERE subject_id = #{subjectId}
+        SELECT l.*
+        FROM levels l
+        JOIN subjects s ON l.subject_id = s.subject_id
+        WHERE s.subject_name = #{subjectName};
     </select>
 
     <select id="findMinMaxLevel" resultType="int">

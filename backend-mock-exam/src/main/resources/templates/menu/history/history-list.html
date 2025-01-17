@@ -2,9 +2,30 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title th:text="#{page.history} + ' | ' + #{title}">히스토리 | 백엔드 모의고사(목업)</title>
+    <link rel="stylesheet" th:href="@{/css/main/main.css}">
 </head>
 <body>
-히스토리 목록
+<div class="#wrap">
+<header th:replace="~{fragment/home-header :: header (${user.userId}, ${user.nickname}, ${isMember})}"></header>
+
+<section>
+    <h2 th:text="#{page.history}">히스토리</h2>
+
+    <ul id="historyList">
+        <li th:each="history : ${histories}">
+            <p>ID: 624352</p>
+            <a class="systemInput_md" th:href="@{|/history/${history.historyId}|}">
+                <div class="historyInfo">
+                    <p th:text="${history.createAt}">2024-12-11</p>
+                    <p th:text="${history.subjectName} + ' / Lv. ' + ${history.level}">네트워크 / Lv. 2</p>
+                </div>
+                <p th:text="'정답률 ' + ${history.correctRate} + '%'">정답률 73.3%</p>
+                <p th:text="${totalQuestionsCount} + '문항'">15문항</p>
+            </a>
+        </li>
+    </ul>
+</section>
+</div>
 </body>
 </html>

@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" />
     <script th:src="@{https://code.jquery.com/jquery-3.6.0.min.js}"></script>
     <script th:src="@{/js/incorrectNoteSaveToggle.js}"></script>
-    <script th:src="@{/js/exam/exam-result.js}"></script>
+    <script th:src="@{/js/result-option.js}"></script>
 </head>
 <body>
 <div class="wrap">
@@ -77,5 +77,12 @@
 </section>
 
 </div>
+<script>
+function signinConfirm() {
+    if(confirm("로그인이 필요한 서비스입니다. \n로그인 하시겠습니까?")) {
+        location.href="/auth/sign-in";
+    }
+}
+</script>
 </body>
 </html>

@@ -2,9 +2,75 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title th:text="#{page.history} + ' | ' + #{title}">히스토리 | 백엔드 모의고사(목업)</title>
+    <link rel="stylesheet" th:href="@{/css/main/main.css}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" />
+    <script th:src="@{https://code.jquery.com/jquery-3.6.0.min.js}"></script>
+    <script th:src="@{/js/incorrectNoteSaveToggle.js}"></script>
+    <script th:src="@{/js/result-option.js}"></script>
 </head>
 <body>
+<div class="wrap">
+    <header th:replace="~{fragment/home-header :: header (${user.userId}, ${user.nickname}, ${isMember})}"></header>
+    <section>
+        <h2 th:text="${examHistory.subjectName} + ' Lv. ' + ${examHistory.level == 0 ? '전체' : examHistory.level}">네트워크 Lv. 2(목업)</h2>
 
+        <div id="resultData">
+            <p th:text="#{text.result.correctRate}">정답률 (목업)</p>
+            <h3 th:text="${examHistory.correctRate} + '%'">73.3% (목업)</h3>
+            <p th:text="#{text.result.correctText(${examHistory.totalQuestionsCount}, ${examHistory.correctQuestionsCount})}">15문항 중 11문항 맞췄습니다 ! (목업)</p>
+        </div>
+
+        <div id="resultOptions">
+            <p th:text="#{text.result.viewResult}">결과보기(목업)</p>
+            <ul class="buttons">
+                <li th:class="resultOption" th:id="all" th:text="#{button.result.all}">전체</li>
+                <li th:class="resultOption" th:id="correctOnly" th:text="#{button.result.correctOnly}">정답만</li>
+                <li th:class="resultOption" th:id="incorrectOnly" th:text="#{button.result.incorrectOnly}">오답만</li>
+            </ul>
+
+            <p class="systemInput_md saveIncorrectAll">
+                <span th:text="#{button.result.saveIncorrectNote}">오답 전체 오답노트에 저장하기 </span>
+                <span><i class="fa-solid fa-star"></i></span>
+            </p>
+        </div>
+
+        <div id="viewQuestionsArea">
+            <div th:fragment="viewQuestionsArea">
+                <div th:each="history, stat : ${historyDetails}">
+                    <p th:text="${stat.index + 1} + '번 문제'">n번 문제</p>
+
+                    <div class="result-item-container">
+                        <div class="questionsDetail">
+                            <div class="questionsText">
+                                <p th:text="${history.question.subjectName} + ' / Lv. ' + ${history.question.level == 0 ? '전체' : history.question.level}">네트워크 / Lv. 2 (목업)</p>
+                                <h4 th:text="${history.question.questionText}">문항 내용</h4>
+                            </div>
+                            <span th:class="saveToggle" th:data-user-id="${user.userId}" th:data-question-id="${history.question.questionId}">
+                            <i th:if="${history.isSaved}" class="fa-solid fa-star"></i>
+                            <i th:if="${!history.isSaved}" class="fa-regular fa-star"></i>
+                        </span>
+                        </div> <!--questionsDetail-->
+
+                        <div class="answersText">
+                            <p>
+                                <span th:text="#{text.result.correctAnswer}">정답(목업)</span>
+                                <span class="systemInput_md" th:text="${history.correctAnswer.answerText}">정답 내용</span>
+                            </p>
+                            <p>
+                                <span th:text="#{text.result.userAnswer}">나의 답(목업)</span>
+                                <span class="systemInput_md" th:classappend="${history.correctAnswer == history.userAnswer ? 'correct' : 'wrong'}" th:text="${history.userAnswer != null ? history.userAnswer.answerText : ''}">나의 답 내용</span>
+                            </p>
+                        </div>
+                    </div>
+
+                </div> <!--${historyDetails} 반복-->
+            </div>
+        </div> <!--viewQuestionsArea-->
+
+        <a th:href="@{/history}" th:text="#{button.go-list}">목록으로</a>
+    </section>
+
+</div>
 </body>
 </html>

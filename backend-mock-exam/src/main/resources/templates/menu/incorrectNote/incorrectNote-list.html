@@ -47,9 +47,10 @@
                 <li><a th:href="@{|/incorrect-note/list?subject=${subject}&level=${level != null ? level : ''}&page=3|}">3</a></li>
             </ul>
 
-            <form th:action method="get" th:object="${incorrectNoteSearchDto}">
+            <form th:action method="get">
+                <input type="hidden" name="subject" th:value="${subject}" />
                 <label for="searchKeyword">검색어</label>
-                <input type="text" id="searchKeyword" th:field="*{searchKeyword}" th:placeholder="#{text.search.enterSearch}" />
+                <input type="text" id="searchKeyword" name="searchKeyword" th:value="${searchKeyword != null ? searchKeyword : ''}" th:placeholder="#{text.search.enterSearch}" />
                 <button type="submit" th:text="#{button.search}">검색(목업)</button>
             </form>
         </div>

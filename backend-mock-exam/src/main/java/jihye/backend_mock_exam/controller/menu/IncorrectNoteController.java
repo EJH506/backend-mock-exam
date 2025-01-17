@@ -4,7 +4,6 @@ import jihye.backend_mock_exam.domain.exam.Subject;
 import jihye.backend_mock_exam.domain.incorrectNote.IncorrectItem;
 import jihye.backend_mock_exam.domain.user.User;
 import jihye.backend_mock_exam.service.menu.incorrectNote.IncorrectNoteService;
-import jihye.backend_mock_exam.service.menu.incorrectNote.dto.IncorrectNoteSearchDto;
 import jihye.backend_mock_exam.service.menu.incorrectNote.dto.saveIncorrectAllDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -12,8 +11,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.lang.reflect.Array;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -43,19 +40,21 @@ public class IncorrectNoteController {
     public String list(@RequestAttribute("user") User user,
                        @RequestParam("subject") String subjectName,
                        @RequestParam(value = "level", required = false) String level,
-                       @RequestParam(value = "incorrectNoteSearchDto", required = false) IncorrectNoteSearchDto dto,
+                       @RequestParam(value = "searchKeyword", required = false) String searchKeyword,
                        Model model) {
 
         // 선택한 주제에 존재하는 난이도 목록
         List<Integer> levels = incorrectNoteService.levelListOfSubject(subjectName);
 
         // 오답노트 목록 반환
-        List<IncorrectItem> incorrectItemList = incorrectNoteService.incorrectList(user.getUserId(), subjectName, level, dto);
+        List<IncorrectItem> incorrectItemList = incorrectNoteService.incorrectList(user.getUserId(), subjectName, level, searchKeyword);
 
+        if (searchKeyword != null) {
+            model.addAttribute("searchKeyword", searchKeyword);
+        }
         model.addAttribute("subject", subjectName);
         model.addAttribute("levels", levels);
         model.addAttribute("incorrectItemList", incorrectItemList);
-        model.addAttribute("incorrectNoteSearchDto", new IncorrectNoteSearchDto());
 
         return "menu/incorrectNote/incorrectNote-list";
     }

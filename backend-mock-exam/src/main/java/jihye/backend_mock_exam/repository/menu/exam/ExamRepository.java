@@ -17,7 +17,7 @@ public interface ExamRepository {
     Subject findSubjectById(Long subjectId);
 
     // 주제별 난이도 목록 조회
-    List<Integer> findLevelsBySubject(Long subjectId);
+    List<Integer> findLevelsBySubject(String subjectName);
 
     // 전체 난이도 중 최소, 최대 난이도 조회
     List<Integer> findMinMaxLevel();

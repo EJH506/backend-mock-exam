@@ -1,10 +1,5 @@
-function signinConfirm() {
-    if(confirm("로그인이 필요한 서비스입니다. \n로그인 하시겠습니까?")) {
-        location.href="/auth/sign-in";
-    }
-}
-
 $(document).ready(function () {
+    // 전체, 정답만, 오답만 옵션에 따른 출력
 
     $('.resultOption').click(function () {
         const option = $(this).attr('id');

@@ -33,8 +33,8 @@ public class ExamRepositoryImpl implements ExamRepository {
 
     // 주제별 난이도 목록 조회
     @Override
-    public List<Integer> findLevelsBySubject(Long subjectId) {
-        return examMapper.findLevelsBySubject(subjectId);
+    public List<Integer> findLevelsBySubject(String subjectName) {
+        return examMapper.findLevelsBySubject(subjectName);
     }
 
     // 전체 난이도 중 최소, 최대 난이도 조회

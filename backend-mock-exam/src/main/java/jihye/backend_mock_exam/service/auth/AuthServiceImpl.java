@@ -75,7 +75,6 @@ public class AuthServiceImpl implements AuthService {
     }
 
     // 비밀번호 재설정
-
     @Override
     public User resetPassword(String accountId, String password) {
         // 비밀번호 암호화

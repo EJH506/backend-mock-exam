@@ -149,7 +149,7 @@ public class AuthController {
 
     // 비회원으로 시작 처리
     @PostMapping("/guest-start")
-    public String guestStart(@Valid @ModelAttribute GuestStartDto dto, BindingResult bindingResult, RedirectAttributes redirectAttributes, HttpServletRequest request, Model model) {
+    public String guestStart(@Valid @ModelAttribute GuestStartDto dto, BindingResult bindingResult, HttpServletRequest request) {
 
         if (bindingResult.hasErrors()) {
             log.info("errors={}", bindingResult);

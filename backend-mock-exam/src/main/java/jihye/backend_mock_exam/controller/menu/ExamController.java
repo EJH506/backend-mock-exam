@@ -29,7 +29,7 @@ public class ExamController {
     @GetMapping("/subject")
     public String subject(Model model) {
 
-        // 주제 목록 test
+        // 주제 목록
         List<Subject> subjects = examService.findAllSubjects();
         model.addAttribute("subjects", subjects);
 
@@ -86,7 +86,6 @@ public class ExamController {
 
         // 틀린문제만 재도전일 경우
         if (historyId != null) {
-            ExamHistory history = examService.findExamHistoryById(historyId);
             questionsId = examService.findQuestionsIdOfHistory(historyId, false);
         }
 
@@ -101,7 +100,7 @@ public class ExamController {
     }
 
     @PostMapping("/take-exam")
-    public String takeExam(@ModelAttribute SubmittedExamDto dto, RedirectAttributes redirectAttributes, HttpServletRequest request) {
+    public String takeExam(@ModelAttribute SubmittedExamDto dto, HttpServletRequest request) {
 
         // 시험 히스토리 생성
         ExamHistory examHistory = examService.createExamHistory(dto);
