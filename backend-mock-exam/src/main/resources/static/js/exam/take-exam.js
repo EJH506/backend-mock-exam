@@ -53,13 +53,14 @@ $(document).ready(function() {
         });
     });
 
+    // 다음, 건너뛰기, 이전 클릭 시 이전/다음 문항 표시
     let margin = 0;
     $('.btn_skip, .btn_next').click(function() {
         margin -= 800;
-        $(this).closest('form').css("marginLeft", margin + 'px');
+        $(this).closest('.slide-wrap').css("marginLeft", margin + 'px');
     })
     $('.btn_prev').click(function() {
         margin += 800;
-        $(this).closest('form').css("marginLeft", margin + 'px');
+        $(this).closest('.slide-wrap').css("marginLeft", margin + 'px');
     })
 });

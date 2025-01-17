@@ -1,8 +1,8 @@
 
 @font-face {
-  font-family: 'Pretendard-Regular';
-  src: url('https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
-  font-weight: 400;
+  font-family: 'Pretendard-Medium';
+  src: url('https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Medium.woff') format('woff');
+  font-weight: 500;
   font-style: normal;
 }
 
@@ -52,7 +52,7 @@ $placeholder: #CCC;
 
 
 * {
-  font-family: 'Pretendard-Regular';
+  font-family: 'Pretendard-Medium';
   color: $black;
 }
 
@@ -191,6 +191,71 @@ $placeholder: #CCC;
   border-radius: 7px;
 }
 
+// 시험 결과 컨테이너
+.result-item-container {
+  width: 800px;
+  padding: 20px 50px;
+  //box-sizing: border-box;
+  font-family: 'Pretendard-SemiBold';
+  border: none;
+  outline: none;
+  border: 1px solid $placeholder;
+  margin: 10px 0 30px;
+  border-radius: 5px;
+
+  >.questionsDetail {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+
+    >.questionsText {
+      display: flex;
+      flex-flow: column wrap;
+      justify-content: center;
+      align-items: center;
+      >p { color: $placeholder; }
+
+      >h4 { // 문항내용
+        font-family: 'Pretendard-Bold';
+        font-size: 20px;
+        margin-top: 5px;
+      }
+    }
+
+    >.saveToggle {
+      position: absolute;
+      right: 0px;
+      top: 5px;
+      font-size: 20px;
+      color: $icon-star;
+    }
+  }
+
+  >.answersText {
+    >p {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-bottom: 10px;
+
+      >span {
+        display: flex;
+        justify-content: center;
+        align-content: center;
+        width: 50px;
+        margin-right: 7px;
+      }
+      >.systemInput_md { flex: 1 1 0; }
+
+      &:first-of-type .systemInput_md { border-color: $theme-exam; }
+      &:last-of-type .wrong { border-color: $accent-caution; }
+      &:last-of-type .correct { border-color: $accent-correct; }
+    }
+  }
+}
+
 .sr-only {
   position: absolute;
   width: 1px;
@@ -225,20 +290,16 @@ section {
   justify-content: center;
   align-items: center;
   width: 800px;
-  margin: 0 auto;
-  margin-top: 50px;
-  border: 1px solid red;
+  margin: 50px auto;
 
   h2 {
     display: flex;
     justify-content: center;
     align-items: center;
     font-family: 'Pretendard-Bold';
-    border: 1px solid black;
   }
 
   h2 + p {
-      margin: 20px 0 30px;
       font-size: 20px;
   }
 

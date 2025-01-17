@@ -12,7 +12,7 @@
 <div class="wrap">
 <header th:replace="~{fragment/auth-header :: header}"></header>
 
-<section>
+<section class="signup">
     <h2 th:text="#{page.sign-up}">회원가입(목업)</h2>
 
     <form action th:action th:object="${signUpDto}" method="post">

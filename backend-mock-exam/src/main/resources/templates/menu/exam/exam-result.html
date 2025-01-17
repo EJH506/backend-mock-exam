@@ -3,8 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <title th:text="#{page.exam-result} + ' | ' + #{title}">시험결과 | 백엔드 모의고사</title>
-    <script th:src="@{https://code.jquery.com/jquery-3.6.0.min.js}"></script>
+    <link rel="stylesheet" th:href="@{/css/main.css}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" />
+    <script th:src="@{https://code.jquery.com/jquery-3.6.0.min.js}"></script>
     <script th:src="@{/js/incorrectNoteSaveToggle.js}"></script>
     <script th:src="@{/js/exam/exam-result.js}"></script>
 </head>
@@ -22,48 +23,52 @@
 
     <div id="resultOptions">
         <p th:text="#{text.result.viewResult}">결과보기(목업)</p>
-        <ul>
+        <ul class="buttons">
             <li th:class="resultOption" th:id="all" th:text="#{button.result.all}">전체</li>
             <li th:class="resultOption" th:id="correctOnly" th:text="#{button.result.correctOnly}">정답만</li>
             <li th:class="resultOption" th:id="incorrectOnly" th:text="#{button.result.incorrectOnly}">오답만</li>
         </ul>
 
-        <p onclick="아래 checkbox 전체선택 js함수">
+        <p class="systemInput_md" onclick="아래 checkbox 전체선택 js함수">
             <span th:text="#{button.result.saveIncorrectNote}">오답 전체 오답노트에 저장하기 </span>
             <span><i class="fa-solid fa-star"></i></span>
         </p>
     </div>
 
-    <div id="viewQuestionsArea"  th:fragment="viewQuestionsArea">
-        <div th:each="history, stat : ${historyDetails}">
-            <span>============================================================</span>
-            <p th:text="${stat.index + 1} + '번 문제'">n번 문제</p>
+    <div id="viewQuestionsArea">
+        <div th:fragment="viewQuestionsArea">
+            <div th:each="history, stat : ${historyDetails}">
+                <p th:text="${stat.index + 1} + '번 문제'">n번 문제</p>
 
-            <div class="questionsDetail">
-                <span th:class="saveToggle" th:data-user-id="${user.userId}" th:data-question-id="${history.question.questionId}">
-                    <i th:if="${history.isSaved}" class="fa-solid fa-star"></i>
-                    <i th:if="${!history.isSaved}" class="fa-regular fa-star"></i>
-                </span>
-                <div class="questionsText">
-                    <p th:text="${history.question.subjectName} + ' / Lv. ' + ${history.question.level == 0 ? '전체' : history.question.level}">네트워크 / Lv. 2 (목업)</p>
-                    <h4 th:text="${history.question.questionText}">문항 내용</h4>
+                <div class="result-item-container">
+                    <div class="questionsDetail">
+                        <div class="questionsText">
+                            <p th:text="${history.question.subjectName} + ' / Lv. ' + ${history.question.level == 0 ? '전체' : history.question.level}">네트워크 / Lv. 2 (목업)</p>
+                            <h4 th:text="${history.question.questionText}">문항 내용</h4>
+                        </div>
+                        <span th:class="saveToggle" th:data-user-id="${user.userId}" th:data-question-id="${history.question.questionId}">
+                            <i th:if="${history.isSaved}" class="fa-solid fa-star"></i>
+                            <i th:if="${!history.isSaved}" class="fa-regular fa-star"></i>
+                        </span>
+                    </div> <!--questionsDetail-->
+
+                    <div class="answersText">
+                        <p>
+                            <span th:text="#{text.result.correctAnswer}">정답(목업)</span>
+                            <span class="systemInput_md" th:text="${history.correctAnswer.answerText}">정답 내용</span>
+                        </p>
+                        <p>
+                            <span th:text="#{text.result.userAnswer}">나의 답(목업)</span>
+                            <span class="systemInput_md" th:classappend="${history.correctAnswer == history.userAnswer ? 'correct' : 'wrong'}" th:text="${history.userAnswer != null ? history.userAnswer.answerText : ''}">나의 답 내용</span>
+                        </p>
+                    </div>
                 </div>
 
-                <div class="answersText">
-                    <p>
-                        <span th:text="#{text.result.correctAnswer}">정답(목업)</span>
-                        <span th:text="${history.correctAnswer.answerText}">정답 내용</span>
-                    </p>
-                    <p>
-                        <span th:text="#{text.result.userAnswer}">나의 답(목업)</span>
-                        <span th:text="${history.userAnswer != null ? history.userAnswer.answerText : ''}">나의 답 내용</span>
-                    </p>
-                </div>
-            </div> <!--questionsDetail-->
-        </div> <!--${historyDetails} 반복-->
+            </div> <!--${historyDetails} 반복-->
+        </div>
     </div> <!--viewQuestionsArea-->
 
-    <div id="resultManager">
+    <div class="buttons">
         <a th:href="@{|/exam/take-exam?subject=${examHistory.subjectName}&level=${examHistory.level}&number=${examHistory.totalQuestionsCount}|}">재도전</a>
         <a th:if="${user.userId == 0}" th:onclick="javascript:signinConfirm()">틀린 문제만 재도전</a>
         <a th:if="${user.userId != 0}" th:href="@{|/exam/take-exam?historyId=${examHistory.historyId}&subject=${examHistory.subjectName}&level=${examHistory.level}&number=${examHistory.totalQuestionsCount}|}">틀린 문제만 재도전</a>

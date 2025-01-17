@@ -1,9 +1,9 @@
 @charset "UTF-8";
 @import "reset.css";
 @font-face {
-  font-family: "Pretendard-Regular";
-  src: url("https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff") format("woff");
-  font-weight: 400;
+  font-family: "Pretendard-Medium";
+  src: url("https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Medium.woff") format("woff");
+  font-weight: 500;
   font-style: normal;
 }
 @font-face {
@@ -39,7 +39,6 @@ header > a > h1 {
   color: #71B961;
   font-family: "Pretendard-Bold";
   font-size: 30px;
-  border: 1px solid red;
 }
 header ul {
   display: flex;
@@ -71,6 +70,7 @@ header #profile > div {
   font-family: "Pretendard-SemiBold";
   background-color: #CCC;
   border-radius: 50%;
+  cursor: pointer;
 }
 header #profile > ul {
   display: flex;
@@ -87,9 +87,9 @@ header #profile > ul a:hover {
 }
 
 @font-face {
-  font-family: "Pretendard-Regular";
-  src: url("https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff") format("woff");
-  font-weight: 400;
+  font-family: "Pretendard-Medium";
+  src: url("https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Medium.woff") format("woff");
+  font-weight: 500;
   font-style: normal;
 }
 @font-face {
@@ -111,7 +111,7 @@ header #profile > ul a:hover {
   font-style: normal;
 }
 * {
-  font-family: "Pretendard-Regular";
+  font-family: "Pretendard-Medium";
   color: #222222;
 }
 
@@ -245,6 +245,70 @@ header #profile > ul a:hover {
   transform: scale(1.05);
 }
 
+.result-item-container {
+  width: 800px;
+  padding: 20px 50px;
+  font-family: "Pretendard-SemiBold";
+  border: none;
+  outline: none;
+  border: 1px solid #CCC;
+  margin: 10px 0 30px;
+  border-radius: 5px;
+}
+.result-item-container > .questionsDetail {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 20px;
+}
+.result-item-container > .questionsDetail > .questionsText {
+  display: flex;
+  flex-flow: column wrap;
+  justify-content: center;
+  align-items: center;
+}
+.result-item-container > .questionsDetail > .questionsText > p {
+  color: #CCC;
+}
+.result-item-container > .questionsDetail > .questionsText > h4 {
+  font-family: "Pretendard-Bold";
+  font-size: 20px;
+  margin-top: 5px;
+}
+.result-item-container > .questionsDetail > .saveToggle {
+  position: absolute;
+  right: 0px;
+  top: 5px;
+  font-size: 20px;
+  color: #FFE875;
+}
+.result-item-container > .answersText > p {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 10px;
+}
+.result-item-container > .answersText > p > span {
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  width: 50px;
+  margin-right: 7px;
+}
+.result-item-container > .answersText > p > .systemInput_md {
+  flex: 1 1 0;
+}
+.result-item-container > .answersText > p:first-of-type .systemInput_md {
+  border-color: #71B961;
+}
+.result-item-container > .answersText > p:last-of-type .wrong {
+  border-color: #FF6F74;
+}
+.result-item-container > .answersText > p:last-of-type .correct {
+  border-color: #00E6AC;
+}
+
 .sr-only {
   position: absolute;
   width: 1px;
@@ -277,19 +341,15 @@ section {
   justify-content: center;
   align-items: center;
   width: 800px;
-  margin: 0 auto;
-  margin-top: 50px;
-  border: 1px solid red;
+  margin: 50px auto;
 }
 section h2 {
   display: flex;
   justify-content: center;
   align-items: center;
   font-family: "Pretendard-Bold";
-  border: 1px solid black;
 }
 section h2 + p {
-  margin: 20px 0 30px;
   font-size: 20px;
 }
 section p + form {
@@ -339,30 +399,25 @@ h3 {
   margin: 12px 0;
 }
 
-header {
-  border: 1px solid black;
-}
-
-#wrap {
-  border: 1px solid black;
-}
-
 section {
+  padding-top: 30px;
   position: relative;
-  border: 1px solid black;
 }
 section > h2 {
   align-self: flex-start;
-  border: 1px solid black;
   font-size: 30px;
   margin-bottom: 10px;
   transform: translate(-50%, -50%);
+}
+section > h2 + p {
+  font-family: "Pretendard-SemiBold";
+  font-size: 20px;
+  margin: 0 0 30px;
 }
 section > #menuArea {
   display: flex;
   flex-flow: row wrap;
   gap: 10px;
-  outline: 1px solid black;
 }
 section form {
   margin-bottom: 30px;
@@ -382,6 +437,7 @@ section form > div.optional > div {
 section form > div.optional > div label {
   width: 395px;
   height: 60px;
+  color: #222222;
   font-size: 14px;
   cursor: pointer;
 }
@@ -392,6 +448,14 @@ section form > div.optional > div input[type=checkbox]:checked ~ label {
 }
 section form > div.optional > select {
   width: 100%;
+}
+section form > #signup_buttons > .systemButton_md:first-child {
+  border-color: #E6E9DE;
+  background-color: #E6E9DE;
+}
+section form > #signup_buttons > .systemButton_md:last-child {
+  border-color: #71B961;
+  background-color: #71B961;
 }
 section form + .systemButton_sm {
   position: absolute;
@@ -429,13 +493,13 @@ section > div > form .systemButton_sm:last-of-type {
 }
 
 #takeTest > form {
+  width: 800px;
   overflow: hidden;
 }
 #takeTest > form > #testArea {
   display: flex;
   flex-flow: row nowrap;
   gap: initial;
-  width: 100%;
 }
 #takeTest > form > #testArea > .slide-box {
   display: flex;
@@ -456,6 +520,7 @@ section > div > form .systemButton_sm:last-of-type {
   color: #CCC;
 }
 #takeTest > form > #testArea > .slide-box > p:last-of-type {
+  font-family: "Pretendard-Bold";
   font-size: 20px;
 }
 #takeTest > form > #testArea > .slide-box > ul {
@@ -468,11 +533,11 @@ section > div > form .systemButton_sm:last-of-type {
   border-color: #71B961;
 }
 #takeTest > form > #testArea > .slide-box > ul .systemInput_md:hover {
-  transform: scale(1.01);
+  border-color: #9ACDFF;
 }
 #takeTest > form > #testArea > .slide-box > ul input:checked ~ .systemInput_md {
   border-color: #9ACDFF;
-  box-shadow: 1px 1px 1px #CCC;
+  box-shadow: 3px 3px 3px #CCC;
 }
 #takeTest > form > #testArea > .slide-box .buttons .btn_skip {
   background-color: white;
@@ -486,6 +551,43 @@ section > div > form .systemButton_sm:last-of-type {
 #takeTest > form > #testArea > .slide-box .buttons .btn_next, #takeTest > form > #testArea > .slide-box .buttons .btn_submit {
   background-color: #71B961;
   border-color: #71B961;
+}
+
+#resultData > h3 {
+  font-size: 60px;
+}
+
+#resultOptions {
+  display: flex;
+  justify-content: center;
+  margin-top: 30px;
+  font-family: "Pretendard-SemiBold";
+}
+#resultOptions .systemInput_md {
+  position: absolute;
+  left: 50%;
+  top: 100%;
+  transform: translateX(-50%);
+  width: 800px;
+  height: 40px;
+  margin-top: 30px;
+  padding: 0 50px;
+  box-sizing: initial;
+  border-color: #71B961;
+  background-color: #71B961;
+  cursor: pointer;
+}
+#resultOptions .systemInput_md > span, #resultOptions .systemInput_md span > i {
+  color: white;
+}
+
+#viewQuestionsArea {
+  position: absolute;
+  left: 50%;
+  top: 100%;
+  transform: translateX(-50%);
+  margin-top: 100px;
+  padding: 30px 0;
 }
 
 /*# sourceMappingURL=main.css.map */

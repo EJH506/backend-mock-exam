@@ -2,18 +2,21 @@
 @import "header";
 @import "common";
 
-header {border: 1px solid black;}
-#wrap {border: 1px solid black;}
 section {
+  padding-top: 30px;
   position: relative;
-  border: 1px solid black;
 
   >h2 {
     align-self: flex-start;
-    border: 1px solid black;
     font-size: 30px;
     margin-bottom: 10px;
     transform: translate(-50%, -50%);
+
+    & + p {
+      font-family: 'Pretendard-SemiBold';
+      font-size: 20px;
+      margin: 0 0 30px;
+    }
   }
 
   // 홈 화면
@@ -21,7 +24,6 @@ section {
     display: flex;
     flex-flow: row wrap;
     gap: 10px;
-    outline: 1px solid black;
   }
 
   // 회원정보 수정
@@ -44,6 +46,7 @@ section {
           label {
             width: 395px;
             height: 60px;
+            color: $black;
             font-size: 14px;
             cursor: pointer;
           }
@@ -61,6 +64,17 @@ section {
       } //&.optional
 
     } //div
+
+    >#signup_buttons {
+      >.systemButton_md:first-child {
+        border-color: $theme-sub;
+        background-color: $theme-sub;
+      }
+      >.systemButton_md:last-child {
+        border-color: $theme-exam;
+        background-color: $theme-exam;
+      }
+    }
 
     & + .systemButton_sm {
       position: absolute;
@@ -112,13 +126,13 @@ section {
 #takeTest {
 
   >form {
-
+    width: 800px;
     overflow: hidden;
+
     >#testArea {
       display: flex;
       flex-flow: row nowrap;
       gap: initial;
-      width: 100%;
 
       >.slide-box {
         display: flex;
@@ -137,7 +151,10 @@ section {
           font-family: 'Pretendard-SemiBold';
 
           &:first-of-type { color: $placeholder; } // 주제명 Lv. 레벨
-          &:last-of-type { font-size: 20px; } // 문항 내용
+          &:last-of-type {
+            font-family: 'Pretendard-Bold';
+            font-size: 20px;
+          } // 문항 내용
         }
 
         >ul { //보기 목록
@@ -148,12 +165,12 @@ section {
 
           .systemInput_md {
             border-color: $theme-exam;
-            &:hover { transform: scale(1.01); }
+            &:hover { border-color: $accent-checked; }
           }
 
           input:checked ~ .systemInput_md {
             border-color: $accent-checked;
-            box-shadow: 1px 1px 1px $placeholder;
+            box-shadow: 3px 3px 3px $placeholder;
           }
         } // ul (보기목록)
 
@@ -176,7 +193,51 @@ section {
       }
     }
   } // form>#testArea (slide-wrap)
-
-
-
 } // div#takeTest (시험있으면 시험, 없으면 없습니다를 나누는 div)
+
+// 시험결과보기
+
+#resultData {
+
+  >h3 { font-size: 60px; }
+}
+
+#resultOptions {
+  display: flex;
+  justify-content: center;
+  margin-top: 30px;
+  font-family: 'Pretendard-SemiBold';
+
+  .systemInput_md { // 오답 전체 오답노트 저장 버튼
+    position: absolute;
+    left: 50%;
+    top: 100%;
+    transform: translateX(-50%);
+    width: 800px;
+    height: 40px;
+    margin-top: 30px;
+    padding: 0 50px;
+    box-sizing: initial;
+    border-color: $theme-exam;
+    background-color: $theme-exam;
+    cursor: pointer;
+
+    >span, span>i { color: white; }
+  }
+
+}
+
+#viewQuestionsArea {
+  position: absolute;
+  left: 50%;
+  top: 100%;
+  transform: translateX(-50%);
+  margin-top: 100px;
+  padding: 30px 0;
+
+  >.result-item-container {
+  }
+}
+
+section>.buttons {
+}
