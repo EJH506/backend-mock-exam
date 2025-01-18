@@ -73,13 +73,6 @@ public class ExamRepositoryImpl implements ExamRepository {
         return examMapper.findCorrectAnswerByQuestion(questionId);
     }
 
-    // 시험 히스토리 저장
-    @Override
-    public ExamHistory saveExamHistory(ExamHistory examHistory) {
-        examMapper.saveExamHistory(examHistory);
-        return examHistory;
-    }
-
     // 문항 ID로 문항 조회
     @Override
     public Question findQuestionsById(Long questionId) {
@@ -92,27 +85,4 @@ public class ExamRepositoryImpl implements ExamRepository {
         return examMapper.findAnswerById(answerId);
     }
 
-    // 시험 히스토리 문항 저장
-    @Override
-    public HistoryItem saveExamHistoryItems(HistoryItem historyItem) {
-        examMapper.saveExamHistoryItems(historyItem);
-        return historyItem;
-    }
-
-    // 히스토리 ID로 히스토리 조회
-    @Override
-    public ExamHistory findExamHistoryById(Long historyId) {
-        return examMapper.findExamHistoryById(historyId);
-    }
-
-    // 히스토리 ID로 히스토리 문항 조회
-    @Override
-    public List<Long> findQuestionsIdOfHistory(Long historyId, boolean isCorrect) {
-        return examMapper.findQuestionsIdOfHistory(historyId, isCorrect);
-    }
-
-    // 문항 ID로 오답노트 저장 유무 조회
-    public IncorrectNote findIncorrectNoteById(Long userId, Long questionId) {
-        return examMapper.findIncorrectNoteById(userId, questionId);
-    };
 }

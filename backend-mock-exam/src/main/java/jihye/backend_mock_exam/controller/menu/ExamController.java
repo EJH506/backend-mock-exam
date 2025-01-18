@@ -2,6 +2,7 @@ package jihye.backend_mock_exam.controller.menu;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jihye.backend_mock_exam.domain.exam.*;
+import jihye.backend_mock_exam.service.menu.CommonService;
 import jihye.backend_mock_exam.service.menu.exam.ExamService;
 import jihye.backend_mock_exam.service.menu.exam.dto.SubmittedExamDto;
 import lombok.RequiredArgsConstructor;

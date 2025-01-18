@@ -40,25 +40,10 @@ public interface ExamMapper {
     // 문제의 정답 조회
     Long findCorrectAnswerByQuestion(Long questionId);
 
-    // 시험 히스토리 저장
-    void saveExamHistory(ExamHistory examHistory);
-
     // 문항 ID로 문항 조회
     Question findQuestionsById(Long questionId);
 
     // 보기 ID로 보기 조회
     Answer findAnswerById(Long answerId);
-
-    // 시험 히스토리 문항 저장
-    void saveExamHistoryItems(HistoryItem historyItem);
-
-    // 히스토리 ID로 히스토리 조회
-    ExamHistory findExamHistoryById(Long historyId);
-
-    // 히스토리 ID로 히스토리 문항 조회
-    List<Long> findQuestionsIdOfHistory(@Param("historyId") Long historyId, @Param("isCorrect") boolean isCorrect);
-
-    // 문항 ID로 오답노트 조회
-    IncorrectNote findIncorrectNoteById(@Param("userId") Long userId, @Param("questionId") Long questionId);
 
 }

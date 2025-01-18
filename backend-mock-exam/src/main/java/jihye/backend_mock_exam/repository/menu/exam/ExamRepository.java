@@ -36,9 +36,6 @@ public interface ExamRepository {
 
     // 문제의 정답 조회
     Long findCorrectAnswerByQuestion(Long questionId);
-    
-    // 시험 히스토리 저장
-    ExamHistory saveExamHistory(ExamHistory examHistory);
 
     // 문항 ID로 문항 조회
     Question findQuestionsById(Long id);
@@ -46,15 +43,4 @@ public interface ExamRepository {
     // 보기 ID로 보기 조회
     Answer findAnswerById(Long id);
 
-    // 시험 히스토리 문항 저장
-    HistoryItem saveExamHistoryItems(HistoryItem historyItem);
-
-    // 히스토리 ID로 히스토리 조회
-    ExamHistory findExamHistoryById(Long historyId);
-    
-    // 히스토리 ID로 히스토리 문항 조회
-    List<Long> findQuestionsIdOfHistory(Long historyId, boolean isCorrect);
-
-    // 문항 ID로 오답노트 저장 유무 조회
-    public IncorrectNote findIncorrectNoteById(Long userId, Long questionId);
 }

@@ -12,6 +12,12 @@ public class IncorrectNoteRepositoryImpl implements IncorrectNoteRepository {
 
     private final IncorrectNoteMapper incorrectNoteMapper;
 
+    @Override
+    // 문항 ID로 오답노트 저장 유무 조회
+    public IncorrectNote findIncorrectNoteById(Long userId, Long questionId) {
+        return incorrectNoteMapper.findIncorrectNoteById(userId, questionId);
+    };
+
     // 주제, 난이도 선택에 따른 오답노트 목록
     @Override
     public List<IncorrectNote> findIncorrectList(Long userId, Long subjectId, int level, String searchKeyword) {

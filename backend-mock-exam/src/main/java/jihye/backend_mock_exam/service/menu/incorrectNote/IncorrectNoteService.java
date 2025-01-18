@@ -7,7 +7,8 @@ import jihye.backend_mock_exam.domain.exam.Subject;
 import jihye.backend_mock_exam.domain.incorrectNote.IncorrectItem;
 import jihye.backend_mock_exam.domain.incorrectNote.IncorrectNote;
 import jihye.backend_mock_exam.repository.menu.incorrectNote.IncorrectNoteRepository;
-import jihye.backend_mock_exam.service.menu.exam.ExamService;
+import jihye.backend_mock_exam.service.menu.CommonService;
+import jihye.backend_mock_exam.service.menu.QuestionFilter;
 import jihye.backend_mock_exam.service.menu.incorrectNote.dto.saveIncorrectAllDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -21,22 +22,22 @@ import java.util.List;
 @RequiredArgsConstructor
 public class IncorrectNoteService {
 
-    private final ExamService examService;
     private final IncorrectNoteRepository incorrectNoteRepository;
+    private final CommonService commonService;
 
     // 주제 목록 조회
     public List<Subject> findAllSubjects() {
-        return examService.findAllSubjects();
+        return commonService.findAllSubjects();
     }
 
     // 주제별 난이도 목록 조회
     public List<Integer> levelListOfSubject(String subjectName) {
-        return examService.levelListOfSubject(subjectName);
+        return commonService.levelListOfSubject(subjectName);
     }
 
     // 주제, 난이도 선택에 따른 오답노트 목록
     public List<IncorrectItem> incorrectList(Long userId, String subjectName, String level, String searchKeyword) {
-        QuestionFilter questionFilter = incorrectQuestionFilterConvert(subjectName, level);
+        QuestionFilter questionFilter = commonService.questionFilterConvert(subjectName, level);
         List<IncorrectNote> incorrectList = incorrectNoteRepository.findIncorrectList(userId, questionFilter.getSubjectId(), questionFilter.getLevelInt(), searchKeyword);
 
         List<Long> questionsId = new ArrayList<>();
@@ -45,7 +46,7 @@ public class IncorrectNoteService {
         }
 
         // 오답노트 목록의 question id에서 문제 정보 추출
-        List<Question> questions = examService.findFilteredHistoryQuestions(questionsId);
+        List<Question> questions = commonService.findFilteredHistoryQuestions(questionsId);
 
         List<IncorrectItem> incorrectItemList = new ArrayList<>();
 
@@ -53,7 +54,7 @@ public class IncorrectNoteService {
             IncorrectItem item = new IncorrectItem();
             item.setQuestion(question);
 
-            List<Answer> answers = examService.shuffledAnswerListByQuestion(question.getQuestionId());
+            List<Answer> answers = commonService.shuffledAnswerListByQuestion(question.getQuestionId());
             item.setAnswers(answers);
 
             for (Answer answer : answers) {
@@ -99,44 +100,4 @@ public class IncorrectNoteService {
 
         return savedQuestionsId;
     }
-
-
-    // 매개변수로 사용될 subject와 level의 값을 통합인지 아닌지에 따라 적절히 변환
-    private QuestionFilter incorrectQuestionFilterConvert(String subjectName, String level) {
-
-        Long subjectId = 0L;
-        int levelInt = 0;
-
-        // 통합 문제가 아닐 시
-        if (subjectName != null && !(ExamConst.SUBJECT_ALL.equals(subjectName))) {
-            subjectId = examService.findSubjectByName(subjectName).getSubjectId();
-        }
-
-        // 전체 레벨이 아닐 시
-        if (level != null && !(ExamConst.LEVEL_ALL.equals(level))) {
-            levelInt = Integer.parseInt(level);
-        }
-
-        return new QuestionFilter(subjectId, levelInt);
-    }
-
-    public static class QuestionFilter {
-
-        private Long subjectId;
-        private int levelInt;
-
-        public QuestionFilter(Long subjectId, int levelInt) {
-            this.subjectId = subjectId;
-            this.levelInt = levelInt;
-        }
-
-        public Long getSubjectId() {
-            return subjectId;
-        }
-
-        public int getLevelInt() {
-            return levelInt;
-        }
-    }
-
 }

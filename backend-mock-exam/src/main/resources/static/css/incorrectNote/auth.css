@@ -245,6 +245,10 @@ header #profile > ul a:hover {
   transform: scale(1.05);
 }
 
+.fa-solid {
+  color: #FFE875;
+}
+
 .result-item-container {
   width: 800px;
   padding: 20px 50px;

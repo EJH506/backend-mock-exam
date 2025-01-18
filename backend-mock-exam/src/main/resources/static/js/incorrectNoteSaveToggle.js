@@ -26,7 +26,9 @@ $(document).ready(function() {
                     }
 
                 } else {
-                    alert("오류가 발생했습니다. 다시 시도해주세요.");
+                    if (confirm("로그인이 필요한 서비스 입니다. \n로그인 하시겠습니까?")) {
+                        location.href="/auth/sign-in";
+                    }
                 }
             },
             error: function(xhr, status, error) {
@@ -58,11 +60,17 @@ $(document).ready(function() {
                 wrongQuestions: wrongQuestions
             }),
             success: function(response) {
-                // 저장된 문항에 별표
-                $.each(selectedWrongQuestions, function(index, item) {
-                    const findToggle = $(this).closest('.answersText').prev().find('.saveToggle');
-                    findToggle.html('<i class="fa-solid fa-star"></i>');
-                });
+                if (response.savedQuestionId != null) {
+                    // 저장된 문항에 별표
+                    $.each(selectedWrongQuestions, function(index, item) {
+                        const findToggle = $(this).closest('.answersText').prev().find('.saveToggle');
+                        findToggle.html('<i class="fa-solid fa-star"></i>');
+                    });
+                } else {
+                    if (confirm("로그인이 필요한 서비스 입니다. \n로그인 하시겠습니까?")) {
+                        location.href="/auth/sign-in";
+                    }
+                }
             },
             error: function(xhr, status, error) {
                 console.error('AJAX 요청 실패:', error);

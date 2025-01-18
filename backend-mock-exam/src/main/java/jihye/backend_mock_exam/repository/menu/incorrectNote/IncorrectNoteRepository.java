@@ -6,6 +6,9 @@ import java.util.List;
 
 public interface IncorrectNoteRepository {
 
+    // 문항 ID로 오답노트 저장 유무 조회
+    IncorrectNote findIncorrectNoteById(Long userId, Long questionId);
+
     // 주제, 난이도, 검색어 선택에 따른 오답노트 목록
     List<IncorrectNote> findIncorrectList(Long userId, Long subjectId, int level, String searchKeyword);
 
