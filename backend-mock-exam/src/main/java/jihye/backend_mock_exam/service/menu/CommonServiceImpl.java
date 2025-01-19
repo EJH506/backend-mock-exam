@@ -2,10 +2,12 @@ package jihye.backend_mock_exam.service.menu;
 
 import jihye.backend_mock_exam.controller.menu.ExamConst;
 import jihye.backend_mock_exam.domain.exam.*;
+import jihye.backend_mock_exam.domain.history.ExamHistory;
+import jihye.backend_mock_exam.domain.history.HistoryItem;
+import jihye.backend_mock_exam.domain.history.HistoryItemObject;
 import jihye.backend_mock_exam.repository.menu.exam.ExamRepository;
 import jihye.backend_mock_exam.repository.menu.history.HistoryRepository;
 import jihye.backend_mock_exam.repository.menu.incorrectNote.IncorrectNoteRepository;
-import jihye.backend_mock_exam.service.menu.exam.ExamServiceImpl;
 import jihye.backend_mock_exam.service.menu.exam.dto.SubmittedExamDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -75,55 +77,48 @@ public class CommonServiceImpl implements CommonService {
     @Override
     public ExamHistory createExamHistory(SubmittedExamDto dto) {
 
-        QuestionFilter questionFilter = questionFilterConvert(dto.getSubject(), dto.getLevel());
-        ExamHistory examHistory = new ExamHistory(dto.getUserId(), dto.getSubject(), questionFilter.getLevelInt(), dto.getQuestions(), dto.getUserAnswers(), dto.getTotalQuestionsCount());
+        QuestionFilter questionFilter = questionFilterConvert(dto.getSubjectName(), dto.getLevel());
+        int totalQuestionsCount = dto.getTotalQuestionsCount();
+
         ArrayList<Long> correctAnswers = new ArrayList<>();
         List<Long> incorrectQuestions = new ArrayList<>();
-
-        int totalQuestionCount = examHistory.getTotalQuestionsCount();
 
         // 사용자의 답과 비교할 정답 목록 담기
         for (Long question : dto.getQuestions()) {
             correctAnswers.add(examRepository.findCorrectAnswerByQuestion(question));
         }
-        examHistory.setCorrectAnswers(correctAnswers);
 
         // 틀린 문항 담기
-        for (int i=0; i < totalQuestionCount; i++) {
-            if (!Objects.equals(examHistory.getCorrectAnswers().get(i), examHistory.getUserAnswers().get(i))) {
-                incorrectQuestions.add(examHistory.getQuestions().get(i));
+        for (int i=0; i < totalQuestionsCount; i++) {
+            if (!Objects.equals(correctAnswers.get(i), dto.getUserAnswers().get(i))) {
+                incorrectQuestions.add(dto.getQuestions().get(i));
             }
         }
-        examHistory.setIncorrectQuestions(incorrectQuestions);
 
         // 정답률 연산하여 담기
-        int correctQuestionsCount = examHistory.getTotalQuestionsCount() - examHistory.getIncorrectQuestions().size();
-        double correctRate = ((double) correctQuestionsCount / totalQuestionCount) * 100;
-        double formatedCorrectRate = Math.round(correctRate * 10) / 10.0;
+        int correctQuestionsCount = totalQuestionsCount - incorrectQuestions.size();
+        double correctRate = ((double) correctQuestionsCount / totalQuestionsCount) * 100;
 
-        examHistory.setCorrectQuestionsCount(correctQuestionsCount);
-        examHistory.setCorrectRate(formatedCorrectRate);
+        ExamHistory examHistory = new ExamHistory(dto.getUserId(), dto.getSubjectName(), questionFilter.getLevelInt(), totalQuestionsCount, correctQuestionsCount, correctRate);
 
         // DB에 저장 (회원일 시 저장, 비회원일 시 세션 등)
         if (examHistory.getUserId() > 0) {
-            // 시험 결과
+            // exam_history (시험 정보 및 결과)
             historyRepository.saveExamHistory(examHistory);
 
-            // 시험 문제
+            // history_items (시험 문제)
             Long historyId = examHistory.getHistoryId();
 
             for (int i=0; i < examHistory.getTotalQuestionsCount(); i++) {
-                Long question = examHistory.getQuestions().get(i);
-                Long correctAnswer = examRepository.findCorrectAnswerByQuestion(question);
-                Long userAnswer = examHistory.getUserAnswers().get(i);
+                Long correctAnswer = examRepository.findCorrectAnswerByQuestion(dto.getQuestions().get(i));
+                Long userAnswer = dto.getUserAnswers().get(i);
 
                 boolean isCorrect = false;
 
                 if (correctAnswer.equals(userAnswer)) {
                     isCorrect = true;
                 }
-
-                historyRepository.saveExamHistoryItems(new HistoryItem(historyId, question, correctAnswer, userAnswer, isCorrect));
+                historyRepository.saveExamHistoryItems(new HistoryItem(historyId, dto.getQuestions().get(i), correctAnswer, userAnswer, isCorrect));
             }
 
         }
@@ -134,13 +129,17 @@ public class CommonServiceImpl implements CommonService {
     // 히스토리 상세 반환
     @Override
     public List<HistoryItemObject> createHistoryDetails(ExamHistory examHistory, String option) {
+
+        List<Question> questionsIdOfHistory = findQuestionsOfHistory(examHistory.getHistoryId(), false);
+//        findCorrectAnswerOfHistory()
+
         List<HistoryItemObject> historyDetails = new ArrayList<>();
 
         log.info("examHistory={}", examHistory);
 
-        List<Question> questions = findFilteredHistoryQuestions(examHistory.getQuestions());
-        List<Answer> correctAnswers = findFilteredHistoryAnswers(examHistory.getCorrectAnswers());
-        List<Answer> userAnswers = findFilteredHistoryAnswers(examHistory.getUserAnswers());
+//        List<Question> questions = findFilteredHistoryQuestions(examHistory.getQuestions());
+//        List<Answer> correctAnswers = findFilteredHistoryAnswers(examHistory.getCorrectAnswers());
+//        List<Answer> userAnswers = findFilteredHistoryAnswers(examHistory.getUserAnswers());
 
         for (int i=0; i<questions.size(); i++) {
 
@@ -166,16 +165,11 @@ public class CommonServiceImpl implements CommonService {
         return historyDetails;
     }
 
-    // 히스토리 조회
-    @Override
-    public ExamHistory findExamHistoryById(Long historyId) {
-        return historyRepository.findExamHistoryById(historyId);
-    }
 
     // 히스토리에 속한 문제ID 조회
     @Override
-    public List<Long> findQuestionsIdOfHistory(Long historyId, boolean isCorrect) {
-        return historyRepository.findQuestionsIdOfHistory(historyId, isCorrect);
+    public List<Question> findQuestionsOfHistory(Long historyId, boolean isCorrect) {
+        return historyRepository.findQuestionsOfHistory(historyId, isCorrect);
     }
 
     @Override

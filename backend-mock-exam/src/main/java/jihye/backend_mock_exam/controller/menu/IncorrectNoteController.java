@@ -52,6 +52,9 @@ public class IncorrectNoteController {
         if (searchKeyword != null) {
             model.addAttribute("searchKeyword", searchKeyword);
         }
+        if (level != null) {
+            model.addAttribute("paramLevel", level);
+        }
         model.addAttribute("subject", subjectName);
         model.addAttribute("levels", levels);
         model.addAttribute("incorrectItemList", incorrectItemList);

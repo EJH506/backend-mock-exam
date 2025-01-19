@@ -1,7 +1,8 @@
 package jihye.backend_mock_exam.repository.menu.history;
 
-import jihye.backend_mock_exam.domain.exam.ExamHistory;
-import jihye.backend_mock_exam.domain.exam.HistoryItem;
+import jihye.backend_mock_exam.domain.exam.Question;
+import jihye.backend_mock_exam.domain.history.ExamHistory;
+import jihye.backend_mock_exam.domain.history.HistoryItem;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
@@ -27,6 +28,12 @@ public class HistoryRepositoryImpl implements HistoryRepository {
         return historyItem;
     }
 
+    // 히스토리 목록 조회
+    @Override
+    public List<ExamHistory> findExamHistoryByUser(Long userId) {
+        return historyMapper.findExamHistoryByUser(userId);
+    }
+
     // 히스토리 ID로 히스토리 조회
     @Override
     public ExamHistory findExamHistoryById(Long historyId) {
@@ -35,7 +42,7 @@ public class HistoryRepositoryImpl implements HistoryRepository {
 
     // 히스토리 ID로 히스토리 문항 조회
     @Override
-    public List<Long> findQuestionsIdOfHistory(Long historyId, boolean isCorrect) {
-        return historyMapper.findQuestionsIdOfHistory(historyId, isCorrect);
+    public List<Question> findQuestionsOfHistory(Long historyId, boolean isCorrect) {
+        return historyMapper.findQuestionsOfHistory(historyId, isCorrect);
     }
 }

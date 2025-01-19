@@ -1,7 +1,8 @@
 package jihye.backend_mock_exam.service.menu.exam;
 
-import jihye.backend_mock_exam.controller.menu.ExamConst;
 import jihye.backend_mock_exam.domain.exam.*;
+import jihye.backend_mock_exam.domain.history.ExamHistory;
+import jihye.backend_mock_exam.domain.history.HistoryItemObject;
 import jihye.backend_mock_exam.repository.menu.exam.ExamRepository;
 import jihye.backend_mock_exam.service.menu.CommonService;
 import jihye.backend_mock_exam.service.menu.QuestionFilter;
@@ -12,7 +13,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 @Slf4j
 @Service
@@ -31,7 +31,6 @@ public class ExamServiceImpl implements ExamService {
     // 주제별 난이도 목록 조회
     @Override
     public List<Integer> levelListOfSubject(String subjectName) {
-
         return commonService.levelListOfSubject(subjectName);
     }
 
@@ -59,19 +58,17 @@ public class ExamServiceImpl implements ExamService {
 
     // 주제,난이도,문항수에 해당하는 문제 목록 반환 (순서 랜덤)
     @Override
-    public List<Long> shuffledQuestionList(String subjectName, String level, int number) {
+    public List<Question> shuffledQuestionList(String subjectName, String level, int number) {
 
         QuestionFilter questionFilter = commonService.questionFilterConvert(subjectName, level);
-        List<Long> questionsId = examRepository.findShuffledQuestions(questionFilter.getSubjectId(), questionFilter.getLevelInt(), number);
+        List<Question> questions = examRepository.findShuffledQuestions(questionFilter.getSubjectId(), questionFilter.getLevelInt(), number);
 
-        return questionsId;
+        return questions;
     }
 
     // 시험 만들어 반환
     @Override
-    public List<ExamItem> createExam(List<Long> questionsId) {
-
-        List<Question> questions = commonService.findFilteredHistoryQuestions(questionsId);
+    public List<ExamItem> createExam(List<Question> questions) {
 
         // 주제 이름까지 담아서 반환
         for (Question question : questions) {
@@ -106,28 +103,10 @@ public class ExamServiceImpl implements ExamService {
         return commonService.createHistoryDetails(examHistory, option);
     }
 
-    // 히스토리 조회
-    @Override
-    public ExamHistory findExamHistoryById(Long historyId) {
-        return commonService.findExamHistoryById(historyId);
-    }
-
     // 히스토리에 속한 문제ID 조회
     @Override
-    public List<Long> findQuestionsIdOfHistory(Long historyId, boolean isCorrect) {
+    public List<Question> findQuestionsIdOfHistory(Long historyId, boolean isCorrect) {
         return commonService.findQuestionsIdOfHistory(historyId, isCorrect);
-    }
-
-    @Override
-    // 조건에 맞는 보기 조회
-    public List<Answer> findFilteredHistoryAnswers(List<Long> answersId) {
-        return commonService.findFilteredHistoryAnswers(answersId);
-    }
-
-    // 문항 ID로 오답노트 저장 유무 조회
-    @Override
-    public boolean isSavedToIncorrectNote(Long userId, Long questionId) {
-        return commonService.isSavedToIncorrectNote(userId, questionId);
     }
 
 }

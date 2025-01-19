@@ -1,7 +1,8 @@
 package jihye.backend_mock_exam.repository.menu.exam;
 
-import jihye.backend_mock_exam.domain.exam.*;
-import jihye.backend_mock_exam.domain.incorrectNote.IncorrectNote;
+import jihye.backend_mock_exam.domain.exam.Answer;
+import jihye.backend_mock_exam.domain.exam.Question;
+import jihye.backend_mock_exam.domain.exam.Subject;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
@@ -57,7 +58,7 @@ public class ExamRepositoryImpl implements ExamRepository {
 
     // 주제,난이도,문항수에 해당하는 문제 목록 조회
     @Override
-    public List<Long> findShuffledQuestions(Long subjectId, int level, int number) {
+    public List<Question> findShuffledQuestions(Long subjectId, int level, int number) {
         return examMapper.findShuffledQuestions(subjectId, level, number);
     }
 

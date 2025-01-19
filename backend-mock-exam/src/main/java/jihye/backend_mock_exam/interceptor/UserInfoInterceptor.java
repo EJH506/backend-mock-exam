@@ -37,7 +37,6 @@ public class UserInfoInterceptor implements HandlerInterceptor {
             }
         }
 
-        log.info("인터셉터!={}", request.getAttribute("user"));
         return true;
     }
 }

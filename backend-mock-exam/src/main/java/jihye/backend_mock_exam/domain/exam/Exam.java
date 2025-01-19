@@ -7,18 +7,16 @@ import java.util.List;
 @Data
 public class Exam {
 
-    private String subject;
+    private String subjectName;
     private String level;
-    private int totalQuestionsCount;
+    private int number;
+
     private List<ExamItem> examItems;
 
-    public Exam() {
-    }
-
-    public Exam(String subject, String level, int totalQuestionsCount, List<ExamItem> examItems) {
-        this.subject = subject;
+    public Exam(String subjectName, String level, int number, List<ExamItem> examItems) {
+        this.subjectName = subjectName;
         this.level = level;
-        this.totalQuestionsCount = totalQuestionsCount;
+        this.number = number;
         this.examItems = examItems;
     }
 }

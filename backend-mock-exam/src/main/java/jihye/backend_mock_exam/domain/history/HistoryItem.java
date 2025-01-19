@@ -1,4 +1,4 @@
-package jihye.backend_mock_exam.domain.exam;
+package jihye.backend_mock_exam.domain.history;
 
 import lombok.Data;
 
@@ -11,6 +11,10 @@ public class HistoryItem {
     private Long correctAnswerId;
     private Long userAnswerId;
     private boolean isCorrect;
+    private boolean isSaved;
+
+    public HistoryItem() {
+    }
 
     public HistoryItem(Long historyId, Long questionId, Long correctAnswerId, Long userAnswerId, boolean isCorrect) {
         this.historyId = historyId;

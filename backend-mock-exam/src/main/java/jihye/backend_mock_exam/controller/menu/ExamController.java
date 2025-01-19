@@ -1,8 +1,10 @@
 package jihye.backend_mock_exam.controller.menu;
 
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import jihye.backend_mock_exam.domain.exam.*;
-import jihye.backend_mock_exam.service.menu.CommonService;
+import jihye.backend_mock_exam.domain.history.ExamHistory;
+import jihye.backend_mock_exam.domain.history.HistoryItemObject;
 import jihye.backend_mock_exam.service.menu.exam.ExamService;
 import jihye.backend_mock_exam.service.menu.exam.dto.SubmittedExamDto;
 import lombok.RequiredArgsConstructor;
@@ -45,6 +47,8 @@ public class ExamController {
         // 난이도 목록
         List<Integer> levels = examService.levelListOfSubject(subjectName);
 
+        log.info("levels={}",levels);
+
         model.addAttribute("levels", levels);
         model.addAttribute("subject", subjectName);
 
@@ -77,22 +81,27 @@ public class ExamController {
                                @RequestParam(value = "number", required = false) Integer number,
                                Model model) {
 
-        List<Long> questionsId = null;
+        List<Question> questions = null;
 
         // 틀린문제만 재도전이 아닐경우
         if (historyId == null) {
             if (subjectName == null || level == null || number == null) { return "redirect:/exam/subject"; }
-            questionsId = examService.shuffledQuestionList(subjectName, level, number);
+            questions = examService.shuffledQuestionList(subjectName, level, number);
         }
 
         // 틀린문제만 재도전일 경우
         if (historyId != null) {
-            questionsId = examService.findQuestionsIdOfHistory(historyId, false);
+            questions = examService.findQuestionsIdOfHistory(historyId, false);
         }
 
         // 시험 문항 생성
-        List<ExamItem> examItems = examService.createExam(questionsId);
+        List<ExamItem> examItems = examService.createExam(questions);
         number = examItems.size();
+
+//        model.addAttribute("subjectName", subjectName);
+//        model.addAttribute("level", level);
+//        model.addAttribute("number", number);
+//        model.addAttribute("examItems", examItems);
 
         model.addAttribute("exam", new Exam(subjectName, level, number, examItems));
         model.addAttribute("submittedExamDto", new SubmittedExamDto());
@@ -101,12 +110,15 @@ public class ExamController {
     }
 
     @PostMapping("/take-exam")
-    public String takeExam(@ModelAttribute SubmittedExamDto dto, HttpServletRequest request) {
+    public String takeExam(@ModelAttribute SubmittedExamDto dto,
+                           RedirectAttributes redirectAttributes,
+                           HttpServletRequest request) {
 
         // 시험 히스토리 생성
         ExamHistory examHistory = examService.createExamHistory(dto);
-        request.getSession().setAttribute("examHistory", examHistory);
-//        redirectAttributes.addFlashAttribute("examHistory", examHistory);
+        examHistory.setCorrectRate(Math.round(examHistory.getCorrectRate() * 10) / 10.0);
+//        request.getSession().setAttribute("examHistory", examHistory);
+        redirectAttributes.addFlashAttribute("examHistory", examHistory);
         return "redirect:/exam/result";
     }
 
@@ -119,16 +131,15 @@ public class ExamController {
         // Ajax 요청인지 확인
         boolean isAjaxRequest = "XMLHttpRequest".equals(request.getHeader("X-Requested-With"));
 
-        ExamHistory examHistory = (ExamHistory) request.getSession(false).getAttribute("examHistory");
+        HttpSession session = request.getSession(false);
+        ExamHistory examHistory = (ExamHistory) session.getAttribute("examHistory");
 
         // 히스토리 정보에 해당하는 문항과 답변 기록 추출
         List<HistoryItemObject> historyDetails = examService.createHistoryDetails(examHistory, option);
         model.addAttribute("examHistory", examHistory);
         model.addAttribute("historyDetails", historyDetails);
 
-        for (HistoryItemObject historyDetail : historyDetails) {
-            log.info("historyDetail={}", historyDetail);
-        }
+        session.removeAttribute("examHistory");
 
         if (isAjaxRequest) {
             return "menu/exam/exam-result :: viewQuestionsArea";

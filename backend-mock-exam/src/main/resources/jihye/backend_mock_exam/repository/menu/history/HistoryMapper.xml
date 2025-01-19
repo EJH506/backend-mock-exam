@@ -13,13 +13,23 @@
         VALUES (${historyId}, ${questionId}, ${correctAnswerId}, ${userAnswerId}, ${isCorrect});
     </insert>
 
-    <select id="findExamHistoryById" resultType="examHistory">
-        SELECT * FROM exam_history
-        WHERE history_id = #{historyId}
+    <select id="findExamHistoryByUser" resultType="examHistory">
+        SELECT history_id, user_id, subject_name, level, total_questions_count,
+               correct_questions_count,  ROUND(correct_rate, 1) AS correct_rate, DATE_FORMAT(created_at, '%Y-%m-%d') AS created_at
+        FROM EXAM_HISTORY WHERE USER_ID = #{userId}
+        ORDER BY HISTORY_ID desc
     </select>
 
-    <select id="findQuestionsIdOfHistory" resultType="Long">
-        SELECT question_id FROM history_items
+    <select id="findExamHistoryById" resultType="examHistory">
+        SELECT history_id, user_id, subject_name, level, total_questions_count,
+               correct_questions_count, ROUND(correct_rate, 1) AS correct_rate, DATE_FORMAT(created_at, '%Y-%m-%d') AS created_at
+        FROM exam_history WHERE history_id = #{historyId}
+    </select>
+
+    <select id="findQuestionsOfHistory" resultType="question">
+        SELECT q.question_id, q.subject_id, s.subject_name, q.LEVEL, q.question_text FROM questions q
+        JOIN history_items h ON h.question_id = q.question_id
+        JOIN subjects s ON q.subject_id = s.subject_id
         <where>
             history_id = ${historyId}
             <if test="!isCorrect">

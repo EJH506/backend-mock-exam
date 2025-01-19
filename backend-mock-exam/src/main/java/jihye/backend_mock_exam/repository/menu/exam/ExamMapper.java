@@ -1,7 +1,8 @@
 package jihye.backend_mock_exam.repository.menu.exam;
 
-import jihye.backend_mock_exam.domain.exam.*;
-import jihye.backend_mock_exam.domain.incorrectNote.IncorrectNote;
+import jihye.backend_mock_exam.domain.exam.Answer;
+import jihye.backend_mock_exam.domain.exam.Question;
+import jihye.backend_mock_exam.domain.exam.Subject;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -32,10 +33,10 @@ public interface ExamMapper {
     Integer findQuestionUnitSetting();
 
     // 주제,난이도,문항수에 해당하는 문제 목록 조회
-    List<Long> findShuffledQuestions(@Param("subjectId") Long subjectId, @Param("level") int level, @Param("number") int number);
+    List<Question> findShuffledQuestions(@Param("subjectId") Long subjectId, @Param("level") int level, @Param("number") int number);
 
     // 문제의 보기 목록 조회 (순서 랜덤)
-    public List<Answer> findShuffledAnswers(Long questionId);
+    List<Answer> findShuffledAnswers(Long questionId);
 
     // 문제의 정답 조회
     Long findCorrectAnswerByQuestion(Long questionId);

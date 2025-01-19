@@ -16,7 +16,7 @@
     </select>
 
     <select id="findLevelsBySubject" resultType="int">
-        SELECT l.*
+        SELECT l.level
         FROM levels l
         JOIN subjects s ON l.subject_id = s.subject_id
         WHERE s.subject_name = #{subjectName};
@@ -42,8 +42,8 @@
         SELECT question_unit FROM question_unit_setting ORDER BY question_unit_id desc LIMIT 1
     </select>
 
-    <select id="findShuffledQuestions" resultType="Long">
-        SELECT question_id FROM questions
+    <select id="findShuffledQuestions" resultType="question">
+        SELECT * FROM questions
         <where>
             <if test="subjectId > 0">
                 AND subject_id = #{subjectId}

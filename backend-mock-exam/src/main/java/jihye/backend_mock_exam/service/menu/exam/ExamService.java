@@ -1,6 +1,8 @@
 package jihye.backend_mock_exam.service.menu.exam;
 
 import jihye.backend_mock_exam.domain.exam.*;
+import jihye.backend_mock_exam.domain.history.ExamHistory;
+import jihye.backend_mock_exam.domain.history.HistoryItemObject;
 import jihye.backend_mock_exam.service.menu.exam.dto.SubmittedExamDto;
 
 import java.util.List;
@@ -20,10 +22,10 @@ public interface ExamService {
     List<Integer> createQuestionNumberList(String subjectName, String level);
     
     // 주제,난이도,문항수에 해당하는 문제 목록 반환 (순서 랜덤)
-    List<Long> shuffledQuestionList(String subjectName, String level, int number);
+    List<Question> shuffledQuestionList(String subjectName, String level, int number);
 
     // 시험 만들어 반환
-    List<ExamItem> createExam(List<Long> questionsId);
+    List<ExamItem> createExam(List<Question> questionsId);
 
     // 시험 히스토리 생성 - common
     ExamHistory createExamHistory(SubmittedExamDto dto);
@@ -31,15 +33,7 @@ public interface ExamService {
     // 히스토리 상세 반환 - common
     List<HistoryItemObject> createHistoryDetails(ExamHistory examHistory, String option);
 
-    // 히스토리 조회 - common
-    ExamHistory findExamHistoryById(Long historyId);
-    
     // 히스토리에 속한 문제ID 조회 (전체를 찾으려면 true, 틀린문제만이면 false) - common
-    List<Long> findQuestionsIdOfHistory(Long historyId, boolean isCorrect);
+    List<Question> findQuestionsIdOfHistory(Long historyId, boolean isCorrect);
 
-    // 조건에 맞는 보기 조회 - common
-    List<Answer> findFilteredHistoryAnswers(List<Long> answersId);
-
-    // 문항 ID로 오답노트 저장 유무 조회 - common
-    boolean isSavedToIncorrectNote(Long userId, Long questionId);
 }

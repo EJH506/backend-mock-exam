@@ -11,3 +11,5 @@ CREATE TABLE question_unit_setting (
 	created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,								-- 생성일시
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP	-- 수정일시
 )
+
+INSERT INTO question_unit_setting (question_unit) VALUES (5);
