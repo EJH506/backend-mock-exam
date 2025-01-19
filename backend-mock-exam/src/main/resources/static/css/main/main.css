@@ -118,7 +118,69 @@ header #profile > ul a:hover {
 .wrap {
   width: 1200px;
   margin: 0 auto;
-  letter-spacing: -2px;
+  letter-spacing: -1px;
+}
+
+.text_on {
+  font-family: "Pretendard-SemiBold";
+  color: #71B961;
+}
+
+.searchForm {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  margin: 0;
+}
+.searchForm > label {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0); /* 구형 브라우저를 위해 사용 */
+  clip-path: polygon(0 0, 0 0, 0 0); /* inset(50%) 와 동일한 표현 */
+  border: 0;
+}
+.searchForm > input {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 90%;
+  height: 50px;
+  margin-right: 5px;
+  padding: 0 24px;
+  box-sizing: border-box;
+  font-size: 14px;
+  font-family: "Pretendard-Medium";
+  background-color: white;
+  border: none;
+  outline: none;
+  border: 3px solid #CCC;
+  border-radius: 7px;
+}
+.searchForm > input:focus {
+  border-color: #71B961;
+}
+.searchForm > button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: calc(10% - 5px);
+  height: 50px;
+  box-sizing: border-box;
+  color: #71B961;
+  font-size: 14px;
+  font-family: "Pretendard-Medium";
+  background-color: white;
+  border: none;
+  outline: none;
+  border: 3px solid #71B961;
+  border-radius: 7px;
+  cursor: pointer;
 }
 
 .systemInput_lg {
@@ -149,8 +211,8 @@ header #profile > ul a:hover {
   height: 60px;
   padding: 0 24px;
   box-sizing: border-box;
-  font-size: 14px;
-  font-family: "Pretendard-SemiBold";
+  font-size: 18px;
+  font-family: "Pretendard-Medium";
   background-color: white;
   border: none;
   outline: none;
@@ -159,6 +221,23 @@ header #profile > ul a:hover {
 }
 .systemInput_md:focus {
   border-color: #71B961;
+}
+
+.systemInput_sm {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 752px;
+  height: 50px;
+  padding: 0 24px;
+  box-sizing: border-box;
+  font-size: 16px;
+  font-family: "Pretendard-Medium";
+  background-color: white;
+  border: none;
+  outline: none;
+  border: 3px solid #CCC;
+  border-radius: 7px;
 }
 
 .systemButton_md {
@@ -199,8 +278,10 @@ header #profile > ul a:hover {
   display: flex;
   justify-content: center;
   align-items: center;
+  align-self: flex-start;
   width: 200px;
   height: 40px;
+  margin-top: 12px;
   color: #CCC;
   font-family: "Pretendard-SemiBold";
   background-color: white;
@@ -210,6 +291,10 @@ header #profile > ul a:hover {
   outline: none;
   cursor: pointer;
 }
+.systemButton_sm:hover {
+  border-color: #71B961;
+  color: #71B961;
+}
 
 .navButton_sm {
   display: flex;
@@ -218,7 +303,7 @@ header #profile > ul a:hover {
   width: 120px;
   height: 40px;
   color: #fff;
-  border-radius: 7px;
+  border-radius: 5px;
   background-color: #71B961;
   box-sizing: border-box;
   outline: none;
@@ -249,6 +334,24 @@ header #profile > ul a:hover {
   color: #FFE875;
 }
 
+.wrong {
+  border-color: #FF6F74;
+}
+
+.correct {
+  border-color: #00E6AC;
+}
+
+.questionInfo {
+  font-family: "Pretendard-SemiBold";
+  color: #CCC;
+}
+
+.questionText {
+  font-family: "Pretendard-Bold";
+  font-size: 20px;
+}
+
 .result-item-container {
   width: 800px;
   padding: 20px 50px;
@@ -272,12 +375,10 @@ header #profile > ul a:hover {
   justify-content: center;
   align-items: center;
 }
-.result-item-container > .questionsDetail > .questionsText > p {
+.result-item-container > .questionsDetail > .questionsText > .questionInfo {
   color: #CCC;
 }
-.result-item-container > .questionsDetail > .questionsText > h4 {
-  font-family: "Pretendard-Bold";
-  font-size: 20px;
+.result-item-container > .questionsDetail > .questionsText > .questionText {
   margin-top: 5px;
 }
 .result-item-container > .questionsDetail > .saveToggle {
@@ -304,12 +405,6 @@ header #profile > ul a:hover {
 }
 .result-item-container > .answersText > p:first-of-type .systemInput_md {
   border-color: #71B961;
-}
-.result-item-container > .answersText > p:last-of-type .wrong {
-  border-color: #FF6F74;
-}
-.result-item-container > .answersText > p:last-of-type .correct {
-  border-color: #00E6AC;
 }
 
 .sr-only {
@@ -516,16 +611,6 @@ section > div > form .systemButton_sm:last-of-type {
   font-size: 18px;
   margin-bottom: 20px;
 }
-#takeTest > form > #testArea > .slide-box > p {
-  font-family: "Pretendard-SemiBold";
-}
-#takeTest > form > #testArea > .slide-box > p:first-of-type {
-  color: #CCC;
-}
-#takeTest > form > #testArea > .slide-box > p:last-of-type {
-  font-family: "Pretendard-Bold";
-  font-size: 20px;
-}
 #takeTest > form > #testArea > .slide-box > ul {
   display: flex;
   flex-flow: column wrap;
@@ -591,6 +676,105 @@ section > div > form .systemButton_sm:last-of-type {
   transform: translateX(-50%);
   margin-top: 100px;
   padding: 30px 0;
+}
+#incorrectArea {
+  display: flex;
+  flex-flow: column wrap;
+  gap: 12px;
+}
+#incorrectArea > .buttons {
+  align-self: flex-start;
+  font-family: "Pretendard-SemiBold";
+  font-size: 20px;
+}
+#incorrectArea > .buttons:last-of-type {
+  margin: 12px 0;
+  align-self: center;
+}
+#incorrectArea > #incorrectList {
+  display: flex;
+  flex-flow: column wrap;
+  gap: 8px;
+}
+#incorrectArea > #incorrectList > .systemInput_md {
+  flex-flow: column wrap;
+  min-height: 60px;
+  height: initial;
+  padding: 24px;
+  box-sizing: border-box;
+  cursor: pointer;
+}
+#incorrectArea > #incorrectList > .systemInput_md > .title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  font-size: 20px;
+}
+#incorrectArea > #incorrectList > .systemInput_md > .title .questionText {
+  font-family: "Pretendard-Medium";
+}
+#incorrectArea > #incorrectList > .systemInput_md.on {
+  border-color: #71B961;
+}
+#incorrectArea > #incorrectList > .systemInput_md.on .questionText {
+  font-family: "Pretendard-Bold";
+}
+#incorrectArea > #incorrectList > .systemInput_md.on > .content {
+  display: flex;
+}
+#incorrectArea > #incorrectList > .systemInput_md.on > .content > ul {
+  display: flex;
+  flex-flow: column wrap;
+  gap: 7px;
+  margin: 24px 0 12px;
+}
+#incorrectArea > #incorrectList > .systemInput_md.on > .content > ul > .correct {
+  font-family: "Pretendard-Bold";
+  font-size: 16px;
+  box-shadow: 3px 3px 3px #CCC;
+}
+#incorrectArea > #incorrectList > .systemInput_md > .content {
+  display: none;
+  flex-flow: column wrap;
+  justify-content: center;
+  align-items: center;
+}
+#historyList {
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 900px;
+  margin: 40px 0;
+}
+#historyList > li > p:first-of-type {
+  margin-bottom: 5px;
+}
+#historyList > li > .systemInput_md {
+  width: 900px;
+  height: 90px;
+  margin-bottom: 40px;
+  border-color: #71B961;
+  padding-left: 12px;
+}
+#historyList > li > .systemInput_md > .historyInfo {
+  display: flex;
+  flex-flow: column wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  width: 150px;
+  font-size: 16px;
+}
+#historyList > li > .systemInput_md > p:first-of-type {
+  flex: 1 1 0;
+  padding: 0 24px;
+  font-size: 20px;
+}
+#historyList > li > .systemInput_md > p:last-of-type {
+  width: 150px;
+  text-align: end;
 }
 
 /*# sourceMappingURL=main.css.map */

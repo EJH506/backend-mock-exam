@@ -16,7 +16,7 @@
     </select>
 
     <select id="findLevelsBySubject" resultType="int">
-        SELECT l.*
+        SELECT l.level
         FROM levels l
         JOIN subjects s ON l.subject_id = s.subject_id
         WHERE s.subject_name = #{subjectName};

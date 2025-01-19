@@ -1,7 +1,8 @@
 package jihye.backend_mock_exam.service.menu.exam;
 
-import jihye.backend_mock_exam.controller.menu.ExamConst;
 import jihye.backend_mock_exam.domain.exam.*;
+import jihye.backend_mock_exam.domain.history.ExamHistory;
+import jihye.backend_mock_exam.domain.history.HistoryItemObject;
 import jihye.backend_mock_exam.repository.menu.exam.ExamRepository;
 import jihye.backend_mock_exam.service.menu.CommonService;
 import jihye.backend_mock_exam.service.menu.QuestionFilter;
@@ -12,7 +13,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 @Slf4j
 @Service

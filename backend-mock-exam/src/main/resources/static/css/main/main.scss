@@ -151,16 +151,6 @@ section {
           margin-bottom: 20px;
         }
 
-        >p {
-          font-family: 'Pretendard-SemiBold';
-
-          &:first-of-type { color: $placeholder; } // 주제명 Lv. 레벨
-          &:last-of-type {
-            font-family: 'Pretendard-Bold';
-            font-size: 20px;
-          } // 문항 내용
-        }
-
         >ul { //보기 목록
           display: flex;
           flex-flow: column wrap;
@@ -243,5 +233,128 @@ section {
   }
 }
 
-section>.buttons {
+// 오답노트 리스트
+#incorrectArea {
+  display: flex;
+  flex-flow: column wrap;
+  gap: 12px;
+
+  >.buttons {
+    align-self: flex-start;
+    font-family: 'Pretendard-SemiBold';
+    font-size: 20px;
+
+    &:last-of-type {
+      margin: 12px 0;
+      align-self: center;
+    }
+  }
+
+  >#incorrectList {
+    display: flex;
+    flex-flow: column wrap;
+    gap: 8px;
+
+    >.systemInput_md {
+      flex-flow: column wrap;
+      min-height: 60px;
+      height: initial;
+      padding: 24px;
+      box-sizing: border-box;
+      cursor: pointer;
+
+      >.title {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+        font-size: 20px;
+
+        .questionText {
+          font-family: 'Pretendard-Medium';
+        }
+      } //.title
+
+      &.on {
+        border-color: $theme-main;
+
+        .questionText {
+          font-family: 'Pretendard-Bold';
+        }
+
+        >.content {
+          display: flex;
+
+          >ul {
+            display: flex;
+            flex-flow: column wrap;
+            gap: 7px;
+            margin: 24px 0 12px;
+
+            >.correct {
+              font-family: 'Pretendard-Bold';
+              font-size: 16px;
+              box-shadow: 3px 3px 3px $placeholder;
+            }
+          } //ul
+        } //.content
+      } //&.on
+
+
+      >.content {
+        display: none;
+        flex-flow: column wrap;
+        justify-content: center;
+        align-items: center;
+      }
+    } //.systemInput_md
+  } //#incorrectList
+
+  & + .systemButton_sm {
+  }
+}
+
+// 히스토리 목록
+#historyList {
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 900px;
+  margin: 40px 0;
+
+  >li {
+
+
+    >p:first-of-type { margin-bottom: 5px; }
+
+    >.systemInput_md {
+      width: 900px;
+      height: 90px;
+      margin-bottom: 40px;
+      border-color: $theme-main;
+      padding-left: 12px;
+
+      >.historyInfo {
+        display: flex;
+        flex-flow: column wrap;
+        justify-content: center;
+        align-items: center;
+        gap: 5px;
+        width: 150px;
+        font-size: 16px;
+      }
+
+      >p:first-of-type {
+        flex: 1 1 0;
+        padding: 0 24px;
+        font-size: 20px;
+      }
+
+      >p:last-of-type {
+        width: 150px;
+        text-align: end;
+      }
+    } //.systemInput_md
+  }
 }

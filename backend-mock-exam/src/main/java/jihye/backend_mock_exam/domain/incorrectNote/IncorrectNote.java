@@ -13,5 +13,5 @@ public class IncorrectNote {
     private Long subjectId;
     private int level;
     private String questionText;
-    private Date createdAt;
+    private String createdAt;
 }

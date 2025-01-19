@@ -9,7 +9,7 @@
     </select>
 
     <select id="findIncorrectList" resultType="incorrectNote">
-        SELECT i.incorrect_note_id, i.user_id, i.question_id, i.subject_id, i.level, q.question_text, i.created_at
+        SELECT i.incorrect_note_id, i.user_id, i.question_id, i.subject_id, i.level, q.question_text, date_format(i.created_at, '%Y-%d-%m') AS created_at
         FROM incorrect_note i
         JOIN questions q ON i.question_id = q.question_id
         <where>

@@ -1,7 +1,7 @@
 package jihye.backend_mock_exam.repository.menu.history;
 
-import jihye.backend_mock_exam.domain.exam.ExamHistory;
-import jihye.backend_mock_exam.domain.exam.HistoryItem;
+import jihye.backend_mock_exam.domain.history.ExamHistory;
+import jihye.backend_mock_exam.domain.history.HistoryItem;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
@@ -25,6 +25,12 @@ public class HistoryRepositoryImpl implements HistoryRepository {
     public HistoryItem saveExamHistoryItems(HistoryItem historyItem) {
         historyMapper.saveExamHistoryItems(historyItem);
         return historyItem;
+    }
+
+    // 히스토리 목록 조회
+    @Override
+    public List<ExamHistory> findExamHistoryByUser(Long userId) {
+        return historyMapper.findExamHistoryByUser(userId);
     }
 
     // 히스토리 ID로 히스토리 조회

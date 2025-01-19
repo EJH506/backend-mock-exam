@@ -2,10 +2,12 @@ package jihye.backend_mock_exam.service.menu;
 
 import jihye.backend_mock_exam.controller.menu.ExamConst;
 import jihye.backend_mock_exam.domain.exam.*;
+import jihye.backend_mock_exam.domain.history.ExamHistory;
+import jihye.backend_mock_exam.domain.history.HistoryItem;
+import jihye.backend_mock_exam.domain.history.HistoryItemObject;
 import jihye.backend_mock_exam.repository.menu.exam.ExamRepository;
 import jihye.backend_mock_exam.repository.menu.history.HistoryRepository;
 import jihye.backend_mock_exam.repository.menu.incorrectNote.IncorrectNoteRepository;
-import jihye.backend_mock_exam.service.menu.exam.ExamServiceImpl;
 import jihye.backend_mock_exam.service.menu.exam.dto.SubmittedExamDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -99,10 +101,9 @@ public class CommonServiceImpl implements CommonService {
         // 정답률 연산하여 담기
         int correctQuestionsCount = examHistory.getTotalQuestionsCount() - examHistory.getIncorrectQuestions().size();
         double correctRate = ((double) correctQuestionsCount / totalQuestionCount) * 100;
-        double formatedCorrectRate = Math.round(correctRate * 10) / 10.0;
 
         examHistory.setCorrectQuestionsCount(correctQuestionsCount);
-        examHistory.setCorrectRate(formatedCorrectRate);
+        examHistory.setCorrectRate(correctRate);
 
         // DB에 저장 (회원일 시 저장, 비회원일 시 세션 등)
         if (examHistory.getUserId() > 0) {

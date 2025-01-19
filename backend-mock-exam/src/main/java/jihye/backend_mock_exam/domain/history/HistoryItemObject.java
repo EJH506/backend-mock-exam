@@ -1,5 +1,7 @@
-package jihye.backend_mock_exam.domain.exam;
+package jihye.backend_mock_exam.domain.history;
 
+import jihye.backend_mock_exam.domain.exam.Answer;
+import jihye.backend_mock_exam.domain.exam.Question;
 import lombok.Data;
 
 @Data

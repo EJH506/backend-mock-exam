@@ -1,6 +1,8 @@
 package jihye.backend_mock_exam.service.menu.exam;
 
 import jihye.backend_mock_exam.domain.exam.*;
+import jihye.backend_mock_exam.domain.history.ExamHistory;
+import jihye.backend_mock_exam.domain.history.HistoryItemObject;
 import jihye.backend_mock_exam.service.menu.exam.dto.SubmittedExamDto;
 
 import java.util.List;

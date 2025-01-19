@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title th:text="#{page.incorrect-note} + ' | ' + #{title}">오답노트 | 백엔드 모의고사</title>
-    <link rel="stylesheet" th:href="@{/css/incorrectNote/main.css}">
+    <link rel="stylesheet" th:href="@{/css/main/main.css}">
 </head>
 <body class="incorrectNote">
 <div class="wrap">
@@ -14,7 +14,7 @@
         <p>문제의 주제를 선택해 주세요</p>
 
         <ul id="menuArea">
-            <li><a class="systemMenu_lg" th:href="@{|/incorrect-note/list?subject=#{page.subject.all}|}" th:text="#{page.subject.all}">전체(목업)</a></li>
+            <li><a class="systemMenu_lg" th:href="@{|/incorrect-note/list?subject=#{page.subject.all}&level=#{page.level.all}|}" th:text="#{page.subject.all}">전체(목업)</a></li>
             <li th:each="subject : ${subjects}"><a class="systemMenu_lg" th:href="@{|/incorrect-note/list?subject=${subject.subjectName}|}" th:text="${subject.subjectName}">주제명</a></li>
         </ul>
     </section>

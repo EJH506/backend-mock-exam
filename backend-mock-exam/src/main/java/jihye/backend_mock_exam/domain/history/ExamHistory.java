@@ -1,4 +1,4 @@
-package jihye.backend_mock_exam.domain.exam;
+package jihye.backend_mock_exam.domain.history;
 
 import lombok.Data;
 
@@ -20,7 +20,7 @@ public class ExamHistory {
     private double correctRate;            // 정답률
 
     private int totalQuestionsCount;
-    private Date createAt;
+    private String createdAt;
 
 
     public ExamHistory() {

@@ -1,8 +1,10 @@
 package jihye.backend_mock_exam.controller.menu;
 
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import jihye.backend_mock_exam.domain.exam.*;
-import jihye.backend_mock_exam.service.menu.CommonService;
+import jihye.backend_mock_exam.domain.history.ExamHistory;
+import jihye.backend_mock_exam.domain.history.HistoryItemObject;
 import jihye.backend_mock_exam.service.menu.exam.ExamService;
 import jihye.backend_mock_exam.service.menu.exam.dto.SubmittedExamDto;
 import lombok.RequiredArgsConstructor;
@@ -10,7 +12,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 
@@ -105,6 +106,7 @@ public class ExamController {
 
         // 시험 히스토리 생성
         ExamHistory examHistory = examService.createExamHistory(dto);
+        examHistory.setCorrectRate(Math.round(examHistory.getCorrectRate() * 10) / 10.0);
         request.getSession().setAttribute("examHistory", examHistory);
 //        redirectAttributes.addFlashAttribute("examHistory", examHistory);
         return "redirect:/exam/result";
@@ -119,7 +121,8 @@ public class ExamController {
         // Ajax 요청인지 확인
         boolean isAjaxRequest = "XMLHttpRequest".equals(request.getHeader("X-Requested-With"));
 
-        ExamHistory examHistory = (ExamHistory) request.getSession(false).getAttribute("examHistory");
+        HttpSession session = request.getSession(false);
+        ExamHistory examHistory = (ExamHistory) session.getAttribute("examHistory");
 
         // 히스토리 정보에 해당하는 문항과 답변 기록 추출
         List<HistoryItemObject> historyDetails = examService.createHistoryDetails(examHistory, option);
@@ -129,6 +132,8 @@ public class ExamController {
         for (HistoryItemObject historyDetail : historyDetails) {
             log.info("historyDetail={}", historyDetail);
         }
+
+//        session.removeAttribute("examHistory");
 
         if (isAjaxRequest) {
             return "menu/exam/exam-result :: viewQuestionsArea";

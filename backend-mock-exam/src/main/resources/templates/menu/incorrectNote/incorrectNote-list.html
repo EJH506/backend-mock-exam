@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title th:text="#{page.incorrect-note} + ' | ' + #{title}">오답노트 | 백엔드 모의고사</title>
-    <link rel="stylesheet" th:href="@{/css/incorrectNote/main.css}">
+    <link rel="stylesheet" th:href="@{/css/main/main.css}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" />
     <script th:src="@{https://code.jquery.com/jquery-3.6.0.min.js}"></script>
     <script th:src="@{/js/incorrectNote/incorrectNote-list.js}"></script>
@@ -16,46 +16,46 @@
     <section>
         <h2 th:text="${subject}">네트워크(목업)</h2>
 
-        <div>
-            <ul>
-                <li><a th:href="@{|/incorrect-note/list?subject=${subject}&level=#{page.level.all}|}" th:text="#{page.incorrectSubject.all}">전체(목업)</a></li>
-                <li th:each="level : ${levels}"><a th:href="@{|/incorrect-note/list?subject=${subject}&level=${level}|}" th:text="'Lv. ' + ${level}">Lv. 1(목업)</a></li>
+        <div id="incorrectArea">
+            <ul class="buttons">
+                <li><a th:href="@{|/incorrect-note/list?subject=${subject}&level=#{page.level.all}|}" th:text="#{page.incorrectSubject.all}" th:classappend="${paramLevel == '전체' ? 'text_on' : ''}">전체(목업)</a></li>
+                <li th:each="level : ${levels}"><a th:href="@{|/incorrect-note/list?subject=${subject}&level=${level}|}" th:text="'Lv. ' + ${level}" th:classappend="${#strings.equals(paramLevel, level) ? 'text_on' : ''}">Lv. 1(목업)</a></li>
             </ul>
 
-            <ul th:if="${incorrectItemList.size > 0}">
-                <li th:each="incorrectItem : ${incorrectItemList}">
+            <ul id="incorrectList" th:if="${incorrectItemList.size > 0}">
+                <li class="systemInput_md" th:each="incorrectItem : ${incorrectItemList}">
                     <div class="title">
                         <span th:text="'Lv. ' + ${incorrectItem.level}">Lv. 1</span>
-                        <span th:class="titleText" th:text="${incorrectItem.question.questionText}">HTTP와 HTTPS의 차이점으로 옳은 것을 고르세요</span>
+                        <span class="questionText" th:text="${incorrectItem.question.questionText}">HTTP와 HTTPS의 차이점으로 옳은 것을 고르세요</span>
                         <span th:class="saveToggle" th:data-user-id="${user.userId}" th:data-question-id="${incorrectItem.question.questionId}"><i class="fa-solid fa-star"></i></span>
                     </div>
 
-                    <div class="content" style="display: none">
+                    <div class="content">
                         <ul>
-                            <li th:each="answer : ${incorrectItem.answers}" th:text="${answer.answerText}" th:class="${answer.isCorrect}">HTTP는 더 빠르다</li>
+                            <li class="systemInput_sm" th:each="answer : ${incorrectItem.answers}" th:text="${answer.answerText}" th:classappend="${answer.isCorrect}">HTTP는 더 빠르다</li>
                         </ul>
-                        <span class="viewAnswer">정답보기</span>
+                        <span class="viewAnswer navButton_sm">정답보기</span>
                     </div>
                 </li>
             </ul>
 
             <div th:if="${incorrectItemList.size == 0}">오답노트가 비었습니다.</div>
 
-            <ul>
+            <ul class="buttons">
                 <li><a th:href="@{|/incorrect-note/list?subject=${subject}&level=${level != null ? level : ''}&page=1|}">1</a></li>
                 <li><a th:href="@{|/incorrect-note/list?subject=${subject}&level=${level != null ? level : ''}&page=2|}">2</a></li>
                 <li><a th:href="@{|/incorrect-note/list?subject=${subject}&level=${level != null ? level : ''}&page=3|}">3</a></li>
             </ul>
 
-            <form th:action method="get">
+            <form class="searchForm" th:action method="get">
                 <input type="hidden" name="subject" th:value="${subject}" />
-                <label for="searchKeyword">검색어</label>
+                <label class="sr-only" for="searchKeyword">검색어</label>
                 <input type="text" id="searchKeyword" name="searchKeyword" th:value="${searchKeyword != null ? searchKeyword : ''}" th:placeholder="#{text.search.enterSearch}" />
                 <button type="submit" th:text="#{button.search}">검색(목업)</button>
             </form>
         </div>
 
-        <a th:href="@{/incorrect-note}" th:text="#{button.go-list}">목록으로</a>
+        <a class="systemButton_sm" th:href="@{/incorrect-note}" th:text="#{button.go-list}">목록으로</a>
     </section>
 </div>
 </body>

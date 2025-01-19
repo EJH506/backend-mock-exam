@@ -13,9 +13,17 @@
         VALUES (${historyId}, ${questionId}, ${correctAnswerId}, ${userAnswerId}, ${isCorrect});
     </insert>
 
+    <select id="findExamHistoryByUser" resultType="examHistory">
+        SELECT history_id, user_id, subject_name, level, total_questions_count,
+               correct_questions_count,  ROUND(correct_rate, 1) AS correct_rate, DATE_FORMAT(created_at, '%Y-%m-%d') AS created_at
+        FROM EXAM_HISTORY WHERE USER_ID = #{userId}
+        ORDER BY HISTORY_ID desc
+    </select>
+
     <select id="findExamHistoryById" resultType="examHistory">
-        SELECT * FROM exam_history
-        WHERE history_id = #{historyId}
+        SELECT history_id, user_id, subject_name, level, total_questions_count,
+               correct_questions_count, ROUND(correct_rate, 1) AS correct_rate, DATE_FORMAT(created_at, '%Y-%m-%d') AS created_at
+        FROM exam_history WHERE history_id = #{historyId}
     </select>
 
     <select id="findQuestionsIdOfHistory" resultType="Long">
