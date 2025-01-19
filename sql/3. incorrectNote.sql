@@ -14,6 +14,7 @@ CREATE TABLE incorrect_note (
 )
 
 SELECT * FROM users;
+SELECT * FROM QUESTIONS Q WHERE QUESTION_ID =11;
 SELECT question_id FROM incorrect_note WHERE question_id=108;
 DELETE FROM incorrect_note;
 SELECT * FROM incorrect_note WHERE SUBJECT_ID = 1 AND LEVEL = 1 ORDER BY INCORRECT_NOTE_ID DESC ;
