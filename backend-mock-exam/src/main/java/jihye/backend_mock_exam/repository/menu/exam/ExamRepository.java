@@ -36,7 +36,7 @@ public interface ExamRepository {
     List<Answer> findShuffledAnswers(Long questionId);
 
     // 문제의 정답 조회
-    Long findCorrectAnswerByQuestion(Long questionId);
+    Answer findCorrectAnswerByQuestion(Long questionId);
 
     // 문항 ID로 문항 조회
     Question findQuestionsById(Long id);

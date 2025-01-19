@@ -1,5 +1,6 @@
 package jihye.backend_mock_exam.repository.menu.history;
 
+import jihye.backend_mock_exam.domain.exam.Answer;
 import jihye.backend_mock_exam.domain.exam.Question;
 import jihye.backend_mock_exam.domain.history.ExamHistory;
 import jihye.backend_mock_exam.domain.history.HistoryItem;
@@ -20,7 +21,11 @@ public interface HistoryRepository {
     // 히스토리 ID로 히스토리 조회
     ExamHistory findExamHistoryById(Long historyId);
 
+    // 히스토리 ID로 히스토리 아이템 조회
+    List<ExamHistory> findHistoryItemById(Long historyId);
+
     // 히스토리 ID로 히스토리 문항 조회
     List<Question> findQuestionsOfHistory(Long historyId, boolean isCorrect);
+
 
 }

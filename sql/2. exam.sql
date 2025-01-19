@@ -84,3 +84,8 @@ CREATE TABLE answers (
 	created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,								-- 생성일시
 	update_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP	-- 수정일시
 )
+
+SELECT * FROM subjects;
+SELECT * FROM levels;
+SELECT * FROM questions;
+SELECT * FROM answers;

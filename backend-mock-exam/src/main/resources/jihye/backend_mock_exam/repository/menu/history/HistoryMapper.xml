@@ -26,6 +26,10 @@
         FROM exam_history WHERE history_id = #{historyId}
     </select>
 
+    <select id="findHistoryItemById" resultType="historyItem">
+
+    </select>
+
     <select id="findQuestionsOfHistory" resultType="question">
         SELECT q.question_id, q.subject_id, s.subject_name, q.LEVEL, q.question_text FROM questions q
         JOIN history_items h ON h.question_id = q.question_id

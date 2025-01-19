@@ -34,11 +34,19 @@ public class HistoryRepositoryImpl implements HistoryRepository {
         return historyMapper.findExamHistoryByUser(userId);
     }
 
+    // 히스토리 ID로 히스토리 아이템 조회
+    @Override
+    public List<ExamHistory> findHistoryItemById(Long historyId) {
+        return historyMapper.findHistoryItemById(historyId);
+    }
+
     // 히스토리 ID로 히스토리 조회
     @Override
     public ExamHistory findExamHistoryById(Long historyId) {
         return historyMapper.findExamHistoryById(historyId);
     }
+
+
 
     // 히스토리 ID로 히스토리 문항 조회
     @Override

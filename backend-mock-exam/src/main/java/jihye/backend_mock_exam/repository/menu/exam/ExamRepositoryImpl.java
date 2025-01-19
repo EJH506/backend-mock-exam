@@ -70,7 +70,7 @@ public class ExamRepositoryImpl implements ExamRepository {
 
     // 문제의 정답 조회
     @Override
-    public Long findCorrectAnswerByQuestion(Long questionId) {
+    public Answer findCorrectAnswerByQuestion(Long questionId) {
         return examMapper.findCorrectAnswerByQuestion(questionId);
     }
 

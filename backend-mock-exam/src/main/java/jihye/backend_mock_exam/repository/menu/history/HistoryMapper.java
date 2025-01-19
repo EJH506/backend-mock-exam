@@ -23,6 +23,9 @@ public interface HistoryMapper {
     // 히스토리 ID로 히스토리 조회
     ExamHistory findExamHistoryById(Long historyId);
 
+    // 히스토리 ID로 히스토리 아이템 조회
+    List<ExamHistory> findHistoryItemById(Long historyId);
+
     // 히스토리 ID로 히스토리 문항 조회
     List<Question> findQuestionsOfHistory(@Param("historyId") Long historyId, @Param("isCorrect") boolean isCorrect);
 

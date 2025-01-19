@@ -30,8 +30,8 @@ public interface CommonService {
     // 히스토리 상세 반환
     List<HistoryItemObject> createHistoryDetails(ExamHistory examHistory, String option);
 
-    // 히스토리에 속한 문제ID 조회 (전체를 찾으려면 true, 틀린문제만이면 false)
-    List<Question> findQuestionsOfHistory(Long historyId, boolean isCorrect);
+    // 히스토리에 속한 문제 조회 (전체를 찾으려면 true, 틀린문제만이면 false)
+//    List<Question> findQuestionsOfHistory(Long historyId, boolean isCorrect);
 
     // 조건에 맞는 보기 조회
     List<Answer> findFilteredHistoryAnswers(List<Long> answersId);
