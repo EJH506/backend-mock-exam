@@ -2,9 +2,32 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title th:text="#{page.memo} + ' | ' + #{title}">메모장 | 백엔드 모의고사</title>
+    <link rel="stylesheet" th:href="@{/css/main/main.css}">
 </head>
 <body>
-메모장 리스트
+<div class="wrap">
+<header th:replace="~{fragment/home-header :: header (${user.userId}, ${user.nickname}, ${isMember})}"></header>
+
+<section>
+    <h2 th:text="#{page.memo}">메모장 (목업)</h2>
+
+    <div id="memoArea">
+        <div class="buttons">
+            <p>메모 선택</p>
+            <a th:href="@{/}"></a>
+        </div>
+
+        <ul id="memoList" th:if="${memos.size > 0}">
+            <li th:each="memo : ${memos}">
+                <p th:text="${memo.memoText}">모든 국민은 법률이 정하는 바에 의하여 공무담임권을 가진다. 국가는 농업 및 어업을 보호·육성하기 위하여 ...</p>
+                <p th:text="${memo.createdAt}">2024-12-09</p>
+            </li>
+        </ul>
+    </div>
+
+
+</section>
+</div>
 </body>
 </html>
