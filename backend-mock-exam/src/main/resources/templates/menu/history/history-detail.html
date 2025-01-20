@@ -24,9 +24,9 @@
         <div id="resultOptions">
             <p th:text="#{text.result.viewResult}">결과보기(목업)</p>
             <ul class="buttons">
-                <li th:class="resultOption" th:id="all" th:text="#{button.result.all}">전체</li>
-                <li th:class="resultOption" th:id="correctOnly" th:text="#{button.result.correctOnly}">정답만</li>
-                <li th:class="resultOption" th:id="incorrectOnly" th:text="#{button.result.incorrectOnly}">오답만</li>
+                <li th:class="historyOption" th:id="all" th:data-history-id="${examHistory.historyId}" th:text="#{button.result.all}">전체</li>
+                <li th:class="historyOption" th:id="correctOnly" th:data-history-id="${examHistory.historyId}" th:text="#{button.result.correctOnly}">정답만</li>
+                <li th:class="historyOption" th:id="incorrectOnly" th:data-history-id="${examHistory.historyId}" th:text="#{button.result.incorrectOnly}">오답만</li>
             </ul>
 
             <p class="systemInput_md saveIncorrectAll">

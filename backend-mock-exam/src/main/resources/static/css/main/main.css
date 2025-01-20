@@ -663,10 +663,10 @@ section > div > form .systemButton_sm:last-of-type {
   margin-top: 30px;
   font-family: "Pretendard-SemiBold";
 }
-#resultOptions > .buttons > .resultOption {
+#resultOptions > .buttons > li {
   cursor: pointer;
 }
-#resultOptions > .buttons > .resultOption:hover {
+#resultOptions > .buttons > li:hover {
   color: #71B961;
 }
 #resultOptions .systemInput_md {

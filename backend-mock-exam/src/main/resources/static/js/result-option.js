@@ -16,4 +16,20 @@ $(document).ready(function () {
             }
         });
     });
+
+    $('.historyOption').click(function () {
+        const option = $(this).attr('id');
+        const $this = $(this);
+        $.ajax({
+            url: '/history/' + $this.data('history-id'),
+            method: 'GET',
+            data: { option: option },
+            success: function (response) {
+                $('#viewQuestionsArea').html(response);
+            },
+            error: function(xhr, status, error) {
+                console.error('AJAX 요청 실패:', error);
+            }
+        });
+    });
 });

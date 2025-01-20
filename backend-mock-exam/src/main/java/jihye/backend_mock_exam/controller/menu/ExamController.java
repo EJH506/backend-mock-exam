@@ -121,17 +121,12 @@ public class ExamController {
         // Ajax 요청인지 확인
         boolean isAjaxRequest = "XMLHttpRequest".equals(request.getHeader("X-Requested-With"));
 
-        HttpSession session = request.getSession(false);
-        ExamHistory examHistory = (ExamHistory) session.getAttribute("examHistory");
-
         // 히스토리 정보에 해당하는 문항과 답변 기록 추출
+        ExamHistory examHistory = (ExamHistory) request.getSession(false).getAttribute("examHistory");
         List<HistoryItemObject> historyDetails = examService.createHistoryDetails(examHistory, option);
+
         model.addAttribute("examHistory", examHistory);
         model.addAttribute("historyDetails", historyDetails);
-
-        for (HistoryItemObject historyDetail : historyDetails) {
-            log.info("historyDetail={}", historyDetail);
-        }
 
         if (isAjaxRequest) {
             return "menu/exam/exam-result :: viewQuestionsArea";
