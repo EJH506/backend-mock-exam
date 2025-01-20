@@ -121,6 +121,32 @@ header #profile > ul a:hover {
   letter-spacing: -1px;
 }
 
+section {
+  display: flex;
+  flex-flow: column wrap;
+  justify-content: center;
+  align-items: center;
+  width: 1200px;
+  margin: 50px auto;
+}
+section h2 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: "Pretendard-Bold";
+}
+section h2 + p {
+  font-size: 20px;
+}
+section p + form {
+  margin-top: 10px;
+}
+section > form {
+  display: flex;
+  flex-flow: column wrap;
+  gap: 10px;
+}
+
 .text_on {
   font-family: "Pretendard-SemiBold";
   color: #71B961;
@@ -352,6 +378,18 @@ header #profile > ul a:hover {
   font-size: 20px;
 }
 
+.empty {
+  font-size: 20px;
+  font-family: "Pretendard-SemiBold";
+  margin: 80px 0;
+}
+.empty > .systemButton_md {
+  font-size: 20px;
+  margin-top: 60px;
+  border-color: #71B961;
+  background-color: #71B961;
+}
+
 .result-item-container {
   width: 800px;
   padding: 20px 50px;
@@ -431,32 +469,6 @@ header #profile > ul a:hover {
 }
 .manager > a:last-child {
   border: none;
-}
-
-section {
-  display: flex;
-  flex-flow: column wrap;
-  justify-content: center;
-  align-items: center;
-  width: 800px;
-  margin: 50px auto;
-}
-section h2 {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-family: "Pretendard-Bold";
-}
-section h2 + p {
-  font-size: 20px;
-}
-section p + form {
-  margin-top: 10px;
-}
-section > form {
-  display: flex;
-  flex-flow: column wrap;
-  gap: 10px;
 }
 
 .errorclass {

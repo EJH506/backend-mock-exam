@@ -66,6 +66,36 @@ $placeholder: #CCC;
   letter-spacing: -1px;
 }
 
+section {
+  display: flex;
+  flex-flow: column wrap;
+  justify-content: center;
+  align-items: center;
+  width: 1200px;
+  margin: 50px auto;
+
+  h2 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Pretendard-Bold';
+  }
+
+  h2 + p {
+    font-size: 20px;
+  }
+
+  p + form {
+    margin-top: 10px;
+  }
+
+  >form {
+    display: flex;
+    flex-flow: column wrap;
+    gap: 10px;
+  }
+}
+
 .text_on {
   font-family: 'Pretendard-SemiBold';
   color: $theme-main;
@@ -301,6 +331,20 @@ $placeholder: #CCC;
   font-size: 20px;
 }
 
+// ㅇㅇ가 비었습니다 컨테이너
+.empty {
+  font-size: 20px;
+  font-family: 'Pretendard-SemiBold';
+  margin: 80px 0;
+
+  >.systemButton_md {
+    font-size: 20px;
+    margin-top: 60px;
+    border-color: $theme-main;
+    background-color: $theme-main;
+  }
+}
+
 // 시험 결과 컨테이너
 .result-item-container {
   width: 800px;
@@ -387,36 +431,6 @@ $placeholder: #CCC;
     &:last-child {
       border: none;
     }
-  }
-}
-
-section {
-  display: flex;
-  flex-flow: column wrap;
-  justify-content: center;
-  align-items: center;
-  width: 800px;
-  margin: 50px auto;
-
-  h2 {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-family: 'Pretendard-Bold';
-  }
-
-  h2 + p {
-      font-size: 20px;
-  }
-
-  p + form {
-    margin-top: 10px;
-  }
-
-  >form {
-    display: flex;
-    flex-flow: column wrap;
-    gap: 10px;
   }
 }
 

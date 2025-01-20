@@ -69,10 +69,10 @@
     </div> <!--viewQuestionsArea-->
 
     <div class="buttons">
-        <a th:href="@{|/exam/take-exam?subject=${examHistory.subjectName}&level=${examHistory.level}&number=${examHistory.totalQuestionsCount}|}">재도전</a>
-        <a th:if="${user.userId == 0}" th:onclick="javascript:signinConfirm()">틀린 문제만 재도전</a>
-        <a th:if="${user.userId != 0}" th:href="@{|/exam/take-exam?historyId=${examHistory.historyId}&subject=${examHistory.subjectName}&level=${examHistory.level}&number=${examHistory.totalQuestionsCount}|}">틀린 문제만 재도전</a>
-        <a th:href="@{/exam/subject}">다른 문제 풀기</a>
+        <a class="systemButton_md" th:href="@{|/exam/take-exam?subject=${examHistory.subjectName}&level=${examHistory.level}&number=${examHistory.totalQuestionsCount}|}">재도전</a>
+        <a class="systemButton_md" th:if="${user.userId == 0}" th:onclick="javascript:signinConfirm()">틀린 문제만 재도전</a>
+        <a class="systemButton_md" th:if="${user.userId != 0}" th:href="@{|/exam/take-exam?historyId=${examHistory.historyId}&subject=${examHistory.subjectName}&level=${examHistory.level}&number=${examHistory.totalQuestionsCount}|}">틀린 문제만 재도전</a>
+        <a class="systemButton_md" th:href="@{/exam/subject}">다른 문제 풀기</a>
     </div>
 </section>
 

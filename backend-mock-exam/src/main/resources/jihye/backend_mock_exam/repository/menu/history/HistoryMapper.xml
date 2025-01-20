@@ -35,4 +35,14 @@
             </if>
         </where>
     </select>
+
+    <select id="findHistoryItemById" resultType="historyItem">
+        SELECT * FROM history_items
+        <where>
+            history_id = ${historyId}
+            <if test="!isCorrect">
+                AND is_correct = ${isCorrect}
+            </if>
+        </where>
+    </select>
 </mapper>

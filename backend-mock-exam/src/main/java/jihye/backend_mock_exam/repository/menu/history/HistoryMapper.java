@@ -22,7 +22,9 @@ public interface HistoryMapper {
     // 히스토리 ID로 히스토리 조회
     ExamHistory findExamHistoryById(Long historyId);
 
-    // 히스토리 ID로 히스토리 문항 조회
+    // 히스토리 ID로 히스토리 문항 조회 (전체를 찾으려면 true, 틀린문제만이면 false)
     List<Long> findQuestionsIdOfHistory(@Param("historyId") Long historyId, @Param("isCorrect") boolean isCorrect);
 
+    // 히스토리 ID로 히스토리 아이템 조회
+    List<HistoryItem> findHistoryItemById(Long historyId, boolean isCorrect);
 }

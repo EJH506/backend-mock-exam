@@ -15,7 +15,7 @@
 
         <ul id="menuArea">
             <li><a class="systemMenu_lg" th:href="@{|/incorrect-note/list?subject=#{page.subject.all}&level=#{page.level.all}|}" th:text="#{page.subject.all}">전체(목업)</a></li>
-            <li th:each="subject : ${subjects}"><a class="systemMenu_lg" th:href="@{|/incorrect-note/list?subject=${subject.subjectName}|}" th:text="${subject.subjectName}">주제명</a></li>
+            <li th:each="subject : ${subjects}"><a class="systemMenu_lg" th:href="@{|/incorrect-note/list?subject=${subject.subjectName}&level=#{page.level.all}|}" th:text="${subject.subjectName}">주제명</a></li>
         </ul>
     </section>
 </div>

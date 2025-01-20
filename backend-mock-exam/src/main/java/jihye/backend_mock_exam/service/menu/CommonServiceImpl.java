@@ -136,8 +136,26 @@ public class CommonServiceImpl implements CommonService {
     @Override
     public List<HistoryItemObject> createHistoryDetails(ExamHistory examHistory, String option) {
         List<HistoryItemObject> historyDetails = new ArrayList<>();
+        List<HistoryItem> historyItems = null;
 
-        log.info("examHistory={}", examHistory);
+        // examHistory에 질문, 답변 리스트 데이터가 없으면 조회해서 담음
+        if (examHistory.getQuestions() == null || examHistory.getCorrectAnswers() == null || examHistory.getUserAnswers() == null ) {
+            historyItems = historyRepository.findHistoryItemById(examHistory.getHistoryId(), true);
+            List<Long> historyQuestionsId = new ArrayList<>();
+            List<Long> historyCorrectAnswersId = new ArrayList<>();
+            List<Long> historyUserAnswersId = new ArrayList<>();
+
+            for (HistoryItem historyItem : historyItems) {
+                historyQuestionsId.add(historyItem.getQuestionId());
+                historyCorrectAnswersId.add(historyItem.getCorrectAnswerId());
+                historyUserAnswersId.add(historyItem.getUserAnswerId());
+            }
+            examHistory.setQuestions(historyQuestionsId);
+            examHistory.setCorrectAnswers(historyCorrectAnswersId);
+            examHistory.setUserAnswers(historyUserAnswersId);
+        }
+
+        log.info("CommonService.examHistory={}", examHistory);
 
         List<Question> questions = findFilteredHistoryQuestions(examHistory.getQuestions());
         List<Answer> correctAnswers = findFilteredHistoryAnswers(examHistory.getCorrectAnswers());
@@ -173,7 +191,7 @@ public class CommonServiceImpl implements CommonService {
         return historyRepository.findExamHistoryById(historyId);
     }
 
-    // 히스토리에 속한 문제ID 조회
+    // 히스토리에 속한 문제ID 조회 (전체를 찾으려면 true, 틀린문제만이면 false)
     @Override
     public List<Long> findQuestionsIdOfHistory(Long historyId, boolean isCorrect) {
         return historyRepository.findQuestionsIdOfHistory(historyId, isCorrect);

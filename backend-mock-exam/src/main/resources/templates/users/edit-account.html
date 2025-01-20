@@ -56,9 +56,9 @@
             <button class="systemButton_md" type="button" th:text="#{button.cancel}" th:onclick="javascript:history.back()">취소(목업)</button>
             <button class="systemButton_md" type="submit" th:text="#{button.modify}">수정(목업)</button>
         </div>
-    </form>
 
-    <a class="systemButton_sm" th:href="@{|/users/delete/${userId}|}" th:text="#{button.delete-account}">회원 탈퇴하기(목업)</a>
+        <a class="systemButton_sm" th:href="@{|/users/delete/${userId}|}" th:text="#{button.delete-account}">회원 탈퇴하기(목업)</a>
+    </form>
 </section>
 </div>
 

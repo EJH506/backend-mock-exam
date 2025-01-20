@@ -39,9 +39,15 @@ public class HistoryRepositoryImpl implements HistoryRepository {
         return historyMapper.findExamHistoryById(historyId);
     }
 
-    // 히스토리 ID로 히스토리 문항 조회
+    // 히스토리 ID로 히스토리 문항 조회 (전체를 찾으려면 true, 틀린문제만이면 false)
     @Override
     public List<Long> findQuestionsIdOfHistory(Long historyId, boolean isCorrect) {
         return historyMapper.findQuestionsIdOfHistory(historyId, isCorrect);
+    }
+
+    // 히스토리 ID로 히스토리 아이템 조회
+    @Override
+    public List<HistoryItem> findHistoryItemById(Long historyId, boolean isCorrect) {
+        return historyMapper.findHistoryItemById(historyId, isCorrect);
     }
 }

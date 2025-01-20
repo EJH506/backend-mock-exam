@@ -39,7 +39,7 @@
                 </li>
             </ul>
 
-            <div th:if="${incorrectItemList.size == 0}">오답노트가 비었습니다.</div>
+            <div class="empty" th:if="${incorrectItemList.size == 0}">오답노트가 비었습니다</div>
 
             <ul class="buttons">
                 <li><a th:href="@{|/incorrect-note/list?subject=${subject}&level=${level != null ? level : ''}&page=1|}">1</a></li>
@@ -49,13 +49,16 @@
 
             <form class="searchForm" th:action method="get">
                 <input type="hidden" name="subject" th:value="${subject}" />
+                <input type="hidden" name="level" th:value="#{page.level.all}" />
                 <label class="sr-only" for="searchKeyword">검색어</label>
                 <input type="text" id="searchKeyword" name="searchKeyword" th:value="${searchKeyword != null ? searchKeyword : ''}" th:placeholder="#{text.search.enterSearch}" />
                 <button type="submit" th:text="#{button.search}">검색(목업)</button>
             </form>
+
+            <a class="systemButton_sm" th:href="@{/incorrect-note}" th:text="#{button.go-list}">목록으로</a>
         </div>
 
-        <a class="systemButton_sm" th:href="@{/incorrect-note}" th:text="#{button.go-list}">목록으로</a>
+
     </section>
 </div>
 </body>

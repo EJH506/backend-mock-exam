@@ -133,8 +133,6 @@ public class ExamController {
             log.info("historyDetail={}", historyDetail);
         }
 
-//        session.removeAttribute("examHistory");
-
         if (isAjaxRequest) {
             return "menu/exam/exam-result :: viewQuestionsArea";
         } else {

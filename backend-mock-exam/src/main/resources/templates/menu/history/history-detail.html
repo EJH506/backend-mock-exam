@@ -43,8 +43,8 @@
                     <div class="result-item-container">
                         <div class="questionsDetail">
                             <div class="questionsText">
-                                <p th:text="${history.question.subjectName} + ' / Lv. ' + ${history.question.level == 0 ? '전체' : history.question.level}">네트워크 / Lv. 2 (목업)</p>
-                                <h4 th:text="${history.question.questionText}">문항 내용</h4>
+                                <p class="questionInfo" th:text="${history.question.subjectName} + ' / Lv. ' + ${history.question.level == 0 ? '전체' : history.question.level}">네트워크 / Lv. 2 (목업)</p>
+                                <h4 class="questionText" th:text="${history.question.questionText}">문항 내용</h4>
                             </div>
                             <span th:class="saveToggle" th:data-user-id="${user.userId}" th:data-question-id="${history.question.questionId}">
                             <i th:if="${history.isSaved}" class="fa-solid fa-star"></i>
@@ -66,9 +66,9 @@
 
                 </div> <!--${historyDetails} 반복-->
             </div>
-        </div> <!--viewQuestionsArea-->
 
-        <a th:href="@{/history}" th:text="#{button.go-list}">목록으로</a>
+            <a class="systemButton_sm" th:href="@{/history}" th:text="#{button.go-list}">목록으로</a>
+        </div> <!--viewQuestionsArea-->
     </section>
 
 </div>

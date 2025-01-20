@@ -121,6 +121,32 @@ header #profile > ul a:hover {
   letter-spacing: -1px;
 }
 
+section {
+  display: flex;
+  flex-flow: column wrap;
+  justify-content: center;
+  align-items: center;
+  width: 1200px;
+  margin: 50px auto;
+}
+section h2 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: "Pretendard-Bold";
+}
+section h2 + p {
+  font-size: 20px;
+}
+section p + form {
+  margin-top: 10px;
+}
+section > form {
+  display: flex;
+  flex-flow: column wrap;
+  gap: 10px;
+}
+
 .text_on {
   font-family: "Pretendard-SemiBold";
   color: #71B961;
@@ -352,6 +378,18 @@ header #profile > ul a:hover {
   font-size: 20px;
 }
 
+.empty {
+  font-size: 20px;
+  font-family: "Pretendard-SemiBold";
+  margin: 80px 0;
+}
+.empty > .systemButton_md {
+  font-size: 20px;
+  margin-top: 60px;
+  border-color: #71B961;
+  background-color: #71B961;
+}
+
 .result-item-container {
   width: 800px;
   padding: 20px 50px;
@@ -433,32 +471,6 @@ header #profile > ul a:hover {
   border: none;
 }
 
-section {
-  display: flex;
-  flex-flow: column wrap;
-  justify-content: center;
-  align-items: center;
-  width: 800px;
-  margin: 50px auto;
-}
-section h2 {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-family: "Pretendard-Bold";
-}
-section h2 + p {
-  font-size: 20px;
-}
-section p + form {
-  margin-top: 10px;
-}
-section > form {
-  display: flex;
-  flex-flow: column wrap;
-  gap: 10px;
-}
-
 .errorclass {
   color: #FF6F74;
   font-family: "Pretendard-SemiBold";
@@ -498,14 +510,16 @@ h3 {
 }
 
 section {
-  padding-top: 30px;
   position: relative;
 }
 section > h2 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   align-self: flex-start;
+  width: 270px;
+  height: 100px;
   font-size: 30px;
-  margin-bottom: 10px;
-  transform: translate(-50%, -50%);
 }
 section > h2 + p {
   font-family: "Pretendard-SemiBold";
@@ -516,6 +530,7 @@ section > #menuArea {
   display: flex;
   flex-flow: row wrap;
   gap: 10px;
+  width: 800px;
 }
 section form {
   margin-bottom: 30px;
@@ -556,9 +571,6 @@ section form > #signup_buttons > .systemButton_md:last-child {
   background-color: #71B961;
 }
 section form + .systemButton_sm {
-  position: absolute;
-  top: 100%;
-  left: 0;
   color: #CCC;
   border-color: #CCC;
 }
@@ -651,11 +663,13 @@ section > div > form .systemButton_sm:last-of-type {
   margin-top: 30px;
   font-family: "Pretendard-SemiBold";
 }
+#resultOptions > .buttons > .resultOption {
+  cursor: pointer;
+}
+#resultOptions > .buttons > .resultOption:hover {
+  color: #71B961;
+}
 #resultOptions .systemInput_md {
-  position: absolute;
-  left: 50%;
-  top: 100%;
-  transform: translateX(-50%);
   width: 800px;
   height: 40px;
   margin-top: 30px;
@@ -670,17 +684,27 @@ section > div > form .systemButton_sm:last-of-type {
 }
 
 #viewQuestionsArea {
-  position: absolute;
-  left: 50%;
-  top: 100%;
-  transform: translateX(-50%);
-  margin-top: 100px;
-  padding: 30px 0;
+  margin-top: 60px;
 }
+#viewQuestionsArea + .buttons {
+  width: 900px;
+}
+#viewQuestionsArea + .buttons > .systemButton_md {
+  flex: 1 1 0;
+  border-color: #E6E9DE;
+  background-color: #E6E9DE;
+}
+#viewQuestionsArea + .buttons > .systemButton_md:last-of-type {
+  border-color: #71B961;
+  background-color: #71B961;
+  color: white;
+}
+
 #incorrectArea {
   display: flex;
   flex-flow: column wrap;
   gap: 12px;
+  width: 800px;
 }
 #incorrectArea > .buttons {
   align-self: flex-start;
@@ -741,10 +765,6 @@ section > div > form .systemButton_sm:last-of-type {
   align-items: center;
 }
 #historyList {
-  position: absolute;
-  top: 100%;
-  left: 50%;
-  transform: translateX(-50%);
   width: 900px;
   margin: 40px 0;
 }
