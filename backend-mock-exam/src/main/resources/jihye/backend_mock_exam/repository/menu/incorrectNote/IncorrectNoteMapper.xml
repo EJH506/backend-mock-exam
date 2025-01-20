@@ -29,7 +29,20 @@
     </select>
     
     <select id="findIncorrectTotalCount" resultType="int">
-        SELECT count(*) FROM incorrect_note WHERE USER_ID = ${userId}
+        SELECT count(*) FROM incorrect_note i
+        JOIN questions q ON i.question_id = q.question_id
+        <where>
+            <if test="subjectId > 0">
+                AND i.subject_id = #{subjectId}
+            </if>
+            <if test="level > 0">
+                AND i.level = #{level}
+            </if>
+            <if test="searchKeyword != null">
+                AND q.question_text like CONCAT('%', #{searchKeyword}, '%')
+            </if>
+            AND user_id = #{userId}
+        </where>
     </select>
 
     <delete id="deleteQuestionFromIncorrectNote">

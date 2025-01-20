@@ -16,7 +16,7 @@ public interface IncorrectNoteMapper {
     List<IncorrectNote> findIncorrectList(@Param("userId") Long userId, @Param("subjectId") Long subjectId, @Param("level") int level, @Param("searchKeyword") String searchKeyword, @Param("offset") int offset, @Param("pageSize") int pageSize);
 
     // 사용자의 오답노트 총 개수
-    int findIncorrectTotalCount(Long userId);
+    int findIncorrectTotalCount(@Param("userId") Long userId, @Param("subjectId") Long subjectId, @Param("level") int level, @Param("searchKeyword") String searchKeyword);
 
     // 오답노트에서 문항 삭제
     void deleteQuestionFromIncorrectNote(@Param("userId") Long userId, @Param("questionId") Long questionId);

@@ -13,8 +13,8 @@ public interface IncorrectNoteRepository {
     // 주제, 난이도, 페이지 선택에 따른 사용자의 오답노트 목록
     List<IncorrectNote> findIncorrectList(Long userId, Long subjectId, int level, String searchKeyword, int offset, int pageSize);
 
-    // 사용자의 오답노트 총 개수
-    int findIncorrectTotalCount(Long userId);
+    // 사용자의 오답노트 총 개수 (페이징을 제외하고, 필터는 전부 적용)
+    int findIncorrectTotalCount(Long userId, Long subjectId, int level, String searchKeyword);
 
     // 오답노트에서 문항 삭제
     void deleteQuestionFromIncorrectNote(Long userId, Long questionId);

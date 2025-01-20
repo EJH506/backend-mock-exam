@@ -26,8 +26,8 @@ public class IncorrectNoteRepositoryImpl implements IncorrectNoteRepository {
 
     // 사용자의 오답노트 총 개수
     @Override
-    public int findIncorrectTotalCount(Long userId) {
-        return incorrectNoteMapper.findIncorrectTotalCount(userId);
+    public int findIncorrectTotalCount(Long userId, Long subjectId, int level, String searchKeyword) {
+        return incorrectNoteMapper.findIncorrectTotalCount(userId, subjectId, level, searchKeyword);
     }
 
     // 오답노트에서 문항 삭제

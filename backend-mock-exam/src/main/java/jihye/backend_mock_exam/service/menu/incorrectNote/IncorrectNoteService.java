@@ -36,59 +36,17 @@ public class IncorrectNoteService {
     }
 
     // 주제, 난이도, 페이지 선택에 따른 사용자의 오답노트 목록
-    /*
-    public List<IncorrectItem> incorrectList(Long userId, String subjectName, String level, String searchKeyword, int page) {
-
-        int offset = page - 1;
-        int pageSize = 5;
-
-        QuestionFilter questionFilter = commonService.questionFilterConvert(subjectName, level);
-        List<IncorrectNote> incorrectList = incorrectNoteRepository.findIncorrectList(userId, questionFilter.getSubjectId(), questionFilter.getLevelInt(), searchKeyword, offset, pageSize);
-
-        List<Long> questionsId = new ArrayList<>();
-        for (IncorrectNote incorrectNote : incorrectList) {
-            questionsId.add(incorrectNote.getQuestionId());
-        }
-
-        // 오답노트 목록의 question id에서 문제 정보 추출
-        List<Question> questions = commonService.findFilteredHistoryQuestions(questionsId);
-
-        List<IncorrectItem> incorrectItemList = new ArrayList<>();
-
-        for (Question question : questions) {
-            IncorrectItem item = new IncorrectItem();
-            item.setQuestion(question);
-
-            List<Answer> answers = commonService.shuffledAnswerListByQuestion(question.getQuestionId());
-            item.setAnswers(answers);
-
-            for (Answer answer : answers) {
-                if (answer.isCorrect()) {
-                    item.setCorrectAnswer(answer);
-                }
-            }
-
-            item.setSubjectId(question.getSubjectId());
-            item.setLevel(question.getLevel());
-            item.setSaved(true);
-
-            incorrectItemList.add(item);
-        }
-
-        return incorrectItemList;
-    }
-
-     */
     public Page<IncorrectItem> incorrectList(Long userId, String subjectName, String level, String searchKeyword, int page) {
 
         int pagePerItem = 5;                   // 페이지당 아이템 수
-        int blockPerPage = 5;                   // 블럭당 페이지 수
+        int blockPerPage = 5;                  // 블럭당 페이지 수
         int offset = (page - 1) * pagePerItem; // limit 시작위치
 
         QuestionFilter questionFilter = commonService.questionFilterConvert(subjectName, level);
         List<IncorrectNote> incorrectList = incorrectNoteRepository.findIncorrectList(userId, questionFilter.getSubjectId(), questionFilter.getLevelInt(), searchKeyword, offset, pagePerItem);
 
-        int totalCount = incorrectNoteRepository.findIncorrectTotalCount(userId);
+        int totalCount = incorrectNoteRepository.findIncorrectTotalCount(userId, questionFilter.getSubjectId(), questionFilter.getLevelInt(), searchKeyword);
+//        int totalCount = incorrectList.size();
         int totalPages = (int) Math.ceil((double) totalCount / pagePerItem);
         int currentBlock = (int) Math.floor((double) (page - 1) / blockPerPage);
 

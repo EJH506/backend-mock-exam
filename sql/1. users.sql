@@ -18,3 +18,9 @@ CREATE TABLE users (
 	update_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,	-- 수정일시
 	UNIQUE (account_id)															-- 아이디의 유일성 보장
 );
+
+SELECT i.incorrect_note_id, i.user_id, i.question_id, i.subject_id, i.level, q.question_text, date_format(i.created_at, '%Y-%d-%m') AS created_at 
+        FROM incorrect_note i
+        JOIN questions q ON i.question_id = q.question_id
+WHERE i.subject_id = 3
+AND i.`level` =3;

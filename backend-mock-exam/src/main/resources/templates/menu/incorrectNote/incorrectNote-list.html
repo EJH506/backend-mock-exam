@@ -42,9 +42,9 @@
             <div th:if="${incorrectItemList.content.size < 1}" class="empty">오답노트가 비었습니다</div>
 
             <ul class="buttons" th:if="${incorrectItemList.totalPages > 0}">
-                <li th:if="${incorrectItemList.hasPrevBlock()}"><a th:href="@{|/incorrect-note/list?subject=${subject}&level=${paramLevel}&page=${incorrectItemList.prevBlockStartPage()}|}" th:text="#{paging.prev}">이전(목업)</a></li>
-                <li th:each="i : ${#numbers.sequence(incorrectItemList.currentBlock * 5 + 1, incorrectItemList.getEndPageOfBlock())}"><a th:href="@{|/incorrect-note/list?subject=${subject}&level=${paramLevel}&page=${i}|}" th:text="${i}">1(목업)</a></li>
-                <li th:if="${incorrectItemList.hasNextBlock()}"><a th:href="@{|/incorrect-note/list?subject=${subject}&level=${paramLevel}&page=${incorrectItemList.nextBlockStartPage()}|}" th:text="#{paging.next}">다음(목업)</a></li>
+                <li th:if="${incorrectItemList.hasPrevBlock()}"><a th:href="@{|/incorrect-note/list?subject=${subject}&level=${paramLevel}&searchKeyword=${searchKeyword != null ? searchKeyword : ''}&page=${incorrectItemList.prevBlockStartPage()}|}" th:text="#{paging.prev}">이전(목업)</a></li>
+                <li th:each="i : ${#numbers.sequence(incorrectItemList.currentBlock * 5 + 1, incorrectItemList.getEndPageOfBlock())}"><a th:href="@{|/incorrect-note/list?subject=${subject}&level=${paramLevel}&searchKeyword=${searchKeyword != null ? searchKeyword : ''}&page=${i}|}" th:text="${i}">1(목업)</a></li>
+                <li th:if="${incorrectItemList.hasNextBlock()}"><a th:href="@{|/incorrect-note/list?subject=${subject}&level=${paramLevel}&searchKeyword=${searchKeyword != null ? searchKeyword : ''}&page=${incorrectItemList.nextBlockStartPage()}|}" th:text="#{paging.next}">다음(목업)</a></li>
             </ul>
 
             <form class="searchForm" th:action method="get">
