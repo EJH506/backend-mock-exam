@@ -12,6 +12,10 @@ import jihye.backend_mock_exam.service.menu.QuestionFilter;
 import jihye.backend_mock_exam.service.menu.incorrectNote.dto.saveIncorrectAllDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -35,10 +39,15 @@ public class IncorrectNoteService {
         return commonService.levelListOfSubject(subjectName);
     }
 
-    // 주제, 난이도 선택에 따른 오답노트 목록
-    public List<IncorrectItem> incorrectList(Long userId, String subjectName, String level, String searchKeyword) {
+    // 주제, 난이도, 페이지 선택에 따른 사용자의 오답노트 목록
+    /*
+    public List<IncorrectItem> incorrectList(Long userId, String subjectName, String level, String searchKeyword, int page) {
+
+        int offset = page - 1;
+        int pageSize = 5;
+
         QuestionFilter questionFilter = commonService.questionFilterConvert(subjectName, level);
-        List<IncorrectNote> incorrectList = incorrectNoteRepository.findIncorrectList(userId, questionFilter.getSubjectId(), questionFilter.getLevelInt(), searchKeyword);
+        List<IncorrectNote> incorrectList = incorrectNoteRepository.findIncorrectList(userId, questionFilter.getSubjectId(), questionFilter.getLevelInt(), searchKeyword, offset, pageSize);
 
         List<Long> questionsId = new ArrayList<>();
         for (IncorrectNote incorrectNote : incorrectList) {
@@ -71,6 +80,52 @@ public class IncorrectNoteService {
         }
 
         return incorrectItemList;
+    }
+
+     */
+    public Page<IncorrectItem> incorrectList(Long userId, String subjectName, String level, String searchKeyword, int page) {
+
+        int size = 5;
+        Pageable pageable = PageRequest.of(page, size);
+        int offset = (pageable.getPageNumber() - 1) * pageable.getPageSize();
+
+        QuestionFilter questionFilter = commonService.questionFilterConvert(subjectName, level);
+        List<IncorrectNote> incorrectList = incorrectNoteRepository.findIncorrectList(userId, questionFilter.getSubjectId(), questionFilter.getLevelInt(), searchKeyword, offset, pageable.getPageSize());
+
+        List<Long> questionsId = new ArrayList<>();
+        for (IncorrectNote incorrectNote : incorrectList) {
+            questionsId.add(incorrectNote.getQuestionId());
+        }
+
+        // 오답노트 목록의 question id에서 문제 정보 추출
+        List<Question> questions = commonService.findFilteredHistoryQuestions(questionsId);
+
+        List<IncorrectItem> incorrectItemList = new ArrayList<>();
+
+        for (Question question : questions) {
+            IncorrectItem item = new IncorrectItem();
+            item.setQuestion(question);
+
+            List<Answer> answers = commonService.shuffledAnswerListByQuestion(question.getQuestionId());
+            item.setAnswers(answers);
+
+            for (Answer answer : answers) {
+                if (answer.isCorrect()) {
+                    item.setCorrectAnswer(answer);
+                }
+            }
+
+            item.setSubjectId(question.getSubjectId());
+            item.setLevel(question.getLevel());
+            item.setSaved(true);
+
+            incorrectItemList.add(item);
+
+        }
+
+        int total = incorrectNoteRepository.findIncorrectTotalCount(userId);
+
+        return new PageImpl<>(incorrectItemList, pageable, total);
     }
 
     // 오답노트에 문항 저장해제

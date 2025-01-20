@@ -25,6 +25,11 @@
             AND user_id = #{userId}
         </where>
         ORDER BY incorrect_note_id DESC
+        LIMIT ${offset}, ${pageSize}
+    </select>
+    
+    <select id="findIncorrectTotalCount" resultType="int">
+        SELECT count(*) FROM incorrect_note WHERE USER_ID = ${userId}
     </select>
 
     <delete id="deleteQuestionFromIncorrectNote">

@@ -22,7 +22,7 @@
                 <li th:each="level : ${levels}"><a th:href="@{|/incorrect-note/list?subject=${subject}&level=${level}|}" th:text="'Lv. ' + ${level}" th:classappend="${#strings.equals(paramLevel, level) ? 'text_on' : ''}">Lv. 1(목업)</a></li>
             </ul>
 
-            <ul id="incorrectList" th:if="${incorrectItemList.size > 0}">
+            <ul id="incorrectList" th:if="${incorrectItemList != null}">
                 <li class="systemInput_md" th:each="incorrectItem : ${incorrectItemList}">
                     <div class="title">
                         <span th:text="'Lv. ' + ${incorrectItem.level}">Lv. 1</span>
@@ -39,12 +39,14 @@
                 </li>
             </ul>
 
-            <div class="empty" th:if="${incorrectItemList.size == 0}">오답노트가 비었습니다</div>
+            <div class="empty" th:if="${incorrectItemList == null}">오답노트가 비었습니다</div>
 
-            <ul class="buttons">
-                <li><a th:href="@{|/incorrect-note/list?subject=${subject}&level=${level != null ? level : ''}&page=1|}">1</a></li>
-                <li><a th:href="@{|/incorrect-note/list?subject=${subject}&level=${level != null ? level : ''}&page=2|}">2</a></li>
-                <li><a th:href="@{|/incorrect-note/list?subject=${subject}&level=${level != null ? level : ''}&page=3|}">3</a></li>
+            <ul class="buttons" th:if="${currentPage > 0}">
+                <li><a th:href="@{|/incorrect-note/list?subject=${subject}&level=${paramLevel}&page=${currentPage - 1}|}" th:text="#{paging.prev}">이전(목업)</a></li>
+                <li><a th:href="@{|/incorrect-note/list?subject=${subject}&level=${paramLevel}&page=${currentPage + 1}|}" th:text="#{paging.next}">다음(목업)</a></li>
+<!--                <li><a th:href="@{|/incorrect-note/list?subject=${subject}&level=${level != null ? level : ''}&page=1|}">1</a></li>-->
+<!--                <li><a th:href="@{|/incorrect-note/list?subject=${subject}&level=${level != null ? level : ''}&page=2|}">2</a></li>-->
+<!--                <li><a th:href="@{|/incorrect-note/list?subject=${subject}&level=${level != null ? level : ''}&page=3|}">3</a></li>-->
             </ul>
 
             <form class="searchForm" th:action method="get">

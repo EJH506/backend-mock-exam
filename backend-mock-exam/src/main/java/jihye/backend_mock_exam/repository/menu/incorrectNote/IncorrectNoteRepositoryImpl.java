@@ -18,10 +18,16 @@ public class IncorrectNoteRepositoryImpl implements IncorrectNoteRepository {
         return incorrectNoteMapper.findIncorrectNoteById(userId, questionId);
     };
 
-    // 주제, 난이도 선택에 따른 오답노트 목록
+    // 주제, 난이도, 페이지 선택에 따른 사용자의 오답노트 목록
     @Override
-    public List<IncorrectNote> findIncorrectList(Long userId, Long subjectId, int level, String searchKeyword) {
-        return incorrectNoteMapper.findIncorrectList(userId, subjectId, level, searchKeyword);
+    public List<IncorrectNote> findIncorrectList(Long userId, Long subjectId, int level, String searchKeyword, int offset, int pageSize) {
+        return incorrectNoteMapper.findIncorrectList(userId, subjectId, level, searchKeyword, offset, pageSize);
+    }
+
+    // 사용자의 오답노트 총 개수
+    @Override
+    public int findIncorrectTotalCount(Long userId) {
+        return incorrectNoteMapper.findIncorrectTotalCount(userId);
     }
 
     // 오답노트에서 문항 삭제

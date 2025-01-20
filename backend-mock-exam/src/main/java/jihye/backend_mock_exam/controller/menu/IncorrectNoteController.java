@@ -7,6 +7,7 @@ import jihye.backend_mock_exam.service.menu.incorrectNote.IncorrectNoteService;
 import jihye.backend_mock_exam.service.menu.incorrectNote.dto.saveIncorrectAllDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -41,13 +42,14 @@ public class IncorrectNoteController {
                        @RequestParam("subject") String subjectName,
                        @RequestParam(value = "level", required = false) String level,
                        @RequestParam(value = "searchKeyword", required = false) String searchKeyword,
+                       @RequestParam(value = "page", defaultValue = "1") int page,
                        Model model) {
 
         // 선택한 주제에 존재하는 난이도 목록
         List<Integer> levels = incorrectNoteService.levelListOfSubject(subjectName);
 
         // 오답노트 목록 반환
-        List<IncorrectItem> incorrectItemList = incorrectNoteService.incorrectList(user.getUserId(), subjectName, level, searchKeyword);
+        Page<IncorrectItem> incorrectItemList = incorrectNoteService.incorrectList(user.getUserId(), subjectName, level, searchKeyword, page);
 
         if (searchKeyword != null) {
             model.addAttribute("searchKeyword", searchKeyword);
@@ -55,9 +57,18 @@ public class IncorrectNoteController {
         if (level != null) {
             model.addAttribute("paramLevel", level);
         }
+
+        log.info("incorrectItemList={}", incorrectItemList);
+        log.info("incorrectItemList.getTotalPages={}", incorrectItemList.getTotalPages());
+        log.info("incorrectItemList.getTotalElements={}", incorrectItemList.getTotalElements());
+        log.info("incorrectItemList.getNumberOfElements={}", incorrectItemList.getNumberOfElements());
+        log.info("incorrectItemList.getPageable={}", incorrectItemList.getPageable());
+
         model.addAttribute("subject", subjectName);
         model.addAttribute("levels", levels);
-        model.addAttribute("incorrectItemList", incorrectItemList);
+        model.addAttribute("incorrectItemList", incorrectItemList.getContent());
+        model.addAttribute("totalPages", incorrectItemList.getTotalPages());
+        model.addAttribute("currentPage", incorrectItemList.getNumber());
 
         return "menu/incorrectNote/incorrectNote-list";
     }
