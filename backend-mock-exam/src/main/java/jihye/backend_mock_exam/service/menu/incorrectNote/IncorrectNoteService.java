@@ -1,6 +1,6 @@
 package jihye.backend_mock_exam.service.menu.incorrectNote;
 
-import jihye.backend_mock_exam.controller.menu.ExamConst;
+import jihye.backend_mock_exam.domain.Page;
 import jihye.backend_mock_exam.domain.exam.Answer;
 import jihye.backend_mock_exam.domain.exam.Question;
 import jihye.backend_mock_exam.domain.exam.Subject;
@@ -12,10 +12,6 @@ import jihye.backend_mock_exam.service.menu.QuestionFilter;
 import jihye.backend_mock_exam.service.menu.incorrectNote.dto.saveIncorrectAllDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -85,12 +81,20 @@ public class IncorrectNoteService {
      */
     public Page<IncorrectItem> incorrectList(Long userId, String subjectName, String level, String searchKeyword, int page) {
 
-        int size = 5;
-        Pageable pageable = PageRequest.of(page, size);
-        int offset = (pageable.getPageNumber() - 1) * pageable.getPageSize();
+        int pagePerItem = 5;                   // 페이지당 아이템 수
+        int blockPerPage = 5;                   // 블럭당 페이지 수
+        int offset = (page - 1) * pagePerItem; // limit 시작위치
 
         QuestionFilter questionFilter = commonService.questionFilterConvert(subjectName, level);
-        List<IncorrectNote> incorrectList = incorrectNoteRepository.findIncorrectList(userId, questionFilter.getSubjectId(), questionFilter.getLevelInt(), searchKeyword, offset, pageable.getPageSize());
+        List<IncorrectNote> incorrectList = incorrectNoteRepository.findIncorrectList(userId, questionFilter.getSubjectId(), questionFilter.getLevelInt(), searchKeyword, offset, pagePerItem);
+
+        int totalCount = incorrectNoteRepository.findIncorrectTotalCount(userId);
+        int totalPages = (int) Math.ceil((double) totalCount / pagePerItem);
+        int currentBlock = (int) Math.floor((double) (page - 1) / blockPerPage);
+
+        log.info("page={}", page);
+        log.info("currentBlock={}", currentBlock);
+        log.info("totalPages={}", totalPages);
 
         List<Long> questionsId = new ArrayList<>();
         for (IncorrectNote incorrectNote : incorrectList) {
@@ -123,9 +127,7 @@ public class IncorrectNoteService {
 
         }
 
-        int total = incorrectNoteRepository.findIncorrectTotalCount(userId);
-
-        return new PageImpl<>(incorrectItemList, pageable, total);
+        return new Page<>(incorrectItemList, page, totalPages, currentBlock, totalCount);
     }
 
     // 오답노트에 문항 저장해제

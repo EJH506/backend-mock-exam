@@ -98,6 +98,8 @@ public class ExamController {
         model.addAttribute("exam", new Exam(subjectName, level, number, examItems));
         model.addAttribute("submittedExamDto", new SubmittedExamDto());
 
+        log.info("controller.examItems={}", examItems);
+
         return "menu/exam/take-exam";
     }
 

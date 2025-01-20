@@ -22,8 +22,8 @@
                 <li th:each="level : ${levels}"><a th:href="@{|/incorrect-note/list?subject=${subject}&level=${level}|}" th:text="'Lv. ' + ${level}" th:classappend="${#strings.equals(paramLevel, level) ? 'text_on' : ''}">Lv. 1(목업)</a></li>
             </ul>
 
-            <ul id="incorrectList" th:if="${incorrectItemList != null}">
-                <li class="systemInput_md" th:each="incorrectItem : ${incorrectItemList}">
+            <ul th:if="${incorrectItemList.content.size > 0}" id="incorrectList">
+                <li class="systemInput_md" th:each="incorrectItem : ${incorrectItemList.content}">
                     <div class="title">
                         <span th:text="'Lv. ' + ${incorrectItem.level}">Lv. 1</span>
                         <span class="questionText" th:text="${incorrectItem.question.questionText}">HTTP와 HTTPS의 차이점으로 옳은 것을 고르세요</span>
@@ -39,14 +39,12 @@
                 </li>
             </ul>
 
-            <div class="empty" th:if="${incorrectItemList == null}">오답노트가 비었습니다</div>
+            <div th:if="${incorrectItemList.content.size < 1}" class="empty">오답노트가 비었습니다</div>
 
-            <ul class="buttons" th:if="${currentPage > 0}">
-                <li><a th:href="@{|/incorrect-note/list?subject=${subject}&level=${paramLevel}&page=${currentPage - 1}|}" th:text="#{paging.prev}">이전(목업)</a></li>
-                <li><a th:href="@{|/incorrect-note/list?subject=${subject}&level=${paramLevel}&page=${currentPage + 1}|}" th:text="#{paging.next}">다음(목업)</a></li>
-<!--                <li><a th:href="@{|/incorrect-note/list?subject=${subject}&level=${level != null ? level : ''}&page=1|}">1</a></li>-->
-<!--                <li><a th:href="@{|/incorrect-note/list?subject=${subject}&level=${level != null ? level : ''}&page=2|}">2</a></li>-->
-<!--                <li><a th:href="@{|/incorrect-note/list?subject=${subject}&level=${level != null ? level : ''}&page=3|}">3</a></li>-->
+            <ul class="buttons" th:if="${incorrectItemList.totalPages > 0}">
+                <li th:if="${incorrectItemList.hasPrevBlock()}"><a th:href="@{|/incorrect-note/list?subject=${subject}&level=${paramLevel}&page=${incorrectItemList.prevBlockStartPage()}|}" th:text="#{paging.prev}">이전(목업)</a></li>
+                <li th:each="i : ${#numbers.sequence(incorrectItemList.currentBlock * 5 + 1, incorrectItemList.getEndPageOfBlock())}"><a th:href="@{|/incorrect-note/list?subject=${subject}&level=${paramLevel}&page=${i}|}" th:text="${i}">1(목업)</a></li>
+                <li th:if="${incorrectItemList.hasNextBlock()}"><a th:href="@{|/incorrect-note/list?subject=${subject}&level=${paramLevel}&page=${incorrectItemList.nextBlockStartPage()}|}" th:text="#{paging.next}">다음(목업)</a></li>
             </ul>
 
             <form class="searchForm" th:action method="get">

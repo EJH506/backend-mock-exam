@@ -1,5 +1,6 @@
 package jihye.backend_mock_exam.controller.menu;
 
+import jihye.backend_mock_exam.domain.Page;
 import jihye.backend_mock_exam.domain.exam.Subject;
 import jihye.backend_mock_exam.domain.incorrectNote.IncorrectItem;
 import jihye.backend_mock_exam.domain.user.User;
@@ -7,7 +8,6 @@ import jihye.backend_mock_exam.service.menu.incorrectNote.IncorrectNoteService;
 import jihye.backend_mock_exam.service.menu.incorrectNote.dto.saveIncorrectAllDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -58,17 +58,17 @@ public class IncorrectNoteController {
             model.addAttribute("paramLevel", level);
         }
 
-        log.info("incorrectItemList={}", incorrectItemList);
-        log.info("incorrectItemList.getTotalPages={}", incorrectItemList.getTotalPages());
-        log.info("incorrectItemList.getTotalElements={}", incorrectItemList.getTotalElements());
-        log.info("incorrectItemList.getNumberOfElements={}", incorrectItemList.getNumberOfElements());
-        log.info("incorrectItemList.getPageable={}", incorrectItemList.getPageable());
-
         model.addAttribute("subject", subjectName);
         model.addAttribute("levels", levels);
-        model.addAttribute("incorrectItemList", incorrectItemList.getContent());
-        model.addAttribute("totalPages", incorrectItemList.getTotalPages());
-        model.addAttribute("currentPage", incorrectItemList.getNumber());
+        model.addAttribute("incorrectItemList", incorrectItemList);
+
+        log.info("=====================================================");
+        log.info("getCurrentPage={}", incorrectItemList.getCurrentPage());
+        log.info("getCurrentBlock={}", incorrectItemList.getCurrentBlock());
+        log.info("getEndPageOfBlock={}", incorrectItemList.getEndPageOfBlock());
+        log.info("prevBlockStartPage={}", incorrectItemList.prevBlockStartPage());
+        log.info("nextBlockStartPage={}", incorrectItemList.nextBlockStartPage());
+        log.info("=====================================================");
 
         return "menu/incorrectNote/incorrectNote-list";
     }
