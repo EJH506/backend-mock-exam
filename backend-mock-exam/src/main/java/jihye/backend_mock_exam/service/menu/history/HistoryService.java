@@ -1,6 +1,6 @@
 package jihye.backend_mock_exam.service.menu.history;
 
-import jihye.backend_mock_exam.domain.Page;
+import jihye.backend_mock_exam.service.Page;
 import jihye.backend_mock_exam.domain.history.ExamHistory;
 import jihye.backend_mock_exam.domain.history.HistoryItemObject;
 import jihye.backend_mock_exam.repository.menu.history.HistoryRepository;

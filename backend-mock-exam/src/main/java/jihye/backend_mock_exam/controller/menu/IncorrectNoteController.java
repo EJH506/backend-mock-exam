@@ -1,6 +1,6 @@
 package jihye.backend_mock_exam.controller.menu;
 
-import jihye.backend_mock_exam.domain.Page;
+import jihye.backend_mock_exam.service.Page;
 import jihye.backend_mock_exam.domain.exam.Subject;
 import jihye.backend_mock_exam.domain.incorrectNote.IncorrectItem;
 import jihye.backend_mock_exam.domain.user.User;

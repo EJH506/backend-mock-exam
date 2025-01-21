@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jihye.backend_mock_exam.repository.menu.memo.MemoMapper">
+
+    <select id="findAllMemoById" resultType="memo">
+        SELECT * FROM memo
+        <where>
+        AND user_id = #{userId}
+             <if test="searchKeyword != null">
+                 AND memo_text like CONCAT('%', #{searchKeyword}, '%')
+             </if>
+        </where>
+        ORDER BY memo_id DESC
+        LIMIT #{offset}, #{pageSize}
+    </select>
+
+    <select id="findTotalMemoCountByUser" resultType="int">
+        SELECT count(*) FROM memo
+        <where>
+            AND user_id = #{userId}
+            <if test="searchKeyword != null">
+                AND memo_text like CONCAT('%', #{searchKeyword}, '%')
+            </if>
+        </where>
+    </select>
+
+    <select id="findMemoById" resultType="memo">
+        SELECT * FROM memo WHERE memo_id = #{memoId}
+    </select>
+
+    <delete id="deleteMemoList">
+        DELETE FROM memo
+        WHERE  memo_id IN
+        <foreach collection="list" item="memoId" open="(" close=")" separator=",">
+            #{memoId}
+        </foreach>
+    </delete>
+</mapper>

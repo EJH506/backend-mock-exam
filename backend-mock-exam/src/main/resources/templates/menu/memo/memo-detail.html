@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title th:text="#{page.memo} + ' | ' + #{title}">메모장 | 백엔드 모의고사</title>
+  <link rel="stylesheet" th:href="@{/css/main/main.css}">
+</head>
+<body>
+<div class="wrap">
+  <header th:replace="~{fragment/home-header :: header (${user.userId}, ${user.nickname}, ${isMember})}"></header>
+
+  <section>
+    <h2 th:text="#{page.memo}">메모장 (목업)</h2>
+
+    <div id="memoArea">
+      <div class="buttons">
+        <a class="navButton_sm memo-delete" th:href="@{|/memo/${memo.memoId}/delete|}">삭제</a>
+        <a class="navButton_sm memo-edit" th:href="@{/memo}">수정</a>
+      </div>
+
+      <div id="viewMemo">
+        <p th:text="'작성: ' + ${memo.createdAt}">작성: 2024-12-09 11:58:29</p>
+        <p th:if="${memo.updateAt != memo.createdAt}" th:text="'수정: ' + ${memo.updateAt}">수정: 2024-12-10 12:01:34</p>
+
+        <p th:text="${memo.memoText}">
+          국가는 법률이 정하는 바에 의하여 재외국민을 보호할 의무를 진다. 국가는 농업 및 어업을 보호·육성하기 위하여 농·어촌종합개발과 그 지원등 필요한 계획을 수립·시행하여야 한다. 국가안전보장에 관련되는 대외정책·군사정책과 국내정책의 수립에 관하여 국무회의의 심의에 앞서 대통령의 자문에 응하기 위하여 국가안전보장회의를 둔다.
+
+          대통령이 궐위된 때 또는 대통령 당선자가 사망하거나 판결 기타의 사유로 그 자격을 상실한 때에는 60일 이내에 후임자를 선거한다. 대통령의 임기는 5년으로 하며, 중임할 수 없다. 국무총리·국무위원 또는 정부위원은 국회나 그 위원회에 출석하여 국정처리상황을 보고하거나 의견을 진술하고 질문에 응답할 수 있다.
+
+          중앙선거관리위원회는 법령의 범위안에서 선거관리·국민투표관리 또는 정당사무에 관한 규칙을 제정할 수 있으며, 법률에 저촉되지 아니하는 범위안에서 내부규율에 관한 규칙을 제정할 수 있다. 누구든지 체포 또는 구속의 이유와 변호인의 조력을 받을 권리가 있음을 고지받지 아니하고는 체포 또는 구속을 당하지 아니한다. 체포 또는 구속을 당한 자의 가족등 법률이 정하는 자에게는 그 이유와 일시·장소가 지체없이 통지되어야 한다.
+
+          대통령이 궐위된 때 또는 대통령 당선자가 사망하거나 판결 기타의 사유로 그 자격을 상실한 때에는 60일 이내에 후임자를 선거한다. 대통령의 임기는 5년으로 하며, 중임할 수 없다. 국무총리·국무위원 또는 정부위원은 국회나 그 위원회에 출석하여 국정처리상황을 보고하거나 의견을 진술하고 질문에 응답할 수 있다.
+        </p>
+      </div>
+
+      <a class="systemButton_sm" th:href="@{/history}" th:text="#{button.go-list}">목록으로</a>
+
+    </div>
+  </section>
+</div>
+</body>
+</html>

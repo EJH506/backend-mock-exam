@@ -331,7 +331,8 @@ section > form {
   width: 120px;
   height: 40px;
   color: #fff;
-  border-radius: 5px;
+  border: 3px solid #71B961;
+  border-radius: 4px;
   background-color: #71B961;
   box-sizing: border-box;
   outline: none;
@@ -381,9 +382,14 @@ section > form {
 }
 
 .empty {
+  display: flex;
+  flex-flow: column wrap;
+  justify-content: center;
+  align-items: center;
   font-size: 20px;
   font-family: "Pretendard-SemiBold";
-  margin: 80px 0;
+  width: 800px;
+  height: 300px;
 }
 .empty > .systemButton_md {
   font-size: 20px;
@@ -710,10 +716,10 @@ section > div > form .systemButton_sm:last-of-type {
   gap: 12px;
   width: 800px;
 }
-#incorrectArea > .buttons {
-  align-self: flex-start;
+#incorrectArea > .buttons:first-child {
+  align-self: flex-start !important;
 }
-#incorrectArea > .buttons:last-of-type {
+#incorrectArea > .buttons:first-child:last-of-type {
   margin: 12px 0;
   align-self: center;
 }
@@ -797,6 +803,95 @@ section > div > form .systemButton_sm:last-of-type {
 #historyList > li > .systemInput_md > p:last-of-type {
   width: 150px;
   text-align: end;
+}
+
+#memoListArea {
+  width: 900px;
+}
+#memoListArea > .buttons.normal-mode, #memoListArea > .buttons.select-mode {
+  align-self: flex-end;
+  font-size: 16px;
+  margin-top: 0;
+}
+#memoListArea > .buttons.normal-mode > .select-start, #memoListArea > .buttons.normal-mode .select-cancel, #memoListArea > .buttons.normal-mode .select-all, #memoListArea > .buttons.select-mode > .select-start, #memoListArea > .buttons.select-mode .select-cancel, #memoListArea > .buttons.select-mode .select-all {
+  color: #71B961;
+  background-color: white;
+  border: 1px solid #71B961;
+}
+#memoListArea > .buttons.normal-mode > .select-all, #memoListArea > .buttons.select-mode > .select-all {
+  color: #FF6F74;
+  border-color: #FF6F74;
+}
+#memoListArea > .buttons.normal-mode .select-submit, #memoListArea > .buttons.select-mode .select-submit {
+  background-color: #FF6F74;
+  border-color: #FF6F74;
+}
+#memoListArea #memoDeleteForm {
+  margin: 0;
+}
+#memoListArea .memoList {
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+#memoListArea .memoList li {
+  margin-bottom: 14px;
+}
+#memoListArea .memoList li:last-of-type {
+  margin-bottom: 0;
+}
+#memoListArea .memoList li > input[type=checkbox] {
+  display: none;
+}
+#memoListArea .memoList li > input[type=checkbox]:checked ~ .systemInput_md {
+  border-color: #FF6F74;
+}
+#memoListArea .memoList li > .systemInput_md {
+  flex-flow: column wrap;
+  align-items: flex-start;
+  gap: 10px;
+  width: 900px;
+  height: 90px;
+  border-color: #71B961;
+}
+#memoListArea .memoList li > .systemInput_md .memo-preview {
+  display: block;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 100%;
+  font-size: 20px;
+  font-family: "Pretendard-SemiBold";
+}
+#memoListArea > form {
+  margin-top: 20px;
+}
+
+#memoArea {
+  width: 900px;
+}
+#memoArea > .buttons {
+  align-self: flex-end;
+  font-size: 16px;
+}
+#memoArea > .buttons > .navButton_sm {
+  background-color: white;
+  border: 1px solid #71B961;
+  color: #71B961;
+}
+#memoArea > .buttons > .navButton_sm.memo-delete {
+  border-color: #FF6F74;
+  color: #FF6F74;
+}
+#memoArea > #viewMemo {
+  border: 1px solid #71B961;
+  width: 100%;
+  min-height: 350px;
+  margin: 16px 0;
+  padding: 30px 24px;
+  box-sizing: border-box;
+}
+#memoArea > #viewMemo > p:last-child {
+  margin-top: 24px;
 }
 
 /*# sourceMappingURL=main.css.map */

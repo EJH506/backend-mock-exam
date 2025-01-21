@@ -1,6 +1,6 @@
 package jihye.backend_mock_exam.service.menu.incorrectNote;
 
-import jihye.backend_mock_exam.domain.Page;
+import jihye.backend_mock_exam.service.Page;
 import jihye.backend_mock_exam.domain.exam.Answer;
 import jihye.backend_mock_exam.domain.exam.Question;
 import jihye.backend_mock_exam.domain.exam.Subject;

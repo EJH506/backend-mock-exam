@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="#{page.memo} + ' | ' + #{title}">메모장 | 백엔드 모의고사</title>
+    <link rel="stylesheet" th:href="@{/css/main/main.css}">
+</head>
+<body>
+<div class="wrap">
+<header th:replace="~{fragment/home-header :: header (${user.userId}, ${user.nickname}, ${isMember})}"></header>
+
+<section>
+    <h2 th:text="#{page.memo.write}">메모작성 (목업)</h2>
+
+<!--    <form th:action th:object="${}"></form>-->
+</section>
+
+</div>
+</body>
+</html>

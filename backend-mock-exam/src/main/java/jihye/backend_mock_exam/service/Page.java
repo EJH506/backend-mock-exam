@@ -1,4 +1,4 @@
-package jihye.backend_mock_exam.domain;
+package jihye.backend_mock_exam.service;
 
 import lombok.Data;
 

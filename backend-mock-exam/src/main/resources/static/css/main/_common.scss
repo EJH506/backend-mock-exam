@@ -286,7 +286,8 @@ section {
   width: 120px;
   height: 40px;
   color: $white;
-  border-radius: 5px;
+  border: 3px solid $theme-main;
+  border-radius: 4px;
   background-color: $theme-main;
   box-sizing: border-box;
   outline: none;
@@ -333,9 +334,14 @@ section {
 
 // ㅇㅇ가 비었습니다 컨테이너
 .empty {
+  display: flex;
+  flex-flow: column wrap;
+  justify-content: center;
+  align-items: center;
   font-size: 20px;
   font-family: 'Pretendard-SemiBold';
-  margin: 80px 0;
+  width: 800px;
+  height: 300px;
 
   >.systemButton_md {
     font-size: 20px;

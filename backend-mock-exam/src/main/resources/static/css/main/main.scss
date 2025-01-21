@@ -264,8 +264,8 @@ section {
   gap: 12px;
   width: 800px;
 
-  >.buttons {
-    align-self: flex-start;
+  >.buttons:first-child {
+    align-self: flex-start !important;
 
     &:last-of-type {
       margin: 12px 0;
@@ -381,3 +381,107 @@ section {
     } //.systemInput_md
   }
 }
+
+// 메모장 리스트
+#memoListArea { // div
+  width: 900px;
+
+  >.buttons { // 메모선택, 새메모 버튼 + 페이지네이션
+    &.normal-mode, &.select-mode { // 메모선택, 새메모 버튼
+      align-self: flex-end;
+      font-size: 16px;
+      margin-top: 0;
+
+      > .select-start, .select-cancel, .select-all {
+        color: $theme-main;
+        background-color: white;
+        border: 1px solid $theme-main;
+      }
+
+      >.select-all {
+        color: $accent-caution;
+        border-color: $accent-caution;
+      }
+
+      .select-submit {
+        background-color: $accent-caution;
+        border-color: $accent-caution;
+      }
+    } //&.normal-mode, &.select-mode
+  } //.buttons
+
+  #memoDeleteForm { margin: 0; }
+
+  .memoList { //ul
+    margin-top: 20px;
+    margin-bottom: 10px;
+
+    li {
+      margin-bottom: 14px;
+
+      &:last-of-type {margin-bottom: 0;}
+
+      >input[type='checkbox'] {
+        display: none;
+
+        &:checked ~ .systemInput_md {
+          border-color: $accent-caution;
+        }
+      }
+
+      >.systemInput_md {
+        flex-flow: column wrap;
+        align-items: flex-start;
+        gap: 10px;
+        width: 900px;
+        height: 90px;
+        border-color: $theme-main;
+
+        .memo-preview { // 메모 미리보기
+          display: block;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          width: 100%;
+          font-size: 20px;
+          font-family: 'Pretendard-SemiBold';
+        }
+      } //.systemInput_md
+    } //li
+  }// #memoList
+
+  >form {margin-top: 20px;}
+} // div#memoListArea
+
+#memoArea { // 메모 보기
+  width: 900px;
+
+  >.buttons {
+    align-self: flex-end;
+    font-size: 16px;
+
+    >.navButton_sm {
+      background-color: white;
+      border: 1px solid $theme-main;
+      color: $theme-main;
+
+      &.memo-delete {
+        border-color: $accent-caution;
+        color: $accent-caution;
+      }
+    } //>.navButton_sm
+  } //>.buttons
+
+  >#viewMemo {
+    border: 1px solid $theme-main;
+    width: 100%;
+    min-height: 350px;
+    margin: 16px 0;
+    padding: 30px 24px;
+    box-sizing: border-box;
+
+    >p:last-child { //내용 영역
+      margin-top: 24px;
+    }
+  }
+} //#memoArea
