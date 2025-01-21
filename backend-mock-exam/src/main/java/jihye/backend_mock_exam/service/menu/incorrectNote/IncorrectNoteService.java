@@ -46,7 +46,6 @@ public class IncorrectNoteService {
         List<IncorrectNote> incorrectList = incorrectNoteRepository.findIncorrectList(userId, questionFilter.getSubjectId(), questionFilter.getLevelInt(), searchKeyword, offset, pagePerItem);
 
         int totalCount = incorrectNoteRepository.findIncorrectTotalCount(userId, questionFilter.getSubjectId(), questionFilter.getLevelInt(), searchKeyword);
-//        int totalCount = incorrectList.size();
         int totalPages = (int) Math.ceil((double) totalCount / pagePerItem);
         int currentBlock = (int) Math.floor((double) (page - 1) / blockPerPage);
 
@@ -82,7 +81,6 @@ public class IncorrectNoteService {
             item.setSaved(true);
 
             incorrectItemList.add(item);
-
         }
 
         return new Page<>(incorrectItemList, page, totalPages, currentBlock, totalCount);

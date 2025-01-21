@@ -43,13 +43,13 @@
 
             <ul class="buttons" th:if="${incorrectItemList.totalPages > 0}">
                 <li th:if="${incorrectItemList.hasPrevBlock()}"><a th:href="@{|/incorrect-note/list?subject=${subject}&level=${paramLevel}&searchKeyword=${searchKeyword != null ? searchKeyword : ''}&page=${incorrectItemList.prevBlockStartPage()}|}" th:text="#{paging.prev}">이전(목업)</a></li>
-                <li th:each="i : ${#numbers.sequence(incorrectItemList.currentBlock * 5 + 1, incorrectItemList.getEndPageOfBlock())}"><a th:href="@{|/incorrect-note/list?subject=${subject}&level=${paramLevel}&searchKeyword=${searchKeyword != null ? searchKeyword : ''}&page=${i}|}" th:text="${i}">1(목업)</a></li>
+                <li th:each="i : ${#numbers.sequence(incorrectItemList.currentBlock * 5 + 1, incorrectItemList.getEndPageOfBlock())}"><a th:href="@{|/incorrect-note/list?subject=${subject}&level=${paramLevel}&searchKeyword=${searchKeyword != null ? searchKeyword : ''}&page=${i}|}" th:classappend="${incorrectItemList.currentPage == i ? 'text_on' : ''}" th:text="${i}">1(목업)</a></li>
                 <li th:if="${incorrectItemList.hasNextBlock()}"><a th:href="@{|/incorrect-note/list?subject=${subject}&level=${paramLevel}&searchKeyword=${searchKeyword != null ? searchKeyword : ''}&page=${incorrectItemList.nextBlockStartPage()}|}" th:text="#{paging.next}">다음(목업)</a></li>
             </ul>
 
             <form class="searchForm" th:action method="get">
                 <input type="hidden" name="subject" th:value="${subject}" />
-                <input type="hidden" name="level" th:value="#{page.level.all}" />
+                <input type="hidden" name="level" th:value="${paramLevel}" />
                 <label class="sr-only" for="searchKeyword">검색어</label>
                 <input type="text" id="searchKeyword" name="searchKeyword" th:value="${searchKeyword != null ? searchKeyword : ''}" th:placeholder="#{text.search.enterSearch}" />
                 <button type="submit" th:text="#{button.search}">검색(목업)</button>

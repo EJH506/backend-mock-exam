@@ -27,10 +27,16 @@ public class HistoryRepositoryImpl implements HistoryRepository {
         return historyItem;
     }
 
-    // 히스토리 목록 조회
+    // 히스토리 목록 조회 (페이징)
     @Override
-    public List<ExamHistory> findExamHistoryByUser(Long userId) {
-        return historyMapper.findExamHistoryByUser(userId);
+    public List<ExamHistory> findExamHistoryByUser(Long userId, int offset, int pageSize) {
+        return historyMapper.findExamHistoryByUser(userId, offset, pageSize);
+    }
+
+    // 히스토리 목록 총 갯수
+    @Override
+    public int findTotalExamHistoryCountByUser(Long userId) {
+        return historyMapper.findTotalExamHistoryCountByUser(userId);
     }
 
     // 히스토리 ID로 히스토리 조회

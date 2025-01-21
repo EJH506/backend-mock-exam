@@ -18,6 +18,13 @@
                correct_questions_count,  ROUND(correct_rate, 1) AS correct_rate, DATE_FORMAT(created_at, '%Y-%m-%d') AS created_at
         FROM EXAM_HISTORY WHERE USER_ID = #{userId}
         ORDER BY HISTORY_ID desc
+        LIMIT #{offset}, ${pageSize}
+    </select>
+
+    <select id="findTotalExamHistoryCountByUser" resultType="int">
+        SELECT count(*)
+        FROM EXAM_HISTORY
+        WHERE USER_ID = ${userId}
     </select>
 
     <select id="findExamHistoryById" resultType="examHistory">

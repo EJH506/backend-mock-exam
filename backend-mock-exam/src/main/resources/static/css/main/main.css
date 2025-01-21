@@ -30,6 +30,7 @@ header {
   align-items: center;
   height: 70px;
   padding: 0 24px;
+  z-index: 500;
 }
 header > a > h1 {
   display: flex;
@@ -58,6 +59,7 @@ header > nav li:hover a {
 }
 header #profile {
   position: relative;
+  z-index: 500;
 }
 header #profile > div {
   display: flex;
@@ -501,6 +503,8 @@ div#signup_buttons > button.systemButton_lg:first-child {
   justify-content: center;
   gap: 10px;
   margin-top: 20px;
+  font-family: "Pretendard-SemiBold";
+  font-size: 20px;
 }
 
 h3 {
@@ -708,8 +712,6 @@ section > div > form .systemButton_sm:last-of-type {
 }
 #incorrectArea > .buttons {
   align-self: flex-start;
-  font-family: "Pretendard-SemiBold";
-  font-size: 20px;
 }
 #incorrectArea > .buttons:last-of-type {
   margin: 12px 0;
@@ -766,7 +768,7 @@ section > div > form .systemButton_sm:last-of-type {
 }
 #historyList {
   width: 900px;
-  margin: 40px 0;
+  margin-top: 30px;
 }
 #historyList > li > p:first-of-type {
   margin-bottom: 5px;

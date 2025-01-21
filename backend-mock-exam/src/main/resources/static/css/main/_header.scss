@@ -61,6 +61,7 @@ header {
   align-items: center;
   height: 70px;
   padding: 0 24px;
+  z-index: 500;
 
   >a>h1 {
     display: flex;
@@ -91,6 +92,7 @@ header {
 
   #profile {
     position: relative;
+    z-index: 500;
 
     >div {
       display: flex;

@@ -16,8 +16,11 @@ public interface HistoryMapper {
     // 시험 히스토리 문항 저장
     void saveExamHistoryItems(HistoryItem historyItem);
 
-    // 히스토리 목록 조회
-    List<ExamHistory> findExamHistoryByUser(Long userId);
+    // 히스토리 목록 조회 (페이징)
+    List<ExamHistory> findExamHistoryByUser(@Param("userId") Long userId, @Param("offset") int offset, @Param("pageSize") int pageSize);
+
+    // 히스토리 목록 총 갯수
+    int findTotalExamHistoryCountByUser(Long userId);
 
     // 히스토리 ID로 히스토리 조회
     ExamHistory findExamHistoryById(Long historyId);

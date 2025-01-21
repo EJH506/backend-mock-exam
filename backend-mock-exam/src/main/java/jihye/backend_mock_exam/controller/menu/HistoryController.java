@@ -1,6 +1,7 @@
 package jihye.backend_mock_exam.controller.menu;
 
 import jakarta.servlet.http.HttpServletRequest;
+import jihye.backend_mock_exam.domain.Page;
 import jihye.backend_mock_exam.domain.history.ExamHistory;
 import jihye.backend_mock_exam.domain.history.HistoryItemObject;
 import jihye.backend_mock_exam.domain.user.User;
@@ -23,9 +24,11 @@ public class HistoryController {
     private final HistoryService historyService;
 
     @GetMapping
-    public String historyList(@RequestAttribute("user") User user, Model model) {
+    public String historyList(@RequestAttribute("user") User user,
+                              @RequestParam(value = "page", defaultValue = "1") int page,
+                              Model model) {
 
-        List<ExamHistory> histories = historyService.findExamHistoryByUser(user.getUserId());
+        Page<ExamHistory> histories = historyService.findExamHistoryByUser(user.getUserId(), page);
         model.addAttribute("histories", histories);
 
         return "menu/history/history-list";

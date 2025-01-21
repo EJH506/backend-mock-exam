@@ -13,8 +13,11 @@ public interface HistoryRepository {
     // 시험 히스토리 문항 저장
     HistoryItem saveExamHistoryItems(HistoryItem historyItem);
 
-    // 히스토리 목록 조회
-    List<ExamHistory> findExamHistoryByUser(Long userId);
+    // 히스토리 목록 조회 (페이징)
+    List<ExamHistory> findExamHistoryByUser(Long userId, int offset, int pageSize);
+
+    // 히스토리 목록 총 갯수
+    int findTotalExamHistoryCountByUser(Long userId);
 
     // 히스토리 ID로 히스토리 조회
     ExamHistory findExamHistoryById(Long historyId);

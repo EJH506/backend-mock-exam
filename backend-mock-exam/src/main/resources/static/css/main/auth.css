@@ -30,6 +30,7 @@ header {
   align-items: center;
   height: 70px;
   padding: 0 24px;
+  z-index: 500;
 }
 header > a > h1 {
   display: flex;
@@ -58,6 +59,7 @@ header > nav li:hover a {
 }
 header #profile {
   position: relative;
+  z-index: 500;
 }
 header #profile > div {
   display: flex;
@@ -501,6 +503,8 @@ div#signup_buttons > button.systemButton_lg:first-child {
   justify-content: center;
   gap: 10px;
   margin-top: 20px;
+  font-family: "Pretendard-SemiBold";
+  font-size: 20px;
 }
 
 h3 {

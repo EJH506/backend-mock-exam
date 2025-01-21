@@ -12,8 +12,8 @@
 <section>
     <h2 th:text="#{page.history}">히스토리</h2>
 
-    <ul id="historyList" th:if="${histories.size > 0}">
-        <li th:each="history : ${histories}">
+    <ul id="historyList" th:if="${histories.content.size > 0}">
+        <li th:each="history : ${histories.content}">
             <p class="questionInfo" th:text="'ID: ' + ${history.getHistoryId()}">ID: 624352(목업)</p>
             <a class="systemInput_md" th:href="@{|/history/${history.historyId}|}">
                 <div class="historyInfo">
@@ -26,10 +26,16 @@
         </li>
     </ul>
 
-    <div class="empty" th:if="${histories.size == 0}">
+    <div class="empty" th:if="${histories.content.size == 0}">
         <p>히스토리가 비었습니다</p>
         <a class="systemButton_md" th:href="@{/}" th:text="#{button.go-main}">메인으로(목업)</a>
     </div>
+
+    <ul class="buttons" th:if="${histories.totalPages > 0}">
+        <li th:if="${histories.hasPrevBlock()}"><a th:href="@{|/history?page=${histories.prevBlockStartPage()}|}" th:text="#{paging.prev}">이전(목업)</a></li>
+        <li th:each="i : ${#numbers.sequence(histories.currentBlock * 5 + 1, histories.getEndPageOfBlock())}"><a th:href="@{|/history?page=${i}|}" th:classappend="${histories.currentPage == i ? 'text_on' : ''}" th:text="${i}">1(목업)</a></li>
+        <li th:if="${histories.hasNextBlock()}"><a th:href="@{|/history?page=${histories.nextBlockStartPage()}|}" th:text="#{paging.next}">다음(목업)</a></li>
+    </ul>
 
 </section>
 </div>

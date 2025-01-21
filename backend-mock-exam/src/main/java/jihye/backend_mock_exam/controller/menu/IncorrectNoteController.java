@@ -62,14 +62,6 @@ public class IncorrectNoteController {
         model.addAttribute("levels", levels);
         model.addAttribute("incorrectItemList", incorrectItemList);
 
-        log.info("=====================================================");
-        log.info("getCurrentPage={}", incorrectItemList.getCurrentPage());
-        log.info("getCurrentBlock={}", incorrectItemList.getCurrentBlock());
-        log.info("getEndPageOfBlock={}", incorrectItemList.getEndPageOfBlock());
-        log.info("prevBlockStartPage={}", incorrectItemList.prevBlockStartPage());
-        log.info("nextBlockStartPage={}", incorrectItemList.nextBlockStartPage());
-        log.info("=====================================================");
-
         return "menu/incorrectNote/incorrectNote-list";
     }
 
