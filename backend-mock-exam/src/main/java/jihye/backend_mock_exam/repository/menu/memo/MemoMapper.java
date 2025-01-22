@@ -1,6 +1,7 @@
 package jihye.backend_mock_exam.repository.menu.memo;
 
 import jihye.backend_mock_exam.domain.memo.Memo;
+import jihye.backend_mock_exam.service.menu.memo.dto.MemoEditDto;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -20,4 +21,10 @@ public interface MemoMapper {
 
     // 선택한 메모 삭제
     void deleteMemoList(List<Long> memosId);
+
+    // 메모 등록
+    void saveMemo(Memo memo);
+
+    // 메모 수정
+    void memoUpdate(MemoEditDto dto);
 }

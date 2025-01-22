@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+  <title th:text="#{page.memo.edit} + ' | ' + #{title}">메모수정 | 백엔드 모의고사</title>
+  <link rel="stylesheet" th:href="@{/css/main/main.css}">
+</head>
+<body>
+<div class="wrap">
+  <header th:replace="~{fragment/home-header :: header (${user.userId}, ${user.nickname}, ${isMember})}"></header>
+
+  <section>
+    <h2 th:text="#{page.memo.edit}">메모수정 (목업)</h2>
+    <div id="memoArea">
+      <div class="buttons">
+        <a class="navButton_sm memo-cancel" href="javascript:history.back()" th:text="#{button.cancel}">취소(목업)</a>
+        <button type="button" class="navButton_sm memo-submit" th:text="#{button.register}" onclick="document.forms['writeMemoForm'].submit()">등록(목업)</button>
+      </div>
+
+      <form id="viewMemo" name="writeMemoForm" th:action method="post" th:object="${memoEditDto}">
+        <textarea class="memoTextArea" th:field="*{memoText}" placeholder="여기에 메모를 작성해주세요"></textarea>
+      </form>
+
+      <a class="systemButton_sm" th:href="@{/history}" th:text="#{button.go-list}">목록으로</a>
+    </div>
+  </section>
+
+</div>
+</body>
+</html>

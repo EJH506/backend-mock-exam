@@ -3,7 +3,9 @@ package jihye.backend_mock_exam.service.menu.memo;
 import jihye.backend_mock_exam.domain.memo.Memo;
 import jihye.backend_mock_exam.repository.menu.memo.MemoRepository;
 import jihye.backend_mock_exam.service.Page;
+import jihye.backend_mock_exam.service.menu.memo.dto.MemoEditDto;
 import jihye.backend_mock_exam.service.menu.memo.dto.MemoSelectDeleteDto;
+import jihye.backend_mock_exam.service.menu.memo.dto.MemoWriteDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -39,5 +41,15 @@ public class MemoService {
     // 선택한 메모 삭제
     public List<Long> memoSelectDelete(MemoSelectDeleteDto dto) {
         return memoRepository.deleteMemoList(dto.getDeleteMemosId());
+    }
+
+    // 메모 등록
+    public Memo saveMemo(MemoWriteDto dto) {
+        return memoRepository.memoInsert(new Memo(dto.getUserId(), dto.getMemoText()));
+    }
+    
+    // 메모 수정
+    public void editMemo(MemoEditDto dto) {
+        memoRepository.memoUpdate(dto);
     }
 }

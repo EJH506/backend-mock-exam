@@ -1,6 +1,7 @@
 package jihye.backend_mock_exam.repository.menu.memo;
 
 import jihye.backend_mock_exam.domain.memo.Memo;
+import jihye.backend_mock_exam.service.menu.memo.dto.MemoEditDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
@@ -35,5 +36,18 @@ public class MemoRepositoryImpl implements MemoRepository {
     public List<Long> deleteMemoList(List<Long> memosId) {
         memoMapper.deleteMemoList(memosId);
         return memosId;
+    }
+
+    // 메모 등록
+    @Override
+    public Memo memoInsert(Memo memo) {
+        memoMapper.saveMemo(memo);
+        return memo;
+    }
+
+    // 메모 수정
+    @Override
+    public void memoUpdate(MemoEditDto dto) {
+        memoMapper.memoUpdate(dto);
     }
 }

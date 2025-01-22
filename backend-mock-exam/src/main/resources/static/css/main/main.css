@@ -878,20 +878,41 @@ section > div > form .systemButton_sm:last-of-type {
   border: 1px solid #71B961;
   color: #71B961;
 }
+#memoArea > .buttons > .navButton_sm:hover {
+  color: white;
+  background-color: #71B961;
+}
 #memoArea > .buttons > .navButton_sm.memo-delete {
   border-color: #FF6F74;
   color: #FF6F74;
 }
-#memoArea > #viewMemo {
+#memoArea > .buttons > .navButton_sm.memo-delete:hover {
+  color: white;
+  background-color: #FF6F74;
+}
+#memoArea > .buttons > .navButton_sm.memo-submit {
+  color: white;
+  background-color: #71B961;
+}
+
+#viewMemo {
   border: 1px solid #71B961;
-  width: 100%;
+  width: 900px;
   min-height: 350px;
   margin: 16px 0;
   padding: 30px 24px;
   box-sizing: border-box;
 }
-#memoArea > #viewMemo > p:last-child {
+#viewMemo > div > p:first-child {
+  margin-bottom: 5px;
+}
+#viewMemo > .memoTextArea {
+  font-size: 18px;
   margin-top: 24px;
+}
+#viewMemo > textarea {
+  height: 600px;
+  resize: none;
 }
 
 /*# sourceMappingURL=main.css.map */

@@ -1,6 +1,7 @@
 package jihye.backend_mock_exam.repository.menu.memo;
 
 import jihye.backend_mock_exam.domain.memo.Memo;
+import jihye.backend_mock_exam.service.menu.memo.dto.MemoEditDto;
 
 import java.util.List;
 
@@ -17,4 +18,10 @@ public interface MemoRepository {
 
     // 선택한 메모 삭제
     List<Long> deleteMemoList(List<Long> memosId);
+
+    // 메모 등록
+    Memo memoInsert(Memo memo);
+
+    // 메모 수정
+    void memoUpdate(MemoEditDto dto);
 }

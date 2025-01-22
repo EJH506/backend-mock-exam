@@ -1,7 +1,7 @@
 $(document).ready(function() {
     // 오답노트에 문항 저장/저장해제
-    $(".saveToggle").click(function() {
-
+    $(document).on("click", ".saveToggle", function() {
+        console.log("클릭");
         let isSaved = $(this).find("i").hasClass('fa-solid');
         const questionId = $(this).data('question-id');
         const userId = $(this).data('user-id');

@@ -453,7 +453,7 @@ section {
   >form {margin-top: 20px;}
 } // div#memoListArea
 
-#memoArea { // 메모 보기
+#memoArea { // 메모 보기, 메모 작성
   width: 900px;
 
   >.buttons {
@@ -465,23 +465,46 @@ section {
       border: 1px solid $theme-main;
       color: $theme-main;
 
+      &:hover {
+        color: white;
+        background-color: $theme-main;
+      }
+
       &.memo-delete {
         border-color: $accent-caution;
         color: $accent-caution;
+
+        &:hover {
+          color: white;
+          background-color: $accent-caution;
+        }
+      }
+
+      &.memo-submit {
+        color: white;
+        background-color: $theme-main;
       }
     } //>.navButton_sm
   } //>.buttons
-
-  >#viewMemo {
-    border: 1px solid $theme-main;
-    width: 100%;
-    min-height: 350px;
-    margin: 16px 0;
-    padding: 30px 24px;
-    box-sizing: border-box;
-
-    >p:last-child { //내용 영역
-      margin-top: 24px;
-    }
-  }
 } //#memoArea
+
+#viewMemo { // memo-detail에선 #memoArea 하위의 div, memo-write에선 section의 하위의 form
+  border: 1px solid $theme-main;
+  width: 900px;
+  min-height: 350px;
+  margin: 16px 0;
+  padding: 30px 24px;
+  box-sizing: border-box;
+
+  >div>p:first-child { margin-bottom: 5px; }
+
+  >.memoTextArea { //내용 영역
+    font-size: 18px;
+    margin-top: 24px;
+  }
+
+  >textarea {
+    height: 600px;
+    resize: none;
+  }
+}

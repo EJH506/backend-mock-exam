@@ -36,4 +36,14 @@
             #{memoId}
         </foreach>
     </delete>
+
+    <insert id="saveMemo" useGeneratedKeys="true" keyProperty="memoId">
+        INSERT INTO memo (user_id, memo_text) VALUES
+        (#{userId}, #{memoText})
+    </insert>
+
+    <update id="memoUpdate">
+        UPDATE memo SET MEMO_TEXT = #{memoText}
+        WHERE MEMO_ID = #{memoId}
+    </update>
 </mapper>

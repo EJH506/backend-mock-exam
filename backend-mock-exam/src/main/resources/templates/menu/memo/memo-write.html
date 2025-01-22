@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title th:text="#{page.memo} + ' | ' + #{title}">메모장 | 백엔드 모의고사</title>
+    <title th:text="#{page.memo.write} + ' | ' + #{title}">메모작성 | 백엔드 모의고사</title>
     <link rel="stylesheet" th:href="@{/css/main/main.css}">
 </head>
 <body>
@@ -11,8 +11,19 @@
 
 <section>
     <h2 th:text="#{page.memo.write}">메모작성 (목업)</h2>
+    <div id="memoArea">
+        <div class="buttons">
+            <a class="navButton_sm memo-cancel" href="javascript:history.back()" th:text="#{button.cancel}">취소(목업)</a>
+            <button type="button" class="navButton_sm memo-submit" th:text="#{button.register}" onclick="document.forms['writeMemoForm'].submit()">등록(목업)</button>
+        </div>
 
-<!--    <form th:action th:object="${}"></form>-->
+        <form id="viewMemo" name="writeMemoForm" th:action method="post" th:object="${memoWriteDto}">
+            <input type="hidden" th:field="*{userId}" />
+            <textarea class="memoTextArea" th:field="*{memoText}" placeholder="여기에 메모를 작성해주세요"></textarea>
+        </form>
+
+        <a class="systemButton_sm" th:href="@{/history}" th:text="#{button.go-list}">목록으로</a>
+    </div>
 </section>
 
 </div>

@@ -14,15 +14,17 @@
 
     <div id="memoArea">
       <div class="buttons">
-        <a class="navButton_sm memo-delete" th:href="@{|/memo/${memo.memoId}/delete|}">삭제</a>
-        <a class="navButton_sm memo-edit" th:href="@{/memo}">수정</a>
+        <a class="navButton_sm memo-delete" th:href="@{|/memo/${memo.memoId}/delete|}" th:text="#{button.delete}">삭제(목업)</a>
+        <a class="navButton_sm memo-edit" th:href="@{|/memo/${memo.memoId}/edit|}" th:text="#{button.modify}">수정(목업)</a>
       </div>
 
       <div id="viewMemo">
-        <p th:text="'작성: ' + ${memo.createdAt}">작성: 2024-12-09 11:58:29</p>
-        <p th:if="${memo.updateAt != memo.createdAt}" th:text="'수정: ' + ${memo.updateAt}">수정: 2024-12-10 12:01:34</p>
+        <div>
+          <p th:text="'작성: ' + ${memo.createdAt}">작성: 2024-12-09 11:58:29</p>
+          <p th:if="${memo.updateAt != memo.createdAt}" th:text="'수정: ' + ${memo.updateAt}">수정: 2024-12-10 12:01:34</p>
+        </div>
 
-        <p th:text="${memo.memoText}">
+        <p class="memoTextArea" th:text="${memo.memoText}">
           국가는 법률이 정하는 바에 의하여 재외국민을 보호할 의무를 진다. 국가는 농업 및 어업을 보호·육성하기 위하여 농·어촌종합개발과 그 지원등 필요한 계획을 수립·시행하여야 한다. 국가안전보장에 관련되는 대외정책·군사정책과 국내정책의 수립에 관하여 국무회의의 심의에 앞서 대통령의 자문에 응하기 위하여 국가안전보장회의를 둔다.
 
           대통령이 궐위된 때 또는 대통령 당선자가 사망하거나 판결 기타의 사유로 그 자격을 상실한 때에는 60일 이내에 후임자를 선거한다. 대통령의 임기는 5년으로 하며, 중임할 수 없다. 국무총리·국무위원 또는 정부위원은 국회나 그 위원회에 출석하여 국정처리상황을 보고하거나 의견을 진술하고 질문에 응답할 수 있다.
