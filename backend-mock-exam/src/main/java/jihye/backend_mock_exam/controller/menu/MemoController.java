@@ -14,6 +14,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.util.List;
+
 @Slf4j
 @Controller
 @RequestMapping("/memo")
@@ -62,6 +64,7 @@ public class MemoController {
     @GetMapping("/{memoId}")
     public String memoDetail(@PathVariable("memoId") Long memoId, Model model) {
         model.addAttribute("memo", memoService.memoDetail(memoId));
+        model.addAttribute("memoSelectDeleteDto", new MemoSelectDeleteDto(List.of(memoId)));
         return "menu/memo/memo-detail";
     }
 

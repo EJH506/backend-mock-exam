@@ -903,6 +903,9 @@ section > div > form .systemButton_sm:last-of-type {
   padding: 30px 24px;
   box-sizing: border-box;
 }
+#viewMemo:has(.memoTextArea:focus) {
+  border: 3px solid #71B961;
+}
 #viewMemo > div > p:first-child {
   margin-bottom: 5px;
 }

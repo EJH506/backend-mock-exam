@@ -8,4 +8,11 @@ import java.util.List;
 public class MemoSelectDeleteDto {
 
     private List<Long> deleteMemosId;
+
+    public MemoSelectDeleteDto() {
+    }
+
+    public MemoSelectDeleteDto(List<Long> deleteMemosId) {
+        this.deleteMemosId = deleteMemosId;
+    }
 }

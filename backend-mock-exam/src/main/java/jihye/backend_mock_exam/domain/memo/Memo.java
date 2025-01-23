@@ -9,8 +9,8 @@ public class Memo {
     private Long memoId;
     private Long userId;
     private String memoText;
-    private LocalDateTime createdAt;
-    private LocalDateTime updateAt;
+    private String createdAt;
+    private String updateAt;
 
     public Memo() {
     }
