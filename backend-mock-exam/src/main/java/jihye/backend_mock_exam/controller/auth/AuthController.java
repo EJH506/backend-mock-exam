@@ -86,7 +86,7 @@ public class AuthController {
             dto.setAccountId(sessionId);
         }
 
-//        authService.logout(request);
+        authService.logout(request);
 
         if (error != null) {
             bindingResult.reject("loginFail", "아이디 또는 비밀번호가 일치하지 않습니다.");

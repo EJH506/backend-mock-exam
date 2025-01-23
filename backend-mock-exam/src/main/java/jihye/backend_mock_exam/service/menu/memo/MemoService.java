@@ -34,23 +34,27 @@ public class MemoService {
         int offset = (page - 1) * pagePerItem; // limit 시작위치
 
         List<Memo> memos = null;
-
+        int totalCount = 0;
         // 회원일 경우
         if (userId > 0) {
             memos = memoRepository.findAllMemoById(userId, searchKeyword, offset, pagePerItem);
-
+            totalCount = memoRepository.findTotalMemoCountByUser(userId, searchKeyword);
         // 비회원일 경우
         } else {
-            memos = request.getSession().getAttribute("guestMemo") != null ? (List<Memo>) request.getSession().getAttribute("guestMemo") : new ArrayList<Memo>();
+            List<Memo> totalMemo = request.getSession().getAttribute("guestMemo") != null ? (List<Memo>) request.getSession().getAttribute("guestMemo") : new ArrayList<Memo>();
+            int toIndex = Math.min(offset + pagePerItem, totalMemo.size()); // 5보다 적은 경우를 처리하기 위해 Math.min 사용
+            memos = new ArrayList<>(totalMemo.subList(offset, toIndex));
+            totalCount = totalMemo.size();
         }
 
-        int totalCount = memoRepository.findTotalMemoCountByUser(userId, searchKeyword);
         int totalPages = (int) Math.ceil((double) totalCount / pagePerItem);
         int currentBlock = (int) Math.floor((double) (page - 1) / blockPerPage);
 
         log.info("memos={}", memos);
 
-        return new Page<>(memos, page, totalPages, currentBlock, totalCount);
+        Page<Memo> memoList = new Page<>(memos, page, totalPages, currentBlock, totalCount);
+        log.info("memoList={}", memoList);
+        return memoList;
     }
 
     // 메모 보기
@@ -81,11 +85,8 @@ public class MemoService {
         } else {
             List<Long> deleteMemosId = dto.getDeleteMemosId();
             List<Memo> memos = (List<Memo>) request.getSession(false).getAttribute("guestMemo");
-            for (int i=0; i<memos.size(); i++) {
-                if (memos.get(i).getMemoId().equals(deleteMemosId.get(i))) {
-                    memos.remove(i);
-                }
-            }
+
+            memos.removeIf(memo -> deleteMemosId.contains(memo.getMemoId()));
         }
         return dto.getDeleteMemosId();
     }
