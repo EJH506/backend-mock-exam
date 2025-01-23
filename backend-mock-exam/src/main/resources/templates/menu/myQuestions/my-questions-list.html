@@ -38,27 +38,30 @@
             <!-- 일반모드 문제 -->
             <ul id="NormalList" th:if="${questionList.content.size > 0}" class="commonList">
                 <li class="systemInput_md" th:each="question : ${questionList.content}">
-                    <div class="title">
+                    <a th:href="@{|/my-questions/${question.questionId}|}" class="title">
                         <span th:text="'Lv. ' + ${question.level}">Lv. 1</span>
                         <span class="questionText" th:text="${question.questionText}">HTTP와 HTTPS의 차이점으로 옳은 것을 고르세요</span>
-                    </div>
+                    </a>
                 </li>
             </ul>
 
             <!-- 선택모드 문제 -->
             <form id="DeleteForm" th:action="@{/my-questions/delete}" th:object="${myQuestionSelectDeleteDto}" method="post" style="display: none">
+                <input type="hidden" name="level" th:value="${paramLevel}" />
                 <ul class="commonList" th:if="${questionList.content.size > 0}">
                     <li th:each="question : ${questionList.content}">
                         <input type="checkbox" th:field="*{deleteQuestionsId}" th:value="${question.questionId}" />
                         <label class="systemInput_md" th:for="${#ids.prev('deleteQuestionsId')}">
-                            <span th:text="'Lv. ' + ${question.level}">Lv. 1</span>
-                            <span class="questionText" th:text="${question.questionText}">HTTP와 HTTPS의 차이점으로 옳은 것을 고르세요</span>
+                            <div class="title">
+                                <span th:text="'Lv. ' + ${question.level}">Lv. 1</span>
+                                <span class="questionText" th:text="${question.questionText}">HTTP와 HTTPS의 차이점으로 옳은 것을 고르세요</span>
+                            </div>
                         </label>
                     </li>
                 </ul>
             </form>
 
-            <div th:if="${questionList.content.size < 1}" class="empty">오답노트가 비었습니다</div>
+            <div th:if="${questionList.content.size < 1}" class="empty">나만의 문제가 비었습니다</div>
 
             <ul class="buttons" th:if="${questionList.totalPages > 0}">
                 <li th:if="${questionList.hasPrevBlock()}"><a th:href="@{|/my-questions/list?level=${paramLevel}&searchKeyword=${searchKeyword != null ? searchKeyword : ''}&page=${questionList.prevBlockStartPage()}|}" th:text="#{paging.prev}">이전(목업)</a></li>

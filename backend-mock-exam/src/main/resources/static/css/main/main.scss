@@ -395,11 +395,11 @@ section {
   }
 }
 
+#DeleteForm { margin: 0; }
+
 // 메모장 리스트
 #memoListArea { // div
   width: 900px;
-
-  #DeleteForm { margin: 0; }
 
   .memoList { //ul
     display: flex;

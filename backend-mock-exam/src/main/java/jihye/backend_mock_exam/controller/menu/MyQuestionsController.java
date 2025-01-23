@@ -1,21 +1,22 @@
 package jihye.backend_mock_exam.controller.menu;
 
+import jakarta.servlet.http.HttpServletRequest;
 import jihye.backend_mock_exam.domain.exam.Question;
 import jihye.backend_mock_exam.domain.user.Role;
 import jihye.backend_mock_exam.service.Page;
+import jihye.backend_mock_exam.service.menu.memo.dto.MemoSelectDeleteDto;
 import jihye.backend_mock_exam.service.menu.myQuestions.MyQuestionsService;
 import jihye.backend_mock_exam.service.menu.myQuestions.dto.MyQuestionSelectDeleteDto;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 
+@Slf4j
 @Controller
 @RequestMapping("/my-questions")
 @RequiredArgsConstructor
@@ -52,5 +53,23 @@ public class MyQuestionsController {
         model.addAttribute("user", user);
         model.addAttribute("myQuestionSelectDeleteDto", new MyQuestionSelectDeleteDto());
         return "menu/myQuestions/my-questions-list";
+    }
+
+    @PostMapping("/delete")
+    public String selectedMemoDelete(@ModelAttribute MyQuestionSelectDeleteDto dto,
+                                     @RequestParam("level") String level,
+                                     RedirectAttributes redirectAttributes) {
+
+        myQuestionsService.myQuestionSelectDelete(dto);
+
+        log.info("MyQuestionSelectDeleteDto={}", dto);
+        redirectAttributes.addAttribute("level", level);
+        return "redirect:/my-questions/list";
+    }
+
+    @GetMapping("/{questionId}")
+    public String myQuestionDetail(@PathVariable("questionId") Long questionId) {
+//        myQuestionsService.findMyQuestionById(questionId);
+        return null;
     }
 }

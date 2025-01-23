@@ -35,4 +35,11 @@
         SELECT * FROM my_questions_levels WHERE user_id = #{userId}
     </select>
 
+    <delete id="deleteMyQuestionList">
+        DELETE FROM my_questions
+        WHERE question_id IN
+        <foreach collection="list" item="myQuestionsId" open="(" close=")" separator=",">
+            #{myQuestionsId}
+        </foreach>
+    </delete>
 </mapper>

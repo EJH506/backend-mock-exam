@@ -32,4 +32,10 @@ public class MyQuestionsRepositoryImpl implements MyQuestionsRepository {
     public List<Integer> findLevelsOfMyQuestion(Long userId) {
         return myQuestionsMapper.findLevelsOfMyQuestion(userId);
     }
+
+    // 선택한 문항 삭제
+    @Override
+    public void deleteMyQuestionList(List<Long> myQuestionsId) {
+        myQuestionsMapper.deleteMyQuestionList(myQuestionsId);
+    }
 }

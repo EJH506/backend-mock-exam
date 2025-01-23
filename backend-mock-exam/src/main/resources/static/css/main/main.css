@@ -816,11 +816,12 @@ section > div > form .systemButton_sm:last-of-type {
   text-align: end;
 }
 
+#DeleteForm {
+  margin: 0;
+}
+
 #memoListArea {
   width: 900px;
-}
-#memoListArea #DeleteForm {
-  margin: 0;
 }
 #memoListArea .memoList {
   display: flex;

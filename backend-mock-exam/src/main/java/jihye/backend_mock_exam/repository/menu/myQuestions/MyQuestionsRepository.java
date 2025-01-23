@@ -15,4 +15,7 @@ public interface MyQuestionsRepository {
 
     // 나만의 문제에 존재하는 레벨 목록 조회
     List<Integer> findLevelsOfMyQuestion(Long userId);
+    
+    // 선택한 문항 삭제
+    void deleteMyQuestionList(List<Long> myQuestionsId);
 }
