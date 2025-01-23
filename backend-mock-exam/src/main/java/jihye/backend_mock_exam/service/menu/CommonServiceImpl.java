@@ -235,4 +235,18 @@ public class CommonServiceImpl implements CommonService {
 
         return new QuestionFilter(subjectId, levelInt);
     }
+
+    @Override
+    // 매개변수로 사용될 level의 값을 통합인지 아닌지에 따라 적절히 변환
+    public QuestionFilter questionFilterConvert(String level) {
+
+        int levelInt = 0;
+
+        // 전체 레벨이 아닐 시
+        if (level != null && !(ExamConst.LEVEL_ALL.equals(level))) {
+            levelInt = Integer.parseInt(level);
+        }
+
+        return new QuestionFilter(levelInt);
+    }
 }

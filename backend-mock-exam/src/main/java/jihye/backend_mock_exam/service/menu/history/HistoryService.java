@@ -21,15 +21,13 @@ public class HistoryService {
 
         int pagePerItem = 5;                   // 페이지당 아이템 수
         int blockPerPage = 5;                  // 블럭당 페이지 수
-        int offset = (page - 1) * pagePerItem; // limit 시작위치
+        int offset = (page - 1) * pagePerItem;
 
         List<ExamHistory> histories = historyRepository.findExamHistoryByUser(userId, offset, pagePerItem);
 
         int totalCount = historyRepository.findTotalExamHistoryCountByUser(userId);
-        int totalPages = (int) Math.ceil((double) totalCount / pagePerItem);
-        int currentBlock = (int) Math.floor((double) (page - 1) / blockPerPage);
 
-        return new Page<>(histories, page, totalPages, currentBlock, totalCount);
+        return new Page<>(histories, page, totalCount, pagePerItem, blockPerPage);
     }
 
     // 히스토리 조회

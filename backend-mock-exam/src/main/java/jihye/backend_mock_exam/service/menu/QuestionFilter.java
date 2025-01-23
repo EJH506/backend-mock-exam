@@ -8,6 +8,10 @@ public class QuestionFilter {
     private Long subjectId;
     private int levelInt;
 
+    public QuestionFilter(int levelInt) {
+        this.levelInt = levelInt;
+    }
+
     public QuestionFilter(Long subjectId, int levelInt) {
         this.subjectId = subjectId;
         this.levelInt = levelInt;

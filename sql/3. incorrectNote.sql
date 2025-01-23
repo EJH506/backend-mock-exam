@@ -13,3 +13,5 @@ CREATE TABLE incorrect_note (
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,	-- 수정일시
     UNIQUE (user_id, question_id)
 )
+
+SELECT * FROM incorrect_note;

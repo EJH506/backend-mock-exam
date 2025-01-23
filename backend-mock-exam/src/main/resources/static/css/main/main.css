@@ -710,25 +710,32 @@ section > div > form .systemButton_sm:last-of-type {
   color: white;
 }
 
-#incorrectArea {
+#commonArea {
   display: flex;
   flex-flow: column wrap;
+  align-items: center;
   gap: 12px;
   width: 800px;
 }
-#incorrectArea > .buttons:first-child {
-  align-self: flex-start !important;
+#commonArea > .buttons:first-of-type {
+  align-self: flex-start;
 }
-#incorrectArea > .buttons:first-child:last-of-type {
+#commonArea > .buttons:last-of-type {
   margin: 12px 0;
   align-self: center;
 }
-#incorrectArea > #incorrectList {
+#commonArea .commonList {
   display: flex;
   flex-flow: column wrap;
   gap: 8px;
 }
-#incorrectArea > #incorrectList > .systemInput_md {
+#commonArea .commonList input[type=checkbox] {
+  display: none;
+}
+#commonArea .commonList input[type=checkbox]:checked ~ .systemInput_md {
+  border-color: #FF6F74;
+}
+#commonArea .commonList .systemInput_md {
   flex-flow: column wrap;
   min-height: 60px;
   height: initial;
@@ -736,37 +743,41 @@ section > div > form .systemButton_sm:last-of-type {
   box-sizing: border-box;
   cursor: pointer;
 }
-#incorrectArea > #incorrectList > .systemInput_md > .title {
+#commonArea .commonList .systemInput_md > .title {
+  position: relative;
   display: flex;
   justify-content: space-between;
   align-items: center;
   width: 100%;
   font-size: 20px;
 }
-#incorrectArea > #incorrectList > .systemInput_md > .title .questionText {
+#commonArea .commonList .systemInput_md > .title .questionText {
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%, 0);
   font-family: "Pretendard-Medium";
 }
-#incorrectArea > #incorrectList > .systemInput_md.on {
+#commonArea .commonList .systemInput_md.on {
   border-color: #71B961;
 }
-#incorrectArea > #incorrectList > .systemInput_md.on .questionText {
+#commonArea .commonList .systemInput_md.on .questionText {
   font-family: "Pretendard-Bold";
 }
-#incorrectArea > #incorrectList > .systemInput_md.on > .content {
+#commonArea .commonList .systemInput_md.on > .content {
   display: flex;
 }
-#incorrectArea > #incorrectList > .systemInput_md.on > .content > ul {
+#commonArea .commonList .systemInput_md.on > .content > ul {
   display: flex;
   flex-flow: column wrap;
   gap: 7px;
   margin: 24px 0 12px;
 }
-#incorrectArea > #incorrectList > .systemInput_md.on > .content > ul > .correct {
+#commonArea .commonList .systemInput_md.on > .content > ul > .correct {
   font-family: "Pretendard-Bold";
   font-size: 16px;
   box-shadow: 3px 3px 3px #CCC;
 }
-#incorrectArea > #incorrectList > .systemInput_md > .content {
+#commonArea .commonList .systemInput_md > .content {
   display: none;
   flex-flow: column wrap;
   justify-content: center;
@@ -808,36 +819,15 @@ section > div > form .systemButton_sm:last-of-type {
 #memoListArea {
   width: 900px;
 }
-#memoListArea > .buttons.normal-mode, #memoListArea > .buttons.select-mode {
-  align-self: flex-end;
-  font-size: 16px;
-  margin-top: 0;
-}
-#memoListArea > .buttons.normal-mode > .select-start, #memoListArea > .buttons.normal-mode .select-cancel, #memoListArea > .buttons.normal-mode .select-all, #memoListArea > .buttons.select-mode > .select-start, #memoListArea > .buttons.select-mode .select-cancel, #memoListArea > .buttons.select-mode .select-all {
-  color: #71B961;
-  background-color: white;
-  border: 1px solid #71B961;
-}
-#memoListArea > .buttons.normal-mode > .select-all, #memoListArea > .buttons.select-mode > .select-all {
-  color: #FF6F74;
-  border-color: #FF6F74;
-}
-#memoListArea > .buttons.normal-mode .select-submit, #memoListArea > .buttons.select-mode .select-submit {
-  background-color: #FF6F74;
-  border-color: #FF6F74;
-}
-#memoListArea #memoDeleteForm {
+#memoListArea #DeleteForm {
   margin: 0;
 }
 #memoListArea .memoList {
+  display: flex;
+  flex-flow: column wrap;
+  gap: 14px;
   margin-top: 20px;
   margin-bottom: 10px;
-}
-#memoListArea .memoList li {
-  margin-bottom: 14px;
-}
-#memoListArea .memoList li:last-of-type {
-  margin-bottom: 0;
 }
 #memoListArea .memoList li > input[type=checkbox] {
   display: none;
@@ -916,6 +906,34 @@ section > div > form .systemButton_sm:last-of-type {
 #viewMemo > textarea {
   height: 600px;
   resize: none;
+}
+
+#buttonsArea {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+#commonManager {
+  justify-self: flex-end;
+  align-self: flex-end;
+}
+#commonManager .buttons.normal-mode, #commonManager .buttons.select-mode {
+  font-size: 16px;
+  margin-top: 0;
+}
+#commonManager .buttons.normal-mode > .select-start, #commonManager .buttons.normal-mode .select-cancel, #commonManager .buttons.normal-mode .select-all, #commonManager .buttons.select-mode > .select-start, #commonManager .buttons.select-mode .select-cancel, #commonManager .buttons.select-mode .select-all {
+  color: #71B961;
+  background-color: white;
+  border: 1px solid #71B961;
+}
+#commonManager .buttons.normal-mode > .select-all, #commonManager .buttons.select-mode > .select-all {
+  color: #FF6F74;
+  border-color: #FF6F74;
+}
+#commonManager .buttons.normal-mode .select-submit, #commonManager .buttons.select-mode .select-submit {
+  background-color: #FF6F74;
+  border-color: #FF6F74;
 }
 
 /*# sourceMappingURL=main.css.map */

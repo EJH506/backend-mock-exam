@@ -15,7 +15,7 @@ CREATE TABLE subjects (
 )
 
 INSERT INTO SUBJECTS (SUBJECT_NAME) VALUES
-('자료구조'), ('알고리즘'), ('운영체제'), ('네트워크'), ('데이터 베이스'), ('개발 언어'), ('백엔드'), ('나만의 문제');
+('자료구조'), ('알고리즘'), ('운영체제'), ('네트워크'), ('데이터 베이스'), ('개발 언어'), ('백엔드');
 
 CREATE TABLE levels (
 	level_id INT AUTO_INCREMENT PRIMARY KEY,									-- 식별자
@@ -27,7 +27,7 @@ CREATE TABLE levels (
 
 INSERT INTO LEVELS (subject_id, level) VALUES
 (1, 1), (1, 2), (1, 3), (2, 1), (2, 2), (2, 3), (3, 1), (3, 2), (3, 3), (4, 1), (4, 2), (4, 3),
-(5, 1), (5, 2), (5, 3), (6, 1), (6, 2), (6, 3), (7, 1), (7, 2), (7, 3), (8, 1), (8, 2), (8, 3);
+(5, 1), (5, 2), (5, 3), (6, 1), (6, 2), (6, 3), (7, 1), (7, 2), (7, 3);
 
 CREATE TABLE questions (
 	question_id INT AUTO_INCREMENT PRIMARY KEY,									-- 식별자
@@ -68,13 +68,7 @@ INSERT INTO questions (subject_id, level, question_text) VALUES
 (7, 1, 'id 7의 두번째 문제입니다'),(7, 1, 'id 7의 세번째 문제입니다'),(7, 1, 'id 7의 네번째 문제입니다'),(7, 2, 'id 7의 다섯번째 문제입니다'),
 (7, 2, 'id 7의 여섯번째 문제입니다'),(7, 2, 'id 7의 일곱번째 문제입니다'),(7, 2, 'id 7의 여덟번째 문제입니다'),(7, 3, 'id 7의 아홉번째 문제입니다'),
 (7, 3, 'id 7의 열번째 문제입니다'),(7, 3, 'id 7의 열한번째 문제입니다'),(7, 3, 'id 7의 열두번째 문제입니다'),(7, 1, 'id 7의 열세번째 문제입니다'),
-(7, 1, 'id 7의 열네번째 문제입니다'),(7, 2, 'id 7의 열다섯번째 문제입니다'),(7, 2, 'id 7의 열여섯번째 문제입니다'),(7, 3, 'id 7의 열일곱번째 문제입니다'),
-(8, 1, 'id 8의 첫번째 문제입니다'),(8, 1, 'id 8의 두번째 문제입니다'),(8, 1, 'id 8의 세번째 문제입니다'),(8, 1, 'id 8의 네번째 문제입니다'),
-(8, 2, 'id 8의 다섯번째 문제입니다'),(8, 2, 'id 8의 여섯번째 문제입니다'),(8, 2, 'id 8의 일곱번째 문제입니다'),(8, 2, 'id 8의 여덟번째 문제입니다'),
-(8, 3, 'id 8의 아홉번째 문제입니다'),(8, 3, 'id 8의 열번째 문제입니다'),(8, 3, 'id 8의 열한번째 문제입니다'),(8, 3, 'id 8의 열두번째 문제입니다'),
-(8, 1, 'id 8의 열세번째 문제입니다'),(8, 1, 'id 8의 열네번째 문제입니다'),(8, 2, 'id 8의 열다섯번째 문제입니다'),(8, 2, 'id 8의 열여섯번째 문제입니다'),
-(8, 3, 'id 8의 열일곱번째 문제입니다');
-
+(7, 1, 'id 7의 열네번째 문제입니다'),(7, 2, 'id 7의 열다섯번째 문제입니다'),(7, 2, 'id 7의 열여섯번째 문제입니다'),(7, 3, 'id 7의 열일곱번째 문제입니다');
 
 CREATE TABLE answers (
 	answer_id INT AUTO_INCREMENT PRIMARY KEY,									-- 식별자
@@ -85,4 +79,7 @@ CREATE TABLE answers (
 	update_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP	-- 수정일시
 )
 
+select * from subjects;
+select * from levels;
+select * from questions;
 select * from answers;

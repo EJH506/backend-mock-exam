@@ -44,5 +44,6 @@ public interface CommonService {
 
     // 매개변수로 사용될 subject와 level의 값을 통합인지 아닌지에 따라 적절히 변환
     QuestionFilter questionFilterConvert(String subjectName, String level);
+    QuestionFilter questionFilterConvert(String level);
 
 }

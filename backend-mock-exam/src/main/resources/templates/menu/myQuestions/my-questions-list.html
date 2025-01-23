@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="#{page.my-questions} + ' | ' + #{title}">나만의 문제 | 백엔드 모의고사</title>
+    <link rel="stylesheet" th:href="@{/css/main/main.css}">
+    <script th:src="@{https://code.jquery.com/jquery-3.6.0.min.js}"></script>
+    <script th:src="@{/js/selectItemForDelete.js}"></script>
+</head>
+<body>
+<div class="wrap">
+    <header th:replace="~{fragment/home-header :: header (${user.userId}, ${user.nickname}, ${isMember})}"></header>
+
+    <section>
+        <h2 th:text="#{page.my-questions}">나만의 문제(목업)</h2>
+
+        <div id="commonArea">
+            <div id="buttonsArea">
+                <ul class="buttons">
+                    <li><a th:href="@{|/my-questions/list?level=#{page.level.all}|}" th:text="#{page.level.all}" th:classappend="${paramLevel == '전체' ? 'text_on' : ''}">전체(목업)</a></li>
+                    <li th:each="level : ${levels}"><a th:href="@{|/my-questions/list?level=${level}|}" th:text="'Lv. ' + ${level}" th:classappend="${#strings.equals(paramLevel, level) ? 'text_on' : ''}">Lv. 1(목업)</a></li>
+                </ul>
+
+                <div id="commonManager">
+                    <div class="buttons normal-mode">
+                        <p th:if="${questionList.content.size > 0}" class="navButton_sm select-start">문제 선택</p>
+                        <a class="navButton_sm" th:href="@{/memo/write}">문제 등록</a>
+                    </div>
+
+                    <div class="buttons select-mode" style="display: none">
+                        <p class="navButton_sm select-cancel">선택 취소</p>
+                        <p class="navButton_sm select-all">전체 선택</p>
+                        <p class="navButton_sm select-submit" style="display: none">선택 삭제</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 일반모드 문제 -->
+            <ul id="NormalList" th:if="${questionList.content.size > 0}" class="commonList">
+                <li class="systemInput_md" th:each="question : ${questionList.content}">
+                    <div class="title">
+                        <span th:text="'Lv. ' + ${question.level}">Lv. 1</span>
+                        <span class="questionText" th:text="${question.questionText}">HTTP와 HTTPS의 차이점으로 옳은 것을 고르세요</span>
+                    </div>
+                </li>
+            </ul>
+
+            <!-- 선택모드 문제 -->
+            <form id="DeleteForm" th:action="@{/my-questions/delete}" th:object="${myQuestionSelectDeleteDto}" method="post" style="display: none">
+                <ul class="commonList" th:if="${questionList.content.size > 0}">
+                    <li th:each="question : ${questionList.content}">
+                        <input type="checkbox" th:field="*{deleteQuestionsId}" th:value="${question.questionId}" />
+                        <label class="systemInput_md" th:for="${#ids.prev('deleteQuestionsId')}">
+                            <span th:text="'Lv. ' + ${question.level}">Lv. 1</span>
+                            <span class="questionText" th:text="${question.questionText}">HTTP와 HTTPS의 차이점으로 옳은 것을 고르세요</span>
+                        </label>
+                    </li>
+                </ul>
+            </form>
+
+            <div th:if="${questionList.content.size < 1}" class="empty">오답노트가 비었습니다</div>
+
+            <ul class="buttons" th:if="${questionList.totalPages > 0}">
+                <li th:if="${questionList.hasPrevBlock()}"><a th:href="@{|/my-questions/list?level=${paramLevel}&searchKeyword=${searchKeyword != null ? searchKeyword : ''}&page=${questionList.prevBlockStartPage()}|}" th:text="#{paging.prev}">이전(목업)</a></li>
+                <li th:each="i : ${#numbers.sequence(questionList.currentBlock * 5 + 1, questionList.getEndPageOfBlock())}"><a th:href="@{|/my-questions/list?level=${paramLevel}&searchKeyword=${searchKeyword != null ? searchKeyword : ''}&page=${i}|}" th:classappend="${questionList.currentPage == i ? 'text_on' : ''}" th:text="${i}">1(목업)</a></li>
+                <li th:if="${questionList.hasNextBlock()}"><a th:href="@{|/my-questions/list?level=${paramLevel}&searchKeyword=${searchKeyword != null ? searchKeyword : ''}&page=${questionList.nextBlockStartPage()}|}" th:text="#{paging.next}">다음(목업)</a></li>
+            </ul>
+
+            <form class="searchForm" th:action method="get">
+                <input type="hidden" name="userId" th:value="${user.userId}" />
+                <input type="hidden" name="level" th:value="${paramLevel}" />
+                <label class="sr-only" for="searchKeyword">검색어</label>
+                <input type="text" id="searchKeyword" name="searchKeyword" th:value="${searchKeyword != null ? searchKeyword : ''}" th:placeholder="#{text.search.enterSearch}" />
+                <button type="submit" th:text="#{button.search}">검색(목업)</button>
+            </form>
+
+            <a class="systemButton_sm" th:href="@{/my-questions}" th:text="#{button.go-list}">목록으로</a>
+        </div>
+
+
+    </section>
+</div>
+</body>
+</html>

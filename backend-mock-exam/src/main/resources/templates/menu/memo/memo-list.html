@@ -5,7 +5,7 @@
     <title th:text="#{page.memo} + ' | ' + #{title}">메모장 | 백엔드 모의고사</title>
     <link rel="stylesheet" th:href="@{/css/main/main.css}">
     <script th:src="@{https://code.jquery.com/jquery-3.6.0.min.js}"></script>
-    <script th:src="@{/js/memo/memo-list.js}"></script>
+    <script th:src="@{/js/selectItemForDelete.js}"></script>
 </head>
 <body>
 <div class="wrap">
@@ -15,19 +15,21 @@
     <h2 th:text="#{page.memo}">메모장 (목업)</h2>
 
     <div id="memoListArea">
-        <div class="buttons normal-mode">
-            <p th:if="${memoList.content.size > 0}" class="navButton_sm select-start">메모 선택</p>
-            <a class="navButton_sm" th:href="@{/memo/write}">새 메모</a>
+        <div id="commonManager">
+            <div class="buttons normal-mode">
+                <p th:if="${memoList.content.size > 0}" class="navButton_sm select-start">메모 선택</p>
+                <a class="navButton_sm" th:href="@{/memo/write}">새 메모</a>
+            </div>
+
+            <div class="buttons select-mode" style="display: none">
+                <p class="navButton_sm select-cancel">선택 취소</p>
+                <p class="navButton_sm select-all">전체 선택</p>
+                <p class="navButton_sm select-submit" style="display: none">선택 삭제</p>
+            </div>
         </div>
 
-        <div class="buttons select-mode" style="display: none">
-            <p class="navButton_sm select-cancel">선택 취소</p>
-            <p class="navButton_sm select-all">전체 선택</p>
-            <p class="navButton_sm select-submit" style="display: none">선택 삭제</p>
-        </div>
-
-        <ul id="memoNormalList" class="memoList" th:if="${memoList.content.size > 0}">
-            <!-- 일반모드 메모 -->
+        <!-- 일반모드 메모 -->
+        <ul id="NormalList" class="memoList" th:if="${memoList.content.size > 0}">
             <li th:each="memo : ${memoList.content}">
                 <a class="systemInput_md" th:href="@{|/memo/${memo.memoId}|}">
                     <span class="memo-preview" th:text="${memo.memoText}">모든 국민은 법률이 정하는 바에 의하여 공무담임권을 가진다. 국가는 농업 및 어업을 보호·육성하기 위하여 ...</span>
@@ -38,7 +40,7 @@
 
 
         <!-- 선택모드 메모 -->
-        <form id="memoDeleteForm" th:action="@{/memo/delete}" th:object="${memoSelectDeleteDto}" method="post" style="display: none">
+        <form id="DeleteForm" th:action="@{/memo/delete}" th:object="${memoSelectDeleteDto}" method="post" style="display: none">
             <ul class="memoList" th:if="${memoList.content.size > 0}">
                 <li th:each="memo : ${memoList.content}">
                     <input type="checkbox" th:field="*{deleteMemosId}" th:value="${memo.memoId}" />

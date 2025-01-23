@@ -16,13 +16,13 @@
     <section>
         <h2 th:text="${subject}">네트워크(목업)</h2>
 
-        <div id="incorrectArea">
+        <div id="commonArea">
             <ul class="buttons">
                 <li><a th:href="@{|/incorrect-note/list?subject=${subject}&level=#{page.level.all}|}" th:text="#{page.incorrectSubject.all}" th:classappend="${paramLevel == '전체' ? 'text_on' : ''}">전체(목업)</a></li>
                 <li th:each="level : ${levels}"><a th:href="@{|/incorrect-note/list?subject=${subject}&level=${level}|}" th:text="'Lv. ' + ${level}" th:classappend="${#strings.equals(paramLevel, level) ? 'text_on' : ''}">Lv. 1(목업)</a></li>
             </ul>
 
-            <ul th:if="${incorrectItemList.content.size > 0}" id="incorrectList">
+            <ul th:if="${incorrectItemList.content.size > 0}" class="commonList">
                 <li class="systemInput_md" th:each="incorrectItem : ${incorrectItemList.content}">
                     <div class="title">
                         <span th:text="'Lv. ' + ${incorrectItem.level}">Lv. 1</span>

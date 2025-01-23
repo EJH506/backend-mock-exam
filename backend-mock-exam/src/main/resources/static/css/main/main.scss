@@ -257,15 +257,17 @@ section {
   }
 }
 
-// 오답노트 리스트
-#incorrectArea {
+// 오답노트 리스트 + 나만의 문제 리스트
+#commonArea {
   display: flex;
   flex-flow: column wrap;
+  align-items: center;
   gap: 12px;
   width: 800px;
 
-  >.buttons:first-child {
-    align-self: flex-start !important;
+  >.buttons {
+    &:first-of-type { align-self: flex-start; }
+
 
     &:last-of-type {
       margin: 12px 0;
@@ -273,12 +275,19 @@ section {
     }
   }
 
-  >#incorrectList {
+  .commonList {
     display: flex;
     flex-flow: column wrap;
     gap: 8px;
 
-    >.systemInput_md {
+    input[type='checkbox'] {
+      display: none;
+
+      &:checked ~ .systemInput_md {
+        border-color: $accent-caution;
+      }
+    }
+    .systemInput_md {
       flex-flow: column wrap;
       min-height: 60px;
       height: initial;
@@ -287,6 +296,7 @@ section {
       cursor: pointer;
 
       >.title {
+        position: relative;
         display: flex;
         justify-content: space-between;
         align-items: center;
@@ -294,6 +304,9 @@ section {
         font-size: 20px;
 
         .questionText {
+          position: absolute;
+          left: 50%;
+          transform: translate(-50%, 0);
           font-family: 'Pretendard-Medium';
         }
       } //.title
@@ -386,40 +399,16 @@ section {
 #memoListArea { // div
   width: 900px;
 
-  >.buttons { // 메모선택, 새메모 버튼 + 페이지네이션
-    &.normal-mode, &.select-mode { // 메모선택, 새메모 버튼
-      align-self: flex-end;
-      font-size: 16px;
-      margin-top: 0;
-
-      > .select-start, .select-cancel, .select-all {
-        color: $theme-main;
-        background-color: white;
-        border: 1px solid $theme-main;
-      }
-
-      >.select-all {
-        color: $accent-caution;
-        border-color: $accent-caution;
-      }
-
-      .select-submit {
-        background-color: $accent-caution;
-        border-color: $accent-caution;
-      }
-    } //&.normal-mode, &.select-mode
-  } //.buttons
-
-  #memoDeleteForm { margin: 0; }
+  #DeleteForm { margin: 0; }
 
   .memoList { //ul
+    display: flex;
+    flex-flow: column wrap;
+    gap: 14px;
     margin-top: 20px;
     margin-bottom: 10px;
 
     li {
-      margin-bottom: 14px;
-
-      &:last-of-type {margin-bottom: 0;}
 
       >input[type='checkbox'] {
         display: none;
@@ -509,4 +498,38 @@ section {
     height: 600px;
     resize: none;
   }
+}
+
+#buttonsArea { // 메모장 리스트, 나만의 문제 리스트에 존재하는 선택, 등록, 삭제 등 버튼
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+#commonManager {
+  justify-self: flex-end;
+  align-self: flex-end;
+
+  .buttons { // 선택, 등록 버튼 + 페이지네이션
+    &.normal-mode, &.select-mode { // 메모선택, 새메모 버튼
+      font-size: 16px;
+      margin-top: 0;
+
+      > .select-start, .select-cancel, .select-all {
+        color: $theme-main;
+        background-color: white;
+        border: 1px solid $theme-main;
+      }
+
+      >.select-all {
+        color: $accent-caution;
+        border-color: $accent-caution;
+      }
+
+      .select-submit {
+        background-color: $accent-caution;
+        border-color: $accent-caution;
+      }
+    } //&.normal-mode, &.select-mode
+  } //.buttons
 }

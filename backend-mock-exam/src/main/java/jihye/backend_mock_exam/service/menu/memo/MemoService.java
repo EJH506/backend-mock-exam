@@ -47,12 +47,9 @@ public class MemoService {
             totalCount = totalMemo.size();
         }
 
-        int totalPages = (int) Math.ceil((double) totalCount / pagePerItem);
-        int currentBlock = (int) Math.floor((double) (page - 1) / blockPerPage);
-
         log.info("memos={}", memos);
 
-        Page<Memo> memoList = new Page<>(memos, page, totalPages, currentBlock, totalCount);
+        Page<Memo> memoList = new Page<>(memos, page, totalCount, pagePerItem, blockPerPage);
         log.info("memoList={}", memoList);
         return memoList;
     }

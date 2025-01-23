@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jihye.backend_mock_exam.repository.menu.myQuestions.MyQuestionsMapper">
+
+    <select id="findMyQuestions" resultType="question">
+        SELECT * FROM my_questions
+        <where>
+            AND user_id = #{userId}
+            <if test="level != 0">
+                AND level = #{level}
+            </if>
+            <if test="searchKeyword != null">
+                AND question_text LIKE CONCAT('%', #{searchKeyword}, '%')
+            </if>
+        </where>
+        ORDER BY question_id DESC
+        LIMIT #{offset}, #{pagePerItem}
+    </select>
+
+    <select id="myQuestionsTotalCount" resultType="int">
+        SELECT count(*) FROM my_questions
+        <where>
+            AND user_id = #{userId}
+            <if test="level != 0">
+                AND level = #{level}
+            </if>
+            <if test="searchKeyword != null">
+                AND question_text LIKE CONCAT('%', #{searchKeyword}, '%')
+            </if>
+        </where>
+    </select>
+
+    <select id="findLevelsOfMyQuestion" resultType="int">
+        SELECT * FROM my_questions_levels WHERE user_id = #{userId}
+    </select>
+
+</mapper>
