@@ -2,8 +2,6 @@ package jihye.backend_mock_exam.domain.memo;
 
 import lombok.Data;
 
-import java.time.LocalDateTime;
-
 @Data
 public class Memo {
     private Long memoId;

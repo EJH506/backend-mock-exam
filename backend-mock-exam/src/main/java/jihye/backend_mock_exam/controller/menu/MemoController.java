@@ -1,6 +1,9 @@
 package jihye.backend_mock_exam.controller.menu;
 
+import jakarta.servlet.http.HttpServletRequest;
 import jihye.backend_mock_exam.domain.memo.Memo;
+import jihye.backend_mock_exam.domain.user.Guest;
+import jihye.backend_mock_exam.domain.user.Role;
 import jihye.backend_mock_exam.domain.user.User;
 import jihye.backend_mock_exam.service.Page;
 import jihye.backend_mock_exam.service.menu.memo.MemoService;
@@ -30,9 +33,10 @@ public class MemoController {
     }
 
     @GetMapping("/write")
-    public String memoWritePage(@RequestAttribute("user") User user, Model model) {
+    public String memoWritePage(@RequestAttribute("user") Role user, Model model) {
         MemoWriteDto dto = new MemoWriteDto();
         dto.setUserId(user.getUserId());
+        log.info("user.getUserId()={}",user.getUserId());
 
         model.addAttribute("user", user);
         model.addAttribute("memoWriteDto", dto);
@@ -40,21 +44,22 @@ public class MemoController {
     }
 
     @PostMapping("/write")
-    public String memoWrite(@ModelAttribute MemoWriteDto dto, RedirectAttributes redirectAttributes) {
+    public String memoWrite(@ModelAttribute MemoWriteDto dto, HttpServletRequest request, RedirectAttributes redirectAttributes) {
 
-        Memo memo = memoService.saveMemo(dto);
+        Memo memo = memoService.saveMemo(dto, request);
         log.info("memo={}",memo);
         redirectAttributes.addAttribute("memoId", memo.getMemoId());
         return "redirect:/memo/{memoId}";
     }
 
     @GetMapping("/list")
-    public String memoList(@RequestAttribute("user") User user,
+    public String memoList(@RequestAttribute("user") Role user,
                            @RequestParam(value = "searchKeyword", required = false) String searchKeyword,
                            @RequestParam(value = "page", defaultValue = "1") int page,
+                           HttpServletRequest request,
                            Model model) {
 
-        Page<Memo> memoList = memoService.memoList(user.getUserId(), searchKeyword, page);
+        Page<Memo> memoList = memoService.memoList(user.getUserId(), request, searchKeyword, page);
         model.addAttribute("memoList", memoList);
         model.addAttribute("searchKeyword", searchKeyword);
         model.addAttribute("memoSelectDeleteDto", new MemoSelectDeleteDto());
@@ -62,32 +67,43 @@ public class MemoController {
     }
 
     @GetMapping("/{memoId}")
-    public String memoDetail(@PathVariable("memoId") Long memoId, Model model) {
-        model.addAttribute("memo", memoService.memoDetail(memoId));
+    public String memoDetail(@RequestAttribute("user") Role user,
+                             @PathVariable("memoId") Long memoId,
+                             HttpServletRequest request,
+                             Model model) {
+        model.addAttribute("memo", memoService.memoDetail(memoId, user, request));
         model.addAttribute("memoSelectDeleteDto", new MemoSelectDeleteDto(List.of(memoId)));
         return "menu/memo/memo-detail";
     }
 
     @PostMapping("/delete")
-    public String selectedMemoDelete(@ModelAttribute MemoSelectDeleteDto dto) {
+    public String selectedMemoDelete(@RequestAttribute("user") Role user,
+                                     @ModelAttribute MemoSelectDeleteDto dto,
+                                     HttpServletRequest request) {
 
-        memoService.memoSelectDelete(dto);
+        memoService.memoSelectDelete(dto, user, request);
 
         log.info("MemoSelectDeleteDto={}", dto);
         return "redirect:/memo/list";
     }
 
     @GetMapping("/{memoId}/edit")
-    public String memoEditPage(@PathVariable("memoId") Long memoId, Model model) {
+    public String memoEditPage(@RequestAttribute("user") Role user,
+                               @PathVariable("memoId") Long memoId,
+                               HttpServletRequest request,
+                               Model model) {
 
-        Memo memo = memoService.memoDetail(memoId);
+        Memo memo = memoService.memoDetail(memoId, user, request);
         model.addAttribute("memoEditDto", new MemoEditDto(memoId, memo.getMemoText()));
         return "menu/memo/memo-edit";
     }
 
     @PostMapping("/{memoId}/edit")
-    public String memoEdit(@ModelAttribute MemoEditDto dto, RedirectAttributes redirectAttributes) {
-        memoService.editMemo(dto);
+    public String memoEdit(@RequestAttribute("user") Role user,
+                           @ModelAttribute MemoEditDto dto,
+                           HttpServletRequest request,
+                           RedirectAttributes redirectAttributes) {
+        memoService.editMemo(dto, user, request);
         redirectAttributes.addAttribute("memoId", dto.getMemoId());
         return "redirect:/memo/{memoId}";
     }

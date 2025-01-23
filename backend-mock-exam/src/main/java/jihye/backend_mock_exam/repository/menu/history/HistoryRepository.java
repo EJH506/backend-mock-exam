@@ -4,6 +4,7 @@ import jihye.backend_mock_exam.domain.history.ExamHistory;
 import jihye.backend_mock_exam.domain.history.HistoryItem;
 
 import java.util.List;
+import java.util.Map;
 
 public interface HistoryRepository {
 

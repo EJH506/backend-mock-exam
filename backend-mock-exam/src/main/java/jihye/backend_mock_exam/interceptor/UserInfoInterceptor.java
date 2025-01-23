@@ -36,6 +36,7 @@ public class UserInfoInterceptor implements HandlerInterceptor {
                 return false;
             }
         }
+
         return true;
     }
 }

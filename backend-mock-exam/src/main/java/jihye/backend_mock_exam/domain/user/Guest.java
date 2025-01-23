@@ -10,7 +10,7 @@ import java.util.Collections;
 import java.util.List;
 
 @Data
-public class Guest {
+public class Guest implements Role {
 
     private Long userId;
     private String nickname;

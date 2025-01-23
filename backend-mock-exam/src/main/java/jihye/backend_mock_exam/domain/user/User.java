@@ -10,7 +10,7 @@ import java.util.Collections;
 import java.util.List;
 
 @Data
-public class User implements UserDetails {
+public class User implements UserDetails, Role {
 
     private Long userId;
     private String accountId;

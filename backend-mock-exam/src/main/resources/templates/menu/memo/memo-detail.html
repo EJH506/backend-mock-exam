@@ -22,7 +22,7 @@
       <div id="viewMemo">
         <div>
           <p th:text="'작성: ' + ${memo.createdAt}">작성: 2024-12-09 11:58:29</p>
-          <p th:if="${memo.updateAt != memo.createdAt}" th:text="'수정: ' + ${memo.updateAt}">수정: 2024-12-10 12:01:34</p>
+          <p th:if="${memo.updateAt != memo.createdAt && memo.updateAt != null}" th:text="'수정: ' + ${memo.updateAt}">수정: 2024-12-10 12:01:34</p>
         </div>
 
         <pre class="memoTextArea" th:text="${memo.memoText}">
