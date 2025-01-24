@@ -55,7 +55,7 @@ $(document).ready(function () {
     
     // 선택 삭제 누르면 폼 전송
     $('.select-submit').click(function() {
-        if (confirm('삭제한 메모는 복구할 수 없습니다. \n 정말로 삭제할까요?')) {
+        if (confirm('정말로 삭제할까요?')) {
             $('#DeleteForm').submit();
         }
     })

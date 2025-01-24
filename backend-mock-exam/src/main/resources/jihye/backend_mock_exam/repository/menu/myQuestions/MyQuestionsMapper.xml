@@ -13,6 +13,7 @@
             <if test="searchKeyword != null">
                 AND question_text LIKE CONCAT('%', #{searchKeyword}, '%')
             </if>
+            AND deleted = FALSE
         </where>
         ORDER BY question_id DESC
         LIMIT #{offset}, #{pagePerItem}
@@ -28,6 +29,7 @@
             <if test="searchKeyword != null">
                 AND question_text LIKE CONCAT('%', #{searchKeyword}, '%')
             </if>
+            AND deleted = FALSE
         </where>
     </select>
 
@@ -36,10 +38,22 @@
     </select>
 
     <delete id="deleteMyQuestionList">
-        DELETE FROM my_questions
+        UPDATE my_questions
+        SET deleted = TRUE
         WHERE question_id IN
         <foreach collection="list" item="myQuestionsId" open="(" close=")" separator=",">
             #{myQuestionsId}
         </foreach>
     </delete>
+
+    <select id="findMyQuestionById" resultType="question">
+        SELECT * FROM my_questions
+        WHERE question_id = #{questionId}
+    </select>
+
+    <select id="findMyAnswersByQuestion" resultType="answer">
+        SELECT * FROM MY_QUESTIONS_ANSWERS
+        WHERE MY_QUESTION_ID = #{questionId}
+        ORDER BY IS_CORRECT DESC, answer_id asc;
+    </select>
 </mapper>

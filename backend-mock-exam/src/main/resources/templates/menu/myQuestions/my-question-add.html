@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="#{page.my-questions.add} + ' | ' + #{title}">나만의 문제 등록 | 백엔드 모의고사</title>
+    <link rel="stylesheet" th:href="@{/css/main/main.css}">
+</head>
+<body>
+
+<div class="wrap">
+    <header th:replace="~{fragment/home-header :: header (${user.userId}, ${user.nickname}, ${isMember})}"></header>
+
+    <section>
+        <h2 th:text="#{page.my-questions.add}">나만의 문제 등록(목업)</h2>
+
+        <form class="slide-box" method="post" th:action th:object="${myQuestionAddDto}">
+            <p>문제 출제 시, 보기는 랜덤한 순서로 출력됩니다</p>
+
+            <div id="question-info-input">
+                <div>
+                    <select class="systemInput_md" disabled>
+                        <option th:text="#{page.my-questions}">나만의 문제</option>
+                    </select>
+                    <select class="systemInput_md" th:field="*{level}">
+<!--                        <option value="">난이도 선택</option>-->
+                        <option th:each="level : ${levels}" th:value="${level}" th:text="'Lv. ' + ${level}">Lv. 2 (목업)</option>
+                    </select>
+                    <div th:error="*{level}" class="errorclass">난이도 에러내용</div>
+                </div>
+
+                <label th:for="*{questionText}" class="sr-only">질문</label>
+                <input class="systemInput_md" type="text" placeholder="문제의 질문을 입력하세요" th:field="*{questionText}" required >
+                <div th:error="*{questionText}" class="errorclass">질문 에러내용</div>
+            </div>
+
+            <ul>
+                <li>
+                    <label class="sr-only" th:for="*{correctAnswer}">정답</label>
+                    <input class="systemInput_md" type="text" placeholder="정답" th:field="*{correctAnswer}" />
+                </li>
+                <li>
+                    <label class="sr-only" th:for="*{wrongAnswer1}">오답1</label>
+                    <input class="systemInput_md" type="text" placeholder="오답" th:field="*{wrongAnswer1}" />
+                </li>
+                <li>
+                    <label class="sr-only" th:for="*{wrongAnswer2}">오답2</label>
+                    <input class="systemInput_md" type="text" placeholder="오답" th:field="*{wrongAnswer2}" />
+                </li>
+                <li>
+                    <label class="sr-only" th:for="*{wrongAnswer3}">오답3</label>
+                    <input class="systemInput_md" type="text" placeholder="오답" th:field="*{wrongAnswer3}" />
+                </li>
+
+                <div th:if="${#fields.hasGlobalErrors()}" class="errorclass">
+                    <p class="errorclass" th:each="err : ${#fields.globalErrors()}" th:text="${err}">전체 오류 메시지</p>
+                </div>
+            </ul>
+
+            <div class="buttons">
+                <a href="javascript:history.back();" class="systemButton_md btn_cancel" th:text="#{button.cancel}">취소(목업)</a>
+                <button type="submit" class="systemButton_md btn_submit" th:text="#{button.register}">등록(목업)</button>
+            </div>
+        </form>
+
+
+    </section>
+</div>
+</body>
+</html>

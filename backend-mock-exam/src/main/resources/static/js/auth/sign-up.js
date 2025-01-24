@@ -13,7 +13,7 @@ $(document).ready(function() {
             },
             success: function(response) {
                 if (response) {
-                    $('#accountIdError').text("이미 존재하는 아이디 입니다.");
+                    $('#accountIdError').text("이미 존재하는 아이디 입니다");
                 } else {
                     $('#accountIdError').text("");
                 }

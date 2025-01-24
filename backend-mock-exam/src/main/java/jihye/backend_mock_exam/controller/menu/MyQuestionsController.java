@@ -1,16 +1,21 @@
 package jihye.backend_mock_exam.controller.menu;
 
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.validation.Valid;
+import jihye.backend_mock_exam.controller.menu.validation.MyQuestionValidator;
+import jihye.backend_mock_exam.domain.exam.ExamItem;
 import jihye.backend_mock_exam.domain.exam.Question;
 import jihye.backend_mock_exam.domain.user.Role;
 import jihye.backend_mock_exam.service.Page;
 import jihye.backend_mock_exam.service.menu.memo.dto.MemoSelectDeleteDto;
 import jihye.backend_mock_exam.service.menu.myQuestions.MyQuestionsService;
+import jihye.backend_mock_exam.service.menu.myQuestions.dto.MyQuestionAddDto;
 import jihye.backend_mock_exam.service.menu.myQuestions.dto.MyQuestionSelectDeleteDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -23,6 +28,7 @@ import java.util.List;
 public class MyQuestionsController {
 
     private final MyQuestionsService myQuestionsService;
+    private final MyQuestionValidator myQuestionValidator;
 
     @GetMapping
     public String myQuestions(RedirectAttributes redirectAttributes) {
@@ -56,7 +62,7 @@ public class MyQuestionsController {
     }
 
     @PostMapping("/delete")
-    public String selectedMemoDelete(@ModelAttribute MyQuestionSelectDeleteDto dto,
+    public String selectedMyQuestionDelete(@ModelAttribute MyQuestionSelectDeleteDto dto,
                                      @RequestParam("level") String level,
                                      RedirectAttributes redirectAttributes) {
 
@@ -68,8 +74,43 @@ public class MyQuestionsController {
     }
 
     @GetMapping("/{questionId}")
-    public String myQuestionDetail(@PathVariable("questionId") Long questionId) {
-//        myQuestionsService.findMyQuestionById(questionId);
-        return null;
+    public String myQuestionDetail(@PathVariable("questionId") Long questionId, Model model) {
+        ExamItem examItem = myQuestionsService.myQuestionDetail(questionId);
+        model.addAttribute("examItem", examItem);
+        return "menu/myQuestions/my-question-detail";
+    }
+
+    @GetMapping("/{questionId}/edit")
+    public String myQuestionEdit(@PathVariable("questionId") Long questionId,
+                                 Model model) {
+        ExamItem examItem = myQuestionsService.myQuestionDetail(questionId);
+        model.addAttribute("examItem", examItem);
+        return "menu/myQuestions/my-question-edit";
+    }
+
+    @GetMapping("/add")
+    public String myQuestionAddPage(@RequestAttribute("user") Role user, Model model) {
+
+        List<Integer> levels = myQuestionsService.levelListOfMyQuestion(user.getUserId());
+
+        model.addAttribute("user", user);
+        model.addAttribute("levels", levels);
+        model.addAttribute("myQuestionAddDto", new MyQuestionAddDto());
+        return "menu/myQuestions/my-question-add";
+    }
+
+    @PostMapping("/add")
+    public String myQuestionAdd(@Valid @ModelAttribute MyQuestionAddDto dto, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
+
+        myQuestionValidator.validate(dto, bindingResult);
+
+        if (bindingResult.hasErrors()) {
+            log.info("error={}", bindingResult);
+            return "menu/myQuestions/my-question-add";
+        }
+
+        myQuestionsService.addMyQuestion(dto);
+        redirectAttributes.addAttribute("questionId", );
+        return "redirect:/my-questions/{questionId}";
     }
 }

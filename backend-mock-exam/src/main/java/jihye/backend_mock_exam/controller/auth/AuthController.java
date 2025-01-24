@@ -89,7 +89,7 @@ public class AuthController {
         authService.logout(request);
 
         if (error != null) {
-            bindingResult.reject("loginFail", "아이디 또는 비밀번호가 일치하지 않습니다.");
+            bindingResult.reject("loginFail", "아이디 또는 비밀번호가 일치하지 않습니다");
         }
 
         return "auth/signin";
@@ -106,7 +106,7 @@ public class AuthController {
         User loginUser = authService.login(dto.getAccountId(), dto.getPassword());
 
         if (loginUser == null) {
-            bindingResult.reject("loginFail", "아이디 또는 비밀번호가 일치하지 않습니다.");
+            bindingResult.reject("loginFail", "아이디 또는 비밀번호가 일치하지 않습니다");
             return "auth/signin";
         }
 

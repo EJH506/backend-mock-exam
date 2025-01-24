@@ -9,9 +9,9 @@ import lombok.Data;
 public class ForgotPasswordQuestionDto {
 
     private String accountId;
-    @NotBlank(message = "비밀번호 찾기 질문을 선택해주세요.")
+    @NotBlank(message = "비밀번호 찾기 질문을 선택해주세요")
     private String findPasswordQuestion;
-    @NotEmpty(message = "비밀번호 찾기 답변을 입력해주세요.")
+    @NotEmpty(message = "비밀번호 찾기 답변을 입력해주세요")
     private String findPasswordAnswer;
 
 }

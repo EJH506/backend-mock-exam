@@ -1,5 +1,6 @@
 package jihye.backend_mock_exam.repository.menu.myQuestions;
 
+import jihye.backend_mock_exam.domain.exam.Answer;
 import jihye.backend_mock_exam.domain.exam.Question;
 import jihye.backend_mock_exam.service.Page;
 import lombok.RequiredArgsConstructor;
@@ -37,5 +38,17 @@ public class MyQuestionsRepositoryImpl implements MyQuestionsRepository {
     @Override
     public void deleteMyQuestionList(List<Long> myQuestionsId) {
         myQuestionsMapper.deleteMyQuestionList(myQuestionsId);
+    }
+
+    // 문항 ID로 문항 조회
+    @Override
+    public Question findMyQuestionById(Long questionId) {
+        return myQuestionsMapper.findMyQuestionById(questionId);
+    }
+
+    // 문항에 속한 보기 조회
+    @Override
+    public List<Answer> findMyAnswersByQuestion(Long questionId) {
+        return myQuestionsMapper.findMyAnswersByQuestion(questionId);
     }
 }

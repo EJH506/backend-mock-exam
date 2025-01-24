@@ -7,6 +7,6 @@ import lombok.Data;
 public class DeleteAccountDto {
 
     private Long userId;
-    @NotBlank(message = "비밀번호를 입력해주세요.")
+    @NotBlank(message = "비밀번호를 입력해주세요")
     private String password;
 }

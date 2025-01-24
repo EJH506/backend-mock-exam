@@ -6,10 +6,11 @@
     <select id="findAllMemoById" resultType="memo">
         SELECT * FROM memo
         <where>
-        AND user_id = #{userId}
-             <if test="searchKeyword != null">
-                 AND memo_text like CONCAT('%', #{searchKeyword}, '%')
-             </if>
+            AND user_id = #{userId}
+            <if test="searchKeyword != null">
+                AND memo_text like CONCAT('%', #{searchKeyword}, '%')
+            </if>
+            AND deleted = FALSE
         </where>
         ORDER BY memo_id DESC
         LIMIT #{offset}, #{pageSize}
@@ -22,6 +23,7 @@
             <if test="searchKeyword != null">
                 AND memo_text like CONCAT('%', #{searchKeyword}, '%')
             </if>
+            AND deleted = FALSE
         </where>
     </select>
 
@@ -29,13 +31,14 @@
         SELECT * FROM memo WHERE memo_id = #{memoId}
     </select>
 
-    <delete id="deleteMemoList">
-        DELETE FROM memo
-        WHERE  memo_id IN
+    <update id="deleteMemoList">
+        UPDATE memo
+        SET deleted = TRUE
+        WHERE memo_id IN
         <foreach collection="list" item="memoId" open="(" close=")" separator=",">
             #{memoId}
         </foreach>
-    </delete>
+    </update>
 
     <insert id="saveMemo" useGeneratedKeys="true" keyProperty="memoId">
         INSERT INTO memo (user_id, memo_text) VALUES

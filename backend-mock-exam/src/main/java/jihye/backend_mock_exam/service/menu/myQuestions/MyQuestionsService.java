@@ -1,6 +1,8 @@
 package jihye.backend_mock_exam.service.menu.myQuestions;
 
 import jakarta.servlet.http.HttpServletRequest;
+import jihye.backend_mock_exam.domain.exam.Answer;
+import jihye.backend_mock_exam.domain.exam.ExamItem;
 import jihye.backend_mock_exam.domain.exam.Question;
 import jihye.backend_mock_exam.domain.memo.Memo;
 import jihye.backend_mock_exam.domain.user.Role;
@@ -10,6 +12,7 @@ import jihye.backend_mock_exam.service.Page;
 import jihye.backend_mock_exam.service.menu.CommonService;
 import jihye.backend_mock_exam.service.menu.QuestionFilter;
 import jihye.backend_mock_exam.service.menu.memo.dto.MemoSelectDeleteDto;
+import jihye.backend_mock_exam.service.menu.myQuestions.dto.MyQuestionAddDto;
 import jihye.backend_mock_exam.service.menu.myQuestions.dto.MyQuestionSelectDeleteDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -47,8 +50,24 @@ public class MyQuestionsService {
 
     // 선택한 문항 삭제
     public List<Long> myQuestionSelectDelete(MyQuestionSelectDeleteDto dto) {
-
         myQuestionsRepository.deleteMyQuestionList(dto.getDeleteQuestionsId());
         return dto.getDeleteQuestionsId();
+    }
+
+    // 문항 조회
+    public ExamItem myQuestionDetail(Long questionId) {
+
+        Question question = myQuestionsRepository.findMyQuestionById(questionId);
+        List<Answer> answers = myQuestionsRepository.findMyAnswersByQuestion(questionId);
+
+        return new ExamItem(question, answers);
+    }
+
+    // 문제 등록
+    public Long addMyQuestion(MyQuestionAddDto dto) {
+//        myQuestionsRepository.insertQuestionOfMyQuestion(dto);
+//        myQuestionsRepository.insertAnswersOfMyQuestion(dto);
+//
+//        return
     }
 }

@@ -12,6 +12,9 @@
 <section>
     <h2 th:text="#{page.sign-in}">로그인(목업)</h2>
     <form th:action method="post" th:object="${signInDto}">
+
+        <input type="hidden" name="userId" th:value="${user.userId}">
+        
         <div th:if="${#fields.hasGlobalErrors()}" th:class="errorclass">
             <p class="errorclass" th:each="err : ${#fields.globalErrors()}" th:text="${err}">전체 오류 메시지</p>
         </div>

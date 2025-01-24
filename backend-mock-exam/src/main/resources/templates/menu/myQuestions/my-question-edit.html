@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="#{page.my-questions.edit} + ' | ' + #{title}">나만의 문제 수정 | 백엔드 모의고사</title>
+    <link rel="stylesheet" th:href="@{/css/main/main.css}">
+</head>
+<body>
+
+<div class="wrap">
+    <header th:replace="~{fragment/home-header :: header (${user.userId}, ${user.nickname}, ${isMember})}"></header>
+
+    <section>
+        <h2 th:text="#{page.my-questions.edit}">나만의 문제 수정(목업)</h2>
+
+        <form class="slide-box" method="post" th:action> <!--th:object-->
+            <p>문제 출제 시, 보기는 랜덤한 순서로 출력됩니다.</p>
+
+            <div class="question-info-input">
+                <div>
+                    <select>
+                        <option th:text="#{page.my-questions}">나만의 문제</option>
+                    </select>
+                </div>
+            </div>
+            <p class="questionText" th:text="${examItem.question.questionText}">문제내용</p>
+
+            <ul>
+                <li th:each="answer : ${examItem.answers}">
+                    <input class="sr-only" type="checkbox" th:value="${answer.answerId}" readonly />
+                    <label class="systemInput_md" th:text="${answer.answerText} + '(' + ${answer.isCorrect} + ')'"></label>
+                </li>
+            </ul>
+
+            <div class="buttons">
+                <a class="systemButton_md btn_delete" th:text="#{button.delete}">삭제(목업)</a>
+                <a th:href="@{|/my-questions/${examItem.question.questionId}/edit|}" class="systemButton_md btn_edit" th:text="#{button.edit}">편집(목업)</a>
+            </div>
+
+            <a class="systemButton_sm" th:href="@{/my-questions}" th:text="#{button.go-list}">목록으로</a>
+        </form>
+
+
+    </section>
+</div>
+</body>
+</html>

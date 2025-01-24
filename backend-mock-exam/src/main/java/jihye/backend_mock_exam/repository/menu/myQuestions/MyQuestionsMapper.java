@@ -1,5 +1,6 @@
 package jihye.backend_mock_exam.repository.menu.myQuestions;
 
+import jihye.backend_mock_exam.domain.exam.Answer;
 import jihye.backend_mock_exam.domain.exam.Question;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -20,4 +21,11 @@ public interface MyQuestionsMapper {
 
     // 선택한 문항 삭제
     void deleteMyQuestionList(List<Long> myQuestionsId);
+
+    // 문항 ID로 문항 조회
+    Question findMyQuestionById(Long questionId);
+
+    // 문항에 속한 보기 조회
+    List<Answer> findMyAnswersByQuestion(Long questionId);
+
 }
