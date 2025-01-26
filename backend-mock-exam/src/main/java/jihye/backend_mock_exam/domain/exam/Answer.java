@@ -13,8 +13,9 @@ public class Answer {
     public Answer() {
     }
 
-    public Answer(Long answerId, String answerText, boolean isCorrect) {
+    public Answer(Long answerId, Long questionId, String answerText, boolean isCorrect) {
         this.answerId = answerId;
+        this.questionId = questionId;
         this.answerText = answerText;
         this.isCorrect = isCorrect;
     }

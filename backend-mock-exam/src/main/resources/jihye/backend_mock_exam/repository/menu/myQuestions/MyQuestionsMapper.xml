@@ -34,7 +34,7 @@
     </select>
 
     <select id="findLevelsOfMyQuestion" resultType="int">
-        SELECT * FROM my_questions_levels WHERE user_id = #{userId}
+        SELECT level FROM my_questions_levels WHERE user_id = #{userId}
     </select>
 
     <update id="deleteMyQuestionList">

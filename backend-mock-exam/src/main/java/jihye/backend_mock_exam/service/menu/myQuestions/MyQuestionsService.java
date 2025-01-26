@@ -85,12 +85,12 @@ public class MyQuestionsService {
         MyQuestion savedQuestion = myQuestionsRepository.insertQuestionOfMyQuestion(question);
 
         List<Answer> answers = new ArrayList<>();
-        Answer correctAnswer = new Answer(question.getQuestionId(), dto.getCorrectAnswer().getAnswerText(), true);
+        Answer correctAnswer = new Answer(null, question.getQuestionId(), dto.getCorrectAnswer().getAnswerText(), true);
         answers.add(correctAnswer);
 
-        Answer wrongAnswer1 = new Answer(question.getQuestionId(), dto.getWrongAnswer1().getAnswerText(), false);
-        Answer wrongAnswer2 = new Answer(question.getQuestionId(), dto.getWrongAnswer2().getAnswerText(), false);
-        Answer wrongAnswer3 = new Answer(question.getQuestionId(), dto.getWrongAnswer3().getAnswerText(), false);
+        Answer wrongAnswer1 = new Answer(null, savedQuestion.getQuestionId(), dto.getWrongAnswer1().getAnswerText(), false);
+        Answer wrongAnswer2 = new Answer(null, savedQuestion.getQuestionId(), dto.getWrongAnswer2().getAnswerText(), false);
+        Answer wrongAnswer3 = new Answer(null, savedQuestion.getQuestionId(), dto.getWrongAnswer3().getAnswerText(), false);
         answers.add(wrongAnswer1);
         answers.add(wrongAnswer2);
         answers.add(wrongAnswer3);
@@ -110,10 +110,10 @@ public class MyQuestionsService {
         question.setQuestionText(dto.getQuestionText());
         MyQuestion editedQuestion = myQuestionsRepository.updateQuestionOfMyQuestion(question);
 
-        Answer correctAnswer = new Answer(dto.getCorrectAnswer().getAnswerId(), dto.getCorrectAnswer().getAnswerText(), true);
-        Answer wrongAnswer1 = new Answer(dto.getWrongAnswer1().getAnswerId(), dto.getWrongAnswer1().getAnswerText(), false);
-        Answer wrongAnswer2 = new Answer(dto.getWrongAnswer2().getAnswerId(), dto.getWrongAnswer2().getAnswerText(), false);
-        Answer wrongAnswer3 = new Answer(dto.getWrongAnswer3().getAnswerId(), dto.getWrongAnswer3().getAnswerText(), false);
+        Answer correctAnswer = new Answer(dto.getCorrectAnswer().getAnswerId(), null, dto.getCorrectAnswer().getAnswerText(), true);
+        Answer wrongAnswer1 = new Answer(dto.getWrongAnswer1().getAnswerId(), null, dto.getWrongAnswer1().getAnswerText(), false);
+        Answer wrongAnswer2 = new Answer(dto.getWrongAnswer2().getAnswerId(), null, dto.getWrongAnswer2().getAnswerText(), false);
+        Answer wrongAnswer3 = new Answer(dto.getWrongAnswer3().getAnswerId(), null, dto.getWrongAnswer3().getAnswerText(), false);
 
 
         myQuestionsRepository.updateAnswersOfMyQuestion(correctAnswer);
