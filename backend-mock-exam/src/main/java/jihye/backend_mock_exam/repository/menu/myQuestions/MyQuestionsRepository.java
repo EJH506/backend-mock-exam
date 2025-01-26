@@ -2,6 +2,7 @@ package jihye.backend_mock_exam.repository.menu.myQuestions;
 
 import jihye.backend_mock_exam.domain.exam.Answer;
 import jihye.backend_mock_exam.domain.exam.Question;
+import jihye.backend_mock_exam.domain.myQuestion.MyQuestion;
 import jihye.backend_mock_exam.service.Page;
 import jihye.backend_mock_exam.service.menu.myQuestions.dto.MyQuestionAddDto;
 
@@ -27,4 +28,9 @@ public interface MyQuestionsRepository {
     // 문항에 속한 보기 조회
     List<Answer> findMyAnswersByQuestion(Long questionId);
 
+    // 문항의 질문 등록
+    MyQuestion insertQuestionOfMyQuestion(MyQuestion question);
+
+    // 문항의 보기 등록
+    List<Answer> insertAnswersOfMyQuestion(List<Answer> answers);
 }

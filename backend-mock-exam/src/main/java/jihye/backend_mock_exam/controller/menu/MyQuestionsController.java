@@ -5,6 +5,7 @@ import jakarta.validation.Valid;
 import jihye.backend_mock_exam.controller.menu.validation.MyQuestionValidator;
 import jihye.backend_mock_exam.domain.exam.ExamItem;
 import jihye.backend_mock_exam.domain.exam.Question;
+import jihye.backend_mock_exam.domain.myQuestion.MyQuestion;
 import jihye.backend_mock_exam.domain.user.Role;
 import jihye.backend_mock_exam.service.Page;
 import jihye.backend_mock_exam.service.menu.memo.dto.MemoSelectDeleteDto;
@@ -19,6 +20,8 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.List;
 
 @Slf4j
@@ -100,17 +103,21 @@ public class MyQuestionsController {
     }
 
     @PostMapping("/add")
-    public String myQuestionAdd(@Valid @ModelAttribute MyQuestionAddDto dto, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
+    public String myQuestionAdd(@RequestAttribute("user") Role user, @Valid @ModelAttribute MyQuestionAddDto dto, BindingResult bindingResult, RedirectAttributes redirectAttributes,
+                                Model model) {
+
+        List<Integer> levels = myQuestionsService.levelListOfMyQuestion(user.getUserId());
 
         myQuestionValidator.validate(dto, bindingResult);
 
         if (bindingResult.hasErrors()) {
             log.info("error={}", bindingResult);
+            model.addAttribute("levels", levels);
             return "menu/myQuestions/my-question-add";
         }
 
-        myQuestionsService.addMyQuestion(dto);
-        redirectAttributes.addAttribute("questionId", );
+        MyQuestion savedQuestion = myQuestionsService.addMyQuestion(dto);
+        redirectAttributes.addAttribute("questionId", savedQuestion.getQuestionId());
         return "redirect:/my-questions/{questionId}";
     }
 }

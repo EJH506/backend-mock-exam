@@ -5,6 +5,8 @@ import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
+import java.util.List;
+
 @Component
 public class MyQuestionValidator implements Validator {
 
@@ -18,18 +20,19 @@ public class MyQuestionValidator implements Validator {
 
         MyQuestionAddDto dto = (MyQuestionAddDto) target;
         String correct = dto.getCorrectAnswer();
-        String wrong1 = dto.getWrongAnswer1();
-        String wrong2 = dto.getWrongAnswer2();
-        String wrong3 = dto.getWrongAnswer3();
+        List<String> wrongs = dto.getWrongAnswers();
 
-        if (correct == null || correct.trim().isEmpty() ||
-            wrong1 == null || wrong1.trim().isEmpty() ||
-            wrong2 == null || wrong2.trim().isEmpty() ||
-            wrong3 == null || wrong3.trim().isEmpty()
-            ) {
-            errors.rejectValue("correctAnswer", "");
+        if (correct == null || correct.trim().isEmpty()) {
+            errors.reject("required.answer.correct");
         }
 
-
+        if (wrongs != null) {
+            for (String wrongAnswer : wrongs) {
+                if (wrongAnswer == null || wrongAnswer.trim().isEmpty()) {
+                    errors.reject("required.answer.wrong");
+                    break;
+                }
+            }
+        }
     }
 }

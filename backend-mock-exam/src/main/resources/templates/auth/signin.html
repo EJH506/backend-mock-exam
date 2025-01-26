@@ -13,8 +13,6 @@
     <h2 th:text="#{page.sign-in}">로그인(목업)</h2>
     <form th:action method="post" th:object="${signInDto}">
 
-        <input type="hidden" name="userId" th:value="${user.userId}">
-        
         <div th:if="${#fields.hasGlobalErrors()}" th:class="errorclass">
             <p class="errorclass" th:each="err : ${#fields.globalErrors()}" th:text="${err}">전체 오류 메시지</p>
         </div>
@@ -23,11 +21,11 @@
             <label class="sr-only" for="accountId" th:text="#{label.user.accountId}">아이디(목업)</label>
             <input class="systemInput_lg" type="text" id="accountId" th:placeholder="#{label.user.accountId}"
                    th:field="*{accountId}" required />
-            <div th:errors="*{accountId}" />
+            <div th:errors="*{accountId}"></div>
 
             <label class="sr-only" for="password" th:text="#{label.user.password}">비밀번호(목업)</label>
             <input class="systemInput_lg" type="password" id="password" th:placeholder="#{label.user.password}" th:field="*{password}" required />
-            <div th:errors="*{password}" />
+            <div th:errors="*{password}"></div>
         </div>
         <!--
         <label for="rememberMe">자동 로그인</label>

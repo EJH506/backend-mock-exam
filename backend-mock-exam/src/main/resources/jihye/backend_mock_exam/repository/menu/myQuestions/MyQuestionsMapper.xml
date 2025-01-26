@@ -52,8 +52,20 @@
     </select>
 
     <select id="findMyAnswersByQuestion" resultType="answer">
-        SELECT * FROM MY_QUESTIONS_ANSWERS
-        WHERE MY_QUESTION_ID = #{questionId}
-        ORDER BY IS_CORRECT DESC, answer_id asc;
+        SELECT * FROM my_questions_answers
+        WHERE my_question_id = #{questionId}
+        ORDER BY is_correct DESC, answer_id ASC;
     </select>
+
+    <insert id="insertQuestionOfMyQuestion" useGeneratedKeys="true" keyProperty="questionId">
+        INSERT INTO my_questions (user_id, level, question_text) VALUES
+        (#{userId}, #{level}, #{questionText});
+    </insert>
+
+    <insert id="insertAnswersOfMyQuestion" useGeneratedKeys="true" keyProperty="answerId">
+        INSERT INTO my_questions_answers (my_question_id, answer_text, is_correct) VALUES
+        <foreach collection="answers" item="answer" separator=",">
+            (#{answer.questionId}, #{answer.answerText}, #{answer.isCorrect})
+        </foreach>
+    </insert>
 </mapper>

@@ -5,6 +5,7 @@ import jihye.backend_mock_exam.domain.exam.Answer;
 import jihye.backend_mock_exam.domain.exam.ExamItem;
 import jihye.backend_mock_exam.domain.exam.Question;
 import jihye.backend_mock_exam.domain.memo.Memo;
+import jihye.backend_mock_exam.domain.myQuestion.MyQuestion;
 import jihye.backend_mock_exam.domain.user.Role;
 import jihye.backend_mock_exam.domain.user.User;
 import jihye.backend_mock_exam.repository.menu.myQuestions.MyQuestionsRepository;
@@ -17,7 +18,9 @@ import jihye.backend_mock_exam.service.menu.myQuestions.dto.MyQuestionSelectDele
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Slf4j
@@ -64,10 +67,31 @@ public class MyQuestionsService {
     }
 
     // 문제 등록
-    public Long addMyQuestion(MyQuestionAddDto dto) {
-//        myQuestionsRepository.insertQuestionOfMyQuestion(dto);
-//        myQuestionsRepository.insertAnswersOfMyQuestion(dto);
-//
-//        return
+    @Transactional
+    public MyQuestion addMyQuestion(MyQuestionAddDto dto) {
+        MyQuestion question = new MyQuestion();
+        question.setUserId(dto.getUserId());
+        question.setLevel(dto.getLevel());
+        question.setQuestionText(dto.getQuestionText());
+        MyQuestion savedQuestion = myQuestionsRepository.insertQuestionOfMyQuestion(question);
+
+        List<Answer> answers = new ArrayList<>();
+        Answer correctAnswer = new Answer();
+        correctAnswer.setQuestionId(question.getQuestionId());
+        correctAnswer.setAnswerText(dto.getCorrectAnswer());
+        correctAnswer.setCorrect(true);
+        answers.add(correctAnswer);
+
+        for (int i=0; i<3; i++) {
+            Answer wrongAnswer = new Answer();
+            wrongAnswer.setQuestionId(question.getQuestionId());
+            wrongAnswer.setAnswerText(dto.getWrongAnswers().get(i));
+            wrongAnswer.setCorrect(false);
+            answers.add(wrongAnswer);
+        }
+
+        List<Answer> savedAnswers = myQuestionsRepository.insertAnswersOfMyQuestion(answers);
+
+        return savedQuestion;
     }
 }

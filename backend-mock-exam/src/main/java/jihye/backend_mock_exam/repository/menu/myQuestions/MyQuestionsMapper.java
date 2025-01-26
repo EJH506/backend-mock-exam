@@ -2,6 +2,7 @@ package jihye.backend_mock_exam.repository.menu.myQuestions;
 
 import jihye.backend_mock_exam.domain.exam.Answer;
 import jihye.backend_mock_exam.domain.exam.Question;
+import jihye.backend_mock_exam.domain.myQuestion.MyQuestion;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -28,4 +29,9 @@ public interface MyQuestionsMapper {
     // 문항에 속한 보기 조회
     List<Answer> findMyAnswersByQuestion(Long questionId);
 
+    // 문항의 질문 등록
+    void insertQuestionOfMyQuestion(MyQuestion question);
+
+    // 문항의 보기 등록
+    void insertAnswersOfMyQuestion(List<Answer> answers);
 }

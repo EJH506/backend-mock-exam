@@ -2,6 +2,7 @@ package jihye.backend_mock_exam.repository.menu.myQuestions;
 
 import jihye.backend_mock_exam.domain.exam.Answer;
 import jihye.backend_mock_exam.domain.exam.Question;
+import jihye.backend_mock_exam.domain.myQuestion.MyQuestion;
 import jihye.backend_mock_exam.service.Page;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -50,5 +51,19 @@ public class MyQuestionsRepositoryImpl implements MyQuestionsRepository {
     @Override
     public List<Answer> findMyAnswersByQuestion(Long questionId) {
         return myQuestionsMapper.findMyAnswersByQuestion(questionId);
+    }
+
+    // 문항의 질문 등록
+    @Override
+    public MyQuestion insertQuestionOfMyQuestion(MyQuestion question) {
+        myQuestionsMapper.insertQuestionOfMyQuestion(question);
+        return question;
+    }
+
+    // 문항의 보기 등록
+    @Override
+    public List<Answer> insertAnswersOfMyQuestion(List<Answer> answers) {
+        myQuestionsMapper.insertAnswersOfMyQuestion(answers);
+        return answers;
     }
 }

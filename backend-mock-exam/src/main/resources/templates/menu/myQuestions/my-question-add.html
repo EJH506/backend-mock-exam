@@ -14,6 +14,9 @@
         <h2 th:text="#{page.my-questions.add}">나만의 문제 등록(목업)</h2>
 
         <form class="slide-box" method="post" th:action th:object="${myQuestionAddDto}">
+
+            <input type="hidden" name="userId" th:value="${user.userId}">
+
             <p>문제 출제 시, 보기는 랜덤한 순서로 출력됩니다</p>
 
             <div id="question-info-input">
@@ -25,34 +28,29 @@
 <!--                        <option value="">난이도 선택</option>-->
                         <option th:each="level : ${levels}" th:value="${level}" th:text="'Lv. ' + ${level}">Lv. 2 (목업)</option>
                     </select>
-                    <div th:error="*{level}" class="errorclass">난이도 에러내용</div>
                 </div>
+                <div th:errors="*{level}" class="errorclass">난이도 에러내용</div>
 
-                <label th:for="*{questionText}" class="sr-only">질문</label>
-                <input class="systemInput_md" type="text" placeholder="문제의 질문을 입력하세요" th:field="*{questionText}" required >
-                <div th:error="*{questionText}" class="errorclass">질문 에러내용</div>
+                <input class="systemInput_md" type="text" placeholder="문제의 질문을 입력하세요" th:field="*{questionText}" />
+                <div th:errors="*{questionText}" class="errorclass">질문 에러내용</div>
             </div>
 
             <ul>
                 <li>
-                    <label class="sr-only" th:for="*{correctAnswer}">정답</label>
                     <input class="systemInput_md" type="text" placeholder="정답" th:field="*{correctAnswer}" />
                 </li>
                 <li>
-                    <label class="sr-only" th:for="*{wrongAnswer1}">오답1</label>
-                    <input class="systemInput_md" type="text" placeholder="오답" th:field="*{wrongAnswer1}" />
+                    <input class="systemInput_md" type="text" placeholder="오답" th:field="*{wrongAnswers[0]}" />
                 </li>
                 <li>
-                    <label class="sr-only" th:for="*{wrongAnswer2}">오답2</label>
-                    <input class="systemInput_md" type="text" placeholder="오답" th:field="*{wrongAnswer2}" />
+                    <input class="systemInput_md" type="text" placeholder="오답" th:field="*{wrongAnswers[1]}" />
                 </li>
                 <li>
-                    <label class="sr-only" th:for="*{wrongAnswer3}">오답3</label>
-                    <input class="systemInput_md" type="text" placeholder="오답" th:field="*{wrongAnswer3}" />
+                    <input class="systemInput_md" type="text" placeholder="오답" th:field="*{wrongAnswers[2]}" />
                 </li>
 
                 <div th:if="${#fields.hasGlobalErrors()}" class="errorclass">
-                    <p class="errorclass" th:each="err : ${#fields.globalErrors()}" th:text="${err}">전체 오류 메시지</p>
+                    <p class="errorclass" th:each="err : ${#fields.globalErrors().get(0)}" th:text="${err}">전체 오류 메시지</p>
                 </div>
             </ul>
 
