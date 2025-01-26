@@ -20,7 +20,7 @@ public interface MyQuestionsRepository {
     List<Integer> findLevelsOfMyQuestion(Long userId);
     
     // 선택한 문항 삭제
-    void deleteMyQuestionList(List<Long> myQuestionsId);
+    void deleteMyQuestionList(List<Long> deleteQuestionsId);
 
     // 문항 ID로 문항 조회
     Question findMyQuestionById(Long questionId);
@@ -33,4 +33,10 @@ public interface MyQuestionsRepository {
 
     // 문항의 보기 등록
     List<Answer> insertAnswersOfMyQuestion(List<Answer> answers);
+
+    // 문항의 질문 업데이트
+    MyQuestion updateQuestionOfMyQuestion(MyQuestion question);
+
+    // 문항의 보기 업데이트
+    Answer updateAnswersOfMyQuestion(Answer answer);
 }

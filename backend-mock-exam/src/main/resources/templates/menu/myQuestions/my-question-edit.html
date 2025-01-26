@@ -13,31 +13,54 @@
     <section>
         <h2 th:text="#{page.my-questions.edit}">나만의 문제 수정(목업)</h2>
 
-        <form class="slide-box" method="post" th:action> <!--th:object-->
-            <p>문제 출제 시, 보기는 랜덤한 순서로 출력됩니다.</p>
+        <form class="slide-box" method="post" th:action th:object="${myQuestionEditDto}">
 
-            <div class="question-info-input">
+            <input type="hidden" name="questionId" th:value="${examItem.question.questionId}">
+
+            <p>문제 출제 시, 보기는 랜덤한 순서로 출력됩니다</p>
+
+            <div id="question-info-input">
                 <div>
-                    <select>
+                    <select class="systemInput_md" disabled>
                         <option th:text="#{page.my-questions}">나만의 문제</option>
                     </select>
+                    <select class="systemInput_md" th:field="*{level}">
+                        <option th:each="level : ${levels}" th:value="${level}" th:text="'Lv. ' + ${level}">Lv. 2 (목업)</option>
+                    </select>
                 </div>
+                <div th:errors="*{level}" class="errorclass">난이도 에러내용</div>
+
+                <input class="systemInput_md" type="text" placeholder="문제의 질문을 입력하세요" th:field="*{questionText}" />
+                <div th:errors="*{questionText}" class="errorclass">질문 에러내용</div>
             </div>
-            <p class="questionText" th:text="${examItem.question.questionText}">문제내용</p>
 
             <ul>
-                <li th:each="answer : ${examItem.answers}">
-                    <input class="sr-only" type="checkbox" th:value="${answer.answerId}" readonly />
-                    <label class="systemInput_md" th:text="${answer.answerText} + '(' + ${answer.isCorrect} + ')'"></label>
+                <li>
+                    <input type="hidden" th:field="*{correctAnswer.answerId}" />
+                    <input class="systemInput_md" type="text" placeholder="정답" th:field="*{correctAnswer.answerText}" />
+                </li>
+                <li>
+                    <input type="hidden" th:field="*{wrongAnswer1.answerId}" />
+                    <input class="systemInput_md" type="text" placeholder="오답" th:field="*{wrongAnswer1.answerText}" />
+                </li>
+                <li>
+                    <input type="hidden" th:field="*{wrongAnswer2.answerId}" />
+                    <input class="systemInput_md" type="text" placeholder="오답" th:field="*{wrongAnswer2.answerText}" />
+                </li>
+                <li>
+                    <input type="hidden" th:field="*{wrongAnswer3.answerId}" />
+                    <input class="systemInput_md" type="text" placeholder="오답" th:field="*{wrongAnswer3.answerText}" />
                 </li>
             </ul>
 
-            <div class="buttons">
-                <a class="systemButton_md btn_delete" th:text="#{button.delete}">삭제(목업)</a>
-                <a th:href="@{|/my-questions/${examItem.question.questionId}/edit|}" class="systemButton_md btn_edit" th:text="#{button.edit}">편집(목업)</a>
+            <div th:if="${#fields.hasGlobalErrors()}" class="errorclass">
+                <p class="errorclass" th:each="err : ${#fields.globalErrors().get(0)}" th:text="${err}">전체 오류 메시지</p>
             </div>
 
-            <a class="systemButton_sm" th:href="@{/my-questions}" th:text="#{button.go-list}">목록으로</a>
+            <div class="buttons">
+                <a href="javascript:history.back();" class="systemButton_md btn_cancel" th:text="#{button.cancel}">취소(목업)</a>
+                <button type="submit" class="systemButton_md btn_submit" th:text="#{button.register}">등록(목업)</button>
+            </div>
         </form>
 
 

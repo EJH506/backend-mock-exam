@@ -14,6 +14,7 @@ import jihye.backend_mock_exam.service.menu.CommonService;
 import jihye.backend_mock_exam.service.menu.QuestionFilter;
 import jihye.backend_mock_exam.service.menu.memo.dto.MemoSelectDeleteDto;
 import jihye.backend_mock_exam.service.menu.myQuestions.dto.MyQuestionAddDto;
+import jihye.backend_mock_exam.service.menu.myQuestions.dto.MyQuestionEditDto;
 import jihye.backend_mock_exam.service.menu.myQuestions.dto.MyQuestionSelectDeleteDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -62,8 +63,16 @@ public class MyQuestionsService {
 
         Question question = myQuestionsRepository.findMyQuestionById(questionId);
         List<Answer> answers = myQuestionsRepository.findMyAnswersByQuestion(questionId);
+        Answer correctAnswer = null;
+        for (Answer answer : answers) {
+            if (answer.isCorrect()) {
+                correctAnswer = answer;
+                answers.remove(correctAnswer);
+                break;
+            }
+        }
 
-        return new ExamItem(question, answers);
+        return new ExamItem(question, answers, correctAnswer);
     }
 
     // 문제 등록
@@ -76,22 +85,42 @@ public class MyQuestionsService {
         MyQuestion savedQuestion = myQuestionsRepository.insertQuestionOfMyQuestion(question);
 
         List<Answer> answers = new ArrayList<>();
-        Answer correctAnswer = new Answer();
-        correctAnswer.setQuestionId(question.getQuestionId());
-        correctAnswer.setAnswerText(dto.getCorrectAnswer());
-        correctAnswer.setCorrect(true);
+        Answer correctAnswer = new Answer(question.getQuestionId(), dto.getCorrectAnswer().getAnswerText(), true);
         answers.add(correctAnswer);
 
-        for (int i=0; i<3; i++) {
-            Answer wrongAnswer = new Answer();
-            wrongAnswer.setQuestionId(question.getQuestionId());
-            wrongAnswer.setAnswerText(dto.getWrongAnswers().get(i));
-            wrongAnswer.setCorrect(false);
-            answers.add(wrongAnswer);
-        }
+        Answer wrongAnswer1 = new Answer(question.getQuestionId(), dto.getWrongAnswer1().getAnswerText(), false);
+        Answer wrongAnswer2 = new Answer(question.getQuestionId(), dto.getWrongAnswer2().getAnswerText(), false);
+        Answer wrongAnswer3 = new Answer(question.getQuestionId(), dto.getWrongAnswer3().getAnswerText(), false);
+        answers.add(wrongAnswer1);
+        answers.add(wrongAnswer2);
+        answers.add(wrongAnswer3);
 
-        List<Answer> savedAnswers = myQuestionsRepository.insertAnswersOfMyQuestion(answers);
+        myQuestionsRepository.insertAnswersOfMyQuestion(answers);
 
         return savedQuestion;
+    }
+
+    // 문제 수정
+    @Transactional
+    public MyQuestion editMyQuestion(MyQuestionEditDto dto) {
+
+        MyQuestion question = new MyQuestion();
+        question.setQuestionId(dto.getQuestionId());
+        question.setLevel(dto.getLevel());
+        question.setQuestionText(dto.getQuestionText());
+        MyQuestion editedQuestion = myQuestionsRepository.updateQuestionOfMyQuestion(question);
+
+        Answer correctAnswer = new Answer(dto.getCorrectAnswer().getAnswerId(), dto.getCorrectAnswer().getAnswerText(), true);
+        Answer wrongAnswer1 = new Answer(dto.getWrongAnswer1().getAnswerId(), dto.getWrongAnswer1().getAnswerText(), false);
+        Answer wrongAnswer2 = new Answer(dto.getWrongAnswer2().getAnswerId(), dto.getWrongAnswer2().getAnswerText(), false);
+        Answer wrongAnswer3 = new Answer(dto.getWrongAnswer3().getAnswerId(), dto.getWrongAnswer3().getAnswerText(), false);
+
+
+        myQuestionsRepository.updateAnswersOfMyQuestion(correctAnswer);
+        myQuestionsRepository.updateAnswersOfMyQuestion(wrongAnswer1);
+        myQuestionsRepository.updateAnswersOfMyQuestion(wrongAnswer2);
+        myQuestionsRepository.updateAnswersOfMyQuestion(wrongAnswer3);
+
+        return editedQuestion;
     }
 }

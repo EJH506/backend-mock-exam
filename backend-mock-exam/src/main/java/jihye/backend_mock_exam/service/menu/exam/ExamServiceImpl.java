@@ -91,8 +91,6 @@ public class ExamServiceImpl implements ExamService {
             exam.add(examItem);
         }
 
-        log.info("service.ExamItemList={}", exam);
-
         return exam;
     }
 

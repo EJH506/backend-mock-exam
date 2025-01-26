@@ -2,7 +2,9 @@ package jihye.backend_mock_exam.controller.menu;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
+import jihye.backend_mock_exam.controller.menu.validation.MyQuestionEditValidator;
 import jihye.backend_mock_exam.controller.menu.validation.MyQuestionValidator;
+import jihye.backend_mock_exam.domain.exam.Answer;
 import jihye.backend_mock_exam.domain.exam.ExamItem;
 import jihye.backend_mock_exam.domain.exam.Question;
 import jihye.backend_mock_exam.domain.myQuestion.MyQuestion;
@@ -11,6 +13,7 @@ import jihye.backend_mock_exam.service.Page;
 import jihye.backend_mock_exam.service.menu.memo.dto.MemoSelectDeleteDto;
 import jihye.backend_mock_exam.service.menu.myQuestions.MyQuestionsService;
 import jihye.backend_mock_exam.service.menu.myQuestions.dto.MyQuestionAddDto;
+import jihye.backend_mock_exam.service.menu.myQuestions.dto.MyQuestionEditDto;
 import jihye.backend_mock_exam.service.menu.myQuestions.dto.MyQuestionSelectDeleteDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -22,7 +25,9 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Slf4j
 @Controller
@@ -32,17 +37,17 @@ public class MyQuestionsController {
 
     private final MyQuestionsService myQuestionsService;
     private final MyQuestionValidator myQuestionValidator;
+    private final MyQuestionEditValidator myQuestionEditValidator;
 
     @GetMapping
-    public String myQuestions(RedirectAttributes redirectAttributes) {
-        redirectAttributes.addAttribute("level", "전체");
+    public String myQuestions() {
         return "redirect:/my-questions/list";
     }
 
     @GetMapping("/list")
     public String myQuestionsList(@RequestAttribute("user") Role user,
                               @RequestParam(value = "page", defaultValue = "1") int page,
-                              @RequestParam(value = "level", required = false) String level,
+                              @RequestParam(value = "level", required = false, defaultValue = "전체") String level,
                               @RequestParam(value = "searchKeyword", required = false) String searchKeyword,
                               Model model) {
 
@@ -66,13 +71,12 @@ public class MyQuestionsController {
 
     @PostMapping("/delete")
     public String selectedMyQuestionDelete(@ModelAttribute MyQuestionSelectDeleteDto dto,
-                                     @RequestParam("level") String level,
+                                     @RequestParam(value = "level", required = false) String level,
                                      RedirectAttributes redirectAttributes) {
 
+        log.info("dto={}", dto);
         myQuestionsService.myQuestionSelectDelete(dto);
-
-        log.info("MyQuestionSelectDeleteDto={}", dto);
-        redirectAttributes.addAttribute("level", level);
+        if (level != null) { redirectAttributes.addAttribute("level", level); }
         return "redirect:/my-questions/list";
     }
 
@@ -80,15 +84,54 @@ public class MyQuestionsController {
     public String myQuestionDetail(@PathVariable("questionId") Long questionId, Model model) {
         ExamItem examItem = myQuestionsService.myQuestionDetail(questionId);
         model.addAttribute("examItem", examItem);
+        model.addAttribute("myQuestionSelectDeleteDto", new MyQuestionSelectDeleteDto(List.of(questionId)));
         return "menu/myQuestions/my-question-detail";
     }
 
     @GetMapping("/{questionId}/edit")
-    public String myQuestionEdit(@PathVariable("questionId") Long questionId,
+    public String myQuestionEditPage(@RequestAttribute("user") Role user, @PathVariable("questionId") Long questionId,
                                  Model model) {
+
+        List<Integer> levels = myQuestionsService.levelListOfMyQuestion(user.getUserId());
+
         ExamItem examItem = myQuestionsService.myQuestionDetail(questionId);
+        Question question = examItem.getQuestion();
+        List<Answer> answers = examItem.getAnswers();
+        MyQuestionEditDto myQuestionEditDto = new MyQuestionEditDto(question.getQuestionId(), question.getLevel(), question.getQuestionText(),
+                                                                    examItem.getCorrectAnswer(), answers.get(0), answers.get(1), answers.get(2));
+
         model.addAttribute("examItem", examItem);
+        model.addAttribute("levels", levels);
+        model.addAttribute("myQuestionEditDto", myQuestionEditDto);
         return "menu/myQuestions/my-question-edit";
+    }
+
+    @PostMapping("/{questionId}/edit")
+    public String myQuestionEdit(@RequestAttribute("user") Role user, @PathVariable Long questionId,
+                                 @Valid @ModelAttribute MyQuestionEditDto dto, BindingResult bindingResult,
+                                 RedirectAttributes redirectAttributes,
+                                 Model model) {
+
+        log.info("=========dto={}", dto);
+        List<Integer> levels = myQuestionsService.levelListOfMyQuestion(user.getUserId());
+
+        myQuestionEditValidator.validate(dto, bindingResult);
+
+        if (bindingResult.hasErrors()) {
+            log.info("errors={}", bindingResult);
+            ExamItem examItem = myQuestionsService.myQuestionDetail(questionId);
+            Question question = examItem.getQuestion();
+            List<Answer> answers = examItem.getAnswers();
+            model.addAttribute("examItem", examItem);
+            model.addAttribute("levels", levels);
+            model.addAttribute("myQuestionEditDto", dto);
+            return "menu/myQuestions/my-question-edit";
+        }
+
+        myQuestionsService.editMyQuestion(dto);
+
+        redirectAttributes.addAttribute("questionId", questionId);
+        return "redirect:/my-questions/{questionId}";
     }
 
     @GetMapping("/add")

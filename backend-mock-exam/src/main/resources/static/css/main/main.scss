@@ -200,7 +200,7 @@ section {
       border-color: $theme-main;
     }
 
-    .btn_delete { // 여기부터 나만의 문제
+    .btn-delete { // 여기부터 나만의 문제
       border-color: $accent-caution;
       color: $accent-caution;
 
@@ -210,7 +210,7 @@ section {
       }
     }
 
-    .btn_edit {
+    .btn-edit {
       background-color: $theme-main;
       border-color: $theme-main;
     }
@@ -484,7 +484,7 @@ section {
         background-color: $theme-main;
       }
 
-      &.memo-delete {
+      &.btn-delete {
         border-color: $accent-caution;
         color: $accent-caution;
 
@@ -583,7 +583,7 @@ section {
     }
     >li:first-of-type>.systemInput_md { border-color: $accent-correct; } // 정답
 
-    & + .buttons {
+    & ~ .buttons {
       .btn_cancel {
         background-color: $theme-sub;
         border-color: $theme-sub;

@@ -7,20 +7,18 @@ import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
-import java.util.List;
-
 @Component
-public class MyQuestionValidator implements Validator {
+public class MyQuestionEditValidator implements Validator {
 
     @Override
     public boolean supports(Class<?> clazz) {
-        return MyQuestionAddDto.class.isAssignableFrom(clazz);
+        return MyQuestionEditDto.class.isAssignableFrom(clazz);
     }
 
     @Override
     public void validate(Object target, Errors errors) {
 
-        MyQuestionAddDto dto = (MyQuestionAddDto) target;
+        MyQuestionEditDto dto = (MyQuestionEditDto) target;
         String correct = dto.getCorrectAnswer().getAnswerText();
         String wrong1 = dto.getWrongAnswer1().getAnswerText();
         String wrong2 = dto.getWrongAnswer2().getAnswerText();

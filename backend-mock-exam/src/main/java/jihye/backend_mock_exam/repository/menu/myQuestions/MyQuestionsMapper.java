@@ -21,7 +21,7 @@ public interface MyQuestionsMapper {
     List<Integer> findLevelsOfMyQuestion(Long userId);
 
     // 선택한 문항 삭제
-    void deleteMyQuestionList(List<Long> myQuestionsId);
+    void deleteMyQuestionList(List<Long> deleteQuestionsId);
 
     // 문항 ID로 문항 조회
     Question findMyQuestionById(Long questionId);
@@ -34,4 +34,10 @@ public interface MyQuestionsMapper {
 
     // 문항의 보기 등록
     void insertAnswersOfMyQuestion(List<Answer> answers);
+
+    // 문항의 질문 업데이트
+    void updateQuestionOfMyQuestion(MyQuestion question);
+
+    // 문항의 보기 업데이트
+    void updateAnswersOfMyQuestion(Answer answer);
 }

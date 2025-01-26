@@ -37,22 +37,26 @@
 
             <ul>
                 <li>
-                    <input class="systemInput_md" type="text" placeholder="정답" th:field="*{correctAnswer}" />
+                    <label for="correctAnswer" class="sr-only">정답</label>
+                    <input class="systemInput_md" id="correctAnswer" type="text" placeholder="정답" th:field="*{correctAnswer.answerText}" />
                 </li>
                 <li>
-                    <input class="systemInput_md" type="text" placeholder="오답" th:field="*{wrongAnswers[0]}" />
+                    <label for="wrongAnswer1" class="sr-only">정답</label>
+                    <input class="systemInput_md" id="wrongAnswer1" type="text" placeholder="오답" th:field="*{wrongAnswer1.answerText}" />
                 </li>
                 <li>
-                    <input class="systemInput_md" type="text" placeholder="오답" th:field="*{wrongAnswers[1]}" />
+                    <label for="wrongAnswer2" class="sr-only">정답</label>
+                    <input class="systemInput_md" id="wrongAnswer2" type="text" placeholder="오답" th:field="*{wrongAnswer2.answerText}" />
                 </li>
                 <li>
-                    <input class="systemInput_md" type="text" placeholder="오답" th:field="*{wrongAnswers[2]}" />
+                    <label for="wrongAnswer3" class="sr-only">정답</label>
+                    <input class="systemInput_md" id="wrongAnswer3" type="text" placeholder="오답" th:field="*{wrongAnswer3.answerText}" />
                 </li>
-
-                <div th:if="${#fields.hasGlobalErrors()}" class="errorclass">
-                    <p class="errorclass" th:each="err : ${#fields.globalErrors().get(0)}" th:text="${err}">전체 오류 메시지</p>
-                </div>
             </ul>
+
+            <div th:if="${#fields.hasGlobalErrors()}" class="errorclass">
+                <p class="errorclass" th:each="err : ${#fields.globalErrors().get(0)}" th:text="${err}">전체 오류 메시지</p>
+            </div>
 
             <div class="buttons">
                 <a href="javascript:history.back();" class="systemButton_md btn_cancel" th:text="#{button.cancel}">취소(목업)</a>

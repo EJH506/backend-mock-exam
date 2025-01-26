@@ -37,14 +37,14 @@
         SELECT * FROM my_questions_levels WHERE user_id = #{userId}
     </select>
 
-    <delete id="deleteMyQuestionList">
+    <update id="deleteMyQuestionList">
         UPDATE my_questions
         SET deleted = TRUE
         WHERE question_id IN
-        <foreach collection="list" item="myQuestionsId" open="(" close=")" separator=",">
-            #{myQuestionsId}
+        <foreach collection="deleteQuestionsId" item="deleteQuestionId" open="(" close=")" separator=",">
+            #{deleteQuestionId}
         </foreach>
-    </delete>
+    </update>
 
     <select id="findMyQuestionById" resultType="question">
         SELECT * FROM my_questions
@@ -68,4 +68,16 @@
             (#{answer.questionId}, #{answer.answerText}, #{answer.isCorrect})
         </foreach>
     </insert>
+
+    <update id="updateQuestionOfMyQuestion">
+        UPDATE my_questions SET level = #{level},
+        question_text = #{questionText}
+        WHERE question_id = #{questionId}
+    </update>
+
+    <update id="updateAnswersOfMyQuestion">
+        UPDATE my_questions_answers
+        SET answer_text = #{answerText}
+        WHERE answer_id = #{answerId}
+    </update>
 </mapper>

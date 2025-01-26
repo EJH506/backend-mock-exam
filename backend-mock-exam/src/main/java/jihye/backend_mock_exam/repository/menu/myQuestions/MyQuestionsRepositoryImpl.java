@@ -37,8 +37,8 @@ public class MyQuestionsRepositoryImpl implements MyQuestionsRepository {
 
     // 선택한 문항 삭제
     @Override
-    public void deleteMyQuestionList(List<Long> myQuestionsId) {
-        myQuestionsMapper.deleteMyQuestionList(myQuestionsId);
+    public void deleteMyQuestionList(List<Long> deleteQuestionsId) {
+        myQuestionsMapper.deleteMyQuestionList(deleteQuestionsId);
     }
 
     // 문항 ID로 문항 조회
@@ -65,5 +65,19 @@ public class MyQuestionsRepositoryImpl implements MyQuestionsRepository {
     public List<Answer> insertAnswersOfMyQuestion(List<Answer> answers) {
         myQuestionsMapper.insertAnswersOfMyQuestion(answers);
         return answers;
+    }
+
+    // 문항의 질문 업데이트
+    @Override
+    public MyQuestion updateQuestionOfMyQuestion(MyQuestion question) {
+        myQuestionsMapper.updateQuestionOfMyQuestion(question);
+        return question;
+    }
+
+    // 문항의 보기 업데이트
+    @Override
+    public Answer updateAnswersOfMyQuestion(Answer answer) {
+        myQuestionsMapper.updateAnswersOfMyQuestion(answer);
+        return answer;
     }
 }

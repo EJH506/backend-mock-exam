@@ -670,15 +670,15 @@ section > div > form .systemButton_sm:last-of-type {
   background-color: #71B961;
   border-color: #71B961;
 }
-.slide-box .buttons .btn_delete {
+.slide-box .buttons .btn-delete {
   border-color: #FF6F74;
   color: #FF6F74;
 }
-.slide-box .buttons .btn_delete:hover {
+.slide-box .buttons .btn-delete:hover {
   background-color: #FF6F74;
   color: white;
 }
-.slide-box .buttons .btn_edit {
+.slide-box .buttons .btn-edit {
   background-color: #71B961;
   border-color: #71B961;
 }
@@ -894,11 +894,11 @@ section > div > form .systemButton_sm:last-of-type {
   color: white;
   background-color: #71B961;
 }
-#memoArea > .buttons > .navButton_sm.memo-delete {
+#memoArea > .buttons > .navButton_sm.btn-delete {
   border-color: #FF6F74;
   color: #FF6F74;
 }
-#memoArea > .buttons > .navButton_sm.memo-delete:hover {
+#memoArea > .buttons > .navButton_sm.btn-delete:hover {
   color: white;
   background-color: #FF6F74;
 }
@@ -981,7 +981,7 @@ section > div > form .systemButton_sm:last-of-type {
 #question-info-input + ul > li:first-of-type > .systemInput_md {
   border-color: #00E6AC;
 }
-#question-info-input + ul + .buttons .btn_cancel {
+#question-info-input + ul ~ .buttons .btn_cancel {
   background-color: #E6E9DE;
   border-color: #E6E9DE;
 }

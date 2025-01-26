@@ -155,8 +155,6 @@ public class CommonServiceImpl implements CommonService {
             examHistory.setUserAnswers(historyUserAnswersId);
         }
 
-        log.info("CommonService.examHistory={}", examHistory);
-
         List<Question> questions = findFilteredHistoryQuestions(examHistory.getQuestions());
         List<Answer> correctAnswers = findFilteredHistoryAnswers(examHistory.getCorrectAnswers());
         List<Answer> userAnswers = findFilteredHistoryAnswers(examHistory.getUserAnswers());

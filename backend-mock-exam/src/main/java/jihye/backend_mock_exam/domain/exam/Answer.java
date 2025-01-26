@@ -10,4 +10,12 @@ public class Answer {
     private String answerText;
     private boolean isCorrect;
 
+    public Answer() {
+    }
+
+    public Answer(Long answerId, String answerText, boolean isCorrect) {
+        this.answerId = answerId;
+        this.answerText = answerText;
+        this.isCorrect = isCorrect;
+    }
 }
