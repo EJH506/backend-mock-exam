@@ -1,6 +1,5 @@
 package jihye.backend_mock_exam.controller.menu;
 
-import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import jihye.backend_mock_exam.controller.menu.validation.MyQuestionEditValidator;
 import jihye.backend_mock_exam.controller.menu.validation.MyQuestionValidator;
@@ -10,7 +9,6 @@ import jihye.backend_mock_exam.domain.exam.Question;
 import jihye.backend_mock_exam.domain.myQuestion.MyQuestion;
 import jihye.backend_mock_exam.domain.user.Role;
 import jihye.backend_mock_exam.service.Page;
-import jihye.backend_mock_exam.service.menu.memo.dto.MemoSelectDeleteDto;
 import jihye.backend_mock_exam.service.menu.myQuestions.MyQuestionsService;
 import jihye.backend_mock_exam.service.menu.myQuestions.dto.MyQuestionAddDto;
 import jihye.backend_mock_exam.service.menu.myQuestions.dto.MyQuestionEditDto;
@@ -23,11 +21,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import java.lang.reflect.Array;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @Slf4j
 @Controller
@@ -85,7 +79,7 @@ public class MyQuestionsController {
         ExamItem examItem = myQuestionsService.myQuestionDetail(questionId);
         model.addAttribute("examItem", examItem);
         model.addAttribute("myQuestionSelectDeleteDto", new MyQuestionSelectDeleteDto(List.of(questionId)));
-        return "menu/myQuestions/my-question-detail";
+        return "menu/myQuestions/my-questions-detail";
     }
 
     @GetMapping("/{questionId}/edit")
@@ -103,7 +97,7 @@ public class MyQuestionsController {
         model.addAttribute("examItem", examItem);
         model.addAttribute("levels", levels);
         model.addAttribute("myQuestionEditDto", myQuestionEditDto);
-        return "menu/myQuestions/my-question-edit";
+        return "menu/myQuestions/my-questions-edit";
     }
 
     @PostMapping("/{questionId}/edit")
@@ -112,7 +106,6 @@ public class MyQuestionsController {
                                  RedirectAttributes redirectAttributes,
                                  Model model) {
 
-        log.info("=========dto={}", dto);
         List<Integer> levels = myQuestionsService.levelListOfMyQuestion(user.getUserId());
 
         myQuestionEditValidator.validate(dto, bindingResult);
@@ -125,7 +118,7 @@ public class MyQuestionsController {
             model.addAttribute("examItem", examItem);
             model.addAttribute("levels", levels);
             model.addAttribute("myQuestionEditDto", dto);
-            return "menu/myQuestions/my-question-edit";
+            return "menu/myQuestions/my-questions-edit";
         }
 
         myQuestionsService.editMyQuestion(dto);
@@ -142,7 +135,7 @@ public class MyQuestionsController {
         model.addAttribute("user", user);
         model.addAttribute("levels", levels);
         model.addAttribute("myQuestionAddDto", new MyQuestionAddDto());
-        return "menu/myQuestions/my-question-add";
+        return "menu/myQuestions/my-questions-add";
     }
 
     @PostMapping("/add")
@@ -156,11 +149,27 @@ public class MyQuestionsController {
         if (bindingResult.hasErrors()) {
             log.info("error={}", bindingResult);
             model.addAttribute("levels", levels);
-            return "menu/myQuestions/my-question-add";
+            return "menu/myQuestions/my-questions-add";
         }
 
         MyQuestion savedQuestion = myQuestionsService.addMyQuestion(dto);
         redirectAttributes.addAttribute("questionId", savedQuestion.getQuestionId());
         return "redirect:/my-questions/{questionId}";
+    }
+
+    @GetMapping("/setting")
+    public String myQuestionSetting(@RequestAttribute("user") Role user, Model model) {
+
+        List<Integer> levels = myQuestionsService.levelListOfMyQuestion(user.getUserId());
+        model.addAttribute("levels", levels);
+        return "menu/myQuestions/my-questions-setting";
+    }
+
+    @PostMapping("/setting/delete")
+    public String myQuestionSettingDelete(@RequestAttribute("user") Role user, @RequestParam("level") Integer level) {
+
+        myQuestionsService.removeLevel(user.getUserId(), level);
+
+        return "redirect:/my-questions/setting";
     }
 }

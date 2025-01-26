@@ -316,7 +316,7 @@ section {
   border-radius: 7px;
 }
 
-.fa-solid { color: $icon-star; }
+.fa-solid { &.fa-star { color: $icon-star; } }
 .wrong { border-color: $accent-caution; }
 .correct { border-color: $accent-correct; }
 

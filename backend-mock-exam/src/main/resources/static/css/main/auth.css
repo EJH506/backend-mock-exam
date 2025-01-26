@@ -359,7 +359,7 @@ section > form {
   transform: scale(1.05);
 }
 
-.fa-solid {
+.fa-solid.fa-star {
   color: #FFE875;
 }
 

@@ -123,4 +123,16 @@ public class MyQuestionsService {
 
         return editedQuestion;
     }
+
+    // 난이도 삭제
+    @Transactional
+    public Integer removeLevel(Long userId, Integer level) {
+
+        // 난이도에 속한 문항 삭제
+        myQuestionsRepository.deleteMyQuestionOfDeletedLevel(userId, level);
+        // 난이도 삭제
+        myQuestionsRepository.deleteMyQuestionsLevel(userId, level);
+
+        return level;
+    }
 }

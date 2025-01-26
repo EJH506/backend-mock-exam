@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="#{page.my-questions.setting} + ' | ' + #{title}">나만의 문제 구성 편집 | 백엔드 모의고사</title>
+    <link rel="stylesheet" th:href="@{/css/main/main.css}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" />
+    <script th:src="@{https://code.jquery.com/jquery-3.6.0.min.js}"></script>
+</head>
+<body>
+<div class="wrap">
+    <header th:replace="~{fragment/home-header :: header (${user.userId}, ${user.nickname}, ${isMember})}"></header>
+
+    <section>
+        <h2 th:text="#{page.my-questions.setting}">나만의 문제 구성 편집(목업)</h2>
+        <p>&lt;나만의 문제&gt; 문제의 난이도 분류를 편집합니다</p>
+
+        <ul id="menuArea" class="my-question-menu">
+            <li class="systemMenu_lg" th:text="#{page.level.all}">전체(목업)</li>
+            <li th:each="level, stat : ${levels}" class="systemMenu_lg">
+                <p th:text="'Lv. ' + ${level}"></p>
+                <i th:if="${stat.last}" class="fa-solid fa-circle-xmark" th:data-level="${level}"></i>
+            </li>
+            <li class="systemMenu_lg add-level"><i class="fa-solid fa-circle-plus"></i></li>
+        </ul>
+    </section>
+</div>
+
+<script>
+    $(document).ready(function() {
+        $('.fa-circle-xmark').click(function() {
+            if (confirm('하위에 속한 문항들 모두 삭제됩니다. \n난이도를 삭제할까요?')) {
+
+                const level = $(this).data('level');
+
+                $.ajax({
+                    url: '/my-questions/setting/delete',
+                    method: 'post',
+                    data: { level: level },
+                    success: function(response) {
+                        console.log("요청성공!!");
+                    },
+                    error: function(xhr, status, error) {
+                        console.error('AJAX 요청 실패:', error);
+                    }
+                })
+            }
+        })
+    })
+</script>
+</body>
+</html>

@@ -39,4 +39,10 @@ public interface MyQuestionsRepository {
 
     // 문항의 보기 업데이트
     Answer updateAnswersOfMyQuestion(Answer answer);
+
+    // 난이도에 속한 문항 삭제
+    void deleteMyQuestionOfDeletedLevel(Long userId, Integer level);
+
+    // 난이도 삭제
+    void deleteMyQuestionsLevel(Long userId, Integer level);
 }

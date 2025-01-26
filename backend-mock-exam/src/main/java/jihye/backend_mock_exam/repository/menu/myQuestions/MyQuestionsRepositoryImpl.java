@@ -80,4 +80,16 @@ public class MyQuestionsRepositoryImpl implements MyQuestionsRepository {
         myQuestionsMapper.updateAnswersOfMyQuestion(answer);
         return answer;
     }
+
+    // 난이도에 속한 문항 삭제
+    @Override
+    public void deleteMyQuestionOfDeletedLevel(Long userId, Integer level) {
+        myQuestionsMapper.deleteMyQuestionOfDeletedLevel(userId, level);
+    }
+
+    // 난이도 삭제
+    @Override
+    public void deleteMyQuestionsLevel(Long userId, Integer level) {
+        myQuestionsMapper.deleteMyQuestionsLevel(userId, level);
+    }
 }

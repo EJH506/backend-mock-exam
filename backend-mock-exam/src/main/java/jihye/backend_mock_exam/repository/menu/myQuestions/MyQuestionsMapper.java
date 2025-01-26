@@ -40,4 +40,10 @@ public interface MyQuestionsMapper {
 
     // 문항의 보기 업데이트
     void updateAnswersOfMyQuestion(Answer answer);
+
+    // 난이도에 속한 문항 삭제
+    void deleteMyQuestionOfDeletedLevel(@Param("userId") Long userId, @Param("level") Integer level);
+
+    // 난이도 삭제
+    void deleteMyQuestionsLevel(@Param("userId") Long userId, @Param("level") Integer level);
 }

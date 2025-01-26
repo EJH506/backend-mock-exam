@@ -80,4 +80,14 @@
         SET answer_text = #{answerText}
         WHERE answer_id = #{answerId}
     </update>
+    
+    <update id="deleteMyQuestionOfDeletedLevel">
+        UPDATE my_questions
+        SET deleted = TRUE
+        WHERE user_id = #{userId} AND LEVEL = #{level}
+    </update>
+
+    <delete id="deleteMyQuestionsLevel">
+        
+    </delete>
 </mapper>
