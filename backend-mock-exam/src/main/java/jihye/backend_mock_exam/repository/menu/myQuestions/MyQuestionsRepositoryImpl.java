@@ -35,6 +35,24 @@ public class MyQuestionsRepositoryImpl implements MyQuestionsRepository {
         return myQuestionsMapper.findLevelsOfMyQuestion(userId);
     }
 
+    // 나만의 문제에 존재하는 레벨 목록 조회 (문항이 존재하는 것만 조회)
+    @Override
+    public List<Integer> findLevelsOfMyQuestionWithItem(Long userId) {
+        return myQuestionsMapper.findLevelsOfMyQuestionWithItem(userId);
+    }
+
+    // 사용자의 나만의 문제 문항 수 조회
+    @Override
+    public Integer findNumberOfMyQuestion(Long userId, int level) {
+        return myQuestionsMapper.findNumberOfMyQuestion(userId, level);
+    }
+
+    // 사용자의 나만의 문제 문항 수 조회
+    @Override
+    public List<Long> findShuffledMyQuestions(Long userId, int level, int number) {
+        return myQuestionsMapper.findShuffledMyQuestions(userId, level, number);
+    }
+
     // 선택한 문항 삭제
     @Override
     public void deleteMyQuestionList(List<Long> deleteQuestionsId) {

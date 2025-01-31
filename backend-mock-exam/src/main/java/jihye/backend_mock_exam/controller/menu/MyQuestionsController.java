@@ -45,8 +45,8 @@ public class MyQuestionsController {
                               @RequestParam(value = "searchKeyword", required = false) String searchKeyword,
                               Model model) {
 
-        // 선택한 주제에 존재하는 난이도 목록
-        List<Integer> levels = myQuestionsService.levelListOfMyQuestion(user.getUserId());
+        // 난이도 목록 (문항이 존재하는 것만)
+        List<Integer> levels = myQuestionsService.levelListOfMyQuestionWithItem(user.getUserId());
 
         if (searchKeyword != null) {
             model.addAttribute("searchKeyword", searchKeyword);

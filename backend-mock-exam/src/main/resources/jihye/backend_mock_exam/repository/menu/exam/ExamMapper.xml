@@ -4,7 +4,15 @@
 <mapper namespace="jihye.backend_mock_exam.repository.menu.exam.ExamMapper">
 
     <select id="findAllSubjects" resultType="subject">
-        SELECT * FROM subjects
+        SELECT * FROM subjects  WHERE deleted = false
+    </select>
+
+    <select id="findAllSubjectsWithItem" resultType="subject">
+        SELECT s.*
+        FROM subjects s
+        JOIN questions q ON s.subject_id = q.subject_id AND q.deleted = FALSE
+        WHERE s.deleted = FALSE
+        GROUP BY s.SUBJECT_ID
     </select>
 
     <select id="findSubjectByName" resultType="subject">
@@ -16,17 +24,29 @@
     </select>
 
     <select id="findLevelsBySubject" resultType="int">
-        SELECT l.level
+        SELECT l.level FROM levels l JOIN subjects s ON l.subject_id = s.subject_id WHERE s.subject_name = #{subjectName} AND l.deleted = false
+    </select>
+
+    <select id="findLevelsBySubjectWithItem" resultType="int">
+        SELECT DISTINCT l.level
         FROM levels l
-        JOIN subjects s ON l.subject_id = s.subject_id
-        WHERE s.subject_name = #{subjectName};
+        JOIN questions q ON l.level = q.level AND l.subject_id = q.subject_id AND q.deleted = false
+        WHERE l.subject_id = (SELECT SUBJECT_ID FROM SUBJECTS S WHERE SUBJECT_name = #{subjectName})
+        AND l.deleted = false;
     </select>
 
     <select id="findMinMaxLevel" resultType="int">
-        SELECT DISTINCT LEVEL FROM LEVELS ORDER BY LEVEL asc
+        SELECT DISTINCT LEVEL FROM LEVELS WHERE deleted = false ORDER BY LEVEL asc
     </select>
 
-    <select id="findNumberOfSubject" resultType="Long">
+    <select id="findMinMaxLevelWithItem" resultType="int">
+        SELECT DISTINCT l.level
+        FROM LEVELS l
+        JOIN questions q ON q.LEVEL = l.LEVEL AND q.deleted = false
+        WHERE l.deleted = false ORDER BY l.LEVEL asc
+    </select>
+
+    <select id="findNumberOfSubject" resultType="int">
         SELECT count(*) FROM questions
         <where>
             <if test="subjectId > 0">
@@ -35,6 +55,7 @@
             <if test="level > 0">
                 AND level = #{level}
             </if>
+            AND deleted = FALSE;
         </where>
     </select>
 
@@ -51,6 +72,7 @@
             <if test="level > 0">
                 AND level = #{level}
             </if>
+            AND deleted = false
         </where>
         ORDER BY RAND()
         LIMIT #{number}

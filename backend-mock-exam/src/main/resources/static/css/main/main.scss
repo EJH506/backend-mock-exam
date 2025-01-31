@@ -368,6 +368,7 @@ section {
       } //.title
 
       &.on {
+        padding-bottom: 12px;
         border-color: $theme-main;
 
         .questionText {
@@ -381,7 +382,7 @@ section {
             display: flex;
             flex-flow: column wrap;
             gap: 7px;
-            margin: 24px 0 12px;
+            margin: 0 0 12px;
 
             >.correct {
               font-family: 'Pretendard-Bold';

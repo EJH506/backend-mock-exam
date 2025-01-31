@@ -8,10 +8,13 @@ import jihye.backend_mock_exam.domain.history.HistoryItemObject;
 import jihye.backend_mock_exam.repository.menu.exam.ExamRepository;
 import jihye.backend_mock_exam.repository.menu.history.HistoryRepository;
 import jihye.backend_mock_exam.repository.menu.incorrectNote.IncorrectNoteRepository;
+import jihye.backend_mock_exam.repository.menu.myQuestions.MyQuestionsRepository;
 import jihye.backend_mock_exam.service.menu.exam.dto.SubmittedExamDto;
+import jihye.backend_mock_exam.service.menu.myQuestions.MyQuestionsService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,6 +28,7 @@ public class CommonServiceImpl implements CommonService {
     private final ExamRepository examRepository;
     private final IncorrectNoteRepository incorrectNoteRepository;
     private final HistoryRepository historyRepository;
+    private final MyQuestionsRepository myQuestionsRepository;
 
     // 주제 목록 조회
     @Override
@@ -40,7 +44,12 @@ public class CommonServiceImpl implements CommonService {
 
     // 주제별 난이도 목록 조회
     @Override
-    public List<Integer> levelListOfSubject(String subjectName) {
+    public List<Integer> levelListOfSubject(Long userId, String subjectName) {
+
+        // 나만의 문제일 시
+        if (ExamConst.SUBJECT_MYQUESTIONS.equals(subjectName)) {
+            return myQuestionsRepository.findLevelsOfMyQuestion(userId);
+        }
 
         // 통합 문제가 아닐 시
         if (!(ExamConst.SUBJECT_ALL.equals(subjectName))) {
@@ -51,30 +60,60 @@ public class CommonServiceImpl implements CommonService {
         return examRepository.findMinMaxLevel();
     }
 
-    // 문제의 보기 조회 (순서 랜덤)
+    // 주제별 난이도 목록 조회 (문항이 존재하는 것만 조회)
     @Override
-    public List<Answer> shuffledAnswerListByQuestion(Long questionId) {
-        return examRepository.findShuffledAnswers(questionId);
+    public List<Integer> levelListOfSubjectWithItem(Long userId, String subjectName) {
+
+        // 나만의 문제일 시
+        if (ExamConst.SUBJECT_MYQUESTIONS.equals(subjectName)) {
+            return myQuestionsRepository.findLevelsOfMyQuestionWithItem(userId);
+        }
+
+        // 통합 문제가 아닐 시
+        if (!(ExamConst.SUBJECT_ALL.equals(subjectName))) {
+            return examRepository.findLevelsBySubjectWithItem(subjectName);
+        }
+
+        // 통합 문제일 시
+        return examRepository.findMinMaxLevelWithItem();
     }
 
     @Override
+    @Transactional
     // 조건에 맞는 문항 조회
-    public List<Question> findFilteredHistoryQuestions(List<Long> questionsId) {
+    public List<Question> findFilteredHistoryQuestions(List<Long> questionsId, boolean isMyQuestion) {
 
         List<Question> questions = new ArrayList<>();
 
         for (Long questionId : questionsId) {
-            Question question = examRepository.findQuestionsById(questionId);
-            Subject subject = examRepository.findSubjectById(question.getSubjectId());
-            question.setSubjectName(subject.getSubjectName());
+            Question question;
+            
+            // 나만의 문제일 경우
+            if (isMyQuestion) {
+                question = myQuestionsRepository.findMyQuestionById(questionId);
+                question.setSubjectName(ExamConst.SUBJECT_MYQUESTIONS);
+
+            // 아닐경우
+            } else {
+                question = examRepository.findQuestionsById(questionId);
+                Subject subject = examRepository.findSubjectById(question.getSubjectId());
+                question.setSubjectName(subject.getSubjectName());
+            }
             questions.add(question);
         }
 
         return questions;
     }
 
+    // 문제의 보기 조회 (순서 랜덤)
+    @Override
+    public List<Answer> shuffledAnswerListByQuestion(Long questionId) {
+        return examRepository.findShuffledAnswers(questionId);
+    }
+
     // 시험 히스토리 생성
     @Override
+    @Transactional
     public ExamHistory createExamHistory(SubmittedExamDto dto) {
 
         QuestionFilter questionFilter = questionFilterConvert(dto.getSubject(), dto.getLevel());
@@ -155,7 +194,7 @@ public class CommonServiceImpl implements CommonService {
             examHistory.setUserAnswers(historyUserAnswersId);
         }
 
-        List<Question> questions = findFilteredHistoryQuestions(examHistory.getQuestions());
+        List<Question> questions = findFilteredHistoryQuestions(examHistory.getQuestions(), false);
         List<Answer> correctAnswers = findFilteredHistoryAnswers(examHistory.getCorrectAnswers());
         List<Answer> userAnswers = findFilteredHistoryAnswers(examHistory.getUserAnswers());
 
@@ -217,18 +256,21 @@ public class CommonServiceImpl implements CommonService {
     @Override
     // 매개변수로 사용될 subject와 level의 값을 통합인지 아닌지에 따라 적절히 변환
     public QuestionFilter questionFilterConvert(String subjectName, String level) {
-
         Long subjectId = 0L;
         int levelInt = 0;
-
-        // 통합 문제가 아닐 시
-        if (subjectName != null && !(ExamConst.SUBJECT_ALL.equals(subjectName))) {
-            subjectId = findSubjectByName(subjectName).getSubjectId();
-        }
 
         // 전체 레벨이 아닐 시
         if (level != null && !(ExamConst.LEVEL_ALL.equals(level))) {
             levelInt = Integer.parseInt(level);
+        }
+
+        // 나만의 문제일 시
+        if (ExamConst.SUBJECT_MYQUESTIONS.equals(subjectName)) {
+            subjectId = null;
+
+        // 통합 문제가 아닐 시
+        } else if (subjectName != null && !(ExamConst.SUBJECT_ALL.equals(subjectName))) {
+            subjectId = findSubjectByName(subjectName).getSubjectId();
         }
 
         return new QuestionFilter(subjectId, levelInt);
@@ -246,5 +288,23 @@ public class CommonServiceImpl implements CommonService {
         }
 
         return new QuestionFilter(levelInt);
+    }
+
+    // 나만의 문제에 존재하는 레벨 목록 보기 (문항이 존재하는 것만 조회)
+    @Override
+    public List<Integer> levelListOfMyQuestionWithItem(Long userId) {
+        return myQuestionsRepository.findLevelsOfMyQuestionWithItem(userId);
+    }
+
+    // 사용자의 나만의 문제 문항 수 조회
+    @Override
+    public Integer findNumberOfMyQuestion(Long userId, int level) {
+        return myQuestionsRepository.findNumberOfMyQuestion(userId, level);
+    }
+
+    // 나만의 문제의 난이도, 문항수에 해당하는 문제 목록 조회
+    @Override
+    public List<Long> findShuffledMyQuestions(Long userId, int level, int number) {
+        return myQuestionsRepository.findShuffledMyQuestions(userId, level, number);
     }
 }

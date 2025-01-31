@@ -46,9 +46,9 @@
         </form>
     </div>
 
-    <div th:if="${exam.totalQuestionsCount == 0}">
+    <div class="empty" th:if="${exam.totalQuestionsCount == 0}">
         <p>문제가 없습니다</p>
-        <a th:href="@{/exam/subject}">다른 문제 풀기</a>
+        <a class="systemButton_md" th:href="@{/exam/subject}">다른 문제 풀기</a>
     </div>
 
 </section>

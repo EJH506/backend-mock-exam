@@ -34,8 +34,39 @@
     </select>
 
     <select id="findLevelsOfMyQuestion" resultType="int">
-        SELECT level FROM my_questions_levels
-        WHERE user_id = #{userId} AND deleted = FALSE
+        SELECT level FROM my_questions_levels WHERE user_id = #{userId} AND deleted = FALSE
+    </select>
+
+    <select id="findLevelsOfMyQuestionWithItem" resultType="int">
+        SELECT DISTINCT l.level
+        FROM my_questions_levels l
+        JOIN my_questions q ON l.LEVEL = q.LEVEL AND q.deleted = false
+        WHERE q.user_id = #{userId} AND l.USER_ID = #{userId} and l.deleted = FALSE
+    </select>
+
+    <select id="findNumberOfMyQuestion" resultType="int">
+        SELECT count(*)
+        FROM my_questions
+        <where>
+            AND user_id = #{userId}
+            <if test="level > 0">
+                AND level = #{level}
+            </if>
+        </where>
+        AND deleted = FALSE;
+    </select>
+
+    <select id="findShuffledMyQuestions" resultType="Long">
+        SELECT question_id FROM my_questions
+        <where>
+            AND user_id = #{userId}
+            <if test="level > 0">
+                AND level = #{level}
+            </if>
+            AND deleted = false
+        </where>
+        ORDER BY RAND()
+        LIMIT #{number}
     </select>
 
     <update id="deleteMyQuestionList">

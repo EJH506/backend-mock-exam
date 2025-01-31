@@ -804,6 +804,7 @@ section > div > form .systemButton_sm:last-of-type {
   font-family: "Pretendard-Medium";
 }
 #commonArea .commonList .systemInput_md.on {
+  padding-bottom: 12px;
   border-color: #71B961;
 }
 #commonArea .commonList .systemInput_md.on .questionText {
@@ -816,7 +817,7 @@ section > div > form .systemButton_sm:last-of-type {
   display: flex;
   flex-flow: column wrap;
   gap: 7px;
-  margin: 24px 0 12px;
+  margin: 0 0 12px;
 }
 #commonArea .commonList .systemInput_md.on > .content > ul > .correct {
   font-family: "Pretendard-Bold";

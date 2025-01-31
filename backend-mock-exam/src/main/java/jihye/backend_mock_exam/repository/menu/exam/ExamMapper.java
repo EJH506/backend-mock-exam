@@ -13,6 +13,12 @@ public interface ExamMapper {
     // 주제 전체 조회
     List<Subject> findAllSubjects();
 
+    // 문항이 존재하는 주제 조회
+    List<Subject> findAllSubjectsWithItem();
+
+    // 문항이 존재하는 주제별 난이도 목록 조회
+    List<Integer> findLevelsBySubjectWithItem(String subjectName);
+
     // 주제 이름으로 주제 조회
     Subject findSubjectByName(String subjectName);
 
@@ -25,8 +31,11 @@ public interface ExamMapper {
     // 전체 난이도 중 최소, 최대 난이도 조회
     List<Integer> findMinMaxLevel();
 
+    // 전체 난이도 중 최소, 최대 난이도 조회 (문항이 존재하는 것만 조회)
+    List<Integer> findMinMaxLevelWithItem();
+
     // 주제에 해당하는 문제 수 조회
-    Long findNumberOfSubject(@Param("subjectId") Long subjectId, @Param("level") int level);
+    Integer findNumberOfSubject(@Param("subjectId") Long subjectId, @Param("level") int level);
 
     // 관리자가 설정한 출제 문항 분류 단위 조회
     Integer findQuestionUnitSetting();

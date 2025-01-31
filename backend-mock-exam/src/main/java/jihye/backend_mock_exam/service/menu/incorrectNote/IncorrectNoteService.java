@@ -31,8 +31,8 @@ public class IncorrectNoteService {
     }
 
     // 주제별 난이도 목록 조회
-    public List<Integer> levelListOfSubject(String subjectName) {
-        return commonService.levelListOfSubject(subjectName);
+    public List<Integer> levelListOfSubject(Long userId, String subjectName) {
+        return commonService.levelListOfSubject(userId, subjectName);
     }
 
     // 주제, 난이도, 페이지 선택에 따른 사용자의 오답노트 목록
@@ -53,7 +53,7 @@ public class IncorrectNoteService {
         }
 
         // 오답노트 목록의 question id에서 문제 정보 추출
-        List<Question> questions = commonService.findFilteredHistoryQuestions(questionsId);
+        List<Question> questions = commonService.findFilteredHistoryQuestions(questionsId, false);
 
         List<IncorrectItem> incorrectItemList = new ArrayList<>();
 

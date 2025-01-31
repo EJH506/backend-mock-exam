@@ -13,10 +13,13 @@ public interface CommonService {
     List<Subject> findAllSubjects();
 
     // 주제별 난이도 목록 조회
-    List<Integer> levelListOfSubject(String subjectName);
+    List<Integer> levelListOfSubject(Long userId, String subjectName);
+
+    // 주제별 난이도 목록 조회 (문항이 존재하는 것만 조회)
+    List<Integer> levelListOfSubjectWithItem(Long userId, String subjectName);
 
     // 조건에 맞는 문항 조회
-    List<Question> findFilteredHistoryQuestions(List<Long> questionsId);
+    List<Question> findFilteredHistoryQuestions(List<Long> questionsId, boolean isMyQuestion);
 
     // 문제의 보기 조회 (순서 랜덤)
     List<Answer> shuffledAnswerListByQuestion(Long questionId);
@@ -46,4 +49,12 @@ public interface CommonService {
     QuestionFilter questionFilterConvert(String subjectName, String level);
     QuestionFilter questionFilterConvert(String level);
 
+    // 나만의 문제에 존재하는 레벨 목록 보기 (문항이 존재하는 것만 조회)
+    List<Integer> levelListOfMyQuestionWithItem(Long userId);
+
+    // 사용자의 나만의 문제 문항 수 조회
+    Integer findNumberOfMyQuestion(Long userId, int level);
+
+    // 나만의 문제의 난이도, 문항수에 해당하는 문제 목록 조회
+    List<Long> findShuffledMyQuestions(Long userId, int level, int number);
 }

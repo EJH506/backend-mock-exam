@@ -20,6 +20,15 @@ public interface MyQuestionsMapper {
     // 나만의 문제에 존재하는 레벨 목록 조회
     List<Integer> findLevelsOfMyQuestion(Long userId);
 
+    // 나만의 문제에 존재하는 레벨 목록 조회 (문항이 존재하는 것만 조회)
+    List<Integer> findLevelsOfMyQuestionWithItem(Long userId);
+
+    // 사용자의 나만의 문제 문항 수 조회
+    Integer findNumberOfMyQuestion(@Param("userId") Long userId, @Param("level") int level);
+
+    // 나만의 문제의 난이도, 문항수에 해당하는 문제 목록 조회
+    List<Long> findShuffledMyQuestions(@Param("userId") Long userId, @Param("level") int level, @Param("number") int number);
+
     // 선택한 문항 삭제
     void deleteMyQuestionList(List<Long> deleteQuestionsId);
 

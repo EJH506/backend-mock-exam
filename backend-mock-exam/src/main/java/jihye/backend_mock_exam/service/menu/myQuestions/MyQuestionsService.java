@@ -1,18 +1,13 @@
 package jihye.backend_mock_exam.service.menu.myQuestions;
 
-import jakarta.servlet.http.HttpServletRequest;
 import jihye.backend_mock_exam.domain.exam.Answer;
 import jihye.backend_mock_exam.domain.exam.ExamItem;
 import jihye.backend_mock_exam.domain.exam.Question;
-import jihye.backend_mock_exam.domain.memo.Memo;
 import jihye.backend_mock_exam.domain.myQuestion.MyQuestion;
-import jihye.backend_mock_exam.domain.user.Role;
-import jihye.backend_mock_exam.domain.user.User;
 import jihye.backend_mock_exam.repository.menu.myQuestions.MyQuestionsRepository;
 import jihye.backend_mock_exam.service.Page;
 import jihye.backend_mock_exam.service.menu.CommonService;
 import jihye.backend_mock_exam.service.menu.QuestionFilter;
-import jihye.backend_mock_exam.service.menu.memo.dto.MemoSelectDeleteDto;
 import jihye.backend_mock_exam.service.menu.myQuestions.dto.MyQuestionAddDto;
 import jihye.backend_mock_exam.service.menu.myQuestions.dto.MyQuestionEditDto;
 import jihye.backend_mock_exam.service.menu.myQuestions.dto.MyQuestionSelectDeleteDto;
@@ -50,6 +45,11 @@ public class MyQuestionsService {
     // 나만의 문제에 존재하는 레벨 목록 보기
     public List<Integer> levelListOfMyQuestion(Long userId) {
         return myQuestionsRepository.findLevelsOfMyQuestion(userId);
+    }
+
+    // 나만의 문제에 존재하는 레벨 목록 보기 (문항이 존재하는 것만 조회)
+    public List<Integer> levelListOfMyQuestionWithItem(Long userId) {
+        return myQuestionsRepository.findLevelsOfMyQuestionWithItem(userId);
     }
 
     // 선택한 문항 삭제

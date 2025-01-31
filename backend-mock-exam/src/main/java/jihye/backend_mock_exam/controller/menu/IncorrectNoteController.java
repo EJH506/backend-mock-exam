@@ -46,7 +46,7 @@ public class IncorrectNoteController {
                        Model model) {
 
         // 선택한 주제에 존재하는 난이도 목록
-        List<Integer> levels = incorrectNoteService.levelListOfSubject(subjectName);
+        List<Integer> levels = incorrectNoteService.levelListOfSubject(user.getUserId(), subjectName);
 
         // 오답노트 목록 반환
         Page<IncorrectItem> incorrectItemList = incorrectNoteService.incorrectList(user.getUserId(), subjectName, level, searchKeyword, page);

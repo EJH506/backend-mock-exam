@@ -4,6 +4,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jihye.backend_mock_exam.domain.exam.*;
 import jihye.backend_mock_exam.domain.history.ExamHistory;
 import jihye.backend_mock_exam.domain.history.HistoryItemObject;
+import jihye.backend_mock_exam.domain.user.Role;
 import jihye.backend_mock_exam.service.menu.exam.ExamService;
 import jihye.backend_mock_exam.service.menu.exam.dto.SubmittedExamDto;
 import lombok.RequiredArgsConstructor;
@@ -28,22 +29,21 @@ public class ExamController {
     }
 
     @GetMapping("/subject")
-    public String subject(Model model) {
+    public String subject(@RequestAttribute("user") Role user, Model model) {
 
-        // 주제 목록
-        List<Subject> subjects = examService.findAllSubjects();
+        // 주제 목록 (문항이 존재하는 것만 조회)
+        List<Subject> subjects = examService.findAllSubjectsWithItem(user.getUserId());
         model.addAttribute("subjects", subjects);
-
         return "menu/exam/exam-subject";
     }
 
     @GetMapping("/level")
-    public String level(@RequestParam("subject") String subjectName, Model model) {
+    public String level(@RequestAttribute("user") Role user, @RequestParam("subject") String subjectName, Model model) {
 
         if (subjectName == null) { return "redirect:/exam/subject"; }
 
         // 난이도 목록
-        List<Integer> levels = examService.levelListOfSubject(subjectName);
+        List<Integer> levels = examService.levelListOfSubjectWithItem(user.getUserId(), subjectName);
 
         model.addAttribute("levels", levels);
         model.addAttribute("subject", subjectName);
@@ -52,15 +52,16 @@ public class ExamController {
     }
 
     @GetMapping("/number")
-    public String number(@RequestParam("subject") String subjectName,
+    public String number(@RequestAttribute("user") Role user,
+                         @RequestParam("subject") String subjectName,
                          @RequestParam("level") String level,
                          Model model) {
 
         if (subjectName == null || level == null) { return "redirect:/exam/subject"; }
 
         // 문항 수 목록
-        Long numberOfSubject = examService.NumberOfSubject(subjectName, level);
-        List<Integer> selectableNumbers = examService.createQuestionNumberList(subjectName, level);
+        Integer numberOfSubject = examService.NumberOfSubject(user.getUserId(), subjectName, level);
+        List<Integer> selectableNumbers = examService.createQuestionNumberList(user.getUserId(), subjectName, level);
 
         model.addAttribute("numberOfSubject", numberOfSubject);
         model.addAttribute("selectableNumbers", selectableNumbers);
@@ -71,7 +72,8 @@ public class ExamController {
     }
 
     @GetMapping("/take-exam")
-    public String takeExamPage(@RequestParam(value = "historyId", required = false) Long historyId,
+    public String takeExamPage(@RequestAttribute("user") Role user,
+                               @RequestParam(value = "historyId", required = false) Long historyId,
                                @RequestParam(value = "subject", required = false) String subjectName,
                                @RequestParam(value = "level", required = false) String level,
                                @RequestParam(value = "number", required = false) Integer number,
@@ -82,7 +84,7 @@ public class ExamController {
         // 틀린문제만 재도전이 아닐경우
         if (historyId == null) {
             if (subjectName == null || level == null || number == null) { return "redirect:/exam/subject"; }
-            questionsId = examService.shuffledQuestionList(subjectName, level, number);
+            questionsId = examService.shuffledQuestionList(user.getUserId(), subjectName, level, number);
         }
 
         // 틀린문제만 재도전일 경우
@@ -91,7 +93,7 @@ public class ExamController {
         }
 
         // 시험 문항 생성
-        List<ExamItem> examItems = examService.createExam(questionsId);
+        List<ExamItem> examItems = examService.createExam(questionsId, ExamConst.SUBJECT_MYQUESTIONS.equals(subjectName));
         number = examItems.size();
 
         model.addAttribute("exam", new Exam(subjectName, level, number, examItems));

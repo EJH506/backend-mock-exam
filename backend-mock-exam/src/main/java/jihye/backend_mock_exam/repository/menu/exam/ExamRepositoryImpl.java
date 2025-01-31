@@ -19,6 +19,18 @@ public class ExamRepositoryImpl implements ExamRepository {
         return examMapper.findAllSubjects();
     }
 
+    // 문항이 존재하는 주제 조회
+    @Override
+    public List<Subject> findAllSubjectsWithItem() {
+        return examMapper.findAllSubjectsWithItem();
+    }
+
+    // 문항이 존재하는 주제별 난이도 목록 조회
+    @Override
+    public List<Integer> findLevelsBySubjectWithItem(String subjectName) {
+        return examMapper.findLevelsBySubjectWithItem(subjectName);
+    }
+
     // 주제 이름으로 주제 조회
     @Override
     public Subject findSubjectByName(String subjectName) {
@@ -43,9 +55,15 @@ public class ExamRepositoryImpl implements ExamRepository {
         return examMapper.findMinMaxLevel();
     }
 
+    // 전체 난이도 중 최소, 최대 난이도 조회 (문항이 존재하는 것만 조회)
+    @Override
+    public List<Integer> findMinMaxLevelWithItem() {
+        return examMapper.findMinMaxLevelWithItem();
+    }
+
     // 주제에 해당하는 문제 수 조회
     @Override
-    public Long findNumberOfSubject(Long subjectId, int level) {
+    public Integer findNumberOfSubject(Long subjectId, int level) {
         return examMapper.findNumberOfSubject(subjectId, level);
     }
 

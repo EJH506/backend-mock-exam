@@ -9,6 +9,7 @@ DROP TABLE IF EXISTS answers;
 CREATE TABLE subjects (
 	subject_id INT AUTO_INCREMENT PRIMARY KEY,									-- 식별자
 	subject_name VARCHAR(255) NOT NULL,											-- 주제명
+	deleted boolean NOT NULL DEFAULT FALSE,										-- 삭제 여부
 	created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,								-- 생성일시
 	update_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,	-- 수정일시
 	UNIQUE (subject_name)
@@ -21,6 +22,7 @@ CREATE TABLE levels (
 	level_id INT AUTO_INCREMENT PRIMARY KEY,									-- 식별자
 	subject_id INT NOT NULL,													-- 주제 ID 
 	level INT NOT NULL,															-- 레벨
+	deleted boolean NOT NULL DEFAULT FALSE,										-- 삭제 여부
 	created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,								-- 생성일시
 	update_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP	-- 수정일시
 )
@@ -34,6 +36,7 @@ CREATE TABLE questions (
 	subject_id INT NOT NULL,													-- 주제 ID
 	level INT NOT NULL,															-- 레벨 ID
 	question_text TEXT NOT NULL,												-- 문제 내용
+	deleted boolean NOT NULL DEFAULT FALSE,										-- 삭제 여부
 	created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,								-- 생성일시
 	update_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP	-- 수정일시
 )
