@@ -45,4 +45,10 @@ public interface MyQuestionsRepository {
 
     // 난이도 삭제
     void deleteMyQuestionsLevel(Long userId, Integer level);
+
+    // 사용자의 최대 난이도 조회
+    Integer findMyQuestionsMaximumLevel(Long userId);
+
+    // 난이도 추가
+    Integer addMyQuestionsLevel(Long userId, int level);
 }

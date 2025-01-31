@@ -34,7 +34,8 @@
     </select>
 
     <select id="findLevelsOfMyQuestion" resultType="int">
-        SELECT level FROM my_questions_levels WHERE user_id = #{userId}
+        SELECT level FROM my_questions_levels
+        WHERE user_id = #{userId} AND deleted = FALSE
     </select>
 
     <update id="deleteMyQuestionList">
@@ -84,10 +85,24 @@
     <update id="deleteMyQuestionOfDeletedLevel">
         UPDATE my_questions
         SET deleted = TRUE
-        WHERE user_id = #{userId} AND LEVEL = #{level}
+        WHERE user_id = #{userId} AND level = #{level}
     </update>
 
-    <delete id="deleteMyQuestionsLevel">
-        
-    </delete>
+    <update id="deleteMyQuestionsLevel">
+        UPDATE my_questions_levels
+        SET deleted = TRUE
+        WHERE user_id = #{userId} AND level = #{level}
+    </update>
+
+    <select id="findMyQuestionsMaximumLevel" resultType="int">
+        SELECT level FROM my_questions_levels
+        WHERE user_id = #{userId} AND deleted  = false
+        ORDER BY LEVEL DESC
+        LIMIT 1
+    </select>
+
+    <insert id="addMyQuestionsLevel">
+        INSERT INTO my_questions_levels (user_id, level) VALUES
+        (#{userId}, #{level});
+    </insert>
 </mapper>

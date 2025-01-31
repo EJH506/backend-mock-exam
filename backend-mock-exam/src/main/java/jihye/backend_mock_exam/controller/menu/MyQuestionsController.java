@@ -166,10 +166,20 @@ public class MyQuestionsController {
     }
 
     @PostMapping("/setting/delete")
-    public String myQuestionSettingDelete(@RequestAttribute("user") Role user, @RequestParam("level") Integer level) {
-
+    public String myQuestionSettingDelete(@RequestAttribute("user") Role user, @RequestParam("level") Integer level, Model model) {
         myQuestionsService.removeLevel(user.getUserId(), level);
 
-        return "redirect:/my-questions/setting";
+        List<Integer> levels = myQuestionsService.levelListOfMyQuestion(user.getUserId());
+        model.addAttribute("levels", levels);
+        return "menu/myQuestions/my-questions-setting :: my-question-menu";
+    }
+
+    @PostMapping("/setting/add")
+    public String myQuestionSettingAdd(@RequestAttribute("user") Role user, Model model) {
+        myQuestionsService.addLevel(user.getUserId());
+
+        List<Integer> levels = myQuestionsService.levelListOfMyQuestion(user.getUserId());
+        model.addAttribute("levels", levels);
+        return "menu/myQuestions/my-questions-setting :: my-question-menu";
     }
 }

@@ -46,4 +46,10 @@ public interface MyQuestionsMapper {
 
     // 난이도 삭제
     void deleteMyQuestionsLevel(@Param("userId") Long userId, @Param("level") Integer level);
+
+    // 사용자의 최대 난이도 조회
+    Integer findMyQuestionsMaximumLevel(Long userId);
+
+    // 난이도 추가
+    void addMyQuestionsLevel(Long userId, int level);
 }

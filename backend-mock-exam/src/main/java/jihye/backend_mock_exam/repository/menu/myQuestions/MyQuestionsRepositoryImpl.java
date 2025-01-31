@@ -93,4 +93,17 @@ public class MyQuestionsRepositoryImpl implements MyQuestionsRepository {
     public void deleteMyQuestionsLevel(Long userId, Integer level) {
         myQuestionsMapper.deleteMyQuestionsLevel(userId, level);
     }
+
+    // 사용자의 최대 난이도 조회
+    @Override
+    public Integer findMyQuestionsMaximumLevel(Long userId) {
+        return myQuestionsMapper.findMyQuestionsMaximumLevel(userId);
+    }
+
+    // 난이도 추가
+    @Override
+    public Integer addMyQuestionsLevel(Long userId, int level) {
+        myQuestionsMapper.addMyQuestionsLevel(userId, level);
+        return level;
+    }
 }

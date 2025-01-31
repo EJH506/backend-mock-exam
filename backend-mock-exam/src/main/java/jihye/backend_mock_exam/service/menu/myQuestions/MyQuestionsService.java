@@ -135,4 +135,17 @@ public class MyQuestionsService {
 
         return level;
     }
+
+    // 난이도 추가
+    @Transactional
+    public Integer addLevel(Long userId) {
+
+        // 사용자의 최대 난이도 조회
+        Integer myQuestionsMaximumLevel = myQuestionsRepository.findMyQuestionsMaximumLevel(userId);
+        log.info("myQuestionsMaximumLevel={}", myQuestionsMaximumLevel);
+
+        // 최대 난이도 +1 난이도 추가
+        int level = myQuestionsMaximumLevel == null ? 1 : myQuestionsMaximumLevel + 1 ;
+        return myQuestionsRepository.addMyQuestionsLevel(userId, level);
+    }
 }
