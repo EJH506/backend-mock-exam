@@ -41,14 +41,21 @@ public class ExamService {
     // 주제,난이도별 문제 수 조회
     public Integer NumberOfSubject(Long userId, String subjectName, String level) {
 
+        QuestionFilter questionFilter = commonService.questionFilterConvert(subjectName, level);
+
         // 나만의 문제일 시
         if (ExamConst.SUBJECT_MYQUESTIONS.equals(subjectName)) {
-            QuestionFilter questionFilter = commonService.questionFilterConvert(level);
             return commonService.findNumberOfMyQuestion(userId, questionFilter.getLevelInt());
         // 아닐 시
         } else {
-            QuestionFilter questionFilter = commonService.questionFilterConvert(subjectName, level);
-            return examRepository.findNumberOfSubject(questionFilter.getSubjectId(), questionFilter.getLevelInt());
+
+            // 통합 문제일 시
+            if (ExamConst.SUBJECT_ALL.equals(subjectName)) {
+                return examRepository.findNumberOfSubjectAll(questionFilter.getLevelInt(), userId);
+            } else {
+                return examRepository.findNumberOfSubject(questionFilter.getSubjectId(), questionFilter.getLevelInt());
+            }
+
         }
     }
 
@@ -68,34 +75,39 @@ public class ExamService {
     }
 
     // 주제,난이도,문항수에 해당하는 문제 목록 반환 (순서 랜덤)
-    public List<Long> shuffledQuestionList(Long userId, String subjectName, String level, int number) {
+    public List<Question> shuffledQuestionList(Long userId, String subjectName, String level, int number) {
 
-        List<Long> questionsId;
+        QuestionFilter questionFilter = commonService.questionFilterConvert(subjectName, level);
+        List<Question> questions;
 
         // 나만의 문제일 시
         if (ExamConst.SUBJECT_MYQUESTIONS.equals(subjectName)) {
-            log.info("나만의 문제일 시");
-            QuestionFilter questionFilter = commonService.questionFilterConvert(level);
-            questionsId = commonService.findShuffledMyQuestions(userId, questionFilter.getLevelInt(), number);
-
+            log.info("나만의 문제일시");
+//            questions = commonService.findShuffledMyQuestions(userId, questionFilter.getLevelInt(), number);
+                questions = null;
             // 아닐 시
         } else {
-            log.info("아닐시");
-            QuestionFilter questionFilter = commonService.questionFilterConvert(subjectName, level);
-            questionsId = examRepository.findShuffledQuestions(questionFilter.getSubjectId(), questionFilter.getLevelInt(), number);
-
+            log.info("나만의 문제 아닐시");
+            // 통합 문제일 시
+            if (ExamConst.SUBJECT_ALL.equals(subjectName)) {
+                log.info("통합 문제일 시");
+                questions = examRepository.findShuffledAllQuestions(questionFilter.getLevelInt(), number, userId);
+            } else {
+                log.info("통합 문제 아닐시");
+                questions = examRepository.findShuffledQuestions(questionFilter.getSubjectId(), questionFilter.getLevelInt(), number);
+            }
         }
 
-        log.info("questionsId={}", questionsId);
-        return questionsId;
+        log.info("questions={}", questions);
+        return questions;
     }
 
     // 시험 만들어 반환
     @Transactional
-    public List<ExamItem> createExam(List<Long> questionsId, boolean isMyQuestion) {
+    public List<ExamItem> createExam(List<Question> questions, boolean isMyQuestion) {
 
         ArrayList<ExamItem> exam = new ArrayList<>();
-        List<Question> questions = commonService.findFilteredHistoryQuestions(questionsId, isMyQuestion);
+//        List<Question> questions = commonService.findFilteredHistoryQuestions(questionsId, isMyQuestion);
 
         for (Question question : questions) {
             ExamItem examItem = new ExamItem();
@@ -103,8 +115,6 @@ public class ExamService {
 
             List<Answer> answers = commonService.shuffledAnswerListByQuestion(question.getQuestionId(), isMyQuestion);
             examItem.setAnswers(answers);
-
-            log.info("!!!!!!!!!!!!!!!examItem={}", examItem);
 
             exam.add(examItem);
         }

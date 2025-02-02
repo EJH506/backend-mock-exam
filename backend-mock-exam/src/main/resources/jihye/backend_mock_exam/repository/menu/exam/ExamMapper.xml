@@ -49,31 +49,74 @@
     <select id="findNumberOfSubject" resultType="int">
         SELECT count(*) FROM questions
         <where>
-            <if test="subjectId > 0">
-                AND subject_id = #{subjectId}
-            </if>
             <if test="level > 0">
                 AND level = #{level}
             </if>
+            AND subject_id = #{subjectId}
             AND deleted = FALSE;
         </where>
+    </select>
+
+    <select id="findNumberOfSubjectAll" resultType="int">
+        SELECT
+            (SELECT count(*) FROM questions
+             <where>
+                <if test="level > 0">
+                    AND level = #{level}
+                </if>
+                 AND deleted = false
+             </where>)
+                +
+            (SELECT count(*) FROM my_questions
+            <where>
+                <if test="level > 0">
+                    AND level = #{level}
+                </if>
+                AND user_id = #{userId}
+                AND deleted = false
+            </where>)
+        AS total
     </select>
 
     <select id="findQuestionUnitSetting" resultType="int">
         SELECT question_unit FROM question_unit_setting ORDER BY question_unit_id desc LIMIT 1
     </select>
 
-    <select id="findShuffledQuestions" resultType="Long">
-        SELECT question_id FROM questions
+    <select id="findShuffledQuestions" resultType="question">
+        SELECT * FROM questions
         <where>
-            <if test="subjectId > 0">
-                AND subject_id = #{subjectId}
-            </if>
+            AND subject_id = #{subjectId}
             <if test="level > 0">
                 AND level = #{level}
             </if>
             AND deleted = false
         </where>
+        ORDER BY RAND()
+        LIMIT #{number}
+    </select>
+
+    <select id="findShuffledAllQuestions" resultType="question">
+        SELECT * FROM (
+            SELECT q.subject_id, s.subject_name, q.question_id, NULL AS user_id, q.level, q.question_text, q.deleted, q.created_at, q.update_at FROM questions q
+            JOIN SUBJECTS S ON q.subject_id = s.subject_id
+            <where>
+                <if test="level > 0">
+                    AND level = #{level}
+                </if>
+                AND q.deleted = false
+            </where>
+
+           UNION ALL
+
+           SELECT NULL AS subject_id, NULL AS subject_name, question_id, user_id, level, question_text, deleted, created_at, update_at FROM my_questions
+            <where>
+                <if test="level > 0">
+                    AND level = #{level}
+                </if>
+                AND user_id = #{userId}
+                AND deleted = false
+            </where>
+        ) AS combined_questions
         ORDER BY RAND()
         LIMIT #{number}
     </select>

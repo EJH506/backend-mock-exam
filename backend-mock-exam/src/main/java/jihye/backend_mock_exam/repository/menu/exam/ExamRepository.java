@@ -34,12 +34,18 @@ public interface ExamRepository {
     // 주제에 해당하는 문제 수 조회
     Integer findNumberOfSubject(Long subjectId, int level);
 
+    // 통합문제 수 조회 (나만의 문제 포함)
+    Integer findNumberOfSubjectAll(int level, Long userId);
+
     // 관리자가 설정한 출제 문항 분류 단위 조회
     Integer findQuestionUnitSetting();
 
     // 주제,난이도,문항수에 해당하는 문제 목록 조회
-    List<Long> findShuffledQuestions(Long subjectId, int level, int number);
+    List<Question> findShuffledQuestions(Long subjectId, int level, int number);
 
+    // 통합 문제 목록 조회
+    List<Question> findShuffledAllQuestions(int level, int number, Long userId);
+    
     // 문제의 보기 목록 조회 (순서 랜덤)
     List<Answer> findShuffledAnswers(Long questionId);
 

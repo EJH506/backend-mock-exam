@@ -37,14 +37,20 @@ public interface ExamMapper {
     // 주제에 해당하는 문제 수 조회
     Integer findNumberOfSubject(@Param("subjectId") Long subjectId, @Param("level") int level);
 
+    // 통합문제 수 조회 (나만의 문제 포함)
+    Integer findNumberOfSubjectAll(int level, Long userId);
+
     // 관리자가 설정한 출제 문항 분류 단위 조회
     Integer findQuestionUnitSetting();
 
     // 주제,난이도,문항수에 해당하는 문제 목록 조회
-    List<Long> findShuffledQuestions(@Param("subjectId") Long subjectId, @Param("level") int level, @Param("number") int number);
+    List<Question> findShuffledQuestions(@Param("subjectId") Long subjectId, @Param("level") int level, @Param("number") int number);
+
+    // 통합 문제 목록 조회
+    List<Question> findShuffledAllQuestions(int level, int number, Long userId);
 
     // 문제의 보기 목록 조회 (순서 랜덤)
-    public List<Answer> findShuffledAnswers(Long questionId);
+    List<Answer> findShuffledAnswers(Long questionId);
 
     // 문제의 정답 조회
     Long findCorrectAnswerByQuestion(Long questionId);

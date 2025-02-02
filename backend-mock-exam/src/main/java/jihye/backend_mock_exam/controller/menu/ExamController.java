@@ -79,21 +79,21 @@ public class ExamController {
                                @RequestParam(value = "number", required = false) Integer number,
                                Model model) {
 
-        List<Long> questionsId = null;
+        List<Question> questions = null;
 
         // 틀린문제만 재도전이 아닐경우
         if (historyId == null) {
             if (subjectName == null || level == null || number == null) { return "redirect:/exam/subject"; }
-            questionsId = examService.shuffledQuestionList(user.getUserId(), subjectName, level, number);
+            questions = examService.shuffledQuestionList(user.getUserId(), subjectName, level, number);
         }
 
         // 틀린문제만 재도전일 경우
         if (historyId != null) {
-            questionsId = examService.findQuestionsIdOfHistory(historyId, false);
+//            questions = examService.findQuestionsIdOfHistory(historyId, false);
         }
 
         // 시험 문항 생성
-        List<ExamItem> examItems = examService.createExam(questionsId, ExamConst.SUBJECT_MYQUESTIONS.equals(subjectName));
+        List<ExamItem> examItems = examService.createExam(questions, ExamConst.SUBJECT_MYQUESTIONS.equals(subjectName));
         number = examItems.size();
 
         model.addAttribute("exam", new Exam(subjectName, level, number, examItems));

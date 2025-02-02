@@ -93,7 +93,6 @@ public class MyQuestionsRepositoryImpl implements MyQuestionsRepository {
     // 문항의 보기 등록
     @Override
     public List<Answer> insertAnswersOfMyQuestion(List<Answer> answers) {
-        log.info("answers: {}", answers);
         myQuestionsMapper.insertAnswersOfMyQuestion(answers);
         return answers;
     }

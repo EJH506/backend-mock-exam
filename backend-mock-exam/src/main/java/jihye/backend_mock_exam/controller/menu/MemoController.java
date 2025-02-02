@@ -82,8 +82,6 @@ public class MemoController {
                                      HttpServletRequest request) {
 
         memoService.memoSelectDelete(dto, user, request);
-
-        log.info("MemoSelectDeleteDto={}", dto);
         return "redirect:/memo/list";
     }
 

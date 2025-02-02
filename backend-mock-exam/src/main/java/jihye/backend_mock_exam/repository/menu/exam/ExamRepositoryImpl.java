@@ -67,6 +67,11 @@ public class ExamRepositoryImpl implements ExamRepository {
         return examMapper.findNumberOfSubject(subjectId, level);
     }
 
+    @Override
+    public Integer findNumberOfSubjectAll(int level, Long userId) {
+        return examMapper.findNumberOfSubjectAll(level, userId);
+    }
+
     // 관리자가 설정한 출제 문항 분류 단위 조회
     @Override
     public Integer findQuestionUnitSetting() {
@@ -75,8 +80,14 @@ public class ExamRepositoryImpl implements ExamRepository {
 
     // 주제,난이도,문항수에 해당하는 문제 목록 조회
     @Override
-    public List<Long> findShuffledQuestions(Long subjectId, int level, int number) {
+    public List<Question> findShuffledQuestions(Long subjectId, int level, int number) {
         return examMapper.findShuffledQuestions(subjectId, level, number);
+    }
+
+    // 통합 문제 목록 조회
+    @Override
+    public List<Question> findShuffledAllQuestions(int level, int number, Long userId) {
+        return examMapper.findShuffledAllQuestions(level, number, userId);
     }
 
     // 문제의 보기 목록 조회 (순서 랜덤)
