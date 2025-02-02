@@ -69,6 +69,12 @@
         LIMIT #{number}
     </select>
 
+    <select id="findShuffledMyQuestionsAnswers" resultType="answer">
+        SELECT * FROM my_questions_answers
+        WHERE my_question_id = #{questionId}
+        ORDER BY RAND()
+    </select>
+
     <update id="deleteMyQuestionList">
         UPDATE my_questions
         SET deleted = TRUE
@@ -87,6 +93,11 @@
         SELECT * FROM my_questions_answers
         WHERE my_question_id = #{questionId}
         ORDER BY is_correct DESC, answer_id ASC;
+    </select>
+
+    <select id="findMyQuestionsAnswerById" resultType="answer">
+        SELECT * FROM my_questions_answers
+        WHERE answer_id = #{answerId}
     </select>
 
     <insert id="insertQuestionOfMyQuestion" useGeneratedKeys="true" keyProperty="questionId">

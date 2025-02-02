@@ -101,8 +101,10 @@ public class ExamService {
             ExamItem examItem = new ExamItem();
             examItem.setQuestion(question);
 
-            List<Answer> answers = commonService.shuffledAnswerListByQuestion(question.getQuestionId());
+            List<Answer> answers = commonService.shuffledAnswerListByQuestion(question.getQuestionId(), isMyQuestion);
             examItem.setAnswers(answers);
+
+            log.info("!!!!!!!!!!!!!!!examItem={}", examItem);
 
             exam.add(examItem);
         }
@@ -131,8 +133,8 @@ public class ExamService {
     }
 
     // 조건에 맞는 보기 조회
-    public List<Answer> findFilteredHistoryAnswers(List<Long> answersId) {
-        return commonService.findFilteredHistoryAnswers(answersId);
+    public List<Answer> findFilteredHistoryAnswers(List<Long> answersId, boolean isMyQuestion) {
+        return commonService.findFilteredHistoryAnswers(answersId, isMyQuestion);
     }
 
     // 문항 ID로 오답노트 저장 유무 조회

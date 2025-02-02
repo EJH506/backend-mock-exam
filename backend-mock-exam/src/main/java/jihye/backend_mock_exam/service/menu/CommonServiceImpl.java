@@ -107,8 +107,15 @@ public class CommonServiceImpl implements CommonService {
 
     // 문제의 보기 조회 (순서 랜덤)
     @Override
-    public List<Answer> shuffledAnswerListByQuestion(Long questionId) {
-        return examRepository.findShuffledAnswers(questionId);
+    public List<Answer> shuffledAnswerListByQuestion(Long questionId, boolean isMyQuestion) {
+        // 나만의 문제일 경우
+        if (isMyQuestion) {
+            return myQuestionsRepository.findShuffledMyQuestionsAnswers(questionId);
+
+        // 아닐 경우
+        } else {
+            return examRepository.findShuffledAnswers(questionId);
+        }
     }
 
     // 시험 히스토리 생성
@@ -178,7 +185,7 @@ public class CommonServiceImpl implements CommonService {
         List<HistoryItem> historyItems = null;
 
         // examHistory에 질문, 답변 리스트 데이터가 없으면 조회해서 담음
-        if (examHistory.getQuestions() == null || examHistory.getCorrectAnswers() == null || examHistory.getUserAnswers() == null ) {
+        if (examHistory.getQuestions() == null || examHistory.getCorrectAnswers() == null || examHistory.getUserAnswers() == null) {
             historyItems = historyRepository.findHistoryItemById(examHistory.getHistoryId(), true);
             List<Long> historyQuestionsId = new ArrayList<>();
             List<Long> historyCorrectAnswersId = new ArrayList<>();
@@ -194,9 +201,9 @@ public class CommonServiceImpl implements CommonService {
             examHistory.setUserAnswers(historyUserAnswersId);
         }
 
-        List<Question> questions = findFilteredHistoryQuestions(examHistory.getQuestions(), false);
-        List<Answer> correctAnswers = findFilteredHistoryAnswers(examHistory.getCorrectAnswers());
-        List<Answer> userAnswers = findFilteredHistoryAnswers(examHistory.getUserAnswers());
+        List<Question> questions = findFilteredHistoryQuestions(examHistory.getQuestions(), ExamConst.SUBJECT_MYQUESTIONS.equals(examHistory.getSubjectName()));
+        List<Answer> correctAnswers = findFilteredHistoryAnswers(examHistory.getCorrectAnswers(), ExamConst.SUBJECT_MYQUESTIONS.equals(examHistory.getSubjectName()));
+        List<Answer> userAnswers = findFilteredHistoryAnswers(examHistory.getUserAnswers(), ExamConst.SUBJECT_MYQUESTIONS.equals(examHistory.getSubjectName()));
 
         for (int i=0; i<questions.size(); i++) {
 
@@ -236,12 +243,14 @@ public class CommonServiceImpl implements CommonService {
 
     @Override
     // 조건에 맞는 보기 조회
-    public List<Answer> findFilteredHistoryAnswers(List<Long> answersId) {
+    public List<Answer> findFilteredHistoryAnswers(List<Long> answersId, boolean isMyQuestion) {
 
         List<Answer> correctAnswers = new ArrayList<>();
 
         for (Long answerId : answersId) {
-            correctAnswers.add(examRepository.findAnswerById(answerId));
+            // 나만의 문제인지 아닌지에 따라 보기 조회
+            Answer answer = isMyQuestion ? myQuestionsRepository.findMyQuestionsAnswerById(answerId) : examRepository.findAnswerById(answerId);
+            correctAnswers.add(answer);
         }
 
         return correctAnswers;

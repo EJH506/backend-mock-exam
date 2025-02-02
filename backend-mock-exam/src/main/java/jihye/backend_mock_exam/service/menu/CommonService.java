@@ -22,7 +22,7 @@ public interface CommonService {
     List<Question> findFilteredHistoryQuestions(List<Long> questionsId, boolean isMyQuestion);
 
     // 문제의 보기 조회 (순서 랜덤)
-    List<Answer> shuffledAnswerListByQuestion(Long questionId);
+    List<Answer> shuffledAnswerListByQuestion(Long questionId, boolean isMyQuestion);
 
     // 주제 이름으로 주제 조회
     Subject findSubjectByName(String subjectName);
@@ -40,7 +40,7 @@ public interface CommonService {
     List<Long> findQuestionsIdOfHistory(Long historyId, boolean isCorrect);
 
     // 조건에 맞는 보기 조회
-    List<Answer> findFilteredHistoryAnswers(List<Long> answersId);
+    List<Answer> findFilteredHistoryAnswers(List<Long> answersId, boolean isMyQuestion);
 
     // 문항 ID로 오답노트 저장 유무 조회
     boolean isSavedToIncorrectNote(Long userId, Long questionId);

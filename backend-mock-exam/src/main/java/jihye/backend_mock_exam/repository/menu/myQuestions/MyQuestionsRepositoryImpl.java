@@ -53,6 +53,12 @@ public class MyQuestionsRepositoryImpl implements MyQuestionsRepository {
         return myQuestionsMapper.findShuffledMyQuestions(userId, level, number);
     }
 
+    // 문제의 보기 목록 조회 (순서 랜덤)
+    @Override
+    public List<Answer> findShuffledMyQuestionsAnswers(Long questionId) {
+        return myQuestionsMapper.findShuffledMyQuestionsAnswers(questionId);
+    }
+
     // 선택한 문항 삭제
     @Override
     public void deleteMyQuestionList(List<Long> deleteQuestionsId) {
@@ -69,6 +75,12 @@ public class MyQuestionsRepositoryImpl implements MyQuestionsRepository {
     @Override
     public List<Answer> findMyAnswersByQuestion(Long questionId) {
         return myQuestionsMapper.findMyAnswersByQuestion(questionId);
+    }
+
+    // 보기 ID로 보기 조회
+    @Override
+    public Answer findMyQuestionsAnswerById(Long answerId) {
+        return myQuestionsMapper.findMyQuestionsAnswerById(answerId);
     }
 
     // 문항의 질문 등록

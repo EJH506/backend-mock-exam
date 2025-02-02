@@ -29,6 +29,9 @@ public interface MyQuestionsMapper {
     // 나만의 문제의 난이도, 문항수에 해당하는 문제 목록 조회
     List<Long> findShuffledMyQuestions(@Param("userId") Long userId, @Param("level") int level, @Param("number") int number);
 
+    // 문제의 보기 목록 조회 (순서 랜덤)
+    List<Answer> findShuffledMyQuestionsAnswers(Long questionId);
+
     // 선택한 문항 삭제
     void deleteMyQuestionList(List<Long> deleteQuestionsId);
 
@@ -37,6 +40,9 @@ public interface MyQuestionsMapper {
 
     // 문항에 속한 보기 조회
     List<Answer> findMyAnswersByQuestion(Long questionId);
+
+    // 보기 ID로 보기 조회
+    Answer findMyQuestionsAnswerById(Long answerId);
 
     // 문항의 질문 등록
     void insertQuestionOfMyQuestion(MyQuestion question);
