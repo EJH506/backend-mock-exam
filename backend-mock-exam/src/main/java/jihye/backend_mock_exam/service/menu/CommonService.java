@@ -45,7 +45,7 @@ public interface CommonService {
     List<Answer> findFilteredHistoryAnswers(List<Long> answersId, List<Boolean> isMyQuestion);
 
     // 문항 ID로 오답노트 저장 유무 조회
-    boolean isSavedToIncorrectNote(Long userId, Long questionId);
+    boolean isSavedToIncorrectNote(Long userId, Long questionId, boolean isMyQuestion);
 
     // 매개변수로 사용될 subject와 level의 값을 통합인지 아닌지에 따라 적절히 변환
     QuestionFilter questionFilterConvert(String subjectName, String level);

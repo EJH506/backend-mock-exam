@@ -17,7 +17,7 @@ public interface IncorrectNoteMapper {
     int countOfMyQuestionInIncorrectNote(Long userId);
 
     // 문항 ID로 오답노트 조회
-    IncorrectNote findIncorrectNoteById(@Param("userId") Long userId, @Param("questionId") Long questionId);
+    IncorrectNote findIncorrectNoteById(@Param("userId") Long userId, @Param("questionId") Long questionId, @Param("isMyQuestion") boolean isMyQuestion);
 
     // 주제, 난이도, 페이지 선택에 따른 사용자의 오답노트 목록
     List<IncorrectNote> findIncorrectList(@Param("userId") Long userId, @Param("subjectId") Long subjectId, @Param("level") int level, @Param("searchKeyword") String searchKeyword, @Param("offset") int offset, @Param("pageSize") int pageSize);

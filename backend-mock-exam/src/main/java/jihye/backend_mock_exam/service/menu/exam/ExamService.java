@@ -145,8 +145,8 @@ public class ExamService {
     }
 
     // 문항 ID로 오답노트 저장 유무 조회
-    public boolean isSavedToIncorrectNote(Long userId, Long questionId) {
-        return commonService.isSavedToIncorrectNote(userId, questionId);
+    public boolean isSavedToIncorrectNote(Long userId, Long questionId, boolean isMyQuestion) {
+        return commonService.isSavedToIncorrectNote(userId, questionId, isMyQuestion);
     }
 
 }

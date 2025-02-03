@@ -54,8 +54,12 @@ header ul > li > a {
   width: 120px;
   height: 40px;
 }
-header > nav li:hover a {
+header > nav li:not(:last-of-type):hover a {
   color: #71B961;
+}
+header > nav li:last-of-type:hover a.navButton_sm {
+  border-color: rgb(144.7631578947, 200.6578947368, 132.3421052632);
+  background-color: rgb(144.7631578947, 200.6578947368, 132.3421052632);
 }
 header #profile {
   position: relative;
@@ -356,7 +360,7 @@ section > form {
   border-radius: 7px;
 }
 .systemMenu_lg:hover {
-  transform: scale(1.05);
+  transform: scale(1.02);
 }
 
 .fa-solid.fa-star {

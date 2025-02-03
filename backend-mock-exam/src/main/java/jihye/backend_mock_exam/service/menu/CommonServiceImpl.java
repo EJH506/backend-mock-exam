@@ -185,6 +185,9 @@ public class CommonServiceImpl implements CommonService {
             }
 
         }
+        
+        // DB 저장 후 화면에 출력할 정답률 가공해서 재할당
+        examHistory.setCorrectRate(Math.round(examHistory.getCorrectRate() * 10) / 10.0);
 
         return examHistory;
     }
@@ -200,7 +203,7 @@ public class CommonServiceImpl implements CommonService {
 
         for (int i=0; i<questions.size(); i++) {
 
-            boolean incorrectNoteSaved = isSavedToIncorrectNote(examHistory.getUserId(), questions.get(i).getQuestionId());
+            boolean incorrectNoteSaved = isSavedToIncorrectNote(examHistory.getUserId(), questions.get(i).getQuestionId(), examHistory.getIsMyQuestions().get(i));
 
             if ("correctOnly".equals(option)) {
                 if (correctAnswers.get(i).equals(userAnswers.get(i))) {
@@ -252,8 +255,8 @@ public class CommonServiceImpl implements CommonService {
 
     // 문항 ID로 오답노트 저장 유무 조회
     @Override
-    public boolean isSavedToIncorrectNote(Long userId, Long questionId) {
-        return incorrectNoteRepository.findIncorrectNoteById(userId, questionId) != null;
+    public boolean isSavedToIncorrectNote(Long userId, Long questionId, boolean isMyQuestion) {
+        return incorrectNoteRepository.findIncorrectNoteById(userId, questionId, isMyQuestion) != null;
     }
 
     @Override

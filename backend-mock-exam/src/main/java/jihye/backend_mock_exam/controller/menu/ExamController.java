@@ -86,17 +86,11 @@ public class ExamController {
         if (historyId == null) {
             if (subjectName == null || level == null || number == null) { return "redirect:/exam/subject"; }
             questions = examService.shuffledQuestionList(user.getUserId(), subjectName, level, number);
-            for (Questions question : questions) {
-                log.info("일반문제question={}", question);
-            }
         }
 
         // 틀린문제만 재도전일 경우
         if (historyId != null) {
             questions = examService.findQuestionsIdOfHistory(historyId, false);
-            for (Questions question : questions) {
-                log.info("틀린문제question={}", question);
-            }
         }
 
         // 시험 문항 생성
@@ -115,9 +109,7 @@ public class ExamController {
         log.info("dto={}", dto);
         // 시험 히스토리 생성
         ExamHistory examHistory = examService.createExamHistory(dto);
-        examHistory.setCorrectRate(Math.round(examHistory.getCorrectRate() * 10) / 10.0);
         request.getSession().setAttribute("examHistory", examHistory);
-//        redirectAttributes.addFlashAttribute("examHistory", examHistory);
         return "redirect:/exam/result";
     }
 
@@ -143,5 +135,4 @@ public class ExamController {
             return "menu/exam/exam-result";
         }
     }
-
 }

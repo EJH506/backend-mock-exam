@@ -88,7 +88,15 @@ header {
   } //ul
 
   // home 헤더
-  >nav li:hover a { color: $theme-main }
+  >nav li {
+
+    &:not(:last-of-type):hover a { color: $theme-main }
+
+    &:last-of-type:hover a.navButton_sm {
+      border-color: lighten($theme-main, 10%);
+      background-color: lighten($theme-main, 10%);
+    }
+  }
 
   #profile {
     position: relative;

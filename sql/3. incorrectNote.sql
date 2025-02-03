@@ -12,7 +12,7 @@ CREATE TABLE incorrect_note (
 	level INT NOT NULL,															-- 해당 문제의 level
 	created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,								-- 생성일시
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,	-- 수정일시
-    UNIQUE (user_id, question_id)
+    UNIQUE (user_id, question_id, is_my_question)
 )
 
 SELECT * FROM incorrect_note;

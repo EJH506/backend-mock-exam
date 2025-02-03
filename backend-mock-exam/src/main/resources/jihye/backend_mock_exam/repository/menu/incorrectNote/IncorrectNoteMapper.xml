@@ -17,7 +17,7 @@
 
     <select id="findIncorrectNoteById" resultType="incorrectNote">
         SELECT * FROM incorrect_note
-        WHERE USER_ID = #{userId} AND QUESTION_ID = #{questionId}
+        WHERE USER_ID = #{userId} AND QUESTION_ID = #{questionId} AND is_my_question = #{isMyQuestion}
     </select>
 
     <select id="findIncorrectList" resultType="incorrectNote">
@@ -65,13 +65,17 @@
 
     <delete id="deleteQuestionFromIncorrectNote">
         DELETE FROM incorrect_note
-        WHERE question_id = #{questionId}
+        WHERE question_id = #{questionId} AND is_my_question = #{isMyQuestion}
         AND user_id = #{userId}
     </delete>
 
     <insert id="insertQuestionFromIncorrectNote">
         INSERT INTO incorrect_note (user_id, question_id, subject_id, is_my_question, level)
-        SELECT #{userId}, q.question_id, q.subject_id, #{isMyQuestion}, q.level
+        SELECT #{userId}, q.question_id,
+            CASE WHEN #{isMyQuestion} = TRUE THEN NULL
+                ELSE q.subject_id
+            END AS subject_id,
+            #{isMyQuestion}, q.level
         FROM questions q
         WHERE q.question_id = #{questionId}
     </insert>

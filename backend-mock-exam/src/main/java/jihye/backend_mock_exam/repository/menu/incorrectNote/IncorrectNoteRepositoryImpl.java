@@ -28,8 +28,8 @@ public class IncorrectNoteRepositoryImpl implements IncorrectNoteRepository {
 
     @Override
     // 문항 ID로 오답노트 저장 유무 조회
-    public IncorrectNote findIncorrectNoteById(Long userId, Long questionId) {
-        return incorrectNoteMapper.findIncorrectNoteById(userId, questionId);
+    public IncorrectNote findIncorrectNoteById(Long userId, Long questionId, boolean isMyQuestion) {
+        return incorrectNoteMapper.findIncorrectNoteById(userId, questionId, isMyQuestion);
     };
 
     // 주제, 난이도, 페이지 선택에 따른 사용자의 오답노트 목록

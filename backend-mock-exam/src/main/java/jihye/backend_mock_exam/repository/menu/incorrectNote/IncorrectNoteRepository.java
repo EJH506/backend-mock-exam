@@ -15,7 +15,7 @@ public interface IncorrectNoteRepository {
     int countOfMyQuestionInIncorrectNote(Long userId);
 
     // 문항 ID로 오답노트 저장 유무 조회
-    IncorrectNote findIncorrectNoteById(Long userId, Long questionId);
+    IncorrectNote findIncorrectNoteById(Long userId, Long questionId, boolean isMyQuestion);
 
     // 주제, 난이도, 페이지 선택에 따른 사용자의 오답노트 목록
     List<IncorrectNote> findIncorrectList(Long userId, Long subjectId, int level, String searchKeyword, int offset, int pageSize);
