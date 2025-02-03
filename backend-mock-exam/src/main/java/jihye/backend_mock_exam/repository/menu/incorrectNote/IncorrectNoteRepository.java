@@ -17,8 +17,8 @@ public interface IncorrectNoteRepository {
     int findIncorrectTotalCount(Long userId, Long subjectId, int level, String searchKeyword);
 
     // 오답노트에서 문항 삭제
-    void deleteQuestionFromIncorrectNote(Long userId, Long questionId);
+    void deleteQuestionFromIncorrectNote(Long userId, Long questionId, boolean isMyQuestion);
 
     // 오답노트에 문항 추가
-    void insertQuestionFromIncorrectNote(Long userId, Long questionId);
+    void insertQuestionFromIncorrectNote(Long userId, Long questionId, boolean isMyQuestion);
 }

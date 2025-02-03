@@ -13,6 +13,7 @@ public class saveIncorrectAllDto {
     @Data
     public static class wrongQuestion {
         private Long questionId;
+        private Boolean isMyQuestion;
         private Boolean isSaved;
     }
 

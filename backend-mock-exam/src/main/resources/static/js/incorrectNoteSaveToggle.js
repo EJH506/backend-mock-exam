@@ -1,10 +1,10 @@
 $(document).ready(function() {
     // 오답노트에 문항 저장/저장해제
     $(document).on("click", ".saveToggle", function() {
-        console.log("클릭");
         let isSaved = $(this).find("i").hasClass('fa-solid');
         const questionId = $(this).data('question-id');
         const userId = $(this).data('user-id');
+        const isMyQuestion = $(this).data('is-my-question');
 
         const $this = $(this);
 
@@ -14,6 +14,7 @@ $(document).ready(function() {
             data: {
                 userId: userId,
                 questionId: questionId,
+                isMyQuestion: isMyQuestion,
                 isSaved: isSaved
             },
             success: function(response) {
@@ -47,8 +48,9 @@ $(document).ready(function() {
         $.each(selectedWrongQuestions, function(index, item) {
             const findToggle = $(this).closest('.answersText').prev().find('.saveToggle');
             const questionId = $(findToggle).data('question-id');
+            const isMyQuestion = $(this).data('is-my-question');
             const isSaved = $(findToggle).find('i').hasClass('fa-solid');
-            wrongQuestions.push({ questionId, isSaved });
+            wrongQuestions.push({ questionId, isMyQuestion, isSaved });
         });
 
         $.ajax({

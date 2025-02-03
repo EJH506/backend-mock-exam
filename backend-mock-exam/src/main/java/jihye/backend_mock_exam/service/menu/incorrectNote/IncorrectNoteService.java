@@ -13,6 +13,7 @@ import jihye.backend_mock_exam.service.menu.incorrectNote.dto.saveIncorrectAllDt
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,6 +37,7 @@ public class IncorrectNoteService {
     }
 
     // 주제, 난이도, 페이지 선택에 따른 사용자의 오답노트 목록
+    @Transactional
     public Page<IncorrectItem> incorrectList(Long userId, String subjectName, String level, String searchKeyword, int page) {
 
         int pagePerItem = 5;                   // 페이지당 아이템 수
@@ -48,12 +50,14 @@ public class IncorrectNoteService {
         int totalCount = incorrectNoteRepository.findIncorrectTotalCount(userId, questionFilter.getSubjectId(), questionFilter.getLevelInt(), searchKeyword);
 
         List<Long> questionsId = new ArrayList<>();
+        List<Boolean> isMyQuestion = new ArrayList<>();
         for (IncorrectNote incorrectNote : incorrectList) {
             questionsId.add(incorrectNote.getQuestionId());
+            isMyQuestion.add(incorrectNote.isMyQuestion());
         }
 
         // 오답노트 목록의 question id에서 문제 정보 추출
-        List<Question> questions = commonService.findFilteredHistoryQuestions(questionsId, List.of(false));
+        List<Question> questions = commonService.findFilteredHistoryQuestions(questionsId, isMyQuestion);
 
         List<IncorrectItem> incorrectItemList = new ArrayList<>();
 
@@ -81,14 +85,14 @@ public class IncorrectNoteService {
     }
 
     // 오답노트에 문항 저장해제
-    public Long unsaveIncorrectNote(Long userId, Long questionId) {
-        incorrectNoteRepository.deleteQuestionFromIncorrectNote(userId, questionId);
+    public Long unsaveIncorrectNote(Long userId, Long questionId, boolean isMyQuestion) {
+        incorrectNoteRepository.deleteQuestionFromIncorrectNote(userId, questionId, isMyQuestion);
         return questionId;
     }
 
     // 오답노트에 문항 저장
-    public Long saveIncorrectNote(Long userId, Long questionId) {
-        incorrectNoteRepository.insertQuestionFromIncorrectNote(userId, questionId);
+    public Long saveIncorrectNote(Long userId, Long questionId, boolean isMyQuestion) {
+        incorrectNoteRepository.insertQuestionFromIncorrectNote(userId, questionId, isMyQuestion);
         return questionId;
     }
 
@@ -100,7 +104,7 @@ public class IncorrectNoteService {
         for (saveIncorrectAllDto.wrongQuestion question : questions) {
             // 저장 되어있지 않은 것만
             if (!question.getIsSaved()) {
-                incorrectNoteRepository.insertQuestionFromIncorrectNote(userId, question.getQuestionId());
+                incorrectNoteRepository.insertQuestionFromIncorrectNote(userId, question.getQuestionId(), question.getIsMyQuestion());
                 savedQuestionsId.add(question.getQuestionId());
             }
         }

@@ -67,18 +67,18 @@ public class IncorrectNoteController {
 
     @PostMapping("/saveToggle")
     @ResponseBody
-    public Map<String, Object> saveToggle(@RequestParam("userId") Long userId, @RequestParam("questionId") Long questionId, @RequestParam("isSaved") boolean isSaved) {
+    public Map<String, Object> saveToggle(@RequestParam("userId") Long userId, @RequestParam("questionId") Long questionId, @RequestParam("isMyQuestion") boolean isMyQuestion, @RequestParam("isSaved") boolean isSaved) {
 
         Map<String, Object> response = new HashMap<>();
 
         try {
             // 저장 해제
             if (isSaved) {
-                incorrectNoteService.unsaveIncorrectNote(userId, questionId);
+                incorrectNoteService.unsaveIncorrectNote(userId, questionId, isMyQuestion);
                 
             // 저장
             } else {
-                incorrectNoteService.saveIncorrectNote(userId, questionId);
+                incorrectNoteService.saveIncorrectNote(userId, questionId, isMyQuestion);
             }
             response.put("success", true);
 

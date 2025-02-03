@@ -11,6 +11,7 @@ public class IncorrectNote {
     private Long userId;
     private Long questionId;
     private Long subjectId;
+    private boolean isMyQuestion;
     private int level;
     private String questionText;
     private String createdAt;

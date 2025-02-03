@@ -110,7 +110,6 @@ public class CommonServiceImpl implements CommonService {
     @Override
     public List<Answer> shuffledAnswerListByQuestion(Questions question, boolean isMyQuestion) {
 
-        log.info("question={}", question);
         // 나만의 문제일 경우
         if (ExamConst.SUBJECT_MYQUESTIONS.equals(question.getSubjectName())) {
             return myQuestionsRepository.findShuffledMyQuestionsAnswers(question.getQuestionId());

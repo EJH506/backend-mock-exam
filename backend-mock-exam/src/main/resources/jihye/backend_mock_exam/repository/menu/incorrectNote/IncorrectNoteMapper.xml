@@ -9,9 +9,15 @@
     </select>
 
     <select id="findIncorrectList" resultType="incorrectNote">
-        SELECT i.incorrect_note_id, i.user_id, i.question_id, i.subject_id, i.level, q.question_text, date_format(i.created_at, '%Y-%d-%m') AS created_at
+        SELECT i.incorrect_note_id, i.user_id, i.question_id, i.subject_id, i.is_my_question,
+            CASE
+                WHEN i.is_my_question = TRUE THEN mq.question_text
+                ELSE q.question_text
+            END AS question_text,
+            i.level, date_format(i.created_at, '%Y-%d-%m') AS created_at
         FROM incorrect_note i
         JOIN questions q ON i.question_id = q.question_id
+        LEFT JOIN my_questions mq ON i.question_id = mq.question_id
         <where>
             <if test="subjectId > 0">
                 AND i.subject_id = #{subjectId}
@@ -22,7 +28,7 @@
             <if test="searchKeyword != null">
                 AND q.question_text like CONCAT('%', #{searchKeyword}, '%')
             </if>
-            AND user_id = #{userId}
+            AND i.user_id = #{userId}
         </where>
         ORDER BY incorrect_note_id DESC
         LIMIT ${offset}, ${pageSize}
@@ -52,8 +58,8 @@
     </delete>
 
     <insert id="insertQuestionFromIncorrectNote">
-        INSERT INTO incorrect_note (user_id, question_id, subject_id, level)
-        SELECT #{userId}, q.question_id, q.subject_id, q.level
+        INSERT INTO incorrect_note (user_id, question_id, subject_id, is_my_question, level)
+        SELECT #{userId}, q.question_id, q.subject_id, #{isMyQuestion}, q.level
         FROM questions q
         WHERE q.question_id = #{questionId}
     </insert>

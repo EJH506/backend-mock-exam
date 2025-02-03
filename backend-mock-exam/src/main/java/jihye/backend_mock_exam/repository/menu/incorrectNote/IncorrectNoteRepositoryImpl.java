@@ -2,6 +2,7 @@ package jihye.backend_mock_exam.repository.menu.incorrectNote;
 
 import jihye.backend_mock_exam.domain.incorrectNote.IncorrectNote;
 import lombok.RequiredArgsConstructor;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -32,13 +33,13 @@ public class IncorrectNoteRepositoryImpl implements IncorrectNoteRepository {
 
     // 오답노트에서 문항 삭제
     @Override
-    public void deleteQuestionFromIncorrectNote(Long userId, Long questionId) {
-        incorrectNoteMapper.deleteQuestionFromIncorrectNote(userId, questionId);
+    public void deleteQuestionFromIncorrectNote(Long userId, Long questionId, boolean isMyQuestion) {
+        incorrectNoteMapper.deleteQuestionFromIncorrectNote(userId, questionId, isMyQuestion);
     }
 
     // 오답노트에 문항 추가
     @Override
-    public void insertQuestionFromIncorrectNote(Long userId, Long questionId) {
-        incorrectNoteMapper.insertQuestionFromIncorrectNote(userId, questionId);
+    public void insertQuestionFromIncorrectNote(Long userId, Long questionId, boolean isMyQuestion) {
+        incorrectNoteMapper.insertQuestionFromIncorrectNote(userId, questionId, isMyQuestion);
     }
 }
