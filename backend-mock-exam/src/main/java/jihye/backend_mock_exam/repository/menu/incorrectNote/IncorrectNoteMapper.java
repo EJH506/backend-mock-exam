@@ -1,5 +1,6 @@
 package jihye.backend_mock_exam.repository.menu.incorrectNote;
 
+import jihye.backend_mock_exam.domain.exam.Subject;
 import jihye.backend_mock_exam.domain.incorrectNote.IncorrectNote;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -8,6 +9,12 @@ import java.util.List;
 
 @Mapper
 public interface IncorrectNoteMapper {
+
+    // 주제 목록 조회 (항목이 있는 주제만)
+    List<Subject> findAllSubjectsWithItem(Long userId);
+
+    // 사용자의 오답노트 속 나만의 문제 갯수
+    int countOfMyQuestionInIncorrectNote(Long userId);
 
     // 문항 ID로 오답노트 조회
     IncorrectNote findIncorrectNoteById(@Param("userId") Long userId, @Param("questionId") Long questionId);

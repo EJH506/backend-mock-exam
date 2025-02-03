@@ -1,5 +1,6 @@
 package jihye.backend_mock_exam.controller.menu;
 
+import jihye.backend_mock_exam.domain.user.Role;
 import jihye.backend_mock_exam.service.Page;
 import jihye.backend_mock_exam.domain.exam.Subject;
 import jihye.backend_mock_exam.domain.incorrectNote.IncorrectItem;
@@ -30,15 +31,15 @@ public class IncorrectNoteController {
     }
 
     @GetMapping("/subject")
-    public String subject(Model model) {
+    public String subject(@RequestAttribute("user") Role user, Model model) {
         // 주제 목록
-        List<Subject> subjects = incorrectNoteService.findAllSubjects();
+        List<Subject> subjects = incorrectNoteService.findAllSubjectsWithItem(user.getUserId());
         model.addAttribute("subjects", subjects);
         return "menu/incorrectNote/incorrectNote-subject";
     }
 
     @GetMapping("/list")
-    public String list(@RequestAttribute("user") User user,
+    public String list(@RequestAttribute("user") Role user,
                        @RequestParam("subject") String subjectName,
                        @RequestParam(value = "level", required = false) String level,
                        @RequestParam(value = "searchKeyword", required = false) String searchKeyword,

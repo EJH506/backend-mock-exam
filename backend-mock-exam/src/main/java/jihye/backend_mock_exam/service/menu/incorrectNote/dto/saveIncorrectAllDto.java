@@ -8,10 +8,10 @@ import java.util.List;
 public class saveIncorrectAllDto {
 
     private Long userId;
-    private List<wrongQuestion> wrongQuestions;
+    private List<WrongQuestion> wrongQuestions;
 
     @Data
-    public static class wrongQuestion {
+    public static class WrongQuestion {
         private Long questionId;
         private Boolean isMyQuestion;
         private Boolean isSaved;

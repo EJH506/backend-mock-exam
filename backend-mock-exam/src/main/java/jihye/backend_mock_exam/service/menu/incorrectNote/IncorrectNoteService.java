@@ -1,5 +1,6 @@
 package jihye.backend_mock_exam.service.menu.incorrectNote;
 
+import jihye.backend_mock_exam.controller.menu.ExamConst;
 import jihye.backend_mock_exam.service.Page;
 import jihye.backend_mock_exam.domain.exam.Answer;
 import jihye.backend_mock_exam.domain.exam.Question;
@@ -26,9 +27,13 @@ public class IncorrectNoteService {
     private final IncorrectNoteRepository incorrectNoteRepository;
     private final CommonService commonService;
 
-    // 주제 목록 조회
-    public List<Subject> findAllSubjects() {
-        return commonService.findAllSubjects();
+    // 주제 목록 조회 (항목이 있는 주제만)
+    public List<Subject> findAllSubjectsWithItem(Long userId) {
+        List<Subject> allSubjectsWithItem = incorrectNoteRepository.findAllSubjectsWithItem(userId);
+        if (incorrectNoteRepository.countOfMyQuestionInIncorrectNote(userId) > 0) {
+            allSubjectsWithItem.add(new Subject(null, ExamConst.SUBJECT_MYQUESTIONS));
+        }
+        return allSubjectsWithItem;
     }
 
     // 주제별 난이도 목록 조회
@@ -97,11 +102,11 @@ public class IncorrectNoteService {
     }
 
     // 오답노트에 오답 문항 전체 저장
-    public List<Long> saveIncorrectAll(Long userId, List<saveIncorrectAllDto.wrongQuestion> questions) {
+    public List<Long> saveIncorrectAll(Long userId, List<saveIncorrectAllDto.WrongQuestion> questions) {
 
         List<Long> savedQuestionsId = new ArrayList<>();
 
-        for (saveIncorrectAllDto.wrongQuestion question : questions) {
+        for (saveIncorrectAllDto.WrongQuestion question : questions) {
             // 저장 되어있지 않은 것만
             if (!question.getIsSaved()) {
                 incorrectNoteRepository.insertQuestionFromIncorrectNote(userId, question.getQuestionId(), question.getIsMyQuestion());

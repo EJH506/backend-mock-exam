@@ -29,7 +29,7 @@ public class ExamService {
     // 주제 목록 조회 (문항이 존재하는 것만 조회)
     public List<Subject> findAllSubjectsWithItem(Long userId) {
         List<Subject> allSubjectsWithItem = examRepository.findAllSubjectsWithItem();
-        if (commonService.levelListOfMyQuestionWithItem(userId).size() > 0) {
+        if (commonService.findNumberOfMyQuestion(userId, 0) > 0) {
             allSubjectsWithItem.add(new Subject(null, ExamConst.SUBJECT_MYQUESTIONS));
         }
         return allSubjectsWithItem;
@@ -95,6 +95,7 @@ public class ExamService {
             }
         }
 
+        log.info("!!!questions={}", questions);
         return questions;
     }
 

@@ -27,7 +27,7 @@
                     <div class="title">
                         <span th:text="'Lv. ' + ${incorrectItem.level}">Lv. 1</span>
                         <span class="questionText" th:text="${incorrectItem.question.questionText}">HTTP와 HTTPS의 차이점으로 옳은 것을 고르세요</span>
-                        <span th:class="saveToggle" th:data-user-id="${user.userId}" th:data-question-id="${incorrectItem.question.questionId}"><i class="fa-solid fa-star"></i></span>
+                        <span th:class="saveToggle" th:data-user-id="${user.userId}" th:data-question-id="${incorrectItem.question.questionId}" th:data-is-my-question="${incorrectItem.isMyQuestion}"><i class="fa-solid fa-star"></i></span>
                     </div>
 
                     <div class="content">

@@ -15,4 +15,5 @@ public class IncorrectItem {
     private Long subjectId;
     private int level;
     private boolean isSaved;
+    private boolean isMyQuestion;
 }

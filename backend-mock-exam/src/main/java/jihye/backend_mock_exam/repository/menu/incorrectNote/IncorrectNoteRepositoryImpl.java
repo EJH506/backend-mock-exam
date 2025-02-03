@@ -1,5 +1,6 @@
 package jihye.backend_mock_exam.repository.menu.incorrectNote;
 
+import jihye.backend_mock_exam.domain.exam.Subject;
 import jihye.backend_mock_exam.domain.incorrectNote.IncorrectNote;
 import lombok.RequiredArgsConstructor;
 import org.apache.ibatis.annotations.Param;
@@ -12,6 +13,18 @@ import java.util.List;
 public class IncorrectNoteRepositoryImpl implements IncorrectNoteRepository {
 
     private final IncorrectNoteMapper incorrectNoteMapper;
+
+    // 주제 목록 조회 (항목이 있는 주제만)
+    @Override
+    public List<Subject> findAllSubjectsWithItem(Long userId) {
+        return incorrectNoteMapper.findAllSubjectsWithItem(userId);
+    }
+
+    // 사용자의 오답노트 속 나만의 문제 갯수
+    @Override
+    public int countOfMyQuestionInIncorrectNote(Long userId) {
+        return incorrectNoteMapper.countOfMyQuestionInIncorrectNote(userId);
+    }
 
     @Override
     // 문항 ID로 오답노트 저장 유무 조회

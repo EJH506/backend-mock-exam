@@ -48,7 +48,7 @@ $(document).ready(function() {
         $.each(selectedWrongQuestions, function(index, item) {
             const findToggle = $(this).closest('.answersText').prev().find('.saveToggle');
             const questionId = $(findToggle).data('question-id');
-            const isMyQuestion = $(this).data('is-my-question');
+            const isMyQuestion = $(findToggle).data('is-my-question');
             const isSaved = $(findToggle).find('i').hasClass('fa-solid');
             wrongQuestions.push({ questionId, isMyQuestion, isSaved });
         });
