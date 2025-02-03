@@ -95,9 +95,9 @@
         LIMIT #{number}
     </select>
 
-    <select id="findShuffledAllQuestions" resultType="question">
+    <select id="findShuffledAllQuestions" resultMap="questionResultMap">
         SELECT * FROM (
-            SELECT q.subject_id, s.subject_name, q.question_id, NULL AS user_id, q.level, q.question_text, q.deleted, q.created_at, q.update_at FROM questions q
+            SELECT q.subject_id, s.subject_name, q.question_id, NULL AS user_id, q.level, q.question_text, q.deleted, q.created_at, q.update_at, 'questions' AS source FROM questions q
             JOIN SUBJECTS S ON q.subject_id = s.subject_id
             <where>
                 <if test="level > 0">
@@ -108,7 +108,7 @@
 
            UNION ALL
 
-           SELECT NULL AS subject_id, NULL AS subject_name, question_id, user_id, level, question_text, deleted, created_at, update_at FROM my_questions
+           SELECT NULL AS subject_id, NULL AS subject_name, question_id, user_id, level, question_text, deleted, created_at, update_at, 'my_questions' AS source FROM my_questions
             <where>
                 <if test="level > 0">
                     AND level = #{level}
@@ -120,6 +120,31 @@
         ORDER BY RAND()
         LIMIT #{number}
     </select>
+
+    <resultMap id="questionResultMap" type="question">
+        <id property="questionId" column="question_id"/>
+        <result property="subjectId" column="subject_id"/>
+        <result property="level" column="level"/>
+        <result property="questionText" column="question_text"/>
+        <result property="deleted" column="deleted"/>
+        <result property="createdAt" column="created_at"/>
+        <result property="updateAt" column="update_at"/>
+
+        <discriminator javaType="String" column="source">
+            <case value="questions" resultMap="questionResultMap"/>
+            <case value="my_questions" resultMap="myQuestionResultMap"/>
+        </discriminator>
+    </resultMap>
+
+    <resultMap id="myQuestionResultMap" type="MyQuestion">
+        <id property="questionId" column="question_id"/>
+        <result property="userId" column="user_id"/>
+        <result property="level" column="level"/>
+        <result property="questionText" column="question_text"/>
+        <result property="deleted" column="deleted"/>
+        <result property="createdAt" column="created_at"/>
+        <result property="updateAt" column="update_at"/>
+    </resultMap>
 
     <select id="findShuffledAnswers" resultType="answer">
         SELECT * FROM answers

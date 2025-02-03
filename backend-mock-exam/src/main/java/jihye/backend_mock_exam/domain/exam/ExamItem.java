@@ -1,5 +1,6 @@
 package jihye.backend_mock_exam.domain.exam;
 
+import jihye.backend_mock_exam.domain.Questions;
 import lombok.Data;
 
 import java.util.List;
@@ -7,7 +8,7 @@ import java.util.List;
 @Data
 public class ExamItem {
 
-    private Question question;
+    private Questions question;
     private List<Answer> answers;
     private Answer correctAnswer;
 

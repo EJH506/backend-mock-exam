@@ -56,8 +56,8 @@
         AND deleted = FALSE;
     </select>
 
-    <select id="findShuffledMyQuestions" resultType="Long">
-        SELECT question_id FROM my_questions
+    <select id="findShuffledMyQuestions" resultType="myQuestion">
+        SELECT * FROM my_questions
         <where>
             AND user_id = #{userId}
             <if test="level > 0">

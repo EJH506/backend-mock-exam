@@ -61,7 +61,7 @@ public class IncorrectNoteService {
             IncorrectItem item = new IncorrectItem();
             item.setQuestion(question);
 
-            List<Answer> answers = commonService.shuffledAnswerListByQuestion(question.getQuestionId(), false);
+            List<Answer> answers = commonService.shuffledAnswerListByQuestion(question, false);
             item.setAnswers(answers);
 
             for (Answer answer : answers) {

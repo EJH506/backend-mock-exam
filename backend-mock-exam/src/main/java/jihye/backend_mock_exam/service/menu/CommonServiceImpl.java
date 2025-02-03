@@ -1,16 +1,17 @@
 package jihye.backend_mock_exam.service.menu;
 
 import jihye.backend_mock_exam.controller.menu.ExamConst;
+import jihye.backend_mock_exam.domain.Questions;
 import jihye.backend_mock_exam.domain.exam.*;
 import jihye.backend_mock_exam.domain.history.ExamHistory;
 import jihye.backend_mock_exam.domain.history.HistoryItem;
 import jihye.backend_mock_exam.domain.history.HistoryItemObject;
+import jihye.backend_mock_exam.domain.myQuestion.MyQuestion;
 import jihye.backend_mock_exam.repository.menu.exam.ExamRepository;
 import jihye.backend_mock_exam.repository.menu.history.HistoryRepository;
 import jihye.backend_mock_exam.repository.menu.incorrectNote.IncorrectNoteRepository;
 import jihye.backend_mock_exam.repository.menu.myQuestions.MyQuestionsRepository;
 import jihye.backend_mock_exam.service.menu.exam.dto.SubmittedExamDto;
-import jihye.backend_mock_exam.service.menu.myQuestions.MyQuestionsService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -107,14 +108,15 @@ public class CommonServiceImpl implements CommonService {
 
     // 문제의 보기 조회 (순서 랜덤)
     @Override
-    public List<Answer> shuffledAnswerListByQuestion(Long questionId, boolean isMyQuestion) {
+    public List<Answer> shuffledAnswerListByQuestion(Questions question, boolean isMyQuestion) {
+
         // 나만의 문제일 경우
-        if (isMyQuestion) {
-            return myQuestionsRepository.findShuffledMyQuestionsAnswers(questionId);
+        if (ExamConst.SUBJECT_MYQUESTIONS.equals(question.getSubjectName())) {
+            return myQuestionsRepository.findShuffledMyQuestionsAnswers(question.getQuestionId());
 
         // 아닐 경우
         } else {
-            return examRepository.findShuffledAnswers(questionId);
+            return examRepository.findShuffledAnswers(question.getQuestionId());
         }
     }
 
@@ -313,7 +315,7 @@ public class CommonServiceImpl implements CommonService {
 
     // 나만의 문제의 난이도, 문항수에 해당하는 문제 목록 조회
     @Override
-    public List<Long> findShuffledMyQuestions(Long userId, int level, int number) {
+    public List<MyQuestion> findShuffledMyQuestions(Long userId, int level, int number) {
         return myQuestionsRepository.findShuffledMyQuestions(userId, level, number);
     }
 }

@@ -1,5 +1,6 @@
 package jihye.backend_mock_exam.repository.menu.exam;
 
+import jihye.backend_mock_exam.domain.Questions;
 import jihye.backend_mock_exam.domain.exam.*;
 import jihye.backend_mock_exam.domain.incorrectNote.IncorrectNote;
 import lombok.RequiredArgsConstructor;
@@ -86,7 +87,7 @@ public class ExamRepositoryImpl implements ExamRepository {
 
     // 통합 문제 목록 조회
     @Override
-    public List<Question> findShuffledAllQuestions(int level, int number, Long userId) {
+    public List<Questions> findShuffledAllQuestions(int level, int number, Long userId) {
         return examMapper.findShuffledAllQuestions(level, number, userId);
     }
 

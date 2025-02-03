@@ -27,7 +27,7 @@ public interface MyQuestionsMapper {
     Integer findNumberOfMyQuestion(@Param("userId") Long userId, @Param("level") int level);
 
     // 나만의 문제의 난이도, 문항수에 해당하는 문제 목록 조회
-    List<Long> findShuffledMyQuestions(@Param("userId") Long userId, @Param("level") int level, @Param("number") int number);
+    List<MyQuestion> findShuffledMyQuestions(@Param("userId") Long userId, @Param("level") int level, @Param("number") int number);
 
     // 문제의 보기 목록 조회 (순서 랜덤)
     List<Answer> findShuffledMyQuestionsAnswers(Long questionId);

@@ -49,7 +49,7 @@ public class MyQuestionsRepositoryImpl implements MyQuestionsRepository {
 
     // 사용자의 나만의 문제 문항 수 조회
     @Override
-    public List<Long> findShuffledMyQuestions(Long userId, int level, int number) {
+    public List<MyQuestion> findShuffledMyQuestions(Long userId, int level, int number) {
         return myQuestionsMapper.findShuffledMyQuestions(userId, level, number);
     }
 

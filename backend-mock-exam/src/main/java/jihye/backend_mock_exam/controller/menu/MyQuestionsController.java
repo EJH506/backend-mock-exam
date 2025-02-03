@@ -3,6 +3,7 @@ package jihye.backend_mock_exam.controller.menu;
 import jakarta.validation.Valid;
 import jihye.backend_mock_exam.controller.menu.validation.MyQuestionEditValidator;
 import jihye.backend_mock_exam.controller.menu.validation.MyQuestionValidator;
+import jihye.backend_mock_exam.domain.Questions;
 import jihye.backend_mock_exam.domain.exam.Answer;
 import jihye.backend_mock_exam.domain.exam.ExamItem;
 import jihye.backend_mock_exam.domain.exam.Question;
@@ -89,7 +90,7 @@ public class MyQuestionsController {
         List<Integer> levels = myQuestionsService.levelListOfMyQuestion(user.getUserId());
 
         ExamItem examItem = myQuestionsService.myQuestionDetail(questionId);
-        Question question = examItem.getQuestion();
+        Questions question = examItem.getQuestion();
         List<Answer> answers = examItem.getAnswers();
         MyQuestionEditDto myQuestionEditDto = new MyQuestionEditDto(question.getQuestionId(), question.getLevel(), question.getQuestionText(),
                                                                     examItem.getCorrectAnswer(), answers.get(0), answers.get(1), answers.get(2));
@@ -113,8 +114,6 @@ public class MyQuestionsController {
         if (bindingResult.hasErrors()) {
             log.info("errors={}", bindingResult);
             ExamItem examItem = myQuestionsService.myQuestionDetail(questionId);
-            Question question = examItem.getQuestion();
-            List<Answer> answers = examItem.getAnswers();
             model.addAttribute("examItem", examItem);
             model.addAttribute("levels", levels);
             model.addAttribute("myQuestionEditDto", dto);

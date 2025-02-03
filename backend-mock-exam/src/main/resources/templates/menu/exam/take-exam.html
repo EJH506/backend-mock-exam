@@ -25,7 +25,7 @@
                     <span th:text="'(' + ${stat.index + 1} + '/' + ${exam.totalQuestionsCount} + ')'">(1/15)</span>
                     <input type="hidden" th:name="questions" th:value="${examItem.question.questionId}">
                     <p class="questionInfo" th:text="${examItem.question.subjectName} + ' Lv. ' + ${examItem.question.level}">네트워크 Lv. 2</p>
-                    <p class="questionText" th:text="'(Sid=' + ${examItem.question.subjectId} + ' / Qid=' + ${examItem.question.questionId} + ') ' + ${examItem.question.questionText}">문제내용</p>
+                    <p class="questionText" th:text="'(Sid=' + ${examItem.question.subjectId != null ? examItem.question.subjectId : 0} + ' / Qid=' + ${examItem.question.questionId} + ') ' + ${examItem.question.questionText}">문제내용</p>
 
                     <ul>
                         <li th:each="answer : ${examItem.answers}">

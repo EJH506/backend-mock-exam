@@ -1,9 +1,11 @@
 package jihye.backend_mock_exam.service.menu.exam;
 
 import jihye.backend_mock_exam.controller.menu.ExamConst;
+import jihye.backend_mock_exam.domain.Questions;
 import jihye.backend_mock_exam.domain.exam.*;
 import jihye.backend_mock_exam.domain.history.ExamHistory;
 import jihye.backend_mock_exam.domain.history.HistoryItemObject;
+import jihye.backend_mock_exam.domain.myQuestion.MyQuestion;
 import jihye.backend_mock_exam.repository.menu.exam.ExamRepository;
 import jihye.backend_mock_exam.service.menu.CommonService;
 import jihye.backend_mock_exam.service.menu.QuestionFilter;
@@ -75,16 +77,15 @@ public class ExamService {
     }
 
     // 주제,난이도,문항수에 해당하는 문제 목록 반환 (순서 랜덤)
-    public List<Question> shuffledQuestionList(Long userId, String subjectName, String level, int number) {
+    public List<? extends Questions> shuffledQuestionList(Long userId, String subjectName, String level, int number) {
 
         QuestionFilter questionFilter = commonService.questionFilterConvert(subjectName, level);
-        List<Question> questions;
+        List<? extends Questions> questions;
 
         // 나만의 문제일 시
         if (ExamConst.SUBJECT_MYQUESTIONS.equals(subjectName)) {
             log.info("나만의 문제일시");
-//            questions = commonService.findShuffledMyQuestions(userId, questionFilter.getLevelInt(), number);
-                questions = null;
+            questions = commonService.findShuffledMyQuestions(userId, questionFilter.getLevelInt(), number);
             // 아닐 시
         } else {
             log.info("나만의 문제 아닐시");
@@ -98,22 +99,21 @@ public class ExamService {
             }
         }
 
-        log.info("questions={}", questions);
         return questions;
     }
 
     // 시험 만들어 반환
     @Transactional
-    public List<ExamItem> createExam(List<Question> questions, boolean isMyQuestion) {
+    public List<ExamItem> createExam(List<? extends Questions> questions, boolean isMyQuestion) {
 
         ArrayList<ExamItem> exam = new ArrayList<>();
 //        List<Question> questions = commonService.findFilteredHistoryQuestions(questionsId, isMyQuestion);
 
-        for (Question question : questions) {
+        for (Questions question : questions) {
             ExamItem examItem = new ExamItem();
             examItem.setQuestion(question);
 
-            List<Answer> answers = commonService.shuffledAnswerListByQuestion(question.getQuestionId(), isMyQuestion);
+            List<Answer> answers = commonService.shuffledAnswerListByQuestion(question, isMyQuestion);
             examItem.setAnswers(answers);
 
             exam.add(examItem);

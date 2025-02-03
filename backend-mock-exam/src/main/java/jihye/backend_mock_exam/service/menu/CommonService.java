@@ -1,8 +1,10 @@
 package jihye.backend_mock_exam.service.menu;
 
+import jihye.backend_mock_exam.domain.Questions;
 import jihye.backend_mock_exam.domain.exam.*;
 import jihye.backend_mock_exam.domain.history.ExamHistory;
 import jihye.backend_mock_exam.domain.history.HistoryItemObject;
+import jihye.backend_mock_exam.domain.myQuestion.MyQuestion;
 import jihye.backend_mock_exam.service.menu.exam.dto.SubmittedExamDto;
 
 import java.util.List;
@@ -22,7 +24,7 @@ public interface CommonService {
     List<Question> findFilteredHistoryQuestions(List<Long> questionsId, boolean isMyQuestion);
 
     // 문제의 보기 조회 (순서 랜덤)
-    List<Answer> shuffledAnswerListByQuestion(Long questionId, boolean isMyQuestion);
+    List<Answer> shuffledAnswerListByQuestion(Questions question, boolean isMyQuestion);
 
     // 주제 이름으로 주제 조회
     Subject findSubjectByName(String subjectName);
@@ -56,5 +58,5 @@ public interface CommonService {
     Integer findNumberOfMyQuestion(Long userId, int level);
 
     // 나만의 문제의 난이도, 문항수에 해당하는 문제 목록 조회
-    List<Long> findShuffledMyQuestions(Long userId, int level, int number);
+    List<MyQuestion> findShuffledMyQuestions(Long userId, int level, int number);
 }

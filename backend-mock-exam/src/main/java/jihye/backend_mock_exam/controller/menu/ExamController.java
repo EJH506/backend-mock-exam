@@ -1,6 +1,7 @@
 package jihye.backend_mock_exam.controller.menu;
 
 import jakarta.servlet.http.HttpServletRequest;
+import jihye.backend_mock_exam.domain.Questions;
 import jihye.backend_mock_exam.domain.exam.*;
 import jihye.backend_mock_exam.domain.history.ExamHistory;
 import jihye.backend_mock_exam.domain.history.HistoryItemObject;
@@ -79,7 +80,7 @@ public class ExamController {
                                @RequestParam(value = "number", required = false) Integer number,
                                Model model) {
 
-        List<Question> questions = null;
+        List<? extends Questions> questions = null;
 
         // 틀린문제만 재도전이 아닐경우
         if (historyId == null) {

@@ -1,5 +1,6 @@
 package jihye.backend_mock_exam.repository.menu.exam;
 
+import jihye.backend_mock_exam.domain.Questions;
 import jihye.backend_mock_exam.domain.exam.*;
 import jihye.backend_mock_exam.domain.incorrectNote.IncorrectNote;
 
@@ -44,7 +45,7 @@ public interface ExamRepository {
     List<Question> findShuffledQuestions(Long subjectId, int level, int number);
 
     // 통합 문제 목록 조회
-    List<Question> findShuffledAllQuestions(int level, int number, Long userId);
+    List<Questions> findShuffledAllQuestions(int level, int number, Long userId);
     
     // 문제의 보기 목록 조회 (순서 랜덤)
     List<Answer> findShuffledAnswers(Long questionId);
