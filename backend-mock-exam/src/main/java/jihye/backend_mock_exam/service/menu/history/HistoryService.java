@@ -1,15 +1,19 @@
 package jihye.backend_mock_exam.service.menu.history;
 
+import jihye.backend_mock_exam.domain.history.HistoryItem;
 import jihye.backend_mock_exam.service.Page;
 import jihye.backend_mock_exam.domain.history.ExamHistory;
 import jihye.backend_mock_exam.domain.history.HistoryItemObject;
 import jihye.backend_mock_exam.repository.menu.history.HistoryRepository;
 import jihye.backend_mock_exam.service.menu.CommonService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class HistoryService {
@@ -32,7 +36,32 @@ public class HistoryService {
 
     // 히스토리 조회
     public ExamHistory findExamHistoryById(Long historyId) {
-        return historyRepository.findExamHistoryById(historyId);
+
+        ExamHistory examHistory = historyRepository.findExamHistoryById(historyId);
+        List<HistoryItem> historyItems;
+
+        // examHistory에 질문, 답변 리스트 데이터가 없으면 조회해서 담음
+        if (examHistory.getQuestions() == null || examHistory.getIsMyQuestions() == null || examHistory.getCorrectAnswers() == null || examHistory.getUserAnswers() == null) {
+            historyItems = historyRepository.findHistoryItemById(examHistory.getHistoryId(), true);
+            List<Long> historyQuestionsId = new ArrayList<>();
+            List<Boolean> historyIsMyQuestions = new ArrayList<>();
+            List<Long> historyCorrectAnswersId = new ArrayList<>();
+            List<Long> historyUserAnswersId = new ArrayList<>();
+
+            for (HistoryItem historyItem : historyItems) {
+                historyQuestionsId.add(historyItem.getQuestionId());
+                historyIsMyQuestions.add(historyItem.isMyQuestion());
+                historyCorrectAnswersId.add(historyItem.getCorrectAnswerId());
+                historyUserAnswersId.add(historyItem.getUserAnswerId());
+                log.info("historyItem={}", historyItem);
+            }
+            examHistory.setQuestions(historyQuestionsId);
+            examHistory.setIsMyQuestions(historyIsMyQuestions);
+            examHistory.setCorrectAnswers(historyCorrectAnswersId);
+            examHistory.setUserAnswers(historyUserAnswersId);
+        }
+
+        return examHistory;
     }
 
     // 히스토리 상세 반환

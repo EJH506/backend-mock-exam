@@ -43,6 +43,7 @@ public class HistoryController {
         boolean isAjaxRequest = "XMLHttpRequest".equals(request.getHeader("X-Requested-With"));
 
         ExamHistory examHistory = historyService.findExamHistoryById(historyId);
+        log.info("examHistory={}", examHistory);
         List<HistoryItemObject> historyDetails = historyService.createHistoryDetails(examHistory, option);
 
         model.addAttribute("examHistory", examHistory);

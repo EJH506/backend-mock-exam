@@ -59,6 +59,12 @@ public class MyQuestionsRepositoryImpl implements MyQuestionsRepository {
         return myQuestionsMapper.findShuffledMyQuestionsAnswers(questionId);
     }
 
+    // 문제의 정답 조회
+    @Override
+    public Long findCorrectAnswerByMyQuestion(Long questionId) {
+        return myQuestionsMapper.findCorrectAnswerByMyQuestion(questionId);
+    }
+
     // 선택한 문항 삭제
     @Override
     public void deleteMyQuestionList(List<Long> deleteQuestionsId) {

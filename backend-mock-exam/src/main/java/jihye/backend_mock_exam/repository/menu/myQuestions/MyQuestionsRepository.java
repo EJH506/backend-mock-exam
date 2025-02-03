@@ -30,6 +30,9 @@ public interface MyQuestionsRepository {
 
     // 문제의 보기 목록 조회 (순서 랜덤)
     List<Answer> findShuffledMyQuestionsAnswers(Long questionId);
+
+    // 문제의 정답 조회
+    Long findCorrectAnswerByMyQuestion(Long questionId);
     
     // 선택한 문항 삭제
     void deleteMyQuestionList(List<Long> deleteQuestionsId);

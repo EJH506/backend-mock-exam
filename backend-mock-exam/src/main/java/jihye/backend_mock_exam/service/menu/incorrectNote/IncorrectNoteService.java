@@ -53,7 +53,7 @@ public class IncorrectNoteService {
         }
 
         // 오답노트 목록의 question id에서 문제 정보 추출
-        List<Question> questions = commonService.findFilteredHistoryQuestions(questionsId, false);
+        List<Question> questions = commonService.findFilteredHistoryQuestions(questionsId, List.of(false));
 
         List<IncorrectItem> incorrectItemList = new ArrayList<>();
 

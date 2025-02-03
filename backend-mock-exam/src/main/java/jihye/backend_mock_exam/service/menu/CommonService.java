@@ -21,7 +21,7 @@ public interface CommonService {
     List<Integer> levelListOfSubjectWithItem(Long userId, String subjectName);
 
     // 조건에 맞는 문항 조회
-    List<Question> findFilteredHistoryQuestions(List<Long> questionsId, boolean isMyQuestion);
+    List<Question> findFilteredHistoryQuestions(List<Long> questionsId, List<Boolean> isMyQuestion);
 
     // 문제의 보기 조회 (순서 랜덤)
     List<Answer> shuffledAnswerListByQuestion(Questions question, boolean isMyQuestion);
@@ -42,7 +42,7 @@ public interface CommonService {
     List<Long> findQuestionsIdOfHistory(Long historyId, boolean isCorrect);
 
     // 조건에 맞는 보기 조회
-    List<Answer> findFilteredHistoryAnswers(List<Long> answersId, boolean isMyQuestion);
+    List<Answer> findFilteredHistoryAnswers(List<Long> answersId, List<Boolean> isMyQuestion);
 
     // 문항 ID로 오답노트 저장 유무 조회
     boolean isSavedToIncorrectNote(Long userId, Long questionId);

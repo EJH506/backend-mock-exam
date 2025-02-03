@@ -9,8 +9,8 @@
     </insert>
 
     <insert id="saveExamHistoryItems" useGeneratedKeys="true" keyProperty="historyItemsId">
-        INSERT INTO history_items (history_id, question_id, correct_answer_id, user_answer_id, is_correct)
-        VALUES (${historyId}, ${questionId}, ${correctAnswerId}, ${userAnswerId}, ${isCorrect});
+        INSERT INTO history_items (history_id, is_my_question, question_id, correct_answer_id, user_answer_id, is_correct)
+        VALUES (${historyId}, ${isMyQuestion}, ${questionId}, ${correctAnswerId}, ${userAnswerId}, ${isCorrect});
     </insert>
 
     <select id="findExamHistoryByUser" resultType="examHistory">

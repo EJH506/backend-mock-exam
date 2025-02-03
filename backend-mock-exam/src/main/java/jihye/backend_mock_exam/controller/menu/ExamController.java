@@ -94,7 +94,7 @@ public class ExamController {
         }
 
         // 시험 문항 생성
-        List<ExamItem> examItems = examService.createExam(questions, ExamConst.SUBJECT_MYQUESTIONS.equals(subjectName));
+        List<ExamItem> examItems = examService.createExam(questions);
         number = examItems.size();
 
         model.addAttribute("exam", new Exam(subjectName, level, number, examItems));
@@ -106,6 +106,7 @@ public class ExamController {
     @PostMapping("/take-exam")
     public String takeExam(@ModelAttribute SubmittedExamDto dto, HttpServletRequest request) {
 
+        log.info("dto={}", dto);
         // 시험 히스토리 생성
         ExamHistory examHistory = examService.createExamHistory(dto);
         examHistory.setCorrectRate(Math.round(examHistory.getCorrectRate() * 10) / 10.0);

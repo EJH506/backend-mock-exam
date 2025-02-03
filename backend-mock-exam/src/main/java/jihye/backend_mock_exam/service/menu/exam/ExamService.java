@@ -84,17 +84,13 @@ public class ExamService {
 
         // 나만의 문제일 시
         if (ExamConst.SUBJECT_MYQUESTIONS.equals(subjectName)) {
-            log.info("나만의 문제일시");
             questions = commonService.findShuffledMyQuestions(userId, questionFilter.getLevelInt(), number);
             // 아닐 시
         } else {
-            log.info("나만의 문제 아닐시");
             // 통합 문제일 시
             if (ExamConst.SUBJECT_ALL.equals(subjectName)) {
-                log.info("통합 문제일 시");
                 questions = examRepository.findShuffledAllQuestions(questionFilter.getLevelInt(), number, userId);
             } else {
-                log.info("통합 문제 아닐시");
                 questions = examRepository.findShuffledQuestions(questionFilter.getSubjectId(), questionFilter.getLevelInt(), number);
             }
         }
@@ -104,7 +100,7 @@ public class ExamService {
 
     // 시험 만들어 반환
     @Transactional
-    public List<ExamItem> createExam(List<? extends Questions> questions, boolean isMyQuestion) {
+    public List<ExamItem> createExam(List<? extends Questions> questions) {
 
         ArrayList<ExamItem> exam = new ArrayList<>();
 //        List<Question> questions = commonService.findFilteredHistoryQuestions(questionsId, isMyQuestion);
@@ -113,7 +109,7 @@ public class ExamService {
             ExamItem examItem = new ExamItem();
             examItem.setQuestion(question);
 
-            List<Answer> answers = commonService.shuffledAnswerListByQuestion(question, isMyQuestion);
+            List<Answer> answers = commonService.shuffledAnswerListByQuestion(question, ExamConst.SUBJECT_MYQUESTIONS.equals(question.getSubjectName()));
             examItem.setAnswers(answers);
 
             exam.add(examItem);
@@ -143,8 +139,8 @@ public class ExamService {
     }
 
     // 조건에 맞는 보기 조회
-    public List<Answer> findFilteredHistoryAnswers(List<Long> answersId, boolean isMyQuestion) {
-        return commonService.findFilteredHistoryAnswers(answersId, isMyQuestion);
+    public List<Answer> findFilteredHistoryAnswers(List<Long> answersId, List<Boolean> isMyQuestions) {
+        return commonService.findFilteredHistoryAnswers(answersId, isMyQuestions);
     }
 
     // 문항 ID로 오답노트 저장 유무 조회

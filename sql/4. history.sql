@@ -19,6 +19,7 @@ CREATE TABLE exam_history (
 CREATE TABLE history_items (
 	history_items_id INT AUTO_INCREMENT PRIMARY KEY,							-- 식별자
 	history_id INT NOT NULL,													-- 외래키
+	is_my_question boolean NOT NULL,												-- 문제가 나만의 문제인지 여부
 	question_id INT NOT NULL,													-- 문제 ID
 	correct_answer_id INT NOT NULL,												-- 정답 ID
 	user_answer_id INT NOT NULL,												-- 사용자의 답 ID

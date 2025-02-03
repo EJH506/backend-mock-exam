@@ -10,7 +10,7 @@ public class SubmittedExamDto {
     private Long userId;
     private String subject;
     private String level;
-
+    private List<Boolean> isMyQuestions;
     private List<Long> questions;
     private List<Long> userAnswers;
 

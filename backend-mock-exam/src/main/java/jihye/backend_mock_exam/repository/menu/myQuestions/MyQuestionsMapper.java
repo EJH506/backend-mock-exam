@@ -5,6 +5,7 @@ import jihye.backend_mock_exam.domain.exam.Question;
 import jihye.backend_mock_exam.domain.myQuestion.MyQuestion;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
 
@@ -31,6 +32,10 @@ public interface MyQuestionsMapper {
 
     // 문제의 보기 목록 조회 (순서 랜덤)
     List<Answer> findShuffledMyQuestionsAnswers(Long questionId);
+
+    // 문제의 정답 조회
+    @Select("SELECT answer_id FROM my_questions_answers WHERE my_question_id = #{questionId} AND is_correct = TRUE")
+    Long findCorrectAnswerByMyQuestion(Long questionId);
 
     // 선택한 문항 삭제
     void deleteMyQuestionList(List<Long> deleteQuestionsId);
