@@ -1,5 +1,7 @@
 package jihye.backend_mock_exam.service.menu.history;
 
+import jihye.backend_mock_exam.domain.Questions;
+import jihye.backend_mock_exam.domain.exam.Question;
 import jihye.backend_mock_exam.domain.history.HistoryItem;
 import jihye.backend_mock_exam.service.Page;
 import jihye.backend_mock_exam.domain.history.ExamHistory;
@@ -70,7 +72,7 @@ public class HistoryService {
     }
 
     // 히스토리에 속한 문제ID 조회
-    public List<Long> findQuestionsIdOfHistory(Long historyId, boolean isCorrect) {
+    public List<Questions> findQuestionsIdOfHistory(Long historyId, boolean isCorrect) {
         return historyRepository.findQuestionsIdOfHistory(historyId, isCorrect);
     }
 

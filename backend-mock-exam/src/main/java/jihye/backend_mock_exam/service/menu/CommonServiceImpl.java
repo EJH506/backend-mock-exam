@@ -229,9 +229,9 @@ public class CommonServiceImpl implements CommonService {
         return historyRepository.findExamHistoryById(historyId);
     }
 
-    // 히스토리에 속한 문제ID 조회 (전체를 찾으려면 true, 틀린문제만이면 false)
+    // 히스토리에 속한 문제 조회 (전체를 찾으려면 true, 틀린문제만이면 false)
     @Override
-    public List<Long> findQuestionsIdOfHistory(Long historyId, boolean isCorrect) {
+    public List<Questions> findQuestionsIdOfHistory(Long historyId, boolean isCorrect) {
         return historyRepository.findQuestionsIdOfHistory(historyId, isCorrect);
     }
 

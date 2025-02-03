@@ -33,8 +33,23 @@
         FROM exam_history WHERE history_id = #{historyId}
     </select>
 
-    <select id="findQuestionsIdOfHistory" resultType="Long">
-        SELECT question_id FROM history_items
+    <select id="findQuestionsIdOfHistory" resultMap="historyQuestionResultMap">
+        SELECT q.question_id,
+            CASE WHEN hi.is_my_question = TRUE THEN NULL
+                ELSE q.subject_id
+            END AS subject_id,
+            CASE WHEN hi.is_my_question = TRUE THEN NULL
+                ELSE s.subject_name
+            END AS subject_name,
+        q.level, hi.is_my_question,
+            CASE WHEN hi.is_my_question = TRUE THEN mq.question_text
+                ELSE q.question_text
+            END AS question_text,
+        q.deleted, q.created_at, q.update_at
+        FROM history_items hi
+        JOIN questions q ON hi.question_id = q.question_id
+        LEFT JOIN my_questions mq ON hi.question_id = mq.question_id
+        LEFT JOIN subjects s ON q.subject_id = s.subject_id
         <where>
             history_id = ${historyId}
             <if test="!isCorrect">
@@ -42,6 +57,16 @@
             </if>
         </where>
     </select>
+    
+    <resultMap id="historyQuestionResultMap" type="question">
+        <discriminator javaType="String" column="is_my_question">
+            <case value="1" resultMap="historyMyQuestionResultMap" />
+            <case value="0" resultMap="historyQuestionResultMap" />
+        </discriminator>
+    </resultMap>
+
+    <resultMap id="historyMyQuestionResultMap" type="myQuestion">
+    </resultMap>
 
     <select id="findHistoryItemById" resultType="historyItem">
         SELECT * FROM history_items

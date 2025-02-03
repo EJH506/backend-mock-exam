@@ -1,5 +1,7 @@
 package jihye.backend_mock_exam.repository.menu.history;
 
+import jihye.backend_mock_exam.domain.Questions;
+import jihye.backend_mock_exam.domain.exam.Question;
 import jihye.backend_mock_exam.domain.history.ExamHistory;
 import jihye.backend_mock_exam.domain.history.HistoryItem;
 import lombok.RequiredArgsConstructor;
@@ -48,7 +50,7 @@ public class HistoryRepositoryImpl implements HistoryRepository {
 
     // 히스토리 ID로 히스토리 문항 조회 (전체를 찾으려면 true, 틀린문제만이면 false)
     @Override
-    public List<Long> findQuestionsIdOfHistory(Long historyId, boolean isCorrect) {
+    public List<Questions> findQuestionsIdOfHistory(Long historyId, boolean isCorrect) {
         return historyMapper.findQuestionsIdOfHistory(historyId, isCorrect);
     }
 

@@ -1,5 +1,7 @@
 package jihye.backend_mock_exam.repository.menu.history;
 
+import jihye.backend_mock_exam.domain.Questions;
+import jihye.backend_mock_exam.domain.exam.Question;
 import jihye.backend_mock_exam.domain.history.ExamHistory;
 import jihye.backend_mock_exam.domain.history.HistoryItem;
 import org.apache.ibatis.annotations.Mapper;
@@ -26,7 +28,7 @@ public interface HistoryMapper {
     ExamHistory findExamHistoryById(Long historyId);
 
     // 히스토리 ID로 히스토리 문항 조회 (전체를 찾으려면 true, 틀린문제만이면 false)
-    List<Long> findQuestionsIdOfHistory(@Param("historyId") Long historyId, @Param("isCorrect") boolean isCorrect);
+    List<Questions> findQuestionsIdOfHistory(@Param("historyId") Long historyId, @Param("isCorrect") boolean isCorrect);
 
     // 히스토리 ID로 히스토리 아이템 조회
     List<HistoryItem> findHistoryItemById(Long historyId, boolean isCorrect);

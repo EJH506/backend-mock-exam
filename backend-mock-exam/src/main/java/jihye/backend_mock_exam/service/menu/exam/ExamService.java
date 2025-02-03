@@ -134,8 +134,8 @@ public class ExamService {
         return commonService.findExamHistoryById(historyId);
     }
 
-    // 히스토리에 속한 문제ID 조회
-    public List<Long> findQuestionsIdOfHistory(Long historyId, boolean isCorrect) {
+    // 히스토리에 속한 문제 조회
+    public List<? extends Questions> findQuestionsIdOfHistory(Long historyId, boolean isCorrect) {
         return commonService.findQuestionsIdOfHistory(historyId, isCorrect);
     }
 
