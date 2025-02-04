@@ -7,6 +7,7 @@
     <script th:src="@{https://code.jquery.com/jquery-3.6.0.min.js}"></script>
     <script th:src="@{/js/auth/sign-up.js}"></script>
     <script th:src="@{/js/createBirthYears.js}"></script>
+    <script th:src="@{/js/limitedGenderSelection.js}"></script>
 </head>
 <body class="main">
 <div class="wrap">
@@ -58,7 +59,7 @@
 
         <div class="optional">
             <p>선택항목</p>
-            <div>
+            <div class="select-gender">
                 <span>
                     <input class="sr-only" type="checkbox" id="male" th:field="*{gender}" th:value="male" />
                     <label class="systemInput_lg" for="male" th:text="#{label.user.gender.male}">남성(목업)</label>

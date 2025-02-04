@@ -43,27 +43,36 @@ header > a > h1 {
 }
 header ul {
   display: flex;
+  align-items: center;
 }
 header ul > li {
   font-family: "Pretendard-SemiBold";
+  margin-right: 46px;
+}
+header ul > li:last-of-type {
+  margin-right: 0;
 }
 header ul > li > a {
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 120px;
   height: 40px;
 }
-header > nav li:not(:last-of-type):hover a {
+header > #home-header-container {
+  display: flex;
+}
+header nav li:not(:last-of-type):hover a {
   color: #71B961;
 }
-header > nav li:last-of-type:hover a.navButton_sm {
+header nav li:last-of-type:hover a.navButton_sm {
   border-color: rgb(144.7631578947, 200.6578947368, 132.3421052632);
   background-color: rgb(144.7631578947, 200.6578947368, 132.3421052632);
 }
 header #profile {
   position: relative;
+  margin-left: 50px;
   z-index: 500;
+  padding-bottom: 10px;
 }
 header #profile > div {
   display: flex;
@@ -76,20 +85,31 @@ header #profile > div {
   font-family: "Pretendard-SemiBold";
   background-color: #CCC;
   border-radius: 50%;
-  cursor: pointer;
 }
 header #profile > ul {
-  display: flex;
+  display: none;
   flex-flow: column wrap;
   position: absolute;
   top: 100%;
   left: 50%;
-  transform: translate(-50%, 10px);
+  transform: translate(-50%, 0);
   border: 1px solid #CCC;
   border-radius: 5px;
 }
-header #profile > ul a:hover {
+header #profile > ul > li {
+  margin: 0;
+}
+header #profile > ul > li > a {
+  width: 120px;
+}
+header #profile > ul > li > a:hover {
   color: #CCC;
+}
+header #profile:hover > ul {
+  display: flex;
+}
+header #profile:hover > ul:hover {
+  display: flex;
 }
 
 @font-face {
@@ -332,8 +352,8 @@ section > form {
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 120px;
-  height: 40px;
+  width: 110px;
+  height: 45px;
   color: #fff;
   border: 3px solid #71B961;
   border-radius: 4px;

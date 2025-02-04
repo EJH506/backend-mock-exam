@@ -4,7 +4,9 @@
     <meta charset="UTF-8">
     <title th:text="#{page.edit-account} + ' | ' + #{title}">회원정보 수정 | 백엔드 모의고사(목업)</title>
     <link rel="stylesheet" th:href="@{/css/main/main.css}">
+    <script th:src="@{https://code.jquery.com/jquery-3.6.0.min.js}"></script>
     <script th:src="@{/js/createBirthYears.js}"></script>
+    <script th:src="@{/js/limitedGenderSelection.js}"></script>
 </head>
 <body>
 <div class="wrap">
@@ -35,7 +37,7 @@
 
         <div class="optional">
             <p>선택항목</p>
-            <div>
+            <div class="select-gender">
                 <span>
                     <input class="sr-only" type="checkbox" id="male" th:field="*{gender}" th:value="male" />
                     <label class="systemButton_md" for="male" th:text="#{label.user.gender.male}">남성(목업)</label>
@@ -47,7 +49,7 @@
             </div>
 
 
-            <select class="systemInput_md" id="birthYear" th:field="*{birthYear}">
+            <select class="systemInput_md" id="birthYear" th:field="*{birthYear}" th:data-birth-year="*{birthYear}">
                 <option th:text="#{label.user.birthYear}" value="">출생년도(목업)</option>
             </select>
         </div>
@@ -61,9 +63,5 @@
     </form>
 </section>
 </div>
-
-<script>
-
-</script>
 </body>
 </html>

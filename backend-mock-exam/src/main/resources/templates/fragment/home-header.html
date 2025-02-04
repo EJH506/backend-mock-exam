@@ -9,29 +9,38 @@
 <header th:fragment="header (userId, nickname, isMember)">
     <a href="/"><h1 th:text="#{title}">백엔드 모의고사(목업)</h1></a>
 
-    <nav>
-        <ul>
-            <li th:each="menu, stat : ${menus}">
-                <a th:text="${menu.value.name}"
-                   th:href="@{${menu.value.able} ? |/${menu.key}| : '#'}"
-                   th:style="${menu.value.able ? '' : 'pointer-events: none; border-color: #CCC; color: #CCC;'}"
-                   th:class="${stat.last ? 'navButton_sm' : ''}"></a>
-            </li>
-        </ul>
-    </nav>
+    <div id="home-header-container">
+        <nav>
+            <ul>
+                <li th:each="menu, stat : ${menus}" th:if="${menu.key != 'exam'}">
+                    <a th:text="${menu.value.name}"
+                       th:href="@{${menu.value.able} ? |/${menu.key}| : '#'}"
+                       th:style="${menu.value.able ? '' : 'pointer-events: none; border-color: #CCC; color: #CCC;'}"></a>
+                </li>
 
-    <div id="profile">
-        <div th:text="${#strings.substring(nickname, 0, 1)}">닉네임(목업)</div>
+                <li th:each="menu : ${menus}" th:if="${menu.key == 'exam'}">
+                    <a th:text="${menu.value.name}"
+                       th:href="@{${menu.value.able} ? |/${menu.key}| : '#'}"
+                       th:style="${menu.value.able ? '' : 'pointer-events: none; border-color: #CCC; color: #CCC;'}"
+                       class="navButton_sm"></a>
+                </li>
+            </ul>
+        </nav>
 
-        <ul th:if="${hasAuthority}">
-            <li th:if="${isMember}"><a th:href="@{|/users/edit/${userId}|}" th:text="#{page.edit-account}">회원정보 수정(목업)</a></li>
-            <li><a href="/logout" th:text="#{page.sign-out}">로그아웃(목업)</a></li>
-        </ul>
+        <div id="profile">
 
-        <ul th:if="${!hasAuthority}">
-            <li><a th:href="@{/auth/sign-up}" th:text="#{page.sign-up}">회원가입(목업)</a></li>
-            <li><a th:href="@{/auth/sign-in}" th:text="#{page.sign-in}">로그인(목업)</a></li>
-        </ul>
+            <div th:text="${#strings.substring(nickname, 0, 1)}">닉네임(목업)</div>
+
+            <ul th:if="${hasAuthority}">
+                <li th:if="${isMember}"><a th:href="@{|/users/edit/${userId}|}" th:text="#{page.edit-account}">회원정보 수정(목업)</a></li>
+                <li><a href="/logout" th:text="#{page.sign-out}">로그아웃(목업)</a></li>
+            </ul>
+
+            <ul th:if="${!hasAuthority}">
+                <li><a th:href="@{/auth/sign-in}" th:text="#{page.sign-in}">로그인(목업)</a></li>
+                <li><a th:href="@{/auth/sign-up}" th:text="#{page.sign-up}">회원가입(목업)</a></li>
+            </ul>
+        </div>
     </div>
 </header>
 </body>

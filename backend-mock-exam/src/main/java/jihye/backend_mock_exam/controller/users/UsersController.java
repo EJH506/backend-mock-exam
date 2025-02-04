@@ -29,7 +29,7 @@ public class UsersController {
     }
 
     @GetMapping("/edit/{userId}")
-    public String editAccountPage(@PathVariable("userId") long userId, @SessionAttribute(value = "guest", required = false) Guest guest, Model model) {
+    public String editAccountPage(@PathVariable("userId") long userId, Model model) {
         User user = loginUser(userId);
 
         EditAccountDto dto = new EditAccountDto(user.getUserId(), user.getAccountId(), user.getNickname(), user.getGender(), user.getBirthYear());
