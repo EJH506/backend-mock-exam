@@ -1,5 +1,6 @@
 package jihye.backend_mock_exam.repository.menu.myQuestions;
 
+import jihye.backend_mock_exam.domain.Questions;
 import jihye.backend_mock_exam.domain.exam.Answer;
 import jihye.backend_mock_exam.domain.exam.Question;
 import jihye.backend_mock_exam.domain.myQuestion.MyQuestion;
@@ -38,7 +39,7 @@ public interface MyQuestionsRepository {
     void deleteMyQuestionList(List<Long> deleteQuestionsId);
 
     // 문항 ID로 문항 조회
-    Question findMyQuestionById(Long questionId);
+    MyQuestion findMyQuestionById(Long questionId);
 
     // 문항에 속한 보기 조회
     List<Answer> findMyAnswersByQuestion(Long questionId);

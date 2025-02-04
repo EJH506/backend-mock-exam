@@ -31,8 +31,9 @@
         SELECT DISTINCT l.level
         FROM levels l
         JOIN questions q ON l.level = q.level AND l.subject_id = q.subject_id AND q.deleted = false
-        WHERE l.subject_id = (SELECT SUBJECT_ID FROM SUBJECTS S WHERE SUBJECT_name = #{subjectName})
-        AND l.deleted = false;
+        WHERE l.subject_id = (SELECT subject_id FROM subjects s WHERE subject_name = #{subjectName})
+        AND l.deleted = FALSE
+        ORDER BY level
     </select>
 
     <select id="findMinMaxLevel" resultType="int">
@@ -41,9 +42,18 @@
 
     <select id="findMinMaxLevelWithItem" resultType="int">
         SELECT DISTINCT l.level
-        FROM LEVELS l
-        JOIN questions q ON q.LEVEL = l.LEVEL AND q.deleted = false
-        WHERE l.deleted = false ORDER BY l.LEVEL asc
+        FROM levels l
+        JOIN questions q ON q.level = l.level AND q.deleted = false
+        WHERE l.deleted = false
+
+        UNION
+
+        SELECT DISTINCT l.level
+        FROM my_questions_levels l
+        JOIN my_questions q ON q.level = l.level AND q.deleted = false
+        WHERE l.deleted = FALSE
+
+        ORDER BY level ASC
     </select>
 
     <select id="findNumberOfSubject" resultType="int">
@@ -144,8 +154,10 @@
     </select>
 
     <select id="findQuestionsById" resultType="question">
-        SELECT * FROM questions
-        WHERE QUESTION_ID = #{questionId}
+        SELECT q.question_id, q.subject_id, s.subject_name, q.level, q.question_text, q.deleted, q.created_at, q.update_at
+        FROM questions q
+        JOIN subjects s ON q.subject_id = s.subject_id
+        WHERE question_id = #{questionId}
     </select>
 
     <select id="findAnswerById" resultType="answer">

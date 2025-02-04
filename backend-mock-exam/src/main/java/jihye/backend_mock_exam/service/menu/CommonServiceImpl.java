@@ -82,23 +82,20 @@ public class CommonServiceImpl implements CommonService {
     @Override
     @Transactional
     // 조건에 맞는 문항 조회
-    public List<Question> findFilteredHistoryQuestions(List<Long> questionsId, List<Boolean> isMyQuestions) {
+    public List<Questions> findFilteredHistoryQuestions(List<Long> questionsId, List<Boolean> isMyQuestions) {
 
-        List<Question> questions = new ArrayList<>();
+        List<Questions> questions = new ArrayList<>();
 
         for (int i=0; i<questionsId.size(); i++) {
-            Question question;
+            Questions question;
             
             // 나만의 문제일 경우
             if (isMyQuestions.get(i)) {
                 question = myQuestionsRepository.findMyQuestionById(questionsId.get(i));
-                question.setSubjectName(ExamConst.SUBJECT_MYQUESTIONS);
 
             // 아닐경우
             } else {
                 question = examRepository.findQuestionsById(questionsId.get(i));
-                Subject subject = examRepository.findSubjectById(question.getSubjectId());
-                question.setSubjectName(subject.getSubjectName());
             }
             questions.add(question);
         }
@@ -197,7 +194,7 @@ public class CommonServiceImpl implements CommonService {
     public List<HistoryItemObject> createHistoryDetails(ExamHistory examHistory, String option) {
         List<HistoryItemObject> historyDetails = new ArrayList<>();
 
-        List<Question> questions = findFilteredHistoryQuestions(examHistory.getQuestions(), examHistory.getIsMyQuestions());
+        List<Questions> questions = findFilteredHistoryQuestions(examHistory.getQuestions(), examHistory.getIsMyQuestions());
         List<Answer> correctAnswers = findFilteredHistoryAnswers(examHistory.getCorrectAnswers(), examHistory.getIsMyQuestions());
         List<Answer> userAnswers = findFilteredHistoryAnswers(examHistory.getUserAnswers(), examHistory.getIsMyQuestions());
 

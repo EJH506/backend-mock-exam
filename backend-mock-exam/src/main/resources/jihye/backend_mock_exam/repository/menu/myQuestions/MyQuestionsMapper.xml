@@ -84,7 +84,7 @@
         </foreach>
     </update>
 
-    <select id="findMyQuestionById" resultType="question">
+    <select id="findMyQuestionById" resultType="myQuestion">
         SELECT * FROM my_questions
         WHERE question_id = #{questionId}
     </select>

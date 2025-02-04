@@ -47,7 +47,7 @@ public class IncorrectNoteController {
                        Model model) {
 
         // 선택한 주제에 존재하는 난이도 목록
-        List<Integer> levels = incorrectNoteService.levelListOfSubject(user.getUserId(), subjectName);
+        List<Integer> levels = incorrectNoteService.levelListOfSubjectInIncorrectNoteWithItem(user.getUserId(), subjectName);
 
         // 오답노트 목록 반환
         Page<IncorrectItem> incorrectItemList = incorrectNoteService.incorrectList(user.getUserId(), subjectName, level, searchKeyword, page);
@@ -69,6 +69,8 @@ public class IncorrectNoteController {
     @PostMapping("/saveToggle")
     @ResponseBody
     public Map<String, Object> saveToggle(@RequestParam("userId") Long userId, @RequestParam("questionId") Long questionId, @RequestParam("isMyQuestion") boolean isMyQuestion, @RequestParam("isSaved") boolean isSaved) {
+
+        log.info("isMyQuestion={}", isMyQuestion);
 
         Map<String, Object> response = new HashMap<>();
 

@@ -1,6 +1,8 @@
 package jihye.backend_mock_exam.service.menu.incorrectNote;
 
 import jihye.backend_mock_exam.controller.menu.ExamConst;
+import jihye.backend_mock_exam.domain.Questions;
+import jihye.backend_mock_exam.domain.myQuestion.MyQuestion;
 import jihye.backend_mock_exam.service.Page;
 import jihye.backend_mock_exam.domain.exam.Answer;
 import jihye.backend_mock_exam.domain.exam.Question;
@@ -41,6 +43,13 @@ public class IncorrectNoteService {
         return commonService.levelListOfSubject(userId, subjectName);
     }
 
+    // 주제별 난이도 목록 조회 (문항이 존재하는 것만 조회)
+    public List<Integer> levelListOfSubjectInIncorrectNoteWithItem(Long userId, String subjectName) {
+        boolean isMyQuestion = ExamConst.SUBJECT_MYQUESTIONS.equals(subjectName);
+        QuestionFilter questionFilter = commonService.questionFilterConvert(subjectName, null);
+        return incorrectNoteRepository.levelListOfSubjectInIncorrectNoteWithItem(userId, questionFilter.getSubjectId(), isMyQuestion);
+    }
+
     // 주제, 난이도, 페이지 선택에 따른 사용자의 오답노트 목록
     @Transactional
     public Page<IncorrectItem> incorrectList(Long userId, String subjectName, String level, String searchKeyword, int page) {
@@ -50,6 +59,7 @@ public class IncorrectNoteService {
         int offset = (page - 1) * pagePerItem; // limit 시작위치
 
         QuestionFilter questionFilter = commonService.questionFilterConvert(subjectName, level);
+        log.info("subjectId={}", questionFilter.getSubjectId());
         List<IncorrectNote> incorrectList = incorrectNoteRepository.findIncorrectList(userId, questionFilter.getSubjectId(), questionFilter.getLevelInt(), searchKeyword, offset, pagePerItem);
 
         int totalCount = incorrectNoteRepository.findIncorrectTotalCount(userId, questionFilter.getSubjectId(), questionFilter.getLevelInt(), searchKeyword);
@@ -62,11 +72,11 @@ public class IncorrectNoteService {
         }
 
         // 오답노트 목록의 question id에서 문제 정보 추출
-        List<Question> questions = commonService.findFilteredHistoryQuestions(questionsId, isMyQuestion);
+        List<? extends Questions> questions = commonService.findFilteredHistoryQuestions(questionsId, isMyQuestion);
 
         List<IncorrectItem> incorrectItemList = new ArrayList<>();
 
-        for (Question question : questions) {
+        for (Questions question : questions) {
             IncorrectItem item = new IncorrectItem();
             item.setQuestion(question);
 
@@ -82,6 +92,7 @@ public class IncorrectNoteService {
             item.setSubjectId(question.getSubjectId());
             item.setLevel(question.getLevel());
             item.setSaved(true);
+            item.setMyQuestion(question instanceof MyQuestion);
 
             incorrectItemList.add(item);
         }

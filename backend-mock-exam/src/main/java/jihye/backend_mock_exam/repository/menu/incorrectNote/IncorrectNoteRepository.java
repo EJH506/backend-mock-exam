@@ -14,6 +14,9 @@ public interface IncorrectNoteRepository {
     // 사용자의 오답노트 속 나만의 문제 갯수
     int countOfMyQuestionInIncorrectNote(Long userId);
 
+    // 주제별 난이도 목록 조회 (문항이 존재하는 것만 조회)
+    List<Integer> levelListOfSubjectInIncorrectNoteWithItem(Long userId, Long subjectId, boolean isMyQuestion);
+
     // 문항 ID로 오답노트 저장 유무 조회
     IncorrectNote findIncorrectNoteById(Long userId, Long questionId, boolean isMyQuestion);
 

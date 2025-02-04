@@ -26,6 +26,12 @@ public class IncorrectNoteRepositoryImpl implements IncorrectNoteRepository {
         return incorrectNoteMapper.countOfMyQuestionInIncorrectNote(userId);
     }
 
+    // 주제별 난이도 목록 조회 (문항이 존재하는 것만 조회)
+    @Override
+    public List<Integer> levelListOfSubjectInIncorrectNoteWithItem(Long userId, Long subjectId, boolean isMyQuestion) {
+        return incorrectNoteMapper.levelListOfSubjectInIncorrectNoteWithItem(userId, subjectId, isMyQuestion);
+    }
+
     @Override
     // 문항 ID로 오답노트 저장 유무 조회
     public IncorrectNote findIncorrectNoteById(Long userId, Long questionId, boolean isMyQuestion) {

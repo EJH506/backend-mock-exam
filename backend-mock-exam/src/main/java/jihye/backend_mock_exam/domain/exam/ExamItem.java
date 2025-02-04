@@ -15,7 +15,7 @@ public class ExamItem {
     public ExamItem() {
     }
 
-    public ExamItem(Question question, List<Answer> answers, Answer correctAnswer) {
+    public ExamItem(Questions question, List<Answer> answers, Answer correctAnswer) {
         this.question = question;
         this.answers = answers;
         this.correctAnswer = correctAnswer;

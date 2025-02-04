@@ -6,6 +6,7 @@ public interface Questions {
 
     Long getQuestionId();
     int getLevel();
+    Long getSubjectId();
     String getSubjectName();
     String getQuestionText();
     boolean isDeleted();

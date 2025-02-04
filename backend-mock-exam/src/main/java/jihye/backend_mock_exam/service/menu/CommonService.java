@@ -21,7 +21,7 @@ public interface CommonService {
     List<Integer> levelListOfSubjectWithItem(Long userId, String subjectName);
 
     // 조건에 맞는 문항 조회
-    List<Question> findFilteredHistoryQuestions(List<Long> questionsId, List<Boolean> isMyQuestion);
+    List<Questions> findFilteredHistoryQuestions(List<Long> questionsId, List<Boolean> isMyQuestion);
 
     // 문제의 보기 조회 (순서 랜덤)
     List<Answer> shuffledAnswerListByQuestion(Questions question, boolean isMyQuestion);

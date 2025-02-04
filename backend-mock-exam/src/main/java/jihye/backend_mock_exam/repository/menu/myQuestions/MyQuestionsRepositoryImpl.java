@@ -73,7 +73,7 @@ public class MyQuestionsRepositoryImpl implements MyQuestionsRepository {
 
     // 문항 ID로 문항 조회
     @Override
-    public Question findMyQuestionById(Long questionId) {
+    public MyQuestion findMyQuestionById(Long questionId) {
         return myQuestionsMapper.findMyQuestionById(questionId);
     }
 

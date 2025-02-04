@@ -16,6 +16,9 @@ public interface IncorrectNoteMapper {
     // 사용자의 오답노트 속 나만의 문제 갯수
     int countOfMyQuestionInIncorrectNote(Long userId);
 
+    // 주제별 난이도 목록 조회 (문항이 존재하는 것만 조회)
+    List<Integer> levelListOfSubjectInIncorrectNoteWithItem(@Param("userId") Long userId, @Param("subjectId") Long subjectId, @Param("isMyQuestion") boolean isMyQuestion);
+
     // 문항 ID로 오답노트 조회
     IncorrectNote findIncorrectNoteById(@Param("userId") Long userId, @Param("questionId") Long questionId, @Param("isMyQuestion") boolean isMyQuestion);
 

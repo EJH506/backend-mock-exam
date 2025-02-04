@@ -1,5 +1,6 @@
 package jihye.backend_mock_exam.domain.history;
 
+import jihye.backend_mock_exam.domain.Questions;
 import jihye.backend_mock_exam.domain.exam.Answer;
 import jihye.backend_mock_exam.domain.exam.Question;
 import lombok.Data;
@@ -7,7 +8,7 @@ import lombok.Data;
 @Data
 public class HistoryItemObject {
 
-    private Question question;
+    private Questions question;
     private Answer correctAnswer;
     private Answer userAnswer;
     private boolean isSaved;
@@ -15,7 +16,7 @@ public class HistoryItemObject {
     public HistoryItemObject() {
     }
 
-    public HistoryItemObject(Question question, Answer correctAnswer, Answer userAnswer, boolean isSaved) {
+    public HistoryItemObject(Questions question, Answer correctAnswer, Answer userAnswer, boolean isSaved) {
         this.question = question;
         this.correctAnswer = correctAnswer;
         this.userAnswer = userAnswer;

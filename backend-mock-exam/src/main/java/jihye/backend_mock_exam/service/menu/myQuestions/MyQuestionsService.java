@@ -1,5 +1,6 @@
 package jihye.backend_mock_exam.service.menu.myQuestions;
 
+import jihye.backend_mock_exam.domain.Questions;
 import jihye.backend_mock_exam.domain.exam.Answer;
 import jihye.backend_mock_exam.domain.exam.ExamItem;
 import jihye.backend_mock_exam.domain.exam.Question;
@@ -61,7 +62,7 @@ public class MyQuestionsService {
     // 문항 조회
     public ExamItem myQuestionDetail(Long questionId) {
 
-        Question question = myQuestionsRepository.findMyQuestionById(questionId);
+        Questions question = myQuestionsRepository.findMyQuestionById(questionId);
         List<Answer> answers = myQuestionsRepository.findMyAnswersByQuestion(questionId);
         Answer correctAnswer = null;
         for (Answer answer : answers) {

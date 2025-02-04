@@ -15,6 +15,42 @@
         WHERE user_id = #{userId} AND is_my_question
     </select>
 
+    <select id="levelListOfSubjectInIncorrectNoteWithItem" resultType="int">
+        <choose>
+            <when test="isMyQuestion == true">
+                SELECT DISTINCT l.level FROM my_questions_levels l
+                JOIN incorrect_note icn ON l.level = icn.level AND is_my_question = TRUE
+                WHERE l.user_id = #{userId} and l.deleted = false
+                ORDER BY level
+            </when>
+
+            <otherwise>
+                <choose>
+                    <when test="subjectId > 0">
+                        SELECT DISTINCT l.level FROM levels l
+                        JOIN incorrect_note icn ON l.level = icn.level AND l.subject_id = icn.subject_id
+                        WHERE l.subject_id = #{subjectId}
+                        AND l.deleted = false
+                        ORDER BY level
+                    </when>
+                    <otherwise>
+                        SELECT DISTINCT l.level FROM my_questions_levels l
+                        JOIN incorrect_note icn ON l.level = icn.level AND is_my_question = TRUE
+                        WHERE l.user_id = 1 and l.deleted = FALSE
+
+                        UNION
+
+                        SELECT DISTINCT l.level FROM levels l
+                        JOIN incorrect_note icn ON l.level = icn.level AND l.subject_id = icn.subject_id
+                        WHERE l.deleted = FALSE
+
+                        ORDER BY level
+                    </otherwise>
+                </choose>
+            </otherwise>
+        </choose>
+    </select>
+
     <select id="findIncorrectNoteById" resultType="incorrectNote">
         SELECT * FROM incorrect_note
         WHERE USER_ID = #{userId} AND QUESTION_ID = #{questionId} AND is_my_question = #{isMyQuestion}
@@ -33,6 +69,9 @@
         <where>
             <if test="subjectId > 0">
                 AND i.subject_id = #{subjectId}
+            </if>
+            <if test="subjectId == null">
+                AND i.is_my_question = TRUE
             </if>
             <if test="level > 0">
                 AND i.level = #{level}
@@ -53,6 +92,9 @@
             <if test="subjectId > 0">
                 AND i.subject_id = #{subjectId}
             </if>
+            <if test="subjectId == null">
+                AND i.is_my_question = TRUE
+            </if>
             <if test="level > 0">
                 AND i.level = #{level}
             </if>
@@ -71,12 +113,15 @@
 
     <insert id="insertQuestionFromIncorrectNote">
         INSERT INTO incorrect_note (user_id, question_id, subject_id, is_my_question, level)
-        SELECT #{userId}, q.question_id,
-            CASE WHEN #{isMyQuestion} = TRUE THEN NULL
-                ELSE q.subject_id
-            END AS subject_id,
-            #{isMyQuestion}, q.level
-        FROM questions q
-        WHERE q.question_id = #{questionId}
+        <choose>
+            <when test="isMyQuestion == true">
+                SELECT #{userId}, question_id, NULL, #{isMyQuestion}, level
+                FROM my_questions WHERE user_id = #{userId} AND question_id = #{questionId}
+            </when>
+            <otherwise>
+                SELECT #{userId}, question_id, subject_id, #{isMyQuestion}, level
+                FROM questions WHERE question_id = #{questionId}
+            </otherwise>
+        </choose>
     </insert>
 </mapper>
