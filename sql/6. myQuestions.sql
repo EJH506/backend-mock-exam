@@ -88,7 +88,7 @@ INSERT INTO my_questions_answers (my_question_id, answer_text, is_correct) VALUE
     (9, 'user 2의 lv.1 첫번째 문제의 4번째 보기입니다.', false),
     (10, 'user 2의 lv.2 첫번째 문제의 1번째 보기입니다.', true),
     (10, 'user 2의 lv.2 첫번째 문제의 2번째 보기입니다.', false),
-    (10, 'user 2의 lv.2 첫번째 문제 3번째 보기입니다.', false),
+    (10, 'user 2의 lv.2 첫번째 문제의 3번째 보기입니다.', false),
     (10, 'user 2의 lv.2 첫번째 문제의 4번째 보기입니다.', false),
     (11, 'user 2의 lv.1 두번째 문제의 1번째 보기입니다.', true),
     (11, 'user 2의 lv.1 두번째 문제의 2번째 보기입니다.', false),
