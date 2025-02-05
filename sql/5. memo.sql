@@ -10,6 +10,6 @@ CREATE TABLE memo (
 	deleted boolean NOT NULL DEFAULT FALSE,										-- 삭제 여부
 	created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,								-- 생성일시
 	update_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP	-- 수정일시
-)
+);
 
 SELECT * FROM memo;

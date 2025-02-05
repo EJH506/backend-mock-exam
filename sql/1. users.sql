@@ -2,7 +2,6 @@
 USE backend_mock_exam;
 
 DROP TABLE IF EXISTS users;
-SELECT * FROM users;
 
 CREATE TABLE users (
 	user_id INT AUTO_INCREMENT PRIMARY KEY,										-- 식별자
@@ -18,3 +17,5 @@ CREATE TABLE users (
 	update_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,	-- 수정일시
 	UNIQUE (account_id)															-- 아이디의 유일성 보장
 );
+
+SELECT * FROM users;

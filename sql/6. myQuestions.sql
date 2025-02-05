@@ -5,10 +5,6 @@ DROP TABLE IF EXISTS my_questions_levels;
 DROP TABLE IF EXISTS my_questions;
 DROP TABLE IF EXISTS my_questions_answers;
 
-SELECT * FROM my_questions_levels;
-SELECT * FROM my_questions;
-SELECT * FROM my_questions_answers;
-
 CREATE TABLE my_questions_levels (
 	level_id INT AUTO_INCREMENT PRIMARY KEY,									-- 식별자
 	user_id INT NOT NULL,														-- 유저 ID  (외래키)
@@ -16,10 +12,7 @@ CREATE TABLE my_questions_levels (
 	deleted boolean NOT NULL DEFAULT FALSE,										-- 삭제 여부
 	created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,								-- 생성일시
 	update_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP	-- 수정일시
-)
-
-INSERT INTO my_questions_levels (user_id, level) VALUES 
-(1, 1), (1, 2), (1, 3), (2, 1), (2, 2), (3, 1);
+);
 
 CREATE TABLE my_questions (
 	question_id INT AUTO_INCREMENT PRIMARY KEY,									-- 식별자
@@ -29,7 +22,24 @@ CREATE TABLE my_questions (
 	deleted boolean NOT NULL DEFAULT FALSE,										-- 삭제 여부
 	created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,								-- 생성일시
 	update_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP	-- 수정일시
-)
+);
+
+CREATE TABLE my_questions_answers (
+	answer_id INT AUTO_INCREMENT PRIMARY KEY,									-- 식별자
+	my_question_id INT NOT NULL,												-- 질문 ID
+	answer_text TEXT NOT NULL,													-- 보기 내용
+	is_correct BOOLEAN,															-- 정답 여부
+	created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,								-- 생성일시
+	update_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP	-- 수정일시
+);
+
+SELECT * FROM my_questions_levels;
+SELECT * FROM my_questions;
+SELECT * FROM my_questions_answers;
+
+/*
+INSERT INTO my_questions_levels (user_id, level) VALUES 
+(1, 1), (1, 2), (1, 3), (2, 1), (2, 2), (3, 1);
 
 INSERT INTO my_questions (user_id, level, question_text) VALUES
 (1, 1, 'user 1의 lv.1 첫번째 문제입니다'),(1, 2, 'user 1의 lv.2 첫번째 문제입니다'),(1, 3, 'user 1의 lv.3 첫번째 문제입니다'),
@@ -39,15 +49,6 @@ INSERT INTO my_questions (user_id, level, question_text) VALUES
 (2, 1, 'user 2의 lv.1 두번째 문제입니다'),(2, 2, 'user 2의 lv.2 두번째 문제입니다'),
 (2, 1, 'user 2의 lv.1 세번째 문제입니다'),
 (3, 1, 'user 3의 lv.1 첫번째 문제입니다');
-
-CREATE TABLE my_questions_answers (
-	answer_id INT AUTO_INCREMENT PRIMARY KEY,									-- 식별자
-	my_question_id INT NOT NULL,												-- 질문 ID
-	answer_text TEXT NOT NULL,													-- 보기 내용
-	is_correct BOOLEAN,															-- 정답 여부
-	created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,								-- 생성일시
-	update_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP	-- 수정일시
-)
 
 INSERT INTO my_questions_answers (my_question_id, answer_text, is_correct) VALUES
     (1, 'user 1의 lv.1 첫번째 문제의 1번째 보기입니다.', true),
@@ -106,3 +107,4 @@ INSERT INTO my_questions_answers (my_question_id, answer_text, is_correct) VALUE
     (14, 'user 3의 lv.1 첫번째 문제의 2번째 보기입니다.', false),
     (14, 'user 3의 lv.1 첫번째 문제의 3번째 보기입니다.', false),
     (14, 'user 3의 lv.1 첫번째 문제의 4번째 보기입니다.', false);
+*/

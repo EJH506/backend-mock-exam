@@ -12,7 +12,7 @@ CREATE TABLE subjects (
 	created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,								-- 생성일시
 	update_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,	-- 수정일시
 	UNIQUE (subject_name)
-)
+);
 
 INSERT INTO SUBJECTS (SUBJECT_NAME) VALUES
 ('자료구조'), ('알고리즘'), ('운영체제'), ('네트워크'), ('데이터 베이스'), ('개발 언어'), ('백엔드');
@@ -24,7 +24,7 @@ CREATE TABLE levels (
 	deleted boolean NOT NULL DEFAULT FALSE,										-- 삭제 여부
 	created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,								-- 생성일시
 	update_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP	-- 수정일시
-)
+);
 
 INSERT INTO LEVELS (subject_id, level) VALUES
 (1, 1), (1, 2), (1, 3), (2, 1), (2, 2), (2, 3), (3, 1), (3, 2), (3, 3), (4, 1), (4, 2), (4, 3),
@@ -38,7 +38,7 @@ CREATE TABLE questions (
 	deleted boolean NOT NULL DEFAULT FALSE,										-- 삭제 여부
 	created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,								-- 생성일시
 	update_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP	-- 수정일시
-)
+);
 
 INSERT INTO questions (subject_id, level, question_text) VALUES
 (1, 1, 'id 1의 첫번째 문제입니다'), (1, 1, 'id 1의 두번째 문제입니다'), (1, 1, 'id 1의 세번째 문제입니다'), (1, 1, 'id 1의 네번째 문제입니다'),
@@ -72,6 +72,6 @@ INSERT INTO questions (subject_id, level, question_text) VALUES
 (7, 3, 'id 7의 열번째 문제입니다'),(7, 3, 'id 7의 열한번째 문제입니다'),(7, 3, 'id 7의 열두번째 문제입니다'),(7, 1, 'id 7의 열세번째 문제입니다'),
 (7, 1, 'id 7의 열네번째 문제입니다'),(7, 2, 'id 7의 열다섯번째 문제입니다'),(7, 2, 'id 7의 열여섯번째 문제입니다'),(7, 3, 'id 7의 열일곱번째 문제입니다');
 
-select * from subjects;
-select * from levels;
-select * from questions;
+SELECT * FROM subjects;
+SELECT * FROM levels;
+SELECT * FROM questions;
