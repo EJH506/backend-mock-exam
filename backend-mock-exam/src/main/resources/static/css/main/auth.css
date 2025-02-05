@@ -37,7 +37,7 @@ header > a > h1 {
   justify-content: center;
   align-items: center;
   width: 200px;
-  color: #71B961;
+  color: var(--theme-main);
   font-family: "Pretendard-Bold";
   font-size: 30px;
 }
@@ -62,7 +62,7 @@ header > #home-header-container {
   display: flex;
 }
 header nav li:not(:last-of-type):hover a {
-  color: #71B961;
+  color: var(--theme-main);
 }
 header nav li:last-of-type:hover a.navButton_sm {
   border-color: rgb(144.7631578947, 200.6578947368, 132.3421052632);
@@ -175,7 +175,7 @@ section > form {
 
 .text_on {
   font-family: "Pretendard-SemiBold";
-  color: #71B961;
+  color: var(--theme-main);
 }
 
 .searchForm {
@@ -215,7 +215,7 @@ section > form {
   border-radius: 7px;
 }
 .searchForm > input:focus {
-  border-color: #71B961;
+  border-color: var(--theme-main);
 }
 .searchForm > button {
   display: flex;
@@ -224,13 +224,13 @@ section > form {
   width: calc(10% - 5px);
   height: 50px;
   box-sizing: border-box;
-  color: #71B961;
+  color: var(--theme-main);
   font-size: 14px;
   font-family: "Pretendard-Medium";
   background-color: white;
   border: none;
   outline: none;
-  border: 3px solid #71B961;
+  border: 3px solid var(--theme-main);
   border-radius: 7px;
   cursor: pointer;
 }
@@ -252,7 +252,7 @@ section > form {
   border-radius: 7px;
 }
 .systemInput_lg:focus {
-  border-color: #71B961;
+  border-color: var(--theme-main);
 }
 
 .systemInput_md {
@@ -272,7 +272,7 @@ section > form {
   border-radius: 7px;
 }
 .systemInput_md:focus {
-  border-color: #71B961;
+  border-color: var(--theme-main);
 }
 
 .systemInput_sm {
@@ -344,8 +344,8 @@ section > form {
   cursor: pointer;
 }
 .systemButton_sm:hover {
-  border-color: #71B961;
-  color: #71B961;
+  border-color: var(--theme-main);
+  color: var(--theme-main);
 }
 
 .navButton_sm {
@@ -355,9 +355,9 @@ section > form {
   width: 110px;
   height: 45px;
   color: #fff;
-  border: 3px solid #71B961;
+  border: 3px solid var(--theme-main);
   border-radius: 4px;
-  background-color: #71B961;
+  background-color: var(--theme-main);
   box-sizing: border-box;
   outline: none;
   cursor: pointer;
@@ -375,7 +375,7 @@ section > form {
   font-family: "Pretendard-SemiBold";
   border: none;
   outline: none;
-  border: 3px solid #71B961;
+  border: 3px solid var(--theme-main);
   cursor: pointer;
   border-radius: 7px;
 }
@@ -418,8 +418,8 @@ section > form {
 .empty > .systemButton_md {
   font-size: 20px;
   margin-top: 60px;
-  border-color: #71B961;
-  background-color: #71B961;
+  border-color: var(--theme-main);
+  background-color: var(--theme-main);
 }
 
 .result-item-container {
@@ -474,7 +474,7 @@ section > form {
   flex: 1 1 0;
 }
 .result-item-container > .answersText > p:first-of-type .systemInput_md {
-  border-color: #71B961;
+  border-color: var(--theme-main);
 }
 
 .sr-only {
@@ -521,7 +521,7 @@ div#signup_buttons {
 }
 div#signup_buttons > button.systemButton_lg {
   border: none;
-  background-color: #71B961;
+  background-color: var(--theme-main);
 }
 div#signup_buttons > button.systemButton_lg:first-child {
   background-color: #E6E9DE;
@@ -574,7 +574,7 @@ h3 {
   width: 420px;
 }
 #welcome > #buttons > li > .systemButton_lg {
-  background-color: #71B961;
+  background-color: var(--theme-main);
   border: none;
 }
 #welcome > #buttons > li:last-child > .systemButton_lg {
@@ -603,8 +603,8 @@ section > form > div {
   gap: 5px;
 }
 section > form .systemButton_lg {
-  background-color: #71B961;
-  border-color: #71B961;
+  background-color: var(--theme-main);
+  border-color: var(--theme-main);
 }
 section > form > div.required {
   margin-bottom: 30px;
@@ -626,8 +626,8 @@ section > form > div.optional > div label {
   cursor: pointer;
 }
 section > form > div.optional > div input[type=checkbox]:checked ~ label {
-  background-color: #71B961;
-  border-color: #71B961;
+  background-color: var(--theme-main);
+  border-color: var(--theme-main);
   color: #fff;
 }
 section > form > div.optional > select {
@@ -640,8 +640,8 @@ section #authSuccess {
   margin-top: 120px;
 }
 section #authSuccess + .systemButton_lg {
-  background-color: #71B961;
-  border-color: #71B961;
+  background-color: var(--theme-main);
+  border-color: var(--theme-main);
 }
 
 /*# sourceMappingURL=auth.css.map */

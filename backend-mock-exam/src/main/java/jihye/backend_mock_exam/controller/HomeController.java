@@ -34,6 +34,8 @@ public class HomeController {
                        @SessionAttribute(value = "guest", required = false) Guest guest,
                        Model model) {
 
+        model.addAttribute("themeColor", "#71B961");
+
         // 비회원 변경
         if (user == null && guest == null) {
             return "welcome";

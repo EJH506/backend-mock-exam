@@ -51,10 +51,6 @@ $white: #fff;
 $deep-gray: #555555;
 $placeholder: #CCC;
 
-.incorrectNote {
-  $theme-main: #FFD395;
-}
-
 header {
   display: flex;
   justify-content: space-between;
@@ -68,7 +64,7 @@ header {
     justify-content: center;
     align-items: center;
     width: 200px;
-    color: $theme-main;
+    color: var(--theme-main);
     font-family: 'Pretendard-Bold';
     font-size: 30px;
   } //a>h1
@@ -97,7 +93,7 @@ header {
   nav {
     li {
 
-      &:not(:last-of-type):hover a { color: $theme-main }
+      &:not(:last-of-type):hover a { color: var(--theme-main); }
 
       &:last-of-type:hover a.navButton_sm {
         border-color: lighten($theme-main, 10%);

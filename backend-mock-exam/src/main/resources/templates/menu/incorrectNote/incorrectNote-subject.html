@@ -4,6 +4,9 @@
     <meta charset="UTF-8">
     <title th:text="#{page.incorrect-note} + ' | ' + #{title}">오답노트 | 백엔드 모의고사</title>
     <link rel="stylesheet" th:href="@{/css/main/main.css}">
+    <style>
+        :root { --theme-main: [[${themeColor}]]; }
+    </style>
 </head>
 <body class="incorrectNote">
 <div class="wrap">

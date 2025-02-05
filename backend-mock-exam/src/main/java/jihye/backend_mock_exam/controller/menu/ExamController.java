@@ -24,6 +24,11 @@ public class ExamController {
 
     private final ExamService examService;
 
+    @ModelAttribute("themeColor")
+    public String themeColor() {
+        return "#71B961";
+    }
+
     @GetMapping
     public String examHome() {
         return "redirect:/exam/subject";

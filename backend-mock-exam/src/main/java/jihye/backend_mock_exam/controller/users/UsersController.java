@@ -23,6 +23,11 @@ public class UsersController {
 
     private final UsersService usersService;
 
+    @ModelAttribute("themeColor")
+    public String themeColor() {
+        return "#71B961";
+    }
+
     @ModelAttribute("user")
     public User loginUser(@PathVariable("userId") long userId) {
         return usersService.userInfo(userId).orElseThrow();

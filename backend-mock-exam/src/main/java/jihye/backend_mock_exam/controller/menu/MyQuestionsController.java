@@ -34,6 +34,11 @@ public class MyQuestionsController {
     private final MyQuestionValidator myQuestionValidator;
     private final MyQuestionEditValidator myQuestionEditValidator;
 
+    @ModelAttribute("themeColor")
+    public String themeColor() {
+        return "#A2BFF7";
+    }
+
     @GetMapping
     public String myQuestions() {
         return "redirect:/my-questions/list";

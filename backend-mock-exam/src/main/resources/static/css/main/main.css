@@ -37,7 +37,7 @@ header > a > h1 {
   justify-content: center;
   align-items: center;
   width: 200px;
-  color: #71B961;
+  color: var(--theme-main);
   font-family: "Pretendard-Bold";
   font-size: 30px;
 }
@@ -62,7 +62,7 @@ header > #home-header-container {
   display: flex;
 }
 header nav li:not(:last-of-type):hover a {
-  color: #71B961;
+  color: var(--theme-main);
 }
 header nav li:last-of-type:hover a.navButton_sm {
   border-color: rgb(144.7631578947, 200.6578947368, 132.3421052632);
@@ -175,7 +175,7 @@ section > form {
 
 .text_on {
   font-family: "Pretendard-SemiBold";
-  color: #71B961;
+  color: var(--theme-main);
 }
 
 .searchForm {
@@ -215,7 +215,7 @@ section > form {
   border-radius: 7px;
 }
 .searchForm > input:focus {
-  border-color: #71B961;
+  border-color: var(--theme-main);
 }
 .searchForm > button {
   display: flex;
@@ -224,13 +224,13 @@ section > form {
   width: calc(10% - 5px);
   height: 50px;
   box-sizing: border-box;
-  color: #71B961;
+  color: var(--theme-main);
   font-size: 14px;
   font-family: "Pretendard-Medium";
   background-color: white;
   border: none;
   outline: none;
-  border: 3px solid #71B961;
+  border: 3px solid var(--theme-main);
   border-radius: 7px;
   cursor: pointer;
 }
@@ -252,7 +252,7 @@ section > form {
   border-radius: 7px;
 }
 .systemInput_lg:focus {
-  border-color: #71B961;
+  border-color: var(--theme-main);
 }
 
 .systemInput_md {
@@ -272,7 +272,7 @@ section > form {
   border-radius: 7px;
 }
 .systemInput_md:focus {
-  border-color: #71B961;
+  border-color: var(--theme-main);
 }
 
 .systemInput_sm {
@@ -344,8 +344,8 @@ section > form {
   cursor: pointer;
 }
 .systemButton_sm:hover {
-  border-color: #71B961;
-  color: #71B961;
+  border-color: var(--theme-main);
+  color: var(--theme-main);
 }
 
 .navButton_sm {
@@ -355,9 +355,9 @@ section > form {
   width: 110px;
   height: 45px;
   color: #fff;
-  border: 3px solid #71B961;
+  border: 3px solid var(--theme-main);
   border-radius: 4px;
-  background-color: #71B961;
+  background-color: var(--theme-main);
   box-sizing: border-box;
   outline: none;
   cursor: pointer;
@@ -375,7 +375,7 @@ section > form {
   font-family: "Pretendard-SemiBold";
   border: none;
   outline: none;
-  border: 3px solid #71B961;
+  border: 3px solid var(--theme-main);
   cursor: pointer;
   border-radius: 7px;
 }
@@ -418,8 +418,8 @@ section > form {
 .empty > .systemButton_md {
   font-size: 20px;
   margin-top: 60px;
-  border-color: #71B961;
-  background-color: #71B961;
+  border-color: var(--theme-main);
+  background-color: var(--theme-main);
 }
 
 .result-item-container {
@@ -474,7 +474,7 @@ section > form {
   flex: 1 1 0;
 }
 .result-item-container > .answersText > p:first-of-type .systemInput_md {
-  border-color: #71B961;
+  border-color: var(--theme-main);
 }
 
 .sr-only {
@@ -521,7 +521,7 @@ div#signup_buttons {
 }
 div#signup_buttons > button.systemButton_lg {
   border: none;
-  background-color: #71B961;
+  background-color: var(--theme-main);
 }
 div#signup_buttons > button.systemButton_lg:first-child {
   background-color: #E6E9DE;
@@ -589,7 +589,7 @@ section #menuArea.my-question-menu .add-level {
 }
 section #menuArea.my-question-menu .add-level > .fa-circle-plus {
   font-size: 30px;
-  color: #71B961;
+  color: var(--theme-main);
 }
 section form {
   margin-bottom: 30px;
@@ -614,8 +614,8 @@ section form > div.optional > div label {
   cursor: pointer;
 }
 section form > div.optional > div input[type=checkbox]:checked ~ label {
-  background-color: #71B961;
-  border-color: #71B961;
+  background-color: var(--theme-main);
+  border-color: var(--theme-main);
   color: #fff;
 }
 section form > div.optional > select {
@@ -626,8 +626,8 @@ section form > #signup_buttons > .systemButton_md:first-child {
   background-color: #E6E9DE;
 }
 section form > #signup_buttons > .systemButton_md:last-child {
-  border-color: #71B961;
-  background-color: #71B961;
+  border-color: var(--theme-main);
+  background-color: var(--theme-main);
 }
 section form > .systemButton_sm {
   color: #CCC;
@@ -707,20 +707,20 @@ section > div > form .systemButton_sm:last-of-type {
   margin-top: 15px;
 }
 .slide-box > ul .systemInput_md {
-  border-color: #71B961;
+  border-color: var(--theme-main);
 }
 .slide-box .buttons .btn_skip {
   background-color: white;
-  border-color: #71B961;
-  color: #71B961;
+  border-color: var(--theme-main);
+  color: var(--theme-main);
 }
 .slide-box .buttons .btn_prev {
   background-color: #E6E9DE;
   border-color: #E6E9DE;
 }
 .slide-box .buttons .btn_next, .slide-box .buttons .btn_submit {
-  background-color: #71B961;
-  border-color: #71B961;
+  background-color: var(--theme-main);
+  border-color: var(--theme-main);
 }
 .slide-box .buttons .btn-delete {
   border-color: #FF6F74;
@@ -731,8 +731,8 @@ section > div > form .systemButton_sm:last-of-type {
   color: white;
 }
 .slide-box .buttons .btn-edit {
-  background-color: #71B961;
-  border-color: #71B961;
+  background-color: var(--theme-main);
+  border-color: var(--theme-main);
 }
 
 #resultData > h3 {
@@ -749,7 +749,7 @@ section > div > form .systemButton_sm:last-of-type {
   cursor: pointer;
 }
 #resultOptions > .buttons > li:hover {
-  color: #71B961;
+  color: var(--theme-main);
 }
 #resultOptions .systemInput_md {
   width: 800px;
@@ -757,8 +757,8 @@ section > div > form .systemButton_sm:last-of-type {
   margin-top: 30px;
   padding: 0 50px;
   box-sizing: initial;
-  border-color: #71B961;
-  background-color: #71B961;
+  border-color: var(--theme-main);
+  background-color: var(--theme-main);
   cursor: pointer;
 }
 #resultOptions .systemInput_md > span, #resultOptions .systemInput_md span > i {
@@ -777,8 +777,8 @@ section > div > form .systemButton_sm:last-of-type {
   background-color: #E6E9DE;
 }
 #viewQuestionsArea + .buttons > .systemButton_md:last-of-type {
-  border-color: #71B961;
-  background-color: #71B961;
+  border-color: var(--theme-main);
+  background-color: var(--theme-main);
   color: white;
 }
 
@@ -832,7 +832,7 @@ section > div > form .systemButton_sm:last-of-type {
 }
 #commonArea .commonList .systemInput_md.on {
   padding-bottom: 12px;
-  border-color: #71B961;
+  border-color: var(--theme-main);
 }
 #commonArea .commonList .systemInput_md.on .questionText {
   font-family: "Pretendard-Bold";
@@ -868,7 +868,7 @@ section > div > form .systemButton_sm:last-of-type {
   width: 900px;
   height: 90px;
   margin-bottom: 40px;
-  border-color: #71B961;
+  border-color: var(--theme-main);
   padding-left: 12px;
 }
 #historyList > li > .systemInput_md > .historyInfo {
@@ -916,7 +916,7 @@ section > div > form .systemButton_sm:last-of-type {
   gap: 10px;
   width: 900px;
   height: 90px;
-  border-color: #71B961;
+  border-color: var(--theme-main);
 }
 #memoListArea .memoList li > .systemInput_md .memo-preview {
   display: block;
@@ -940,12 +940,12 @@ section > div > form .systemButton_sm:last-of-type {
 }
 #memoArea > .buttons > .navButton_sm {
   background-color: white;
-  border: 1px solid #71B961;
-  color: #71B961;
+  border: 1px solid var(--theme-main);
+  color: var(--theme-main);
 }
 #memoArea > .buttons > .navButton_sm:hover {
   color: white;
-  background-color: #71B961;
+  background-color: var(--theme-main);
 }
 #memoArea > .buttons > .navButton_sm.btn-delete {
   border-color: #FF6F74;
@@ -957,11 +957,11 @@ section > div > form .systemButton_sm:last-of-type {
 }
 #memoArea > .buttons > .navButton_sm.memo-submit {
   color: white;
-  background-color: #71B961;
+  background-color: var(--theme-main);
 }
 
 #viewMemo {
-  border: 1px solid #71B961;
+  border: 1px solid var(--theme-main);
   width: 900px;
   min-height: 350px;
   margin: 16px 0;
@@ -969,7 +969,7 @@ section > div > form .systemButton_sm:last-of-type {
   box-sizing: border-box;
 }
 #viewMemo:has(.memoTextArea:focus) {
-  border: 3px solid #71B961;
+  border: 3px solid var(--theme-main);
 }
 #viewMemo > div > p:first-child {
   margin-bottom: 5px;
@@ -998,9 +998,9 @@ section > div > form .systemButton_sm:last-of-type {
   margin-top: 0;
 }
 #commonManager .buttons.normal-mode > .select-start, #commonManager .buttons.normal-mode .select-cancel, #commonManager .buttons.normal-mode .select-all, #commonManager .buttons.select-mode > .select-start, #commonManager .buttons.select-mode .select-cancel, #commonManager .buttons.select-mode .select-all {
-  color: #71B961;
+  color: var(--theme-main);
   background-color: white;
-  border: 1px solid #71B961;
+  border: 1px solid var(--theme-main);
 }
 #commonManager .buttons.normal-mode > .select-all, #commonManager .buttons.select-mode > .select-all {
   color: #FF6F74;
@@ -1015,7 +1015,7 @@ section > div > form .systemButton_sm:last-of-type {
   margin: 12px 0;
 }
 #question-info-input .systemInput_md {
-  border-color: #71B961;
+  border-color: var(--theme-main);
 }
 #question-info-input > div {
   display: flex;

@@ -32,6 +32,11 @@ public class AuthController {
     private final ForgotPasswordQuestionValidator forgotPasswordQuestionValidator;
     private final ResetPasswordValidator resetPasswordValidator;
 
+    @ModelAttribute("themeColor")
+    public String themeColor() {
+        return "#71B961";
+    }
+
     // 회원가입 페이지
     @GetMapping("/sign-up")
     public String signUpPage(Model model) {

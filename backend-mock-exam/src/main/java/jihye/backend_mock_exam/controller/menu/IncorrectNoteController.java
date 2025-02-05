@@ -25,6 +25,11 @@ public class IncorrectNoteController {
 
     private final IncorrectNoteService incorrectNoteService;
 
+    @ModelAttribute("themeColor")
+    public String themeColor() {
+        return "#FFD395";
+    }
+
     @GetMapping
     public String incorrectNoteHome() {
         return "redirect:/incorrect-note/subject";

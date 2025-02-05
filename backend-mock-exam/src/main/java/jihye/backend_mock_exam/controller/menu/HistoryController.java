@@ -22,6 +22,11 @@ public class HistoryController {
 
     private final HistoryService historyService;
 
+    @ModelAttribute("themeColor")
+    public String themeColor() {
+        return "#F5B7B1";
+    }
+
     @GetMapping
     public String historyList(@RequestAttribute("user") User user,
                               @RequestParam(value = "page", defaultValue = "1") int page,

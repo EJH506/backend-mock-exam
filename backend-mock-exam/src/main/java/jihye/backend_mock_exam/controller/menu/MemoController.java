@@ -27,6 +27,11 @@ public class MemoController {
 
     private final MemoService memoService;
 
+    @ModelAttribute("themeColor")
+    public String themeColor() {
+        return "#B3CDE0";
+    }
+
     @GetMapping
     public String memo() {
         return "redirect:/memo/list";

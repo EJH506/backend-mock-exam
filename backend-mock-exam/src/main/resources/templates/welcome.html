@@ -4,6 +4,9 @@
     <meta charset="UTF-8">
     <title th:text="#{page.welcome} + ' | ' + #{title}"></title>
     <link rel="stylesheet" th:href="@{/css/main/auth.css}">
+    <style>
+        :root { --theme-main: [[${themeColor}]]; }
+    </style>
 </head>
 <body>
 <div class="wrap">

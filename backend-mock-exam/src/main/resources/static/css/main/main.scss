@@ -57,7 +57,7 @@ section {
 
         >.fa-circle-plus {
           font-size: 30px;
-          color: $theme-main;
+          color: var(--theme-main);
         }
       } //.add-level
     } //&.my-question-menu
@@ -90,8 +90,8 @@ section {
           }
 
           input[type="checkbox"]:checked ~ label {
-            background-color: $theme-main;
-            border-color: $theme-main;
+            background-color: var(--theme-main);
+            border-color: var(--theme-main);
             color: $white;
           }
         } // 성별선택란
@@ -109,8 +109,8 @@ section {
         background-color: $theme-sub;
       }
       >.systemButton_md:last-child {
-        border-color: $theme-main;
-        background-color: $theme-main;
+        border-color: var(--theme-main);
+        background-color: var(--theme-main);
       }
     }
 
@@ -207,15 +207,15 @@ section {
     margin-top: 15px;
 
     .systemInput_md {
-      border-color: $theme-main;
+      border-color: var(--theme-main);
     }
   } // ul (보기목록)
 
   .buttons {
     .btn_skip {
       background-color: white;
-      border-color: $theme-main;
-      color: $theme-main;
+      border-color: var(--theme-main);
+      color: var(--theme-main);
     }
 
     .btn_prev {
@@ -223,8 +223,8 @@ section {
       border-color: $theme-sub;
     }
     .btn_next, .btn_submit { // 여기까지 문제풀기
-      background-color: $theme-main;
-      border-color: $theme-main;
+      background-color: var(--theme-main);
+      border-color: var(--theme-main);
     }
 
     .btn-delete { // 여기부터 나만의 문제
@@ -238,8 +238,8 @@ section {
     }
 
     .btn-edit {
-      background-color: $theme-main;
-      border-color: $theme-main;
+      background-color: var(--theme-main);
+      border-color: var(--theme-main);
     }
 
   } //.buttons
@@ -261,7 +261,7 @@ section {
     cursor: pointer;
 
     &:hover {
-      color: $theme-main;
+      color: var(--theme-main);
     }
   }
 
@@ -275,8 +275,8 @@ section {
     margin-top: 30px;
     padding: 0 50px;
     box-sizing: initial;
-    border-color: $theme-main;
-    background-color: $theme-main;
+    border-color: var(--theme-main);
+    background-color: var(--theme-main);
     cursor: pointer;
 
     >span, span>i { color: white; }
@@ -300,8 +300,8 @@ section {
       background-color: $theme-sub;
 
       &:last-of-type {
-        border-color: $theme-main;
-        background-color: $theme-main;
+        border-color: var(--theme-main);
+        background-color: var(--theme-main);
         color: white;
       }
     }
@@ -363,7 +363,7 @@ section {
 
       &.on {
         padding-bottom: 12px;
-        border-color: $theme-main;
+        border-color: var(--theme-main);
 
         .questionText {
           font-family: 'Pretendard-Bold';
@@ -419,7 +419,7 @@ section {
       width: 900px;
       height: 90px;
       margin-bottom: 40px;
-      border-color: $theme-main;
+      border-color: var(--theme-main);
       padding-left: 12px;
 
       >.historyInfo {
@@ -475,7 +475,7 @@ section {
         gap: 10px;
         width: 900px;
         height: 90px;
-        border-color: $theme-main;
+        border-color: var(--theme-main);
 
         .memo-preview { // 메모 미리보기
           display: block;
@@ -502,12 +502,12 @@ section {
 
     >.navButton_sm {
       background-color: white;
-      border: 1px solid $theme-main;
-      color: $theme-main;
+      border: 1px solid var(--theme-main);
+      color: var(--theme-main);
 
       &:hover {
         color: white;
-        background-color: $theme-main;
+        background-color: var(--theme-main);
       }
 
       &.btn-delete {
@@ -522,21 +522,21 @@ section {
 
       &.memo-submit {
         color: white;
-        background-color: $theme-main;
+        background-color: var(--theme-main);
       }
     } //>.navButton_sm
   } //>.buttons
 } //#memoArea
 
 #viewMemo { // memo-detail에선 #memoArea 하위의 div, memo-write에선 section의 하위의 form
-  border: 1px solid $theme-main;
+  border: 1px solid var(--theme-main);
   width: 900px;
   min-height: 350px;
   margin: 16px 0;
   padding: 30px 24px;
   box-sizing: border-box;
 
-  &:has(.memoTextArea:focus) { border: 3px solid $theme-main; }
+  &:has(.memoTextArea:focus) { border: 3px solid var(--theme-main); }
 
   >div>p:first-child { margin-bottom: 5px; }
 
@@ -567,9 +567,9 @@ section {
       margin-top: 0;
 
       > .select-start, .select-cancel, .select-all {
-        color: $theme-main;
+        color: var(--theme-main);
         background-color: white;
-        border: 1px solid $theme-main;
+        border: 1px solid var(--theme-main);
       }
 
       >.select-all {
@@ -588,7 +588,7 @@ section {
 //문제 등록
 #question-info-input { // 주제,난이도,질문내용의 input이 있는 컨테이너
   margin: 12px 0;
-  .systemInput_md {border-color: $theme-main;}
+  .systemInput_md {border-color: var(--theme-main);}
 
   >div { //주제,난이도 select의 컨테이너
     display: flex;
