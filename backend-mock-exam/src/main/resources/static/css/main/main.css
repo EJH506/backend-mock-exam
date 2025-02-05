@@ -789,12 +789,12 @@ section > div > form .systemButton_sm:last-of-type {
   gap: 12px;
   width: 800px;
 }
-#commonArea > .buttons:first-of-type {
-  align-self: flex-start;
-}
 #commonArea > .buttons:last-of-type {
   margin: 12px 0;
   align-self: center;
+}
+#commonArea > .buttons:first-of-type {
+  align-self: flex-start;
 }
 #commonArea .commonList {
   display: flex;

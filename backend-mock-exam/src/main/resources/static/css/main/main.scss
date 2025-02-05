@@ -317,11 +317,11 @@ section {
   width: 800px;
 
   >.buttons {
-    &:first-of-type { align-self: flex-start; }
     &:last-of-type {
       margin: 12px 0;
       align-self: center;
     }
+    &:first-of-type { align-self: flex-start; }
   }
 
   .commonList {

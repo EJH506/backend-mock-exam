@@ -1,4 +1,17 @@
 
+
+DROP TABLE IF EXISTS answers;
+select * from answers;
+
+CREATE TABLE answers (
+	answer_id INT AUTO_INCREMENT PRIMARY KEY,									-- 식별자
+	question_id INT NOT NULL,													-- 질문 ID
+	answer_text TEXT NOT NULL,													-- 보기 내용
+	is_correct BOOLEAN,															-- 정답 여부
+	created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,								-- 생성일시
+	update_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP	-- 수정일시
+)
+
 INSERT INTO answers (question_id, answer_text, is_correct) VALUES
     (1, 'id 1의 1번째 보기입니다.', true),
     (1, 'id 1의 2번째 보기입니다.', false),

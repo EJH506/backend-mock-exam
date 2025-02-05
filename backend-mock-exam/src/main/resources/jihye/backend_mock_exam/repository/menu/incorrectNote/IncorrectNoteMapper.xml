@@ -20,7 +20,7 @@
             <when test="isMyQuestion == true">
                 SELECT DISTINCT l.level FROM my_questions_levels l
                 JOIN incorrect_note icn ON l.level = icn.level AND is_my_question = TRUE
-                WHERE l.user_id = #{userId} and l.deleted = false
+                WHERE icn.user_id = #{userId} and l.deleted = false
                 ORDER BY level
             </when>
 
@@ -29,20 +29,23 @@
                     <when test="subjectId > 0">
                         SELECT DISTINCT l.level FROM levels l
                         JOIN incorrect_note icn ON l.level = icn.level AND l.subject_id = icn.subject_id
-                        WHERE l.subject_id = #{subjectId}
+                        WHERE icn.user_id = #{userId}
+                        AND l.subject_id = #{subjectId}
                         AND l.deleted = false
-                        ORDER BY level
+                        ORDER BY l.level
                     </when>
                     <otherwise>
                         SELECT DISTINCT l.level FROM my_questions_levels l
                         JOIN incorrect_note icn ON l.level = icn.level AND is_my_question = TRUE
-                        WHERE l.user_id = 1 and l.deleted = FALSE
+                        WHERE icn.user_id = #{userId}
+                        AND l.deleted = FALSE
 
                         UNION
 
                         SELECT DISTINCT l.level FROM levels l
                         JOIN incorrect_note icn ON l.level = icn.level AND l.subject_id = icn.subject_id
-                        WHERE l.deleted = FALSE
+                        WHERE icn.user_id = #{userId}
+                        AND l.deleted = FALSE
 
                         ORDER BY level
                     </otherwise>

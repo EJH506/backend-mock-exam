@@ -4,7 +4,6 @@ USE backend_mock_exam;
 DROP TABLE IF EXISTS subjects;
 DROP TABLE IF EXISTS levels;
 DROP TABLE IF EXISTS questions;
-DROP TABLE IF EXISTS answers;
 
 CREATE TABLE subjects (
 	subject_id INT AUTO_INCREMENT PRIMARY KEY,									-- 식별자
@@ -73,16 +72,6 @@ INSERT INTO questions (subject_id, level, question_text) VALUES
 (7, 3, 'id 7의 열번째 문제입니다'),(7, 3, 'id 7의 열한번째 문제입니다'),(7, 3, 'id 7의 열두번째 문제입니다'),(7, 1, 'id 7의 열세번째 문제입니다'),
 (7, 1, 'id 7의 열네번째 문제입니다'),(7, 2, 'id 7의 열다섯번째 문제입니다'),(7, 2, 'id 7의 열여섯번째 문제입니다'),(7, 3, 'id 7의 열일곱번째 문제입니다');
 
-CREATE TABLE answers (
-	answer_id INT AUTO_INCREMENT PRIMARY KEY,									-- 식별자
-	question_id INT NOT NULL,													-- 질문 ID
-	answer_text TEXT NOT NULL,													-- 보기 내용
-	is_correct BOOLEAN,															-- 정답 여부
-	created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,								-- 생성일시
-	update_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP	-- 수정일시
-)
-
 select * from subjects;
 select * from levels;
 select * from questions;
-select * from answers;
