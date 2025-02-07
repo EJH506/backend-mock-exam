@@ -545,6 +545,7 @@ h3 {
 
 section {
   position: relative;
+  overflow: hidden;
 }
 section > h2 {
   display: flex;

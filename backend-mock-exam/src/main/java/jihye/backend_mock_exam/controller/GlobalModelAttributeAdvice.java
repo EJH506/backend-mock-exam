@@ -21,7 +21,6 @@ public class GlobalModelAttributeAdvice {
     private final Menus menus;
     private final IsMember isMember;
     private final IsAdmin isAdmin;
-    private final AuthService authService;
 
     @ModelAttribute("menus")
     public Map<String, Object> menus() {
