@@ -564,6 +564,18 @@ h3 {
 }
 #welcome > #welcomeText > p {
   font-size: 24px;
+  margin-bottom: 12px;
+}
+#welcome > #welcomeText > p:last-of-type {
+  margin-bottom: 0;
+}
+#welcome > #welcomeText > p > span:first-of-type {
+  display: inline-block;
+  width: 100px;
+  font-family: "Pretendard-Bold";
+}
+#welcome > #welcomeText > p > a:hover {
+  text-decoration: underline;
 }
 #welcome > #buttons {
   display: flex;
