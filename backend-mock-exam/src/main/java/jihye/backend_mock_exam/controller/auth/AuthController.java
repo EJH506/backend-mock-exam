@@ -10,6 +10,7 @@ import jihye.backend_mock_exam.controller.auth.validation.SignUpValidator;
 import jihye.backend_mock_exam.domain.user.FindPasswordQuestions;
 import jihye.backend_mock_exam.domain.user.Guest;
 import jihye.backend_mock_exam.domain.user.User;
+import jihye.backend_mock_exam.exception.DuplicateAccountIdException;
 import jihye.backend_mock_exam.service.auth.AuthService;
 import jihye.backend_mock_exam.service.auth.dto.*;
 import lombok.RequiredArgsConstructor;
@@ -57,11 +58,23 @@ public class AuthController {
             return "auth/signup";
         }
 
-        User savedUser = authService.signUp(dto);
-        
-        // 로그인 시 자동입력 되어있기 위한 세션
-        session.setAttribute("accountId", savedUser.getAccountId());
-        return "redirect:/auth/signup-success";
+        try {
+            User savedUser = authService.signUp(dto);
+
+            // 로그인 시 자동입력 되어있기 위한 세션
+            session.setAttribute("accountId", savedUser.getAccountId());
+            return "redirect:/auth/signup-success";
+
+        } catch (DuplicateAccountIdException e) {
+            bindingResult.rejectValue("accountId", "exists.user.accountId");
+            model.addAttribute("findPasswordQuestions", FindPasswordQuestions.values());
+            return "auth/signup";
+
+        } catch (Exception e) {
+            bindingResult.reject("failed");
+            model.addAttribute("findPasswordQuestions", FindPasswordQuestions.values());
+            return "auth/signup";
+        }
     }
 
     // 아이디 중복 검사 AJAX

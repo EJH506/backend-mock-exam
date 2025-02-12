@@ -20,6 +20,9 @@
     <h2 th:text="#{page.sign-up}">회원가입(목업)</h2>
 
     <form action th:action th:object="${signUpDto}" method="post">
+        <div th:if="${#fields.hasGlobalErrors()}">
+            <p class="errorclass" th:each="err : ${#fields.globalErrors()}" th:text="${err}" style="text-align: center;">전체 오류 메시지</p>
+        </div>
 
         <div class="required">
             <p>필수항목 (*)</p>

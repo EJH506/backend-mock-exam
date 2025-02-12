@@ -36,12 +36,6 @@ public class SignUpValidator implements Validator {
             return;
         }
 
-        // 아이디 중복 검사
-        if (authService.validateDuplicateId(accountId)) {
-            errors.rejectValue("accountId", "exists.user.accountId");
-            return;
-        }
-
         // 비밀번호 정규표현식 검사
         if (!password.matches(PASSWORD_PATTERN)) {
             errors.rejectValue("password", "matches.user.password");
