@@ -68,11 +68,15 @@ public class AuthController {
 
         } catch (DuplicateAccountIdException e) {
             bindingResult.rejectValue("accountId", "exists.user.accountId", e.getMessage());
+            e.printStackTrace();
+            log.error("signup DuplicateAccountIdException에러: ", e);
             model.addAttribute("findPasswordQuestions", FindPasswordQuestions.values());
             return "auth/signup";
 
         } catch (Exception e) {
             bindingResult.reject("failed");
+            e.printStackTrace();
+            log.error("signup Exception에러: ", e);
             model.addAttribute("findPasswordQuestions", FindPasswordQuestions.values());
             return "auth/signup";
         }
