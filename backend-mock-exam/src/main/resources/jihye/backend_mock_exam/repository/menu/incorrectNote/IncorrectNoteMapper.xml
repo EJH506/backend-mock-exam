@@ -81,6 +81,7 @@
             </if>
             <if test="searchKeyword != null">
                 AND q.question_text like CONCAT('%', #{searchKeyword}, '%')
+                     OR mq.question_text like CONCAT('%', #{searchKeyword}, '%')
             </if>
             AND i.user_id = #{userId}
         </where>

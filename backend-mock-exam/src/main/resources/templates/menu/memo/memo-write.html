@@ -25,7 +25,7 @@
             <textarea class="memoTextArea" th:field="*{memoText}" th:placeholder="${user.userId > 0 ? '여기에 메모를 작성해주세요' : '여기에 메모를 작성해주세요 &#13;&#10;&#13;&#10;비회원 메모는 세션이 만료될 때까지만 유효합니다'}"></textarea>
         </form>
 
-        <a class="systemButton_sm" th:href="@{/history}" th:text="#{button.go-list}">목록으로</a>
+        <a class="systemButton_sm" th:href="@{/memo}" th:text="#{button.go-list}">목록으로</a>
     </div>
 </section>
 

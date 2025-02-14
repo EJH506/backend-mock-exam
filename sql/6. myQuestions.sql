@@ -37,7 +37,7 @@ SELECT * FROM my_questions_levels;
 SELECT * FROM my_questions;
 SELECT * FROM my_questions_answers;
 
-/*
+
 INSERT INTO my_questions_levels (user_id, level) VALUES 
 (1, 1), (1, 2), (1, 3), (2, 1), (2, 2), (3, 1);
 
@@ -107,4 +107,4 @@ INSERT INTO my_questions_answers (my_question_id, answer_text, is_correct) VALUE
     (14, 'user 3의 lv.1 첫번째 문제의 2번째 보기입니다.', false),
     (14, 'user 3의 lv.1 첫번째 문제의 3번째 보기입니다.', false),
     (14, 'user 3의 lv.1 첫번째 문제의 4번째 보기입니다.', false);
-*/
+

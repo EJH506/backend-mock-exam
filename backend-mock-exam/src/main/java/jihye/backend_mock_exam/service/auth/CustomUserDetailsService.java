@@ -25,7 +25,7 @@ public class CustomUserDetailsService implements UserDetailsService {
         log.info("loadUserByUsername.findByIdUser={}", findByIdUser);
 
         if (findByIdUser == null) {
-            throw new UsernameNotFoundException("User not found with username: " + accountId);
+            throw new UsernameNotFoundException(accountId + "은(는) 없는 아이디 입니다.");
         }
 
         return new User(

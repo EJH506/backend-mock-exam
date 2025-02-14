@@ -42,6 +42,7 @@
         FROM my_questions_levels l
         JOIN my_questions q ON l.LEVEL = q.LEVEL AND q.deleted = false
         WHERE q.user_id = #{userId} AND l.USER_ID = #{userId} and l.deleted = FALSE
+        ORDER BY l.LEVEL asc
     </select>
 
     <select id="findNumberOfMyQuestion" resultType="int">

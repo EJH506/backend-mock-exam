@@ -29,6 +29,7 @@
                     </select>
                     <select class="systemInput_md" th:field="*{level}">
 <!--                        <option value="">난이도 선택</option>-->
+                        <option th:if="${levels.size() == 0}" value="" th:text="'난이도 없음'">Lv. 2 (목업)</option>
                         <option th:each="level : ${levels}" th:value="${level}" th:text="'Lv. ' + ${level}">Lv. 2 (목업)</option>
                     </select>
                 </div>

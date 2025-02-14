@@ -58,6 +58,7 @@ public class AuthController {
             return "auth/signup";
         }
 
+        // dto의 입력값을 유지하면서 전역 처리로 뺄 순 없을까?
         try {
             User savedUser = authService.signUp(dto);
 
@@ -66,7 +67,7 @@ public class AuthController {
             return "redirect:/auth/signup-success";
 
         } catch (DuplicateAccountIdException e) {
-            bindingResult.rejectValue("accountId", "exists.user.accountId");
+            bindingResult.rejectValue("accountId", "exists.user.accountId", e.getMessage());
             model.addAttribute("findPasswordQuestions", FindPasswordQuestions.values());
             return "auth/signup";
 

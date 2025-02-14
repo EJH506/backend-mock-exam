@@ -67,7 +67,7 @@
             <li th:if="${memoList.hasNextBlock()}"><a th:href="@{|/memo/list?searchKeyword=${searchKeyword != null ? searchKeyword : ''}&page=${memoList.nextBlockStartPage()}|}" th:text="#{paging.next}">다음(목업)</a></li>
         </ul>
 
-        <form class="searchForm" th:action method="get">
+        <form class="searchForm" th:action method="get" th:if="${memoList.content.size != 0}">
             <label class="sr-only" for="searchKeyword">검색어</label>
             <input type="text" id="searchKeyword" name="searchKeyword" th:value="${searchKeyword != null ? searchKeyword : ''}" th:placeholder="#{text.search.enterSearch}" />
             <button type="submit" th:text="#{button.search}">검색(목업)</button>

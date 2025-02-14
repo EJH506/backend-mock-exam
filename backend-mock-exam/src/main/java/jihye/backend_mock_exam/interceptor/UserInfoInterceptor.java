@@ -29,6 +29,8 @@ public class UserInfoInterceptor implements HandlerInterceptor {
             }
         }
 
+        // 비회원에게도 exam과 memo도 허용하고 있기때문에, 회원/비회원 모두 해당하지 않는 사람에게도 exam과 memo가 허용됨.
+        // 이걸 제한하기 위한 redirect
         String requestURI = request.getRequestURI();
         if (requestURI.startsWith("/exam") || requestURI.startsWith("/memo")) {
             if (request.getAttribute("user") == null) {

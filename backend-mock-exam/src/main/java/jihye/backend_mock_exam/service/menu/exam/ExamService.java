@@ -95,7 +95,6 @@ public class ExamService {
             }
         }
 
-        log.info("!!!questions={}", questions);
         return questions;
     }
 
