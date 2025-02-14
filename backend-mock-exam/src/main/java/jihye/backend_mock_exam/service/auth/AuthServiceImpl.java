@@ -66,6 +66,7 @@ public class AuthServiceImpl implements AuthService {
     @Override
     public void logout(HttpServletRequest request) {
         SecurityContextLogoutHandler logoutHandler = new SecurityContextLogoutHandler();
+        logoutHandler.setInvalidateHttpSession(false); // 게스트 세션은 무효화X
         logoutHandler.logout(request, null, null);
     }
 

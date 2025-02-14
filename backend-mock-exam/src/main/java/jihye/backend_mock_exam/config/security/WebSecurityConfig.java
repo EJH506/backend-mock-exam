@@ -22,7 +22,7 @@ public class WebSecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 
         http.authorizeHttpRequests(authorize -> authorize
-                .requestMatchers("/css/**", "/scss/**", "/js/**", "/img/**", "/fragment/**").permitAll()
+                .requestMatchers("/css/**", "/scss/**", "/js/**", "/img/**", "/fragment/**", "/favicon.ico").permitAll()
                 .requestMatchers("/", "/auth/**", "/exam/**", "/memo/**", "/error").permitAll()
                 .requestMatchers("/users/**", "/incorrect-note/**", "/history/**", "/myQuestions/**").hasAnyRole("USER", "ADMIN")
                 .anyRequest().authenticated()
