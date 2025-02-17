@@ -309,6 +309,11 @@ section {
     transform: scale(1.02);
   }
 
+  &.admin {
+    background-color: var(--theme-main);
+    color: white;
+  }
+
   border-radius: 7px;
 }
 

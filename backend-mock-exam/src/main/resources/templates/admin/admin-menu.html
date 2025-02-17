@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="#{page.setting} + ' | ' + #{title}"></title>
+    <link rel="stylesheet" th:href="@{/css/main/main.css}">
+    <style>
+        :root { --theme-main: [[${themeColor}]]; }
+    </style>
+</head>
+<body>
+<div class="wrap">
+<header th:replace="~{fragment/home-header :: header (${user.userId}, ${user.nickname}, ${isMember})}"></header>
+
+<section>
+    <h2 th:text="#{page.setting}">관리하기(목업)</h2>
+
+    <ul id="menuArea">
+        <li th:each="adminMenu : ${adminMenus}">
+            <a class="systemMenu_lg" th:text="${adminMenu.value}"
+               th:href="@{|${adminMenu.key == 'exam' ? '/'+adminMenu.key : '/admin/'+adminMenu.key}|}"
+               th:classappend="${adminMenu.key == 'exit' ? 'admin' : ''}"></a>
+        </li>
+    </ul>
+</section>
+</div>
+</body>
+</html>

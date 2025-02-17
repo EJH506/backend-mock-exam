@@ -25,6 +25,7 @@ public class WebSecurityConfig {
                 .requestMatchers("/css/**", "/scss/**", "/js/**", "/img/**", "/fragment/**", "/favicon.ico").permitAll()
                 .requestMatchers("/", "/auth/**", "/exam/**", "/memo/**", "/error").permitAll()
                 .requestMatchers("/users/**", "/incorrect-note/**", "/history/**", "/myQuestions/**").hasAnyRole("USER", "ADMIN")
+                .requestMatchers("/admin/**").hasAnyRole("ADMIN")
                 .anyRequest().authenticated()
         )
 
@@ -36,6 +37,10 @@ public class WebSecurityConfig {
                 .usernameParameter("accountId")
                 .passwordParameter("password")
                 .permitAll()
+        )
+
+        .exceptionHandling(exceptions -> exceptions
+                .accessDeniedPage("/auth/sign-in") // 권한이 없을 때 로그인 페이지로 리디렉션. "/admin/**"에 대한 ROLE_USER 접근이 403에러로 처리되어 추가
         )
 
         .rememberMe(rememberMe -> rememberMe

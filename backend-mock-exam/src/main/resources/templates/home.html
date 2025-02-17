@@ -19,7 +19,8 @@
         <li th:each="menu : ${menus}">
             <a class="systemMenu_lg" th:text="${menu.value.name}"
                th:href="@{${menu.value.able} ? |/${menu.key}| : '#'}"
-               th:style="${menu.value.able ? '' : 'pointer-events: none; border-color: #CCC; color: #CCC;'}"></a>
+               th:style="${menu.value.able ? '' : 'pointer-events: none; border-color: #CCC; color: #CCC;'}"
+               th:classappend="${menu.key == 'admin' ? 'admin' : ''}"></a>
         </li>
     </ul>
 </section>
