@@ -147,6 +147,22 @@ header #profile:hover > ul:hover {
   letter-spacing: -1px;
 }
 
+.button-built-in-input {
+  outline: 1px solid red;
+  position: relative;
+}
+.button-built-in-input > button {
+  position: absolute;
+  top: 50%;
+  right: 0;
+  transform: translate(-24px, -50%);
+  font-family: "Pretendard-SemiBold";
+  color: var(--theme-main);
+  font-size: 20px;
+  background-color: transparent;
+  cursor: pointer;
+}
+
 section {
   display: flex;
   flex-flow: column wrap;
@@ -161,6 +177,10 @@ section h2 {
   align-items: center;
   font-family: "Pretendard-Bold";
 }
+section h2 > i {
+  margin-right: 12px;
+  cursor: pointer;
+}
 section h2 + p {
   font-size: 20px;
 }
@@ -171,6 +191,15 @@ section > form {
   display: flex;
   flex-flow: column wrap;
   gap: 10px;
+}
+section > form > h4 {
+  margin-bottom: 20px;
+}
+section h4 {
+  text-align: center;
+  font-family: "Pretendard-SemiBold";
+  font-size: 20px;
+  margin-bottom: 30px;
 }
 
 .text_on {
@@ -560,10 +589,15 @@ section > h2 {
   height: 100px;
   font-size: 30px;
 }
-section > h2 + p {
+section h4 + .description {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: -30px;
+  height: 60px;
+}
+section h4 + .description > p {
   font-family: "Pretendard-SemiBold";
-  font-size: 20px;
-  margin: 0 0 30px;
 }
 section #menuArea {
   display: flex;
@@ -571,14 +605,15 @@ section #menuArea {
   gap: 10px;
   width: 800px;
 }
-section #menuArea.my-question-menu .systemMenu_lg {
-  position: relative;
-}
-section #menuArea.my-question-menu .systemMenu_lg:not(.add-level) {
+section #menuArea.my-question-menu .systemMenu_lg:not(.add-button) {
   transform: initial;
   cursor: initial;
 }
-section #menuArea.my-question-menu .systemMenu_lg > i.fa-circle-xmark {
+section #menuArea.my-question-menu > li, section #menuArea.admin-menu > li {
+  position: relative;
+  outline: 1px solid red;
+}
+section #menuArea.my-question-menu > li i.fa-circle-xmark, section #menuArea.admin-menu > li i.fa-circle-xmark {
   position: absolute;
   top: 0;
   right: 0;
@@ -586,13 +621,17 @@ section #menuArea.my-question-menu .systemMenu_lg > i.fa-circle-xmark {
   color: #FF6F74;
   cursor: pointer;
 }
-section #menuArea.my-question-menu .systemMenu_lg > i.fa-circle-xmark:hover {
+section #menuArea.my-question-menu > li i.fa-circle-xmark:hover, section #menuArea.admin-menu > li i.fa-circle-xmark:hover {
   transform: translate(50%, -50%) scale(1.3);
 }
-section #menuArea.my-question-menu .add-level {
-  border-style: dotted;
+section #menuArea.my-question-menu > li .fa-pen-to-square, section #menuArea.admin-menu > li .fa-pen-to-square {
+  margin-left: 12px;
 }
-section #menuArea.my-question-menu .add-level > .fa-circle-plus {
+section #menuArea.my-question-menu .add-button, section #menuArea.admin-menu .add-button {
+  border-style: dashed;
+  border-width: 4px;
+}
+section #menuArea.my-question-menu .add-button > .fa-circle-plus, section #menuArea.admin-menu .add-button > .fa-circle-plus {
   font-size: 30px;
   color: var(--theme-main);
 }
@@ -945,7 +984,7 @@ section > div > form .systemButton_sm:last-of-type {
 }
 #memoArea > .buttons > .navButton_sm {
   background-color: white;
-  border: 1px solid var(--theme-main);
+  border: 2px solid var(--theme-main);
   color: var(--theme-main);
 }
 #memoArea > .buttons > .navButton_sm:hover {
@@ -1005,7 +1044,7 @@ section > div > form .systemButton_sm:last-of-type {
 #commonManager .buttons.normal-mode > .select-start, #commonManager .buttons.normal-mode .select-cancel, #commonManager .buttons.normal-mode .select-all, #commonManager .buttons.select-mode > .select-start, #commonManager .buttons.select-mode .select-cancel, #commonManager .buttons.select-mode .select-all {
   color: var(--theme-main);
   background-color: white;
-  border: 1px solid var(--theme-main);
+  border: 2px solid var(--theme-main);
 }
 #commonManager .buttons.normal-mode > .select-all, #commonManager .buttons.select-mode > .select-all {
   color: #FF6F74;

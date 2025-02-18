@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title th:text="#{page.setting} + ' | ' + #{title}"></title>
     <link rel="stylesheet" th:href="@{/css/main/main.css}">
+    <script th:src="@{https://code.jquery.com/jquery-3.6.0.min.js}"></script>
     <style>
         :root { --theme-main: [[${themeColor}]]; }
     </style>
@@ -14,19 +15,42 @@
 
 <section>
     <h2 th:text="#{page.setting}">관리하기(목업)</h2>
-    <p>관리할 항목을 선택합니다</p>
-    <p>&lt;문제풀기&gt; 항목의 구조를 편집합니다</p>
-    <p>새로운 문제를 등록하거나 기존 문제를 편집합니다.</p>
-    <p>회원 목록을 조회하고 관리합니다</p>
+    <h4>관리할 항목을 선택합니다</h4>
+    <div class="description">
+        <p id="exam-description" style="display: none">&lt;문제풀기&gt; 항목의 구조를 편집합니다</p>
+        <p id="questions-description" style="display: none">새로운 문제를 등록하거나 기존 문제를 편집합니다.</p>
+        <p id="users-description" style="display: none">회원 목록을 조회하고 관리합니다</p>
+        <p id="exit-description" style="display: none">관리를 마치고 홈으로 돌아갑니다</p>
+    </div>
 
     <ul id="menuArea">
         <li th:each="adminMenu : ${adminMenus}">
-            <a class="systemMenu_lg" th:text="${adminMenu.value}"
-               th:href="@{|/admin/${adminMenu.key}|}"
-               th:classappend="${adminMenu.key == 'exit' ? 'admin' : ''}"></a>
+            <a th:class="systemMenu_lg" th:text="${adminMenu.value}"
+               th:href="@{|${adminMenu.key == 'exit' ? '/' : '/admin/' + adminMenu.key}|}"
+               th:classappend="${adminMenu.key == 'exit' ? 'admin ' : ''} + ${adminMenu.key}"></a>
         </li>
     </ul>
 </section>
 </div>
+<script>
+$(document).ready(function() {
+    $('.exam').hover(
+        function() { $('#exam-description').css('display', 'initial'); },
+        function() { $('#exam-description').css('display', 'none'); }
+    );
+    $('.subject').hover(
+        function() { $('#questions-description').css('display', 'initial'); },
+        function() { $('#questions-description').css('display', 'none'); }
+    );
+    $('.users').hover(
+        function() { $('#users-description').css('display', 'initial'); },
+        function() { $('#users-description').css('display', 'none'); }
+    );
+    $('.exit').hover(
+        function() { $('#exit-description').css('display', 'initial'); },
+        function() { $('#exit-description').css('display', 'none'); }
+    );
+})
+</script>
 </body>
 </html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="#{page.take-exam} + ' | ' + #{title}">문제풀기 | 백엔드 모의고사</title>
+    <link rel="stylesheet" th:href="@{/css/main/main.css}">
+    <style>
+        :root { --theme-main: [[${themeColor}]]; }
+    </style>
+</head>
+<body>
+<div class="wrap">
+<header th:replace="~{fragment/home-header :: header (${user.userId}, ${user.nickname}, ${isMember})}"></header>
+
+<section>
+    <h2 th:text="${subject.subjectName} + ' 편집'">네트워크 편집 (목업)</h2>
+
+    <form method="post" th:action th:object="${adminSubjectEditDto}">
+        <h4>주제의 이름 변경</h4>
+        <label for="subjectName" class="sr-only">주제의 이름</label>
+        <div class="button-built-in-input">
+            <input class="systemInput_md" type="text" th:field="*{subjectName}" id="subjectName" placeholder="주제 이름" />
+            <button type="submit" th:text="#{button.modify}">수정 (목업)</button>
+        </div>
+    </form>
+
+    <div>
+        <h4>난이도 분류 편집</h4>
+
+        <div id="ajax-container">
+            <ul id="menuArea" th:fragment="subject-levels">
+                <li class="systemMenu_lg" th:text="#{page.level.all}">전체(목업)</li>
+                <li th:each="level, stat : ${subject.levels}" class="systemMenu_lg">
+                    <p th:text="'Lv. ' + ${level}"></p>
+                    <i th:if="${stat.last}" class="fa-solid fa-circle-xmark" th:data-level="${level}"></i>
+                </li>
+                <li class="systemMenu_lg add-button"><i class="fa-solid fa-circle-plus"></i></li>
+            </ul>
+        </div>
+    </div>
+</section>
+</div>
+</body>
+</html>

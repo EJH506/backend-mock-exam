@@ -15,13 +15,22 @@ section {
     height: 100px;
     font-size: 30px;
     //transform: translate(-50%, -50%);
-
-    & + p {
-      font-family: 'Pretendard-SemiBold';
-      font-size: 20px;
-      margin: 0 0 30px;
-    }
   }
+
+  h4 {
+
+    & + .description {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-top: -30px;
+      height: 60px;
+
+      > p {
+        font-family: 'Pretendard-SemiBold';
+      }
+    } //& + .description
+  } //& + p
 
   // 홈 화면, 문제풀기 난이도선택, 나만의 문제 구성편집, 관리자 메뉴/문제풀기/주제선택
   #menuArea {
@@ -30,16 +39,17 @@ section {
     gap: 10px;
     width: 800px;
 
-    &.my-question-menu { // 나만의 문제 구성편집 전용
-      .systemMenu_lg {
+    &.my-question-menu .systemMenu_lg:not(.add-button) {
+      transform: initial;
+      cursor: initial;
+    }
+
+    &.my-question-menu, &.admin-menu { // 나만의 문제 구성편집 전용
+      >li {
         position: relative;
+        outline: 1px solid red;
 
-        &:not(.add-level) {
-          transform: initial;
-          cursor: initial;
-        }
-
-        >i.fa-circle-xmark {
+        i.fa-circle-xmark {
           position: absolute;
           top: 0;
           right: 0;
@@ -51,18 +61,22 @@ section {
             transform: translate(50%, -50%) scale(1.3);
           }
         }
-      }
-    } //&.my-question-menu
 
-    .add-level {
-      border-style: dashed;
-
-      >.fa-circle-plus {
-        font-size: 30px;
-        color: var(--theme-main);
+        .fa-pen-to-square { margin-left: 12px; }
       }
-    } //.add-level
-    outline: 1px solid red;
+
+
+      .add-button {
+        border-style: dashed;
+        border-width: 4px;
+
+        >.fa-circle-plus {
+          font-size: 30px;
+          color: var(--theme-main);
+        }
+      } //.add-button
+    } //&.my-question-menu, &.admin-menu
+
   } //>#menuArea
 
   // 회원정보 수정
@@ -504,7 +518,7 @@ section {
 
     >.navButton_sm {
       background-color: white;
-      border: 1px solid var(--theme-main);
+      border: 2px solid var(--theme-main);
       color: var(--theme-main);
 
       &:hover {
@@ -571,7 +585,7 @@ section {
       > .select-start, .select-cancel, .select-all {
         color: var(--theme-main);
         background-color: white;
-        border: 1px solid var(--theme-main);
+        border: 2px solid var(--theme-main);
       }
 
       >.select-all {

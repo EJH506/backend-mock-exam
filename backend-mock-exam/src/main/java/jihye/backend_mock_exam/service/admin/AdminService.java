@@ -24,4 +24,6 @@ public class AdminService {
     public List<Integer> levelListOfSubject(Long userId, String subjectName) {
         return commonService.levelListOfSubject(userId, subjectName);
     }
+
+    // 주제 정보 조회
 }

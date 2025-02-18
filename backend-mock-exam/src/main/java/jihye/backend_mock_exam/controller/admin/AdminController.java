@@ -3,6 +3,8 @@ package jihye.backend_mock_exam.controller.admin;
 import jihye.backend_mock_exam.domain.exam.Subject;
 import jihye.backend_mock_exam.domain.user.Role;
 import jihye.backend_mock_exam.service.admin.AdminService;
+import jihye.backend_mock_exam.service.admin.AdminSubjectEditDto;
+import jihye.backend_mock_exam.service.menu.CommonService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -20,6 +22,7 @@ public class AdminController {
 
     private final AdminMenus adminMenus;
     private final AdminService adminService;
+    private final CommonService commonService;
 
     @ModelAttribute("themeColor")
     public String themeColor() {
@@ -46,28 +49,17 @@ public class AdminController {
         return "admin/admin-exam";
     }
 
-    @GetMapping("/subject")
-    public String subject(Model model) {
+    @GetMapping("/edit")
+    public String subject(@RequestAttribute("user") Role user, @RequestParam("subject") String subjectName, Model model) {
 
-        // 주제 목록 (항목이 없더라도 전체 목록 조회)
-        List<Subject> subjects = adminService.findAllSubjects();
-        model.addAttribute("subjects", subjects);
+        // 주제 정보 (이름, 난이도 목록)
+        Subject subjectInfo = commonService.findSubjectByName(subjectName);
+        List<Integer> levels = commonService.levelListOfSubject(user.getUserId(), String.valueOf(subjectInfo.getSubjectId()));
 
-        return "admin/admin-subject";
-    }
+        model.addAttribute("subject", new Subject(subjectInfo.getSubjectId(), subjectName, levels));
+        model.addAttribute("adminSubjectEditDto", new AdminSubjectEditDto(subjectName));
 
-    @GetMapping("/level")
-    public String level(@RequestAttribute("user") Role user, @RequestParam("subject") String subjectName, Model model) {
-
-        if (subjectName == null) { return "redirect:/exam/subject"; }
-
-        // 난이도 목록 (문항이 없어도 전체 조회)
-        List<Integer> levels = adminService.levelListOfSubject(user.getUserId(), subjectName);
-
-        model.addAttribute("levels", levels);
-        model.addAttribute("subject", subjectName);
-
-        return "";
+        return "admin/admin-subject-edit";
     }
 
 }

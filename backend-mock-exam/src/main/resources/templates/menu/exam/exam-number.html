@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title th:text="#{page.take-exam} + ' | ' + #{title}">문제풀기 | 백엔드 모의고사</title>
     <link rel="stylesheet" th:href="@{/css/main/main.css}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" />
     <style>
         :root { --theme-main: [[${themeColor}]]; }
     </style>
@@ -13,8 +14,11 @@
 <header th:replace="~{fragment/home-header :: header (${user.userId}, ${user.nickname}, ${isMember})}"></header>
 
 <section>
-    <h2 th:text="${subject} + ' Lv. ' + ${level}">네트워크 Lv. 2(목업)</h2>
-    <p>출제 문항 수를 선택해주세요</p>
+    <h2>
+        <i class="fa-solid fa-chevron-left" th:onclick="javascript:history.back();"></i>
+        <span th:text="${subject} + ' Lv. ' + ${level}">네트워크 Lv. 2(목업)</span>
+    </h2>
+    <h4>출제 문항 수를 선택해주세요</h4>
 
     <ul id="menuArea">
         <li><a class="systemMenu_lg" th:href="@{|/exam/take-exam?subject=${subject}&level=${level}&number=${numberOfSubject}|}" th:text="'전체 (' + ${numberOfSubject} + '문항)'">전체 (n문항)(목업)</a></li>

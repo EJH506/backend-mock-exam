@@ -17,17 +17,24 @@
 
 <section>
     <h2 th:text="#{page.take-exam}">문제풀기(목업)</h2>
-    <p>주제를 편집합니다</p>
-    <p>주제 이름을 수정하거나, 주제를 추가/삭제할 수 있습니다</p>
+    <h4>주제를 편집합니다</h4>
+    <div class="description">
+        <p>주제별 이름 및 난이도를 편집하거나, 주제를 추가/삭제할 수 있습니다</p>
+    </div>
 
-    <ul id="menuArea">
-        <li class="systemMenu_lg" th:each="subject : ${subjects}">
-            <a th:href="@{|/exam/level?subject=${subject.subjectName}|}" th:text="${subject.subjectName}">주제명</a>
-            <i class="fa-solid fa-pen-to-square"></i>
-            <i class="fa-solid fa-circle-xmark" th:data-subject="${subject}"></i>
-        </li>
-        <li class="systemMenu_lg add-level"><i class="fa-solid fa-circle-plus"></i></li>
-    </ul>
+    <div id="ajax-container">
+        <ul id="menuArea" class="admin-menu">
+            <li th:each="subject : ${subjects}">
+                <a th:class="systemMenu_lg" th:href="@{|/admin/edit?subject=${subject.subjectName}|}">
+                    <span th:text="${subject.subjectName}">네트워크</span>
+                    <i class="fa-solid fa-pen-to-square"></i>
+                </a>
+
+                <i class="fa-solid fa-circle-xmark" th:data-subject="${subject.subjectId}"></i>
+            </li>
+            <li class="systemMenu_lg add-button"><i class="fa-solid fa-circle-plus"></i></li>
+        </ul>
+    </div>
 </section>
 </div>
 </body>

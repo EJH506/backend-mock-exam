@@ -14,10 +14,10 @@
 
 <section>
     <h2 th:text="#{page.question-setting}">문제관리(목업)</h2>
-    <p>새로운 문제를 등록하거나 기존 문제를 편집합니다</p>
+    <h4>새로운 문제를 등록하거나 기존 문제를 편집합니다</h4>
 
     <ul id="menuArea">
-        <li><a class="systemMenu_lg" th:href="@{|/exam/level?subject=#{page.subject.all}|}" th:text="#{page.subject.all}">통합 문제(목업)</a></li>
+        <li><a th:class="systemMenu_lg" th:href="@{|/exam/level?subject=#{page.subject.all}|}" th:text="#{page.subject.all}">통합 문제(목업)</a></li>
         <li th:each="subject : ${subjects}"><a class="systemMenu_lg" th:href="@{|/exam/level?subject=${subject.subjectName}|}" th:text="${subject.subjectName}">주제명</a></li>
     </ul>
 </section>

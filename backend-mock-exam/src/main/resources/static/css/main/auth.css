@@ -147,6 +147,22 @@ header #profile:hover > ul:hover {
   letter-spacing: -1px;
 }
 
+.button-built-in-input {
+  outline: 1px solid red;
+  position: relative;
+}
+.button-built-in-input > button {
+  position: absolute;
+  top: 50%;
+  right: 0;
+  transform: translate(-24px, -50%);
+  font-family: "Pretendard-SemiBold";
+  color: var(--theme-main);
+  font-size: 20px;
+  background-color: transparent;
+  cursor: pointer;
+}
+
 section {
   display: flex;
   flex-flow: column wrap;
@@ -161,6 +177,10 @@ section h2 {
   align-items: center;
   font-family: "Pretendard-Bold";
 }
+section h2 > i {
+  margin-right: 12px;
+  cursor: pointer;
+}
 section h2 + p {
   font-size: 20px;
 }
@@ -171,6 +191,15 @@ section > form {
   display: flex;
   flex-flow: column wrap;
   gap: 10px;
+}
+section > form > h4 {
+  margin-bottom: 20px;
+}
+section h4 {
+  text-align: center;
+  font-family: "Pretendard-SemiBold";
+  font-size: 20px;
+  margin-bottom: 30px;
 }
 
 .text_on {
