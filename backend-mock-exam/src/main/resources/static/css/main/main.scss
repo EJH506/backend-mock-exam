@@ -23,7 +23,7 @@ section {
     }
   }
 
-  // 홈 화면, 문제풀기 난이도선택, 나만의 문제 구성편집
+  // 홈 화면, 문제풀기 난이도선택, 나만의 문제 구성편집, 관리자 메뉴/문제풀기/주제선택
   #menuArea {
     display: flex;
     flex-flow: row wrap;
@@ -52,16 +52,17 @@ section {
           }
         }
       }
-
-      .add-level {
-        border-style: dotted;
-
-        >.fa-circle-plus {
-          font-size: 30px;
-          color: var(--theme-main);
-        }
-      } //.add-level
     } //&.my-question-menu
+
+    .add-level {
+      border-style: dashed;
+
+      >.fa-circle-plus {
+        font-size: 30px;
+        color: var(--theme-main);
+      }
+    } //.add-level
+    outline: 1px solid red;
   } //>#menuArea
 
   // 회원정보 수정

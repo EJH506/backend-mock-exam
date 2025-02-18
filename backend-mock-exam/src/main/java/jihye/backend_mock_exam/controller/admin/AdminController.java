@@ -1,6 +1,5 @@
 package jihye.backend_mock_exam.controller.admin;
 
-import jihye.backend_mock_exam.controller.AdminMenus;
 import jihye.backend_mock_exam.domain.exam.Subject;
 import jihye.backend_mock_exam.domain.user.Role;
 import jihye.backend_mock_exam.service.admin.AdminService;
@@ -37,10 +36,20 @@ public class AdminController {
         return "admin/admin-menu";
     }
 
+    @GetMapping("/exam")
+    public String exam(Model model) {
+
+        // 주제 목록 (항목이 없더라도 전체 목록 조회)
+        List<Subject> subjects = adminService.findAllSubjects();
+        model.addAttribute("subjects", subjects);
+
+        return "admin/admin-exam";
+    }
+
     @GetMapping("/subject")
     public String subject(Model model) {
 
-        // 주제 목록 (문항이 존재하는 것만 조회)
+        // 주제 목록 (항목이 없더라도 전체 목록 조회)
         List<Subject> subjects = adminService.findAllSubjects();
         model.addAttribute("subjects", subjects);
 
@@ -52,7 +61,7 @@ public class AdminController {
 
         if (subjectName == null) { return "redirect:/exam/subject"; }
 
-        // 난이도 목록
+        // 난이도 목록 (문항이 없어도 전체 조회)
         List<Integer> levels = adminService.levelListOfSubject(user.getUserId(), subjectName);
 
         model.addAttribute("levels", levels);

@@ -14,11 +14,15 @@
 
 <section>
     <h2 th:text="#{page.setting}">관리하기(목업)</h2>
+    <p>관리할 항목을 선택합니다</p>
+    <p>&lt;문제풀기&gt; 항목의 구조를 편집합니다</p>
+    <p>새로운 문제를 등록하거나 기존 문제를 편집합니다.</p>
+    <p>회원 목록을 조회하고 관리합니다</p>
 
     <ul id="menuArea">
         <li th:each="adminMenu : ${adminMenus}">
             <a class="systemMenu_lg" th:text="${adminMenu.value}"
-               th:href="@{|${adminMenu.key == 'exam' ? '/'+adminMenu.key : '/admin/'+adminMenu.key}|}"
+               th:href="@{|/admin/${adminMenu.key}|}"
                th:classappend="${adminMenu.key == 'exit' ? 'admin' : ''}"></a>
         </li>
     </ul>

@@ -20,7 +20,7 @@ public class AdminService {
         return commonService.findAllSubjects();
     }
 
-    // 주제별 난이도 목록 조회
+    // 주제별 난이도 목록 조회 (문항이 없어도 전체 조회)
     public List<Integer> levelListOfSubject(Long userId, String subjectName) {
         return commonService.levelListOfSubject(userId, subjectName);
     }
